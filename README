@@ -1,0 +1,10 @@
+1. Convert gff + fasta files to embl using seqret tool from EMBOSS package (If the fasta and gff files contain chromosome and plasmid sequences, separate them)
+	seqret -sequence CS17p1.fna -feature -fformat gff -fopenfile CS17p1.gff -osformat embl -auto
+2. If the CDS IDs are not standard (like in CS17p1-4 in our case):
+	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
+3. Convert embl files to protein fasta files
+	cd EnTrI/codes
+	for filename in ../sequences/embl/chromosome/*.embl; do embl2peptides.py $filename ../sequences/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+4. Make a fasta file with all sequences in it.
+	cd sequences/fasta-protein/chromosome
+	cat * > seqdb.fasta
