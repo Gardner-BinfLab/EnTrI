@@ -8,3 +8,6 @@
 4. Make a fasta file with all sequences in it.
 	cd sequences/fasta-protein/chromosome
 	cat * > seqdb.fasta
+5. Run homclust
+	cd codes
+	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../homclust_results -ns 14 -s 4

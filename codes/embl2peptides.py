@@ -79,6 +79,7 @@ destination = args.fasta
 # unknown_codon = 'X'
 
 sequence = read_sequence(source)
+t_dict = {}
 s, e = [], []
 p, nt, t, g, comment, se, tr, ec = '', '', '', '', '', '', '', ''
 locus_tag_counter = 0
@@ -213,6 +214,11 @@ with open(source, 'r') as from_file:
             elif match('FT\s+/locus_tag=\"(\S+)\"', line):
                 match_result = match('FT\s+/locus_tag=\"(\S+)\"', line)
                 t = match_result.group(1)
+                if t in t_dict.keys():
+                    t_dict[t] += 1
+                    t = t + '_' + str(t_dict[t])
+                else:
+                    t_dict[t] = 1
             elif match('FT\s+/EC_number=\"(\S+)\"', line):
                 match_result = match('FT\s+/EC_number=\"(\S+)\"', line)
                 if not ec == '':
