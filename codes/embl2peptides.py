@@ -9,7 +9,8 @@ exec python3 $0 ${1+"$@"}
 from sys import argv
 from re import match, findall
 from argparse import ArgumentParser
-
+import string
+import random
 
 def read_sequence(seqfile):
     seq = ''
@@ -83,6 +84,7 @@ t_dict = {}
 s, e = [], []
 p, nt, t, g, comment, se, tr, ec = '', '', '', '', '', '', '', ''
 locus_tag_counter = 0
+ID = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(5))
 with open(source, 'r') as from_file:
     with open(destination, 'w') as to_file:
         line = from_file.readline()
@@ -99,7 +101,7 @@ with open(source, 'r') as from_file:
                             seq_to_translate += sequence[int(s[i])-1:int(e[i])]
                         tr = translate(seq_to_translate, comment, stop_codon, unknown_codon)
                     if not t:
-                        t = 'locustag_' + str(locus_tag_counter)
+                        t = ID + 'locustag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
                     to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
@@ -120,7 +122,7 @@ with open(source, 'r') as from_file:
                             seq_to_translate += sequence[int(s[i])-1:int(e[i])]
                         tr = translate(seq_to_translate, comment, stop_codon, unknown_codon)
                     if not t:
-                        t = 'locustag_' + str(locus_tag_counter)
+                        t = ID + 'locustag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
                     to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
@@ -141,7 +143,7 @@ with open(source, 'r') as from_file:
                             seq_to_translate += sequence[int(s[i])-1:int(e[i])]
                         tr = translate(seq_to_translate, comment, stop_codon, unknown_codon)
                     if not t:
-                        t = 'locustag_' + str(locus_tag_counter)
+                        t = ID + 'locustag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
                     to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
@@ -168,7 +170,7 @@ with open(source, 'r') as from_file:
                             seq_to_translate += sequence[int(s[i])-1:int(e[i])]
                         tr = translate(seq_to_translate, comment, stop_codon, unknown_codon)
                     if not t:
-                        t = 'locustag_' + str(locus_tag_counter)
+                        t = ID + 'locustag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
                     to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
@@ -270,7 +272,7 @@ with open(source, 'r') as from_file:
                     seq_to_translate += sequence[int(s[i])-1:int(e[i])]
                 tr = translate(seq_to_translate, comment, stop_codon, unknown_codon)
             if not t:
-                t = ID + se + '_' + str(locus_tag_counter)
+                t = ID + '_' + str(locus_tag_counter)
             to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
             to_file.write(tr)
             to_file.write('\n')
