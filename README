@@ -2,12 +2,18 @@
 	seqret -sequence CS17p1.fna -feature -fformat gff -fopenfile CS17p1.gff -osformat embl -auto
 2. If the CDS IDs are not standard (like in CS17p1-4 in our case):
 	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
-3. Convert embl files to protein fasta files
+3. Remove locus tag "ERS227112_02466:gene" from "Klebsiella_pneumoniae_RH201207_v0.3.embl" embl file. This gene has two locus tags: "ERS227112_02466" and "ERS227112_02466:gene", which probably is a mistake in annotation, and the ":gene" at the end of this tag causes jackhmmer name this gene "gene" which is impossible to track.
+4. Convert embl files to protein fasta files
 	cd EnTrI/codes
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2peptides.py $filename ../sequences/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
-4. Make a fasta file with all sequences in it.
+5. Make a fasta file with all sequences in it.
 	cd sequences/fasta-protein/chromosome
 	cat * > seqdb.fasta
-5. Run homclust
+6. Run homclust to cluster homologous proteins
 	cd codes
-	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../homclust_results -ns 14 -s 4
+	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 14 -s 4
+7. Make a directory for plot files corresponding to the sequences that we have clustered and add the extracted plot files to it. The plot files should be named based on fasta IDs of the sequences. If the fasta IDs contain an underscore, the name of the corresponding plot file = all characters before the underscore. If the name does not contain an underscore, the name of the plot file = all letters before the first digit.
+
+8. Run clust2plot to add insertion indices to genes in clusters
+	cd EnTrI/codes
+	clust2plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/clust2plot
