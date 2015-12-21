@@ -14,6 +14,15 @@
 	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 14 -s 4
 7. Make a directory for plot files corresponding to the sequences that we have clustered and add the extracted plot files to it. The plot files should be named based on fasta IDs of the sequences. If the fasta IDs contain an underscore, the name of the corresponding plot file = all characters before the underscore. If the name does not contain an underscore, the name of the plot file = all letters before the first digit.
 
-8. Run clust2plot to add insertion indices to genes in clusters
+8. Run merge-clust-plot to add insertion indices to genes in clusters
 	cd EnTrI/codes
-	clust2plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/clust2plot
+	merge-clust-plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/clust2plot
+9. Plot cluster size distribution
+	cd EnTrI/codes
+	Rscript cluster_size_dist_plot.R
+- The resulting file called "cluster-size-dist.pdf" is saved in results directory.
+10. Plot the insertion index distribution in different clusters
+	cd EnTrI/codes  
+	Rscript clust2plot.R
+- The output is a file called "cluster-essentiality.pdf" in results directory.
+
