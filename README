@@ -41,7 +41,12 @@
 	cluster2dnafasta.py ../sequences/fasta-dna/chromosome/seqdb.fasta ../results/homclust/EFam-clusters ../results/cluster2dnafasta
 
 ============ GENERATE SPECIES TREE
-1. Run make_marker to get marker genes.
+1. Run make_marker to get marker genes (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	mkdir ../results/make_marker
 	make_marker.py ../results/homclust/EFam-fastas/ ../results/cluster2dnafasta/ ../results/make_marker/protein-fastas ../results/make_marker/dna-fastas
+2. Align protein sequences
+	cd EnTrI/results/make_marker/protein-fastas
+	for f in *; do (cat "${f}"; echo) >> seqdb.fasta; done
+	mafft seqdb.fasta > markers.align
+	fasttree markers.align > speciestree.fasttree
