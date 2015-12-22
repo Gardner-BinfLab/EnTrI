@@ -5,7 +5,7 @@ exec python3 $0 ${1+"$@"}
 
 from argparse import ArgumentParser
 from os import path, listdir, mkdir
-from re import match
+from re import match, compile
 from shutil import rmtree
 
 def makedir(dirname):
@@ -30,10 +30,10 @@ clustiidir = args.clustiidir
 outdir = args.outdir
 makedir(outdir)
 
-gene_dict = {"KP1": "KlePn.1", "BN373": "KlePn.2", "NCTC13441": "EscCo.1", "CSSP291": "CroSa.1", "ENC": "EntCl.1",
-             "ROD": "CitRo.1", "SO": "SheOn.1", "Sde": "SacDe.1", "PSE": "PseFO.1", "Gura": "GeoUr.1",
-             "HRM2": "DesAu.1", "ELI": "EubLi.1", "BBR47": "BreBr.1", "BL": "BacLi.1", "Spirs": "SpiSm.1",
-             "MM": "MetMa.1", "Natoc": "NatOc.1", "Dfer": "DyaFe.1", "SGRA": "SapGr.1", "t": "SalEn.1"}
+gene_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "Ecoli9000q": "EscCo.2", "ENC": "EntCo.1",
+             "ERS227112": "KlePn.1", "ETEC": "EscCo.3", "NCTC13441": "EscCo.4", "ROD": "CitRo.1",
+             "SEN": "SalEn.1", "SL1344": "SalEn.3", "STM": "SalEn.2", "STMMW": "SalEn.4",
+             "t": "SalEn.5", "b": "EscCo.5"}
 
 list_of_files = listdir(indir)
 for filename in list_of_files:
@@ -55,9 +55,16 @@ for filename in list_of_files:
                             essentiality = '_NEs'
                         else:
                             essentiality = '_BeL'
-                        match_result = match('>\s*([A-Za-z]+(\d+_|_)?)(misc_RNA|R|_)?(\d+_\d+\-\d+)', line)
-                        line = line.replace(match_result.group(4), match_result.group(4)+essentiality)
-                        match_result = match('([a-zA-Z0-9]*)', match_result.group(1))
-                        gene_name = gene_dict[match_result.group(1)]
-                        line = line.replace(match_result.group(1), gene_name, 1)
+                        #match_result = match('>\s*([A-Za-z]+(\d+_|_)?)(misc_RNA|R|_)?(\d+_\d+\-\d+)', line)
+                        #line = line.replace(match_result.group(4), match_result.group(4)+essentiality)
+                        #match_result = match('([a-zA-Z0-9]*)', match_result.group(1))
+                        match_result = match('>\s*([a-zA-Z0-9]+?)_(\S*)', line)
+                        pattern = compile('^\d+\-\d+\S*$')
+                        if pattern.match(match_result.group(2)):
+                            match_result = match('([a-zA-Z]*)\S*', match_result.group(1))
+                        if match_result.group(1) in gene_dict.keys():
+                            gene_name = gene_dict[match_result.group(1)]
+                            line = line.replace(match_result.group(1), gene_name, 1)
+                            match_result = match('>\s*\S*(\d+\-\d+)', line)
+                            line = line.replace(match_result.group(1), match_result.group(1)+essentiality)
                     to_file.write(line)

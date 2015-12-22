@@ -50,3 +50,9 @@
 	for f in *; do (cat "${f}"; echo) >> seqdb.fasta; done
 	mafft seqdb.fasta > markers.align
 	fasttree markers.align > speciestree.fasttree
+
+============ RECONCILE GENE AND SPECIES TREES
+1. Change the name of the genes to use better names in trees and add essentiality of the genes to their names (This is not a general script and can only be used for this case)
+	cd EnTrI/codes
+	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/clust2plot/final_clusters/ ../results/amend-gene-names
+2. Run use-notung
