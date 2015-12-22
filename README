@@ -13,21 +13,23 @@
 6. Run homclust to cluster homologous proteins
 	cd codes
 	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 14 -s 4
+
 ============ STUDY CLUSTERS
 1. Make a directory for plot files corresponding to the sequences that we have clustered and add the extracted plot files to it. The plot files should be named based on fasta IDs of the sequences. If the fasta IDs contain an underscore, the name of the corresponding plot file = all characters before the underscore. If the name does not contain an underscore, the name of the plot file = all letters before the first digit.
 
 2. Run merge-clust-plot to add insertion indices to genes in clusters
 	cd EnTrI/codes
 	merge-clust-plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/clust2plot
-3. Plot cluster size distribution
+3. Plot cluster size distribution (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	Rscript cluster_size_dist_plot.R
 - The resulting file called "cluster-size-dist.pdf" is saved in results directory.
-4. Plot the insertion index distribution in different clusters
+4. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
 	cd EnTrI/codes  
 	Rscript clust2plot.R
 - The output is a file called "cluster-essentiality.pdf" in results directory.
-============ Change clusters so that they contain DNA sequences
+
+============ ADD CLUSTERS CONTAINING DNA SEQUENCES
 1. Convert embl files to DNA fasta files
 	cd EnTrI/codes
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2dna.py $filename ../sequences/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
@@ -37,3 +39,9 @@
 3. Make clusters containing DNA fastas
 	cd EnTrI/codes
 	cluster2dnafasta.py ../sequences/fasta-dna/chromosome/seqdb.fasta ../results/homclust/EFam-clusters ../results/cluster2dnafasta
+
+============ GENERATE SPECIES TREE
+1. Run make_marker to get marker genes.
+	cd EnTrI/codes
+	mkdir ../results/make_marker
+	make_marker.py ../results/homclust/EFam-fastas/ ../results/cluster2dnafasta/ ../results/make_marker/protein-fastas ../results/make_marker/dna-fastas
