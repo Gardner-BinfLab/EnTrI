@@ -68,11 +68,13 @@ parser.add_argument('-s', '--stop', help='Stop codon symbol', default='X')
 parser.add_argument('-u', '--unknown', help='Unknown codon symbol', default='U')
 parser.add_argument('embl', help='Embl file name (source)')
 parser.add_argument('fasta', help='Fasta file name (destination)')
+parser.add_argument('--notranslation', action='store_true', default=False, help='Ignore translation tags in the embl file and translate the genome sequence')
 args = parser.parse_args()
 stop_codon = args.stop
 unknown_codon = args.unknown
 source = args.embl
 destination = args.fasta
+notranslation = args.notranslation
 
 # source = 'EnTrI-on-real-data/sequences/embl/Escherichia_coli_UPEC_ST131_chromosome_v0.2.embl'
 # destination = 'test2.fasta'
@@ -239,7 +241,7 @@ with open(source, 'r') as from_file:
                     line = from_file.readline()
                 match_result = match('FT\s+(.*)\"', line)
                 nt += ' {}]'.format(match_result.group(1))
-            elif match('FT\s+/translation=\"([A-Z]*)\"', line):
+            elif not notranslation and match('FT\s+/translation=\"([A-Z]*)\"', line):
                 match_result = match('FT\s+/translation=\"([A-Z]*)\"', line)
                 trtemp = match_result.group(1)
                 counter = 0
@@ -248,7 +250,7 @@ with open(source, 'r') as from_file:
                         tr += '\n'
                     counter += 1
                     tr += item
-            elif match('FT\s+/translation=\"([A-Z]*)', line):
+            elif not notranslation and match('FT\s+/translation=\"([A-Z]*)', line):
                 match_result = match('FT\s+/translation=\"([A-Z]*)', line)
                 trtemp = match_result.group(1)
                 line = from_file.readline()

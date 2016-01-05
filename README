@@ -4,9 +4,11 @@
 2. If the CDS IDs are not standard (like in CS17p1-4 in our case):
 	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
 3. Remove locus tag "ERS227112_02466:gene" from "Klebsiella_pneumoniae_RH201207_v0.3.embl" embl file. This gene has two locus tags: "ERS227112_02466" and "ERS227112_02466:gene", which probably is a mistake in annotation, and the ":gene" at the end of this tag causes jackhmmer name this gene "gene" which is impossible to track.
-4. Convert embl files to protein fasta files
+4.a. Convert embl files to protein fasta files
 	cd EnTrI/codes
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2peptides.py $filename ../sequences/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+4.b. As the translations in Escherichia_coli_9000_v0.1.embl are not correct, run the following command: (In this way the translations in the embl file are ignored and we do the translation ourselves)
+	embl2peptides.py --notranslation ../sequences/embl/chromosome/Escherichia_coli_9000_v0.1.embl ../sequences/fasta-protein/chromosome/Escherichia_coli_9000_v0.fasta
 5. Make a fasta file with all sequences in it.
 	cd sequences/fasta-protein/chromosome
 	cat * > seqdb.fasta
@@ -40,7 +42,7 @@
 	cd EnTrI/codes
 	cluster2dnafasta.py ../sequences/fasta-dna/chromosome/seqdb.fasta ../results/homclust/EFam-clusters ../results/cluster2dnafasta
 
-============ GENERATE SPECIES TREE
+============ GENERATE THE SPECIES TREE
 1. Run make_marker to get marker genes (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	mkdir ../results/make_marker
@@ -51,8 +53,24 @@
 	mafft seqdb.fasta > markers.align
 	fasttree markers.align > speciestree.fasttree
 
-============ RECONCILE GENE AND SPECIES TREES
+============ STUDY DUPLICATIONS
 1. Change the name of the genes to use better names in trees and add essentiality of the genes to their names (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/clust2plot/final_clusters/ ../results/amend-gene-names
-2. Run use-notung
+2. Run pal2nal on MSAs
+	cd EnTrI/results
+	mkdir pal2nal
+	for filename in cluster2dnafasta/*; do pal2nal.pl amend-gene-names/"$(basename $filename | cut -d. -f1).msa" $filename -output fasta > /pal2nal/"$(basename $filename | cut -d. -f1).pal2nal"; done
+3. Run fasttree on pal2nal results
+	cd EnTrI/results
+	mkdir genetrees
+	for filename in pal2nal/*; do FastTree -nosupport -quiet -nt $filename > genetrees/"$(basename $filename | cut -d. -f1).newick"; done
+4. Calculate the distance between duplications and the difference between their insertion indices
+	cd EnTrI/codes
+	duplication_distance_calculator.py ../results/pal2nal/ ../results/clust2plot/final_clusters/ ../results/duplication_distance_calculator/distances ../results/duplication_distance_calculator/deltaiis
+5. Plot distance vs. delta insertion index (This is not a general script and can only be used for this case)
+	cd EnTrI/codes
+	Rscript plot-distance-vs-deltaii.R
+	
+############## TO DO:
+1.check why notung raises so many errors -> fasttree does not generate binary trees.
