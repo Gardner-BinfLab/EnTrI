@@ -21,7 +21,7 @@
 
 2. Run merge-clust-plot to add insertion indices to genes in clusters
 	cd EnTrI/codes
-	merge-clust-plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/clust2plot
+	merge-clust-plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/merge-clust-plot
 3. Plot cluster size distribution (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	Rscript cluster_size_dist_plot.R
@@ -56,7 +56,7 @@
 ============ STUDY DUPLICATIONS
 1. Change the name of the genes to use better names in trees and add essentiality of the genes to their names (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
-	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/clust2plot/final_clusters/ ../results/amend-gene-names
+	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/merge-clust-plot/final_clusters/ ../results/amend-gene-names
 2. Run pal2nal on MSAs
 	cd EnTrI/results
 	mkdir pal2nal
@@ -67,7 +67,7 @@
 	for filename in pal2nal/*; do FastTree -nosupport -quiet -nt $filename > genetrees/"$(basename $filename | cut -d. -f1).newick"; done
 4. Calculate the distance between duplications and the difference between their insertion indices
 	cd EnTrI/codes
-	duplication_distance_calculator.py ../results/pal2nal/ ../results/clust2plot/final_clusters/ ../results/duplication_distance_calculator/distances ../results/duplication_distance_calculator/deltaiis
+	duplication_distance_calculator.py ../results/pal2nal/ ../results/merge-clust-plot/final_clusters/ ../results/duplication_distance_calculator/distances ../results/duplication_distance_calculator/deltaiis
 5. Plot distance vs. delta insertion index (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	Rscript plot-distance-vs-deltaii.R
