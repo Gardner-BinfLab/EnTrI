@@ -1,7 +1,7 @@
 library(ggplot2)
 # args <- commandArgs(trailingOnly = TRUE)
 # clusters <- args[1]
-clusters_path <- "~/EnTrI/results/merge-clust-plot/final_clusters"
+clusters_path <- "../results/merge-clust-plot/final_clusters"
 list_of_files <- list.files(path=clusters_path, full.names=T, recursive=FALSE)
 file_II = list()
 file_size = list()

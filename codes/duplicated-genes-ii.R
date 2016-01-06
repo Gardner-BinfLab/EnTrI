@@ -1,5 +1,5 @@
 require(stringr)
-clustpath <- "~/EnTrI/results/merge-clust-plot/final_clusters/"
+clustpath <- "../results/merge-clust-plot/final_clusters/"
 copy1_ii <- c()
 copy2_ii <- c()
 list_of_files <- list.files(path=clustpath, pattern="*.txt", full.names=F, recursive=FALSE)

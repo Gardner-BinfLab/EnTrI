@@ -1,8 +1,8 @@
 require(ggplot2)
 require(stringr)
 # require(dplyr)
-diipath <- "~/EnTrI/results/duplication_distance_calculator/deltaiis/"
-dspath <- "~/EnTrI/results/duplication_distance_calculator/distances/"
+diipath <- "../results/duplication_distance_calculator/deltaiis/"
+dspath <- "../results/duplication_distance_calculator/distances/"
 list_of_files <- list.files(path=dspath, pattern="*.txt", full.names=F, recursive=FALSE)
 dii <- c()
 ds <- c()

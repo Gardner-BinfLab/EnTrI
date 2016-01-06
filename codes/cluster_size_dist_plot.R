@@ -1,4 +1,4 @@
-list_of_files <- list.files(path="~/EnTrI//results/homclust/EFam-clusters", pattern="*.txt", full.names=T, recursive=FALSE)
+list_of_files <- list.files(path="../results/homclust/EFam-clusters", pattern="*.txt", full.names=T, recursive=FALSE)
 count = c()
 clusters = matrix(nrow=length(list_of_files), ncol=2)
 i = 1
