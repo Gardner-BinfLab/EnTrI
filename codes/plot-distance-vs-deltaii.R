@@ -1,6 +1,6 @@
 require(ggplot2)
 require(stringr)
-# require(dplyr
+# require(dplyr)
 diipath <- "~/EnTrI/results/duplication_distance_calculator/deltaiis/"
 dspath <- "~/EnTrI/results/duplication_distance_calculator/distances/"
 list_of_files <- list.files(path=dspath, pattern="*.txt", full.names=F, recursive=FALSE)
@@ -30,9 +30,11 @@ for (filename in list_of_files)
 }
 
 pdf("../results/distance-vs-deltaii.pdf")
-regln <- lm(dii~ds)
+
 plot(ds, dii)
-abline(regln, col="red")
+lines(lowess(ds, dii, f = .2), col = 2, lwd=5)
+# regln <- lm(dii~ds)
+# abline(regln, col="red")
 
 ds_quartiles <- c()
 thresholds <- quantile(ds)

@@ -1,7 +1,7 @@
 library(ggplot2)
 # args <- commandArgs(trailingOnly = TRUE)
 # clusters <- args[1]
-clusters_path <- "~/EnTrI/results/clust2plot/final_clusters"
+clusters_path <- "~/EnTrI/results/merge-clust-plot/final_clusters"
 list_of_files <- list.files(path=clusters_path, full.names=T, recursive=FALSE)
 file_II = list()
 file_size = list()
@@ -13,8 +13,11 @@ for (filename in list_of_files)
   cluster_size = nrow(cluster)
   for (i in (1:cluster_size))
   {
-    i_sum = i_sum + as.numeric(cluster[i, 7])
-    l_sum = l_sum + as.numeric(cluster[i, 8])
+    if (as.numeric(cluster[i,7]) >= 0)
+    {
+      i_sum = i_sum + as.numeric(cluster[i, 7])
+      l_sum = l_sum + as.numeric(cluster[i, 8])
+    }
   }
   if (l_sum > cluster_size * 60)
   {
