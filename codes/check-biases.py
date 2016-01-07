@@ -29,7 +29,7 @@ with open(result, 'w') as tofile:
         for line in sequencefile:
             if line.startswith('>'):
                 if gene_name != '':
-                    tofile.write('{0}\t{1}\t{2}\n'.format(gene_name, distance, gc))
+                    tofile.write('{0}\t{1}\t{2}\n'.format(gene_name, float(distance)/info_table[strain_name][0], float(gc)/(end-start+1)))
                 match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/(\d+)\-(\d+)', line)
                 if match_result is None:
                     match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/(\d+)\-(\d+)', line)
