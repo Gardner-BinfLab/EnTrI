@@ -85,6 +85,8 @@
 4. Run hmmserach
 	hmmsearch --domtblout dnaas.domtblout dnaas.hmm ../fasta-protein/chromosome/seqdb.fasta
 5. Collect the IDs and lengths of strains and the coordinates of their DnaA sequences (the sequences with the highest scores in last step) and save them in sequences/dnaa/dnaa-coordinates.txt
-
+7. Run check-biases
+	cd codes
+	check-biases.py
 ############## TO DO:
 1.check why notung raises so many errors -> fasttree does not generate binary trees.
