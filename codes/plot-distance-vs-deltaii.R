@@ -3,7 +3,7 @@ require(stringr)
 # require(dplyr)
 diipath <- "../results/duplication_distance_calculator/deltaiis/"
 dspath <- "../results/duplication_distance_calculator/distances/"
-list_of_files <- list.files(path=dspath, pattern="*.txt", full.names=F, recursive=FALSE)
+list_of_files <- list.files(path=dspath, pattern="*.txt", full.names=FALSE, recursive=FALSE)
 dii <- c()
 ds <- c()
 genes <- c()
