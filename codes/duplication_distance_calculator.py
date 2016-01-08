@@ -22,11 +22,6 @@ def makedir(dirname):
             raise SystemExit
     mkdir(dirname)
 
-# tree = Phylo.read("EFam-000006.newick", "newick")
-# tree.distance("SheOn.1_4613_1-330", "SacDe.1_0043_1-394")
-
-# fdnadist pal2nal/EFam-000006.pal2nal -method F84 -outfile 000-fatemeh-test
-
 parser = ArgumentParser(description='Plots distance vs. delta insertion index')
 parser.add_argument('msadir', help='Directory of nucleotide multiple sequence alignments (pal2nal)')
 parser.add_argument('iidir', help='Directory of clusters with insertion indices (clust2plot_output/final_clusters)')
@@ -106,7 +101,8 @@ for filename in list_of_files:
                 if float(row1[6]) == -1 or float(row2[6])== -1:
                     deltaii = -1
                 elif max(float(row1[6]), float(row2[6])) > 0:
-                    deltaii = abs(float(row1[6]) - float(row2[6])) / max(float(row1[6]), float(row2[6]))
+                    deltaii = abs(float(row1[6]) - float(row2[6]))
+                    # deltaii = abs(float(row1[6]) - float(row2[6])) / max(float(row1[6]), float(row2[6]))
                 else:
                     deltaii = 0
                 deltaiifile.write('\t{0}'.format(deltaii))

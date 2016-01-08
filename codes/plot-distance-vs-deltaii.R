@@ -31,7 +31,7 @@ for (filename in list_of_files)
 
 pdf("../results/distance-vs-deltaii.pdf")
 
-plot(ds, dii)
+plot(ds, dii, ylim=c(0,2))
 lines(lowess(ds, dii, f = .2), col = 2, lwd=5)
 # regln <- lm(dii~ds)
 # abline(regln, col="red")
