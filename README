@@ -93,6 +93,9 @@
 9. Rename the files as in the "STUDY CLUSTERS" section, point 1.
 10 . Run make-logos.py
 	cd codes
-	python make-logos.py
+	make-logos.py
+11. Generate a logo for the sequences resaulted from the last step.
+	cd results
+	weblogo -F pdf -A dna -f logos.txt -o logo.pdf -s large
 ############## TO DO:
 1.check why notung raises so many errors -> fasttree does not generate binary trees.
