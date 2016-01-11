@@ -100,10 +100,17 @@ for filename in list_of_files:
             for row2 in iitable:
                 if float(row1[6]) == -1 or float(row2[6])== -1:
                     deltaii = -1
-                elif max(float(row1[6]), float(row2[6])) > 0:
-                    deltaii = abs(float(row1[6]) - float(row2[6]))
-                    # deltaii = abs(float(row1[6]) - float(row2[6])) / max(float(row1[6]), float(row2[6]))
+                # elif float(row1[6]) <= 0.2 and float(row2[6]) <= 0.2:
+                    # deltaii = 0
+                # elif float(row1[6]) > 0.2 and float(row2[6]) > 0.2:
+                    # deltaii = 1
+                # else:
+                    # deltaii = 2
                 else:
-                    deltaii = 0
+                    deltaii = abs(float(row1[6]) - float(row2[6]))
+                # elif max(float(row1[6]), float(row2[6])) > 0:
+                    # deltaii = abs(float(row1[6]) - float(row2[6])) / max(float(row1[6]), float(row2[6]))
+                # else:
+                    # deltaii = 0
                 deltaiifile.write('\t{0}'.format(deltaii))
         deltaiifile.write('\n')

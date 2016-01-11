@@ -2,6 +2,7 @@ require(stringr)
 clustpath <- "../results/merge-clust-plot/final_clusters/"
 copy1_ii <- c()
 copy2_ii <- c()
+leftmost_peak <- matrix(nrow=0, ncol=2)
 list_of_files <- list.files(path=clustpath, pattern="*.txt", full.names=F, recursive=FALSE)
 for (filename in list_of_files)
 {
@@ -30,6 +31,10 @@ for (filename in list_of_files)
           minii <- min(ii1,ii2)
           copy1_ii <- c(copy1_ii, maxii)
           copy2_ii <- c(copy2_ii, minii)
+          if (minii < 0.5 & maxii > 2.5 & maxii < 3)
+          {
+            leftmost_peak <- rbind(leftmost_peak, c(as.character(clust_tbl[i,2]), as.character(clust_tbl[j,2])))
+          }
         }
       }
     }
