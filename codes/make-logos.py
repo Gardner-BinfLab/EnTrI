@@ -9,7 +9,7 @@ genomespath = '../sequences/fasta-genome/chromosome'
 plotspath = '../sequences/plot-files/chromosome'
 genomextension = 'fa'
 logospath = '../results/logos.txt'
-complement = {'a': 'u', 'a': 't', 'c': 'g', 'g': 'c', 't': 'a', 'u': 'a', 'm': 'k', 'k': 'm', 'r': 'y',
+complement = {'a': 't', 'c': 'g', 'g': 'c', 't': 'a', 'u': 'a', 'm': 'k', 'k': 'm', 'r': 'y',
               'y': 'r', 'w': 'w', 's': 's', 'v': 'b', 'b': 'v', 'h': 'd', 'd': 'h', 'n': 'n'}
 
 if path.isfile(logospath):
