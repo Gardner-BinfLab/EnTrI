@@ -260,8 +260,8 @@ def merge_clusters(input_dir, output_dir, seq_id_thresh, clu_id_thresh):
                         tocells = line.split()
                         toclust.clustappend(tocells[0], tocells[1], tocells[2])
                 intersect = float(len(list(set(fromclust.seqid) & set(toclust.seqid))))
-                if intersect >= clu_id_thresh * float(len(fromclust.seqid)) or intersect >= clu_id_thresh *\
-                        float(len(toclust.seqid)):
+                if intersect >= clu_id_thresh * float(len(set(fromclust.seqid))) or intersect >= clu_id_thresh *\
+                        float(len(set(toclust.seqid))):
                     seq_intersect = sequence_level_intersect(fromclust, toclust, seq_id_thresh)
                     if seq_intersect >= clu_id_thresh:
                         # ADD NODES THAT ARE CONNECTED BY AN EDGE TO THE ADJACENCY LIST
