@@ -60,7 +60,7 @@
 2. Run pal2nal on MSAs
 	cd results
 	mkdir pal2nal
-	for filename in cluster2dnafasta/*; do pal2nal.pl amend-gene-names/"$(basename $filename | cut -d. -f1).msa" $filename -output fasta > /pal2nal/"$(basename $filename | cut -d. -f1).pal2nal"; done
+	for filename in cluster2dnafasta/*; do pal2nal.pl amend-gene-names/"$(basename $filename | cut -d. -f1).msa" $filename -output fasta > pal2nal/"$(basename $filename | cut -d. -f1).pal2nal"; done
 3. Run fasttree on pal2nal results
 	cd results
 	mkdir genetrees
@@ -75,7 +75,7 @@
 	cd codes
 	Rscript duplicated-genes-ii.R
 
-============CHECK FOR BIASES
+============ CHECK FOR BIASES
 1. Collect DnaA genes and save them in sequences/dnaa/dnaas.fasta (Look for [dnaA] in seqdb.fasta). We need to do steps 2-5 because not all DnaA genes are caught in this step.
 2. Do a multiple sequence alignment
 	cd sequences/dnaa
@@ -97,5 +97,17 @@
 11. Generate a logo for the sequences resaulted from the last step.
 	cd results
 	weblogo -F pdf -A dna -f logos.txt -o logo.pdf -s large
+============ Can we recover phylogenetic information from the essential genes?
+1. Run make-essentiality-tree
+	cd codes
+	mkdir ../results/make-essentiality-tree
+	make-essentiality-tree.py ../results/merge-clust-plot/final_clusters/ ../results/make-essentiality-tree/distance-matrix.out
+	
+2. Run Phylip on the resulted distance matrix
+	cd results/make-essentiality-tree
+	phylip neighbor
+	> distance-matrix.out
+	> Y
+
 ############## TO DO:
 1.check why notung raises so many errors -> fasttree does not generate binary trees.

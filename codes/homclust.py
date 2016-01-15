@@ -639,16 +639,6 @@ def merge_singletons(singleton_dir, fastadb, uniseq_dir, fasta_source, eval_thre
     break_monster_families(uniseq_dir, monster_cluster, unique_monster_cluster, monster_fasta, eval_thresh,
                            ieval_thresh, msv_thresh, num_iter, 0, num_cpus, ovlp_thresh)
 
-########### edit: Uniquify fasta IDs before running
-########### edit: make the program independent of biopython
-########### edit: segmentation failed- core dumped
-########### edit: why does hmmsearch show several identical hits?
-########### edit: use tempfile
-########### edit: parallelise
-########### for job arrays: http://www.hector.ac.uk/support/documentation/guides/bestpractice/batch.php#sec-4.5
-########### Figure out why ROD_42901 is lost in clusters (Lars' data - 6 genomes)
-########### esl-alimanip --lnfract 0.8 --tree blah.dnd EFam-003480.msa > EFam-003480-filtered.msa
-
 # READ INPUTS AND SET PARAMETERS
 et = 10**-10
 iet = 10**-3
@@ -695,8 +685,6 @@ print ('Making directories for results..')
 makedir(outdir)
 temp = '{0}/temp'.format(outdir)
 makedir(temp)
-# uniseq_temp = '{0}/unique-sequences-temp'.format(outdir)
-# makedir(uniseq_temp)
 clusters = '{0}/clusters'.format(outdir)
 makedir(clusters)
 uniseq_clusters = '{0}/unique-sequence-clusters'.format(outdir)
@@ -730,23 +718,26 @@ if jackhmmer is None or not path.exists(jackhmmer):
         jackhmmer = jackhmmer_1
 # CLUSTER THE OUTPUT OF JACKHMMER BASED ON QUERY SEQUENCE AND REMOVE PROTEINS THAT DO NOT PASS QUALITY CONTROL
 cluster_jackhmmer_output(jackhmmer, temp, seqdb, seq_identity_threshold)
-
+## MERGE CLUSTERS THAT HAVE MORE THAN IDENTITY_THRESHOLD% IDENTITY
+# merge_clusters(temp, clusters, seq_identity_threshold, clu_identity_threshold)
+## MERGE OVERLAPPING SEQUENCES WITHIN A CLUSTER
+# uniquify_clusters(clusters, uniseq_clusters, seq_identity_threshold)
+# COLLECT MONSTER FAMILIES
+monsters_cluster, monsters_fasta = collect_monsters(temp, seqdb, monsters, monster_thresh)
+# BREAK MONSTER FAMILIES TO SMALLER CLUSTERS
+unique_monsters_clusters = '{0}/unique-monsters-clusters'.format(monsters)
+makedir(unique_monsters_clusters)
+break_monster_families(temp, monsters_cluster, unique_monsters_clusters, monsters_fasta, eval_threshold**2,
+                       inclusion_eval_threshold**2, msv_threshold**2, 1, 1, cpu, seq_identity_threshold)
+# COLLECT THE SEQUENCES IN SHORT CLUSTERS
+singletons_fasta = collect_singletons(temp, singletons, singleton_thresh, seqdb)
+# CHECK IF SINGLETONS BELONG TO OUR DEFINED CLUSTERS AND ADD THEM TO THEIR CORRESPONDING CLUSTERS
+merge_singletons(singletons, singletons_fasta, temp, seqdb, eval_threshold**(1/2),
+                 inclusion_eval_threshold**(1/2), msv_threshold**(1/2), num_iterations, cpu, seq_identity_threshold)
 # MERGE CLUSTERS THAT HAVE MORE THAN IDENTITY_THRESHOLD% IDENTITY
 merge_clusters(temp, clusters, seq_identity_threshold, clu_identity_threshold)
 # MERGE OVERLAPPING SEQUENCES WITHIN A CLUSTER
 uniquify_clusters(clusters, uniseq_clusters, seq_identity_threshold)
-# COLLECT MONSTER FAMILIES
-monsters_cluster, monsters_fasta = collect_monsters(uniseq_clusters, seqdb, monsters, monster_thresh)
-# BREAK MONSTER FAMILIES TO SMALLER CLUSTERS
-unique_monsters_clusters = '{0}/unique-monsters-clusters'.format(monsters)
-makedir(unique_monsters_clusters)
-break_monster_families(uniseq_clusters, monsters_cluster, unique_monsters_clusters, monsters_fasta, eval_threshold**2,
-                       inclusion_eval_threshold**2, msv_threshold**2, 1, 1, cpu, seq_identity_threshold)
-# COLLECT THE SEQUENCES IN SHORT CLUSTERS
-singletons_fasta = collect_singletons(uniseq_clusters, singletons, singleton_thresh, seqdb)
-# CHECK IF SINGLETONS BELONG TO OUR DEFINED CLUSTERS AND ADD THEM TO THEIR CORRESPONDING CLUSTERS
-merge_singletons(singletons, singletons_fasta, uniseq_clusters, seqdb, eval_threshold**(1/2),
-                 inclusion_eval_threshold**(1/2), msv_threshold**(1/2), num_iterations, cpu, seq_identity_threshold)
 # RENAME CLUSTERS BY EFAM IDS
 code_clusters(uniseq_clusters, efamclusters)
 # FETCH FASTA SEQUENCES FOR MEMBERS OF THE CLUSTERS
@@ -756,17 +747,14 @@ multiple_sequence_alignment(efamfastas, efammsas)
 # MAKE PROFILE HMMS FOR CLUSTERS
 build_hmms(efammsas, efamhmms)
 print ('Removing temporary directories..')
-# removedir(temp)
-# removedir(uniseq_temp)
-# removedir(clusters)
-# removedir(singletons)
-# removedir(monsters)
-# removedir(uniseq_clusters)
+removedir(temp)
+removedir(clusters)
+removedir(singletons)
+removedir(monsters)
+removedir(uniseq_clusters)
 print ('Done!')
 #print ('Directory \'{0}\' \t contains homologous clusters'.format(uniseq_clusters))
 print ('Directory \'{0}\' \t contains homologous clusters with EFam IDs'.format(efamclusters))
 print ('Directory \'{0}\' \t contains fasta sequences for homologous clusters'.format(efamfastas))
 print ('Directory \'{0}\' \t contains Multiple sequence alignments for clusters'.format(efammsas))
 print ('Directory \'{0}\' \t contains HMM profiles for clusters'.format(efamhmms))
-
-#### check in unique-sequence-clusters if the output is like what is in testuniquify/out. Then check it after changing monster clusters. Then after singletons.
