@@ -97,6 +97,7 @@
 11. Generate a logo for the sequences resaulted from the last step.
 	cd results
 	weblogo -F pdf -A dna -f logos.txt -o logo.pdf -s large
+
 ============ Can we recover phylogenetic information from the essential genes?
 1. Run make-essentiality-tree
 	cd codes
@@ -108,6 +109,11 @@
 	phylip neighbor
 	> distance-matrix.out
 	> Y
+
+============ Define core and accessory genomes
+1. Run define-core-accessory
+	cd codes
+	define-core-accessory.py
 
 ############## TO DO:
 1.check why notung raises so many errors -> fasttree does not generate binary trees.
