@@ -119,7 +119,7 @@ for item in all:
     prev_name = name
 
 prev_name = ''
-for item in core_genes:
+for item in all:
     if item not in core_essential_genes:
         match_result = match('([a-zA-Z0-9]+?)_\S+', item)
         if not match_result:
