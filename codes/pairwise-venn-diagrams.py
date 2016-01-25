@@ -1,3 +1,8 @@
+#! /bin/sh
+""":"
+exec python3 $0 ${1+"$@"}
+"""
+
 from os import listdir, path, mkdir
 from re import match
 from shutil import rmtree
