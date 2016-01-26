@@ -1,0 +1,90 @@
+\documentclass[a4paper,10pt, twocolumn]{article}
+
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{caption}
+%\usepackage{subcaption}
+%\usepackage{pdfpages}
+\graphicspath{{../../results/}}
+
+\begin{document}
+\section{Are EnTrI results biased?}
+Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for two types of biases: the distance from the origin and GC content. As Figure~\ref{fig:distance_bias} shows, the insertion index decreases while increasing the distance from the origin. Therefore, there is a bias towards the distance from the origin. The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin.
+
+\begin{figure}[H]
+\includegraphics[scale=0.28, page=1]{biases.pdf}
+\caption{The bias towards the distance from origin (DnaA gene) for all of the species under study. The red curve shows the fitted LOWESS regression curve.}
+\label{fig:distance_bias}
+\end{figure}
+
+\begin{figure*}
+\centering
+\begin{tabular}{c c c}
+\includegraphics[page=2, scale=0.22]{biases.pdf} & 
+\includegraphics[page=3, scale=0.22]{biases.pdf} &
+\includegraphics[page=4, scale=0.22]{biases.pdf} \\
+\includegraphics[page=5, scale=0.22]{biases.pdf} & 
+\includegraphics[page=6, scale=0.22]{biases.pdf} &
+\includegraphics[page=7, scale=0.22]{biases.pdf} \\
+\includegraphics[page=8, scale=0.22]{biases.pdf} & 
+\includegraphics[page=9, scale=0.22]{biases.pdf} &
+\includegraphics[page=10, scale=0.22]{biases.pdf} \\
+\includegraphics[page=11, scale=0.22]{biases.pdf} & 
+\includegraphics[page=12, scale=0.22]{biases.pdf} &
+\includegraphics[page=13, scale=0.22]{biases.pdf} \\
+& 
+\includegraphics[page=14, scale=0.22]{biases.pdf} &
+\\
+\end{tabular}
+\caption{The bias towards the distance from origin for every individual strain. The red curves show the fitted LOWESS curves.}
+\label{fig:distance_bias_individual}
+\end{figure*}
+
+As depicted in Figure~\ref{fig:GC_bias}, there is no bias towards the GC content of the genes and the regression line is flat. The nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences to see if there is any positional bias for any nucleotide. It can be inferred from Figure~\ref{fig:logo} that there is no bias in any position. 
+
+\begin{figure}
+\includegraphics[scale=0.28, page=15]{biases.pdf}
+\caption{The bias towards GC content. The regression line is depicted by green.}
+\label{fig:GC_bias}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=.98, angle = -90]{logo.pdf}
+\caption{The nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences using webLogo stand-alone package. The height of the letter stack in each position shows how conserved the bases in that position are.}
+\label{fig:logo}
+\end{figure}
+
+\section{Can we recover phylogenetic information from the essential genes?}
+To get the evolutionary relationship among all our strains, we collected all clusters with one and only one gene per genome and concatenated all the genes corresponding to every strain. Then aligned them using mafft and generated a phylogenetic tree using fasttree software. The resulted phylogenetic tree is depicted in Figure~\ref{fig:species-tree}.
+
+\begin{figure}
+\includegraphics[scale=0.14]{../speciestree/speciestree.pdf}
+\caption{The tree is generated using fasttree software}
+\label{fig:species-tree}
+\end{figure}
+
+To test if the same tree can be obtained from the essentiality of genes, we have selected all clusters that contain no more than one gene from each strain and made a binary matrix from the essentiality of the genes in these clusters. If a gene is essential in a strain, the corresponding value in the matrix is 1 and if the gene does not exist in the strain or is not essential, the value is 0. Then, we have generated a distance matrix from these values and plotted a phylogenetic tree.  Figure~\ref{fig:essentiality-tree} indicates that the resulting tree does not maintain the phylogenetic information of the species under study.
+
+\begin{figure}
+\includegraphics[scale=0.24]{make-essentiality-tree/essentiality-tree.pdf}
+\caption{The phylogenetic tree is generated using ``phylip neighbor'' software.}
+\label{fig:essentiality-tree}
+\end{figure}
+
+We have also compared every pair of strains and calculated the number of genes that are essential in one strain and absent in the other, the number of genes that are essential in both strains, the number of genes that are essential in one strain and present but not essential in the other strain, the number of genes that are present in one strain and absent in the other, and the number of genes that are shared between the two strains. The resulted heatmaps can be seen in Figure~\ref{fig:pairwise-venn}. The dendograms obtained from heatmaps in this figure are consistent with the species tree to some extent. 
+
+\begin{figure*}
+\centering
+\begin{tabular}{c c}
+\includegraphics[page=1, scale=0.35]{essentiality-heatmap.pdf} & 
+\includegraphics[page=2, scale=0.35]{essentiality-heatmap.pdf} \\
+\includegraphics[page=3, scale=0.35]{essentiality-heatmap.pdf} & 
+\includegraphics[page=4, scale=0.35]{essentiality-heatmap.pdf} \\
+\includegraphics[page=5, scale=0.35]{essentiality-heatmap.pdf} & 
+\\
+\end{tabular}
+\caption{The number of genes that are essential in one strain and absent in the other (upper left), the number of genes that are essential in both strains (upper right), the number of genes that are essential in one strain and present but not essential in the other strain (middle left), the number of genes that are present in one strain and absent in the other (middle right), and the number of genes that are shared between the two strains (lower left).}
+\label{fig:pairwise-venn}
+\end{figure*}
+
+\end{document}

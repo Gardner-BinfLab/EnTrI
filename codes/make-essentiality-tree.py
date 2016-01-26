@@ -46,8 +46,8 @@ for filename in list_of_files:
                     gene_dict[name] += 1
                     if float(cells[6]) < 0.2:
                         iil[ii_dict[name]] = 1
-    if gene_dict[min(gene_dict, key=gene_dict.get)] == 1 and gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 1 < sum(iil) < num_species - 1:
-    # if gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 1 < sum(iil) < num_species - 1:
+    #if gene_dict[min(gene_dict, key=gene_dict.get)] == 1 and gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 2 < sum(iil) < num_species - 1: # 2 <= sum(iil)-1 <= num_species - 3 # 1 < sum(iil)-1 < num_species-2 # 2 < sum(iil) < num_species-1
+    if gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 2 < sum(iil) < num_species - 1:
         list_of_gene_files.append(path.basename(filename))
         list_of_insertion_indices.append(list(iil)) # Without list, it will append the reference to iil and if we change iil, the matrix will change.
 
