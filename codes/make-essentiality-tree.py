@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 from re import match, compile
 
 parser = ArgumentParser(description='Finds core genome and makes an essentiality tree from them')
-parser.add_argument('indir', help='Directory of fasta clusters merged with essentiality information (merge-clust-plot/final_clusters)')
+parser.add_argument('indir', help='Directory of fasta clusters merged with essentiality information (merge-clust-plot)')
 parser.add_argument('out', help='Output file name')
 args = parser.parse_args()
 input_dir = args.indir
@@ -44,7 +44,7 @@ for filename in list_of_files:
                 name = match_result.group(1)
                 if name in gene_dict.keys():
                     gene_dict[name] += 1
-                    if float(cells[6]) < 0.2:
+                    if float(cells[4]) < 0.2:
                         iil[ii_dict[name]] = 1
     #if gene_dict[min(gene_dict, key=gene_dict.get)] == 1 and gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 2 < sum(iil) < num_species - 1: # 2 <= sum(iil)-1 <= num_species - 3 # 1 < sum(iil)-1 < num_species-2 # 2 < sum(iil) < num_species-1
     if gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 2 < sum(iil) < num_species - 1:

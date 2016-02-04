@@ -50,11 +50,11 @@ class Venn(object):
                         name = match_result.group(1)
                     if name == self.sp1:
                         sp1pre += 1
-                        if float(cells[6]) < 0.2:
+                        if float(cells[4]) < 0.2:
                             sp1ess += 1
                     if name == self.sp2:
                         sp2pre += 1
-                        if float(cells[6]) < 0.2:
+                        if float(cells[4]) < 0.2:
                             sp2ess += 1
             if sp1pre and not sp2pre:
                 self.sp1presp2abs += 1
@@ -74,12 +74,12 @@ class Venn(object):
                     self.sp1abssp2ess += 1
 
 
-clusts = '/home/fatemeh/EnTrI/results/merge-clust-plot/final_clusters'
+clusts = '/home/fatemeh/EnTrI/results/merge-clust-plot'
 output = '/home/fatemeh/EnTrI/results/pairwise-venn-diagrams'
 makedir(output)
-species_names = ["ROD", "NCTC13441", "Ecoli9000q", "CS17", "ETEC", "t", "SEN", "SL1344", "STM", "STMMW", "ENC", "ERS227112", "BN373"]
+species_names = ["ROD", "NCTC13441", "CS17", "ETEC", "t", "SEN", "SL1344", "STM", "STMMW", "ENC", "ERS227112", "BN373"]
 name_dict = {"ROD": "Citrobacter_rodentium_ICC168", "CS17": "Escherichia_coli_ETEC_CS17", "ENC": "Enterobacter_cloacae_NCTC_9394",
-             "Ecoli9000q": "Escherichia_coli_9000", "ETEC": "Escherichia_coli_ETEC_H10407", "NCTC13441": "Escherichia_coli_UPEC_ST131",
+             "ETEC": "Escherichia_coli_ETEC_H10407", "NCTC13441": "Escherichia_coli_UPEC_ST131",
              "ERS227112": "Klebsiella_pneumoniae_RH201207", "BN373": "Klebsiella_pneumoniae_Ecl8", "SEN": "Salmonella_enteritidis_P125109",
              "STM": "Salmonella_typhimurium_A130", "SL1344": "Salmonella_typhimurium_SL1344", "STMMW": "Salmonella_typhimurium_D23580",
              "t": "Salmonella_typhi_Ty2", "b": "Escherichia_coli_K-12"}

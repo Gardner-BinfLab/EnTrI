@@ -98,7 +98,7 @@ for filename in list_of_files:
             flag = 1
             deltaiifile.write('{0}_{1}-{2}'.format(row1[1],row1[2],row1[3]))
             for row2 in iitable:
-                if float(row1[6]) == -1 or float(row2[6])== -1:
+                if float(row1[4]) == -1 or float(row2[4]) == -1:
                     deltaii = -1
                 # elif float(row1[6]) <= 0.2 and float(row2[6]) <= 0.2:
                     # deltaii = 0
@@ -107,7 +107,7 @@ for filename in list_of_files:
                 # else:
                     # deltaii = 2
                 else:
-                    deltaii = abs(float(row1[6]) - float(row2[6]))
+                    deltaii = abs(float(row1[4]) - float(row2[4]))
                 # elif max(float(row1[6]), float(row2[6])) > 0:
                     # deltaii = abs(float(row1[6]) - float(row2[6])) / max(float(row1[6]), float(row2[6]))
                 # else:

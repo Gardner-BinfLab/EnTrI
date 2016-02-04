@@ -4,115 +4,112 @@
 2. If the CDS IDs are not standard (like in CS17p1-4 in our case):
 	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
 3. Remove locus tag "ERS227112_02466:gene" from "Klebsiella_pneumoniae_RH201207_v0.3.embl" embl file. This gene has two locus tags: "ERS227112_02466" and "ERS227112_02466:gene", which probably is a mistake in annotation, and the ":gene" at the end of this tag causes jackhmmer name this gene "gene" which is impossible to track.
-4.a. Convert embl files to protein fasta files
-	cd codes
+4. Convert embl files to protein fasta files
+	cd EnTrI/codes
+	mkdir ../sequences/fasta-protein
+	mkdir ../sequences/fasta-protein/chromosome
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2peptides.py $filename ../sequences/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
-4.b. As the translations in Escherichia_coli_9000_v0.1.embl are not correct, run the following command: (In this way the translations in the embl file are ignored and we do the translation ourselves)
-	embl2peptides.py --notranslation ../sequences/embl/chromosome/Escherichia_coli_9000_v0.1.embl ../sequences/fasta-protein/chromosome/Escherichia_coli_9000_v0.fasta
 5. Make a fasta file with all sequences in it.
-	cd sequences/fasta-protein/chromosome
+	cd EnTrI/sequences/fasta-protein/chromosome
 	cat * > seqdb.fasta
 6. Run homclust to cluster homologous proteins
-	cd codes
-	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 14 -s 4
-
-============ STUDY CLUSTERS
-1. Make a directory for plot files corresponding to the sequences that we have clustered and add the extracted plot files to it. The plot files should be named based on fasta IDs of the sequences. If the fasta IDs contain an underscore, the name of the corresponding plot file = all characters before the underscore. If the name does not contain an underscore, the name of the plot file = all letters before the first digit.
-
-2. Run merge-clust-plot to add insertion indices to genes in clusters
-	cd codes
-	merge-clust-plot.py ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust/EFam-clusters/ ../sequences/plot-files/chromosome/ ../results/merge-clust-plot
-3. Plot cluster size distribution (This is not a general script and can only be used for this case)
-	cd codes
-	Rscript cluster_size_dist_plot.R
-- The resulting file called "cluster-size-dist.pdf" is saved in results directory.
-4. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
-	cd codes  
-	Rscript clust2plot.R
-- The output is a file called "cluster-essentiality.pdf" in results directory.
+	cd EnTrI/codes
+	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 13 -s 4
 
 ============ ADD CLUSTERS CONTAINING DNA SEQUENCES
 1. Convert embl files to DNA fasta files
-	cd codes
+	cd EnTrI/codes
+	mkdir ../sequences/fasta-dna && mkdir ../sequences/fasta-dna/chromosome
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2dna.py $filename ../sequences/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
 2. Make a fasta file with all sequences in it.
-	cd sequences/fasta-dna/chromosome
+	cd EnTrI/sequences/fasta-dna/chromosome
 	cat * > seqdb.fasta
 3. Make clusters containing DNA fastas
-	cd codes
+	cd EnTrI/codes
 	cluster2dnafasta.py ../sequences/fasta-dna/chromosome/seqdb.fasta ../results/homclust/EFam-clusters ../results/cluster2dnafasta
+
+============ CHECK FOR BIASES
+1. Make a directory for plot files corresponding to the sequences that we have clustered and add the extracted plot files to it. The plot files should be named based on fasta IDs of the sequences. If the fasta IDs contain an underscore, the name of the corresponding plot file = all characters before the underscore. If the name does not contain an underscore, the name of the plot file = all letters before the first digit.
+
+2. Run check-biases
+	cd EnTrI/codes
+	python check-biases.py
+	Rscript check-biases.R
+3. Save fasta genomes in sequences/fasta-genome/chromosome (Most of them were downloadable or provided previously)
+4. Rename the files as in the "STUDY CLUSTERS" section, point 1.
+5 . Run make-logos.py
+	cd EnTrI/codes
+	make-logos.py
+6. Generate a logo for the sequences resulted from the last step.
+	cd EnTrI/results
+	weblogo -F pdf -A dna -f logos.txt -o logo.pdf -s large
+
+============ REMOVE BIASES
+1. Run remove-biases
+	cd EnTrI/codes
+	Rscript remove-biases.R
+
+============ STUDY CLUSTERS
+1. Run merge-clust-plot to add insertion indices to genes in clusters
+	cd EnTrI/codes
+	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/normalised-iis.txt ../results/merge-clust-plot
+2. Plot cluster size distribution (This is not a general script and can only be used for this case)
+	cd EnTrI/codes
+	Rscript cluster_size_dist_plot.R
+- The resulting file called "cluster-size-dist.pdf" is saved in results directory.
+3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
+	cd EnTrI/codes  
+	Rscript clust2plot.R
+- The output is a file called "cluster-essentiality.pdf" in results directory.
 
 ============ GENERATE THE SPECIES TREE
 1. Run make_marker to get marker genes (This is not a general script and can only be used for this case)
-	cd codes
+	cd EnTrI/codes
 	mkdir ../results/make_marker
 	make_marker.py ../results/homclust/EFam-fastas/ ../results/cluster2dnafasta/ ../results/make_marker/protein-fastas ../results/make_marker/dna-fastas
 2. Align protein sequences
-	cd results/make_marker/protein-fastas
+	cd EnTrI/results/make_marker/protein-fastas
 	for f in *; do (cat "${f}"; echo) >> seqdb.fasta; done
 	mafft seqdb.fasta > markers.align
 	fasttree markers.align > speciestree.fasttree
 
 ============ STUDY DUPLICATIONS
 1. Change the name of the genes to use better names in trees and add essentiality of the genes to their names (This is not a general script and can only be used for this case)
-	cd codes
-	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/merge-clust-plot/final_clusters/ ../results/amend-gene-names
+	cd EnTrI/codes
+	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/merge-clust-plot/ ../results/amend-gene-names
 2. Run pal2nal on MSAs
-	cd results
+	cd EnTrI/results
 	mkdir pal2nal
 	for filename in cluster2dnafasta/*; do pal2nal.pl amend-gene-names/"$(basename $filename | cut -d. -f1).msa" $filename -output fasta > pal2nal/"$(basename $filename | cut -d. -f1).pal2nal"; done
 3. Run fasttree on pal2nal results
-	cd results
+	cd EnTrI/results
 	mkdir genetrees
 	for filename in pal2nal/*; do FastTree -nosupport -quiet -nt $filename > genetrees/"$(basename $filename | cut -d. -f1).newick"; done
 4. Calculate the distance between duplications and the difference between their insertion indices
-	cd codes
-	duplication_distance_calculator.py ../results/pal2nal/ ../results/merge-clust-plot/final_clusters/ ../results/duplication_distance_calculator/distances ../results/duplication_distance_calculator/deltaiis
+	cd EnTrI/codes
+	mkdir results/duplication_distance_calculator
+	duplication_distance_calculator.py ../results/pal2nal/ ../results/merge-clust-plot/ ../results/duplication_distance_calculator/distances ../results/duplication_distance_calculator/deltaiis
 5. Plot distance vs. delta insertion index (This is not a general script and can only be used for this case)
-	cd codes
+	cd EnTrI/codes
 	Rscript plot-distance-vs-deltaii.R
 6. Plot the insertion index for each pair of duplicated genes (This is not a general script and can only be used for this case)
-	cd codes
+	cd EnTrI/codes
 	Rscript duplicated-genes-ii.R
-
-============ CHECK FOR BIASES
-1. Collect DnaA genes and save them in sequences/dnaa/dnaas.fasta (Look for [dnaA] in seqdb.fasta). We need to do steps 2-5 because not all DnaA genes are caught in this step.
-2. Do a multiple sequence alignment
-	cd sequences/dnaa
-	mafft dnaas.fasta > dnaas.align
-3. Build a HMM profile
-	hmmbuild dnaas.hmm dnaas.align
-4. Run hmmserach
-	hmmsearch --domtblout dnaas.domtblout dnaas.hmm ../fasta-protein/chromosome/seqdb.fasta
-5. Collect the IDs and lengths of strains and the coordinates of their DnaA sequences (the sequences with the highest scores in last step) and save them in sequences/dnaa/dnaa-coordinates.txt
-7. Run check-biases
-	cd codes
-	python check-biases.py
-	Rscript check-biases.R
-8. Save fasta genomes in sequences/fasta-genome/chromosome (Most of them were downloadable or provided previously)
-9. Rename the files as in the "STUDY CLUSTERS" section, point 1.
-10 . Run make-logos.py
-	cd codes
-	make-logos.py
-11. Generate a logo for the sequences resaulted from the last step.
-	cd results
-	weblogo -F pdf -A dna -f logos.txt -o logo.pdf -s large
 
 ============ Can we recover phylogenetic information from the essential genes?
 1. Run make-essentiality-tree
-	cd codes
+	cd EnTrI/codes
 	mkdir ../results/make-essentiality-tree
-	make-essentiality-tree.py ../results/merge-clust-plot/final_clusters/ ../results/make-essentiality-tree/distance-matrix.out
-	
+	make-essentiality-tree.py ../results/merge-clust-plot/ ../results/make-essentiality-tree/distance-matrix.out
 2. Run Phylip on the resulted distance matrix
-	cd results/make-essentiality-tree
+	cd EnTrI/results/make-essentiality-tree
 	phylip neighbor
 	> distance-matrix.out
 	> Y
-
+	
 ============ Define core and accessory genomes
 1. Run define-core-accessory
-	cd codes
+	cd EnTrI/codes
 	define-core-accessory.py
 2. Count pairwise core and accessory genomes
 	cd codes
@@ -120,6 +117,3 @@
 3. Convert the results of pairwise-venn-diagrams.py to heatmaps.
 	cd codes
 	Rscript venn-to-heatmap.R
-
-############## TO DO:
-1.check why notung raises so many errors -> fasttree does not generate binary trees.

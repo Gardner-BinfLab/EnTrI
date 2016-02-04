@@ -46,7 +46,7 @@ for filename in list_of_files:
                         clustii_line = clustii_file.readline()
                         # print(clustii_line)
                         cells = clustii_line.split()
-                        ii = float(cells[6])
+                        ii = float(cells[4])
                         if ii < 0:
                             essentiality =''
                         elif ii < 0.2:

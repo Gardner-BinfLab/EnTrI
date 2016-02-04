@@ -4,15 +4,10 @@ from os import listdir, path
 
 seqdb = '../sequences/fasta-dna/chromosome/seqdb.fasta'
 plots = '../sequences/plot-files/chromosome'
-info = '../sequences/dnaa/dnaa-coordinates.txt'
 result = '../results/check-biases.out'
-
-info_table = defaultdict(list)
-with open(info, 'r') as fastafile:
-    for line in fastafile:
-        cells = line.split()
-        match_result = match('(\d+)\-(\d+)', cells[2])
-        info_table[cells[0]]= [int(cells[1]), int(match_result.group(1)), int(match_result.group(2))]
+genome_length = {"SL1344":4878012, "STMMW":4879400, "SEN":4685848, "t":4791961, "STM":4895639, "ETEC":5153435,
+                 "b":4641652, "CS17":4994793, "NCTC13441":5174631, "ROD":5346659, "BN373":5324709, "ERS227112":5869288,
+                 "ENC":4908759}
 
 list_of_files = listdir(plots)
 plots_dict = defaultdict(list)
@@ -33,7 +28,7 @@ with open(result, 'w') as tofile:
         for line in sequencefile:
             if line.startswith('>'):
                 if gene_name != '':
-                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(distance)/info_table[strain_name][0], float(gc)/(end-start+1)))
+                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(start)/genome_length[strain_name], float(gc)/(end-start+1)))
                 gc = 0
                 match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
                 if match_result is None:
@@ -49,9 +44,6 @@ with open(result, 'w') as tofile:
                     gene_name = ''
                 else:
                     gene_insertions = sum([1 for x in plots_dict[strain_name][start-1:end] if x > 0])
-                    ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/info_table[strain_name][0])
-                    dist1 = max(start, info_table[strain_name][1]) - min(end, info_table[strain_name][2]) - 1
-                    dist2 = info_table[strain_name][0] - max(end, info_table[strain_name][2]) + min(start, info_table[strain_name][1]) -1
-                    distance = min(dist1, dist2)
+                    ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
             else:
                 gc += line.count('g') + line.count('c')

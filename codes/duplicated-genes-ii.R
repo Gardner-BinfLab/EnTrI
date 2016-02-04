@@ -1,5 +1,5 @@
 require(stringr)
-clustpath <- "../results/merge-clust-plot/final_clusters/"
+clustpath <- "../results/merge-clust-plot/"
 copy1_ii <- c()
 copy2_ii <- c()
 leftmost_peak <- matrix(nrow=0, ncol=2)
@@ -13,8 +13,8 @@ for (filename in list_of_files)
     {
       for (j in seq(i+1, nrow(clust_tbl)))
       {
-        ii1 = as.numeric(clust_tbl[i,7])
-        ii2 = as.numeric(clust_tbl[j,7])
+        ii1 = as.numeric(clust_tbl[i,5])
+        ii2 = as.numeric(clust_tbl[j,5])
         match1 = str_match(clust_tbl[i,2], "([[:graph:]]+)\\_[[:digit:]]+")[2]
         if (is.na(match1))
         {

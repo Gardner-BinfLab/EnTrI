@@ -35,13 +35,13 @@ output_dnadir = args.outdnadir
 makedir(output_dir)
 makedir(output_dnadir)
 
-gene_dict = {"BN373": 0, "CS17": 0, "Ecoli9000q": 0, "ENC": 0, "ERS227112": 0, "ETEC": 0, "NCTC13441": 0,
+gene_dict = {"BN373": 0, "CS17": 0, "ENC": 0, "ERS227112": 0, "ETEC": 0, "NCTC13441": 0,
              "ROD": 0, "SEN": 0, "SL1344": 0, "STM": 0, "STMMW": 0, "t": 0, "b":0}
 
-name_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "Ecoli9000q": "EscCo.2", "ENC": "EntCo.1",
-             "ERS227112": "KlePn.1", "ETEC": "EscCo.3", "NCTC13441": "EscCo.4", "ROD": "CitRo.1",
+name_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "ENC": "EntCo.1",
+             "ERS227112": "KlePn.1", "ETEC": "EscCo.2", "NCTC13441": "EscCo.3", "ROD": "CitRo.1",
              "SEN": "SalEn.1", "SL1344": "SalEn.3", "STM": "SalEn.2", "STMMW": "SalEn.4",
-             "t": "SalEn.5", "b": "EscCo.5"}
+             "t": "SalEn.5", "b": "EscCo.4"}
 
 list_of_gene_files = []
 
