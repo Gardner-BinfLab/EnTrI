@@ -30,10 +30,10 @@ clustiidir = args.clustiidir
 outdir = args.outdir
 makedir(outdir)
 
-gene_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "Ecoli9000q": "EscCo.2", "ENC": "EntCo.1",
-             "ERS227112": "KlePn.1", "ETEC": "EscCo.3", "NCTC13441": "EscCo.4", "ROD": "CitRo.1",
+gene_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "ENC": "EntCo.1",
+             "ERS227112": "KlePn.1", "ETEC": "EscCo.2", "NCTC13441": "EscCo.3", "ROD": "CitRo.1",
              "SEN": "SalEn.1", "SL1344": "SalEn.3", "STM": "SalEn.2", "STMMW": "SalEn.4",
-             "t": "SalEn.5", "b": "EscCo.5"}
+             "t": "SalEn.5", "b": "EscCo.4"}
 
 list_of_files = listdir(indir)
 for filename in list_of_files:

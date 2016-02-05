@@ -16,14 +16,14 @@ out_path = args.out
 
 # input_dir = '../results/merge-clust-plot/final_clusters'
 # out_path = 'test.txt'
-species_names = ["BN373", "CS17", "Ecoli9000q", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM", "STMMW", "t"]
+species_names = ["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM", "STMMW", "t"]
 num_species = len(species_names)
 gene_dict = {species_names[i]: 0 for i in range(num_species)}
 ii_dict = {species_names[i]: i for i in range(num_species)}
-name_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "Ecoli9000q": "EscCo.2", "ENC": "EntCo.1",
-             "ERS227112": "KlePn.1", "ETEC": "EscCo.3", "NCTC13441": "EscCo.4", "ROD": "CitRo.1",
+name_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "ENC": "EntCo.1",
+             "ERS227112": "KlePn.1", "ETEC": "EscCo.2", "NCTC13441": "EscCo.3", "ROD": "CitRo.1",
              "SEN": "SalEn.1", "SL1344": "SalEn.3", "STM": "SalEn.2", "STMMW": "SalEn.4",
-             "t": "SalEn.5", "b": "EscCo.5"}
+             "t": "SalEn.5", "b": "EscCo.4"}
 iil = [None] * num_species
 
 list_of_gene_files = []
@@ -56,7 +56,9 @@ list_of_insertion_indices = [list(i) for i in zip(*list_of_insertion_indices)]
 distance = [[0 for x in range(num_species)] for x in range(num_species)]
 for i in range(num_species):
     for j in range(num_species):
-        distance[i][j] = sum([list_of_insertion_indices[i][k]!=list_of_insertion_indices[j][k] for k in range(num_genes)]) # sum of xor
+        distance[i][j] = sum([list_of_insertion_indices[i][k] - list_of_insertion_indices[j][k] for k in range(num_genes)]) # sum of xor
+        distance[i][j] /= sum([list_of_insertion_indices[i][k] for k in range(num_genes)]) +\
+                          sum([list_of_insertion_indices[j][k] for k in range(num_genes)])
 
 with open(out_path, 'w') as to_file:
     to_file.write('{0}\n'.format(num_species))

@@ -5,7 +5,7 @@ biasestable = read.table(biasespath, header = FALSE)
 colnames(biasestable) <- c("name", "ii", "dist", "gc")
 
 names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t")
-dict = c("Citrobacter", "Enterobacter", "Escherichia coli 9000", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
+dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
          "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
          "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi")
 names(dict) <- names
