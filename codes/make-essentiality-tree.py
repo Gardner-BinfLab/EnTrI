@@ -23,7 +23,7 @@ ii_dict = {species_names[i]: i for i in range(num_species)}
 name_dict = {"BN373": "KlePn.2", "CS17": "EscCo.1", "ENC": "EntCo.1",
              "ERS227112": "KlePn.1", "ETEC": "EscCo.2", "NCTC13441": "EscCo.3", "ROD": "CitRo.1",
              "SEN": "SalEn.1", "SL1344": "SalEn.3", "STM": "SalEn.2", "STMMW": "SalEn.4",
-             "t": "SalEn.5", "b": "EscCo.4"}
+             "t": "SalEn.5"}
 iil = [None] * num_species
 
 list_of_gene_files = []
@@ -46,8 +46,7 @@ for filename in list_of_files:
                     gene_dict[name] += 1
                     if float(cells[4]) < 0.2:
                         iil[ii_dict[name]] = 1
-    #if gene_dict[min(gene_dict, key=gene_dict.get)] == 1 and gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 2 < sum(iil) < num_species - 1: # 2 <= sum(iil)-1 <= num_species - 3 # 1 < sum(iil)-1 < num_species-2 # 2 < sum(iil) < num_species-1
-    if gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and 2 < sum(iil) < num_species - 1:
+    if gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and gene_dict[min(gene_dict, key=gene_dict.get)] == 1 and 1 < sum(iil) < num_species-1:
         list_of_gene_files.append(path.basename(filename))
         list_of_insertion_indices.append(list(iil)) # Without list, it will append the reference to iil and if we change iil, the matrix will change.
 
@@ -56,7 +55,7 @@ list_of_insertion_indices = [list(i) for i in zip(*list_of_insertion_indices)]
 distance = [[0 for x in range(num_species)] for x in range(num_species)]
 for i in range(num_species):
     for j in range(num_species):
-        distance[i][j] = sum([list_of_insertion_indices[i][k] - list_of_insertion_indices[j][k] for k in range(num_genes)]) # sum of xor
+        distance[i][j] = sum([abs(list_of_insertion_indices[i][k] - list_of_insertion_indices[j][k]) for k in range(num_genes)])
         distance[i][j] /= sum([list_of_insertion_indices[i][k] for k in range(num_genes)]) +\
                           sum([list_of_insertion_indices[j][k] for k in range(num_genes)])
 

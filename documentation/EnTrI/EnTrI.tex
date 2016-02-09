@@ -9,44 +9,67 @@
 
 \begin{document}
 \section{Are EnTrI results biased?}
-Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for two types of biases: the distance from the origin and GC content. As Figure~\ref{fig:distance_bias} shows, the insertion index decreases while increasing the distance from the origin. Therefore, there is a bias towards the distance from the origin. The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin.
+Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for two types of biases: the distance from the origin and GC content.
+% As Figure~\ref{fig:distance_bias} shows, there is an insertion index bias towards the position of the genes for different strains.
+The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin. We have used the LOESS curve and for each strain, divided the insertion indices by the predicted LOESS value to normalise the insertion indices. As the distribution of new insertion indices will be around 1, we have multiplied the resulted values by the mean of the initial insertion indices to have a distribution around the mean. The results are shown in Figure~\ref{fig:normalised_distance_bias}.
 
-\begin{figure}[H]
-\includegraphics[scale=0.28, page=1]{biases.pdf}
-\caption{The bias towards the distance from origin (DnaA gene) for all of the species under study. The red curve shows the fitted LOWESS regression curve.}
-\label{fig:distance_bias}
-\end{figure}
+%\begin{figure}[H]
+%\includegraphics[scale=0.28, page=1]{biases.pdf}
+%\caption{The bias towards the distance from origin (DnaA gene) for all of the species under study. The red curve shows the fitted LOWESS regression curve.}
+%\label{fig:distance_bias}
+%\end{figure}
 
 \begin{figure*}
 \centering
 \begin{tabular}{c c c}
 \includegraphics[page=2, scale=0.22]{biases.pdf} & 
-\includegraphics[page=3, scale=0.22]{biases.pdf} &
-\includegraphics[page=4, scale=0.22]{biases.pdf} \\
-\includegraphics[page=5, scale=0.22]{biases.pdf} & 
-\includegraphics[page=6, scale=0.22]{biases.pdf} &
-\includegraphics[page=7, scale=0.22]{biases.pdf} \\
+\includegraphics[page=4, scale=0.22]{biases.pdf} &
+\includegraphics[page=6, scale=0.22]{biases.pdf} \\
 \includegraphics[page=8, scale=0.22]{biases.pdf} & 
-\includegraphics[page=9, scale=0.22]{biases.pdf} &
-\includegraphics[page=10, scale=0.22]{biases.pdf} \\
-\includegraphics[page=11, scale=0.22]{biases.pdf} & 
-\includegraphics[page=12, scale=0.22]{biases.pdf} &
-\includegraphics[page=13, scale=0.22]{biases.pdf} \\
-& 
-\includegraphics[page=14, scale=0.22]{biases.pdf} &
-\\
+\includegraphics[page=10, scale=0.22]{biases.pdf} &
+\includegraphics[page=12, scale=0.22]{biases.pdf} \\
+\includegraphics[page=14, scale=0.22]{biases.pdf} & 
+\includegraphics[page=16, scale=0.22]{biases.pdf} &
+\includegraphics[page=18, scale=0.22]{biases.pdf} \\
+\includegraphics[page=20, scale=0.22]{biases.pdf} & 
+\includegraphics[page=22, scale=0.22]{biases.pdf} &
+\includegraphics[page=24, scale=0.22]{biases.pdf}
 \end{tabular}
-\caption{The bias towards the distance from origin for every individual strain. The red curves show the fitted LOWESS curves.}
+\caption{The bias towards the position of the gene for every individual strain. The red curves show the fitted LOESS curves.}
 \label{fig:distance_bias_individual}
 \end{figure*}
 
-As depicted in Figure~\ref{fig:GC_bias}, there is no bias towards the GC content of the genes and the regression line is flat. The nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences to see if there is any positional bias for any nucleotide. It can be inferred from Figure~\ref{fig:logo} that there is no bias in any position. 
+\begin{figure*}
+\centering
+\begin{tabular}{c c c}
+\includegraphics[page=3, scale=0.22]{biases.pdf} & 
+\includegraphics[page=5, scale=0.22]{biases.pdf} &
+\includegraphics[page=7, scale=0.22]{biases.pdf} \\
+\includegraphics[page=9, scale=0.22]{biases.pdf} & 
+\includegraphics[page=11, scale=0.22]{biases.pdf} &
+\includegraphics[page=13, scale=0.22]{biases.pdf} \\
+\includegraphics[page=15, scale=0.22]{biases.pdf} & 
+\includegraphics[page=17, scale=0.22]{biases.pdf} &
+\includegraphics[page=19, scale=0.22]{biases.pdf} \\
+\includegraphics[page=21, scale=0.22]{biases.pdf} & 
+\includegraphics[page=23, scale=0.22]{biases.pdf} &
+\includegraphics[page=25, scale=0.22]{biases.pdf}
+\end{tabular}
+\caption{The insertion indices are normalised by the predicted LOESS value and the mean of the insertion indices. The red curves show the fitted LOESS curves.}
+\label{fig:normalised_distance_bias}
+\end{figure*}
 
-\begin{figure}
-\includegraphics[scale=0.28, page=15]{biases.pdf}
-\caption{The bias towards GC content. The regression line is depicted by green.}
+We have also checked for GC bias. There was a bias towards the GC content of the genes and we normalised the insertion indices for GC content in the same way as we did for gene position. The results, before and after the normalisation, are plotted in Figure~\ref{fig:GC_bias}. To see if there is any positional bias for any nucleotide, the nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences. It can be inferred from Figure~\ref{fig:logo} that there is no significant bias in any position. 
+
+\begin{figure*}
+\centering
+\begin{tabular}{c c}
+\includegraphics[scale=0.35, page=26]{biases.pdf} &
+\includegraphics[scale=0.35, page=27]{biases.pdf}
+\end{tabular}
+\caption{The bias towards GC content. The LOESS curve is shown in red.}
 \label{fig:GC_bias}
-\end{figure}
+\end{figure*}
 
 \begin{figure}
 \includegraphics[scale=.98, angle = -90]{logo.pdf}
@@ -59,14 +82,14 @@ To get the evolutionary relationship among all our strains, we collected all clu
 
 \begin{figure}
 \includegraphics[scale=0.14]{../speciestree/speciestree.pdf}
-\caption{The tree is generated using fasttree software}
+\caption{The tree is generated from all the clusters with one and only one gene per strain.}
 \label{fig:species-tree}
 \end{figure}
 
-To test if the same tree can be obtained from the essentiality of genes, we have selected all clusters that contain no more than one gene from each strain and made a binary matrix from the essentiality of the genes in these clusters. If a gene is essential in a strain, the corresponding value in the matrix is 1 and if the gene does not exist in the strain or is not essential, the value is 0. Then, we have generated a distance matrix from these values and plotted a phylogenetic tree.  Figure~\ref{fig:essentiality-tree} indicates that the resulting tree does not maintain the phylogenetic information of the species under study.
+To test if the same tree can be obtained from the essentiality of genes, we have selected all clusters that contain exactly one gene from each strain (82 clusters) and made a binary matrix from the essentiality of the genes in these clusters. If a gene is essential in a strain, the corresponding value in the matrix is 1 and if the gene  is not essential, the value is 0. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree.  Figure~\ref{fig:essentiality-tree} indicates that the resulting tree does not maintain the phylogenetic information of the species under study.
 
 \begin{figure}
-\includegraphics[scale=0.24]{make-essentiality-tree/essentiality-tree.pdf}
+\includegraphics[scale=0.14]{make-essentiality-tree/essentiality-tree.pdf}
 \caption{The phylogenetic tree is generated using ``phylip neighbor'' software.}
 \label{fig:essentiality-tree}
 \end{figure}
