@@ -110,4 +110,34 @@ We have also compared every pair of strains and calculated the number of genes t
 \label{fig:pairwise-venn}
 \end{figure*}
 
+\section{Are conserved genes more likely to be essential?}
+To find out whether conserved genes are more likely to be essential or not we have counted the number of essential, sometimes essential and never essential genes in both core and accessory genomes. The results are summarised in Table~\ref{table:core-accessory}. Core genes are the ones that have at least one copy per genome, otherwise, the genes are called accessory.
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{| l || c | c | c || c | c | c |}
+\hline
+Species&\multicolumn{3}{c ||}{Core} & \multicolumn{3}{c |}{Accessory}\\
+\cline{2-7}
+Name&Ess&SEss&NEss&Ess&SEss&NEss\\
+\hline
+Salmonella typhimurium A130&266&665&1621&53&327&1528\\
+Salmonella typhimurium D23580&267&670&1624&54&339&1550\\
+Salmonella typhimurium SL1344&266&674&1630&63&350&1546\\
+Salmonella enteritidis P125109&266&679&1615&61&311&1015\\
+Salmonella typhi Ty2&265&628&1564&56&294&1505\\
+Escherichia coli UPEC ST131&299&685&1635&62&323&1767\\
+Escherichia coli ETEC CS17&280&656&1603&107&356&1586\\
+Escherichia coli ETEC H10407&284&656&1623&89&329&1743\\
+Escherichia coli K-12&279&657&1612&174&278&1311\\
+Citrobacter rodentium ICC168&304&685&1630&96&356&1868\\
+Enterobacter cloacae NCTC 9394&280&623&1526&34&129&1128\\
+Klebsiella penumoniae RH201207&357&864&1780&69&279&2314\\
+Klebsiella pneumoniae Ecl8&357&840&1770&61&225&1751\\
+\hline
+\end{tabular}
+\caption{The number of essential (Ess), sometimes essential (SEss) and never essential (NEss) genes in both core and accessory genomes. Core genes are the ones that have at least one copy per genome, otherwise, the genes are called accessory.}
+\label{table:core-accessory}
+\end{table*}
+
 \end{document}

@@ -88,7 +88,7 @@ for filename in list_of_files:
         else:
             sesscoregenes += list_of_genes
     else:
-        if gene_dict == essentiality_dict:
+        if not sum([gene_dict[item] - essentiality_dict[item] for item in essentiality_dict.keys()]):
             essaccessorygenes += list_of_genes
         elif essentiality_dict[max(essentiality_dict, key=essentiality_dict.get)] == 0:
             nessaccessorygenes += list_of_genes
