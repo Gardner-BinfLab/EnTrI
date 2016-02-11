@@ -32,14 +32,22 @@ class Venn(object):
         self.sp1esssp2ess = 0
         self.sp1nessp2ess = 0
         self.sp1abssp2ess = 0
+        self.sp1pre = 0
+        self.sp1abs = 0
+        self.sp1ess = 0
+        self.sp1nes = 0
+        self.sp2pre = 0
+        self.sp2abs = 0
+        self.sp2ess = 0
+        self.sp2nes = 0
 
     def find_values(self):
         list_of_files = listdir(self.clusters)
         for filename in list_of_files:
-            sp1pre = 0
-            sp2pre = 0
-            sp1ess = 0
-            sp2ess = 0
+            sp1ispresent = 0
+            sp2ispresent = 0
+            sp1isessential = 0
+            sp2isessential = 0
             with open(self.clusters + '/' + filename, 'r') as clusterfile:
                 for line in clusterfile:
                     cells = line.split()
@@ -49,30 +57,53 @@ class Venn(object):
                     if match_result:
                         name = match_result.group(1)
                     if name == self.sp1:
-                        sp1pre += 1
+                        sp1ispresent += 1
                         if float(cells[4]) < 0.2:
-                            sp1ess += 1
+                            sp1isessential += 1
                     if name == self.sp2:
-                        sp2pre += 1
+                        sp2ispresent += 1
                         if float(cells[4]) < 0.2:
-                            sp2ess += 1
-            if sp1pre and not sp2pre:
-                self.sp1presp2abs += 1
-                if sp1ess:
-                    self.sp1esssp2abs += 1
-            elif sp1pre and sp2pre:
-                self.sp1presp2pre += 1
-                if sp1ess and sp2ess:
-                    self.sp1esssp2ess += 1
-                elif sp1ess and not sp2ess:
-                    self.sp1esssp2nes += 1
-                elif not sp1ess and sp2ess:
-                    self.sp1nessp2ess += 1
-            elif not sp1pre and sp2pre:
-                self.sp1abssp2pre += 1
-                if sp2ess:
-                    self.sp1abssp2ess += 1
-
+                            sp2isessential += 1
+            if sp1ispresent:
+                self.sp1pre += 1
+                if sp2ispresent:
+                    self.sp2pre += 1
+                    self.sp1presp2pre += 1
+                    if sp1isessential:
+                        self.sp1ess += 1
+                        if sp2isessential:
+                            self.sp2ess += 1
+                            self.sp1esssp2ess += 1
+                        else:
+                            self.sp2nes += 1
+                            self.sp1esssp2nes += 1
+                    else:
+                        self.sp1nes += 1
+                        if sp2isessential:
+                            self.sp2ess += 1
+                            self.sp1nessp2ess += 1
+                        else:
+                            self.sp2nes += 1
+                else:
+                    self.sp2abs += 1
+                    self.sp1presp2abs += 1
+                    if sp1isessential:
+                        self.sp1ess += 1
+                        self.sp1esssp2abs += 1
+                    else:
+                        self.sp1nes += 1
+            else:
+                self.sp1abs += 1
+                if sp2ispresent:
+                    self.sp2pre += 1
+                    self.sp1abssp2pre += 1
+                    if sp2isessential:
+                        self.sp2ess += 1
+                        self.sp1abssp2ess += 1
+                    else:
+                        self.sp2nes += 1
+                else:
+                    self.sp2abs += 1
 
 clusts = '/home/fatemeh/EnTrI/results/merge-clust-plot'
 output = '/home/fatemeh/EnTrI/results/pairwise-venn-diagrams'
@@ -97,9 +128,10 @@ with open(output + '/prepre.txt', 'w') as preprefile:
         preprefile.write(name_dict[species_names[i]]+'\t')
         for j in range(0, len(species_names)):
             if i <= j:
-                preprefile.write(str(venn_values[i][j].sp1presp2pre) + '\t')
+                value = float(venn_values[i][j].sp1presp2pre) / min(venn_values[i][j].sp1pre, venn_values[i][j].sp2pre)
             else:
-                preprefile.write(str(venn_values[j][i].sp1presp2pre) + '\t')
+                value = float(venn_values[j][i].sp1presp2pre) / min(venn_values[j][i].sp1pre, venn_values[j][i].sp2pre)
+            preprefile.write(str(value) + '\t')
         preprefile.write('\n')
 
 with open(output + '/preabs.txt', 'w') as preabsfile:
@@ -111,9 +143,10 @@ with open(output + '/preabs.txt', 'w') as preabsfile:
         preabsfile.write(name_dict[species_names[i]]+'\t')
         for j in range(0, len(species_names)):
             if i <= j:
-                preabsfile.write(str(venn_values[i][j].sp1presp2abs) + '\t')
+                value = float(venn_values[i][j].sp1presp2abs) / min(venn_values[i][j].sp1pre, venn_values[i][j].sp2abs)
             else:
-                preabsfile.write(str(venn_values[j][i].sp1abssp2pre) + '\t')
+                value = float(venn_values[j][i].sp1abssp2pre) / min(venn_values[j][i].sp1abs, venn_values[j][i].sp2pre)
+            preabsfile.write(str(value) + '\t')
         preabsfile.write('\n')
 
 with open(output + '/essess.txt', 'w') as essessfile:
@@ -125,9 +158,10 @@ with open(output + '/essess.txt', 'w') as essessfile:
         essessfile.write(name_dict[species_names[i]]+'\t')
         for j in range(0, len(species_names)):
             if i <= j:
-                essessfile.write(str(venn_values[i][j].sp1esssp2ess) + '\t')
+                value = float(venn_values[i][j].sp1esssp2ess) / min(venn_values[i][j].sp1ess, venn_values[i][j].sp2ess)
             else:
-                essessfile.write(str(venn_values[j][i].sp1esssp2ess) + '\t')
+                value = float(venn_values[j][i].sp1esssp2ess) / min(venn_values[j][i].sp1ess, venn_values[j][i].sp2ess)
+            essessfile.write(str(value) + '\t')
         essessfile.write('\n')
 
 with open(output + '/essabs.txt', 'w') as essabsfile:
@@ -139,9 +173,10 @@ with open(output + '/essabs.txt', 'w') as essabsfile:
         essabsfile.write(name_dict[species_names[i]]+'\t')
         for j in range(0, len(species_names)):
             if i <= j:
-                essabsfile.write(str(venn_values[i][j].sp1esssp2abs) + '\t')
+                value = float(venn_values[i][j].sp1esssp2abs) / min(venn_values[i][j].sp1ess, venn_values[i][j].sp2abs)
             else:
-                essabsfile.write(str(venn_values[j][i].sp1abssp2ess) + '\t')
+                value = float(venn_values[j][i].sp1abssp2ess) / min(venn_values[j][i].sp1abs, venn_values[j][i].sp2ess)
+            essabsfile.write(str(value) + '\t')
         essabsfile.write('\n')
 
 with open(output + '/essnes.txt', 'w') as essnesfile:
@@ -153,7 +188,8 @@ with open(output + '/essnes.txt', 'w') as essnesfile:
         essnesfile.write(name_dict[species_names[i]]+'\t')
         for j in range(0, len(species_names)):
             if i <= j:
-                essnesfile.write(str(venn_values[i][j].sp1esssp2nes) + '\t')
+                value = float(venn_values[i][j].sp1esssp2nes) / min(venn_values[i][j].sp1ess, venn_values[i][j].sp2nes)
             else:
-                essnesfile.write(str(venn_values[j][i].sp1nessp2ess) + '\t')
+                value = float(venn_values[j][i].sp1nessp2ess) / min(venn_values[j][i].sp1nes, venn_values[j][i].sp2ess)
+            essnesfile.write(str(value) + '\t')
         essnesfile.write('\n')
