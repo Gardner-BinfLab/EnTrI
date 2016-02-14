@@ -15,12 +15,12 @@ for (filename in list_of_files)
       {
         ii1 = as.numeric(clust_tbl[i,5])
         ii2 = as.numeric(clust_tbl[j,5])
-        match1 = str_match(clust_tbl[i,2], "([[:graph:]]+)\\_[[:digit:]]+")[2]
+        match1 = str_match(clust_tbl[i,2], "([[:graph:]]+)\\_[[:alnum:]]+")[2]
         if (is.na(match1))
         {
           match1 = str_match(clust_tbl[i,2], "([[:alpha:]]+)[[:digit:]]+")[2]
         }
-        match2 = str_match(clust_tbl[j,2], "([[:graph:]]+)\\_[[:digit:]]+")[2]
+        match2 = str_match(clust_tbl[j,2], "([[:graph:]]+)\\_[[:alnum:]]+")[2]
         if (is.na(match2))
         {
           match2 = str_match(clust_tbl[j,2], "([[:alpha:]]+)[[:digit:]]+")[2]
