@@ -64,7 +64,7 @@ screen(1)
 par(mar = mar.default + c(0, 1, 0, 0))
 barplot(result, col=cols, yaxt="n", ylab='Frequency', cex.lab=1.5)
 axis(1, at=c(0.7,1.9,3.1), labels=c('ORFan', 'Single-copy', 'Multiple-copy'), cex.axis=1.5)
-axis(2, at=seq(0,4000,1000), labels=c(0,NA,NA,NA,4000), cex.axis=1.5)
+axis(2, at=seq(0,3000,1000), labels=c(0,NA,NA,3000), cex.axis=1.5)
 screen(2)
 par(mar = mar.default + c(0, 1, 0, 0))
 barplot(table(factor(orfan, levels=1:100)), col=cols[1], ylim=c(1,53), horiz=TRUE, yaxt="n", xpd=FALSE, xaxt="n", xlab='Frequency',
