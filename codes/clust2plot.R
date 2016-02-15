@@ -1,11 +1,16 @@
+library(stringr)
 # args <- commandArgs(trailingOnly = TRUE)
 # clusters <- args[1]
 clusters_path <- "../results/merge-clust-plot"
 list_of_files <- list.files(path=clusters_path, full.names=T, recursive=FALSE)
+names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "b")
+numspecies = length(names)
 file_II = list()
 file_size = list()
+file_group = list()
 for (filename in list_of_files)
 {
+  clustspecies = c()
   cluster <- as.matrix(read.table(filename))
   i_sum = 0
   l_sum = 0
@@ -15,6 +20,15 @@ for (filename in list_of_files)
   {
     if (as.numeric(cluster[i,5]) >= 0)
     {
+      match = str_match(cluster[i,2], "([[:graph:]]+)\\_[[:alnum:]]+")[2]
+      if (is.na(match))
+      {
+        match = str_match(cluster[i,2], "([[:alpha:]]+)[[:digit:]]+")[2]
+      }
+      if (match %in% names)
+      {
+        clustspecies = c(clustspecies, match) 
+      }
       i_sum = i_sum + as.numeric(cluster[i, 5])
       l_sum = l_sum + (as.numeric(cluster[i, 4]) - as.numeric(cluster[i, 3]) + 1) * 3
       clust_with_ii_size = clust_with_ii_size  + 1
@@ -24,10 +38,25 @@ for (filename in list_of_files)
   {
     file_II[basename(filename)] = i_sum / clust_with_ii_size
     file_size[basename(filename)] = cluster_size
+    one_or_more = length(unique(clustspecies))
+    greater_than_one = length(table(clustspecies)[table(clustspecies)>1])
+    if (as.numeric(one_or_more) <= 0.3 * numspecies)
+    {
+      file_group[basename(filename)] = 'ORFan'
+    }
+    else if (as.numeric(one_or_more) - as.numeric(greater_than_one) >= 0.7 * as.numeric(one_or_more))
+    {
+      file_group[basename(filename)] = 'Single-copy'
+    }
+    else
+    {
+      file_group[basename(filename)] = 'Multiple-copy'
+    }
   }
 }
 insertion_index <- sapply(file_II, function(x){as.numeric(x[1])})
 size_index <- sapply(file_size, function(x){as.numeric(x[1])})
+group_index <- file_group
 
 pdf("../results/cluster-essentiality.pdf")
 
@@ -63,7 +92,7 @@ multiple_es = c()
 multiple_ben = c()
 for (item in names(size_index))
 {
-  if (size_index[item] <= 5)
+  if (group_index[item] == 'ORFan')
   {
     orfans = c(orfans, insertion_index[item])
     if (insertion_index[item] < 0.2)
@@ -73,7 +102,7 @@ for (item in names(size_index))
     else
       orfans_ben = c(orfans_ben, insertion_index[item])
   } 
-  else if (size_index[item] <=  18)
+  else if (group_index[item] == 'Single-copy')
   {
     single_occurrence = c(single_occurrence, insertion_index[item])
     if (insertion_index[item] < 0.2)
@@ -95,7 +124,7 @@ for (item in names(size_index))
   }
 }
 
-h <- hist(orfans, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot = FALSE)
+h <- hist(orfans, breaks =seq(min(insertion_index),(max(insertion_index)+1),0.02), plot = FALSE)
 cuts <- cut(h$breaks, c(-Inf,0.18, 1.98, Inf))
 screen(2)
 par(mar=c(5.1,2.5,4.1,1))
