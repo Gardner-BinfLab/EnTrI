@@ -37,12 +37,18 @@
 	Rscript check-biases.R
 3. Save fasta genomes in sequences/fasta-genome/chromosome (Most of them were downloadable or provided previously)
 4. Rename the files as in the "STUDY CLUSTERS" section, point 1.
-5 . Run make-logos.py
+5. Run make-logos.py
 	cd EnTrI/codes
 	make-logos.py
 6. Generate a logo for the sequences resulted from the last step.
 	cd EnTrI/results
 	weblogo -F pdf -A dna -f logos.txt -o logo.pdf -s large -U probability
+7. To test GC bias in positions with high number of insertions:
+	cd EnTrI/codes
+	test100logos.py
+8. Generate a logo for the sequences resulted from the last step.
+	cd EnTrI/results
+	weblogo -F pdf -A dna -f 100logos.txt -o 100logo.pdf -s large -U probability
 
 ============ REMOVE BIASES
 1. Run remove-biases
