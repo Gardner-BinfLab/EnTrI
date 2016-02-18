@@ -15,6 +15,7 @@ for (filename in list_of_files)
   heattable <- heattable[,-1]
   rownames(heattable) <- names
   colnames(heattable) <- names
+  heattable <- heattable[c(5,6,7,8,9,2,3,4,1,10,11,12),c(5,6,7,8,9,2,3,4,1,10,11,12)]
   class(heattable) <- "numeric" 
   heatmap.2(heattable, margins = c(15, 15), main = plot_mains[i], density.info="none", trace="none", keysize=1,
             lmat=rbind( c(0, 3), c(2,1), c(0,4) ), lhei=c(1.5, 6, 2 ), Rowv=FALSE, Colv=FALSE, dendrogram='none')
