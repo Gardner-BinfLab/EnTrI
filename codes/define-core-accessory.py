@@ -27,6 +27,7 @@ def makedir(dirname):
 seqdb = '/home/fatemeh/EnTrI/sequences/fasta-protein/chromosome/seqdb.fasta'
 clusters = '/home/fatemeh/EnTrI/results/merge-clust-plot'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory'
+
 esscoredir = outdir + '/core-essential-genomes'
 sesscoredir = outdir + '/core-sometimes-essential-genomes'
 nesscoredir = outdir + '/core-never-essential-genomes'
@@ -89,6 +90,76 @@ kenesscoredir = outdir + '/klebsiella-enterobacter-core-never-essential-genomes'
 keessaccessorydir = outdir + '/klebsiella-enterobacter-accessory-essential-genomes'
 kesessaccessorydir = outdir + '/klebsiella-enterobacter-accessory-sometimes-essential-genomes'
 kenessaccessorydir = outdir + '/klebsiella-enterobacter-accessory-never-essential-genomes'
+
+ty2esscoredir = outdir + '/salmonellatyphi-core-essential-genomes'
+ty2sesscoredir = outdir + '/salmonellatyphi-core-sometimes-essential-genomes'
+ty2nesscoredir = outdir + '/salmonellatyphi-core-never-essential-genomes'
+ty2essaccessorydir = outdir + '/salmonellatyphi-accessory-essential-genomes'
+ty2sessaccessorydir = outdir + '/salmonellatyphi-accessory-sometimes-essential-genomes'
+ty2nessaccessorydir = outdir + '/salmonellatyphi-accessory-never-essential-genomes'
+
+p12esscoredir = outdir + '/salmonellap125109-core-essential-genomes'
+p12sesscoredir = outdir + '/salmonellap125109-core-sometimes-essential-genomes'
+p12nesscoredir = outdir + '/salmonellap125109-core-never-essential-genomes'
+p12essaccessorydir = outdir + '/salmonellap125109-accessory-essential-genomes'
+p12sessaccessorydir = outdir + '/salmonellap125109-accessory-sometimes-essential-genomes'
+p12nessaccessorydir = outdir + '/salmonellap125109-accessory-never-essential-genomes'
+
+sl1esscoredir = outdir + '/salmonellasl1344-core-essential-genomes'
+sl1sesscoredir = outdir + '/salmonellasl1344-core-sometimes-essential-genomes'
+sl1nesscoredir = outdir + '/salmonellasl1344-core-never-essential-genomes'
+sl1essaccessorydir = outdir + '/salmonellasl1344-accessory-essential-genomes'
+sl1sessaccessorydir = outdir + '/salmonellasl1344-accessory-sometimes-essential-genomes'
+sl1nessaccessorydir = outdir + '/salmonellasl1344-accessory-never-essential-genomes'
+
+a13esscoredir = outdir + '/salmonellaa130-core-essential-genomes'
+a13sesscoredir = outdir + '/salmonellaa130-core-sometimes-essential-genomes'
+a13nesscoredir = outdir + '/salmonellaa130-core-never-essential-genomes'
+a13essaccessorydir = outdir + '/salmonellaa130-accessory-essential-genomes'
+a13sessaccessorydir = outdir + '/salmonellaa130-accessory-sometimes-essential-genomes'
+a13nessaccessorydir = outdir + '/salmonellaa130-accessory-never-essential-genomes'
+
+d23esscoredir = outdir + '/salmonellad23580-core-essential-genomes'
+d23sesscoredir = outdir + '/salmonellad23580-core-sometimes-essential-genomes'
+d23nesscoredir = outdir + '/salmonellad23580-core-never-essential-genomes'
+d23essaccessorydir = outdir + '/salmonellad23580-accessory-essential-genomes'
+d23sessaccessorydir = outdir + '/salmonellad23580-accessory-sometimes-essential-genomes'
+d23nessaccessorydir = outdir + '/salmonellad23580-accessory-never-essential-genomes'
+
+st1esscoredir = outdir + '/ecolist131-core-essential-genomes'
+st1sesscoredir = outdir + '/ecolist131-core-sometimes-essential-genomes'
+st1nesscoredir = outdir + '/ecolist131-core-never-essential-genomes'
+st1essaccessorydir = outdir + '/ecolist131-accessory-essential-genomes'
+st1sessaccessorydir = outdir + '/ecolist131-accessory-sometimes-essential-genomes'
+st1nessaccessorydir = outdir + '/ecolist131-accessory-never-essential-genomes'
+
+cs1esscoredir = outdir + '/ecolics17-core-essential-genomes'
+cs1sesscoredir = outdir + '/ecolics17-core-sometimes-essential-genomes'
+cs1nesscoredir = outdir + '/scolics17-core-never-essential-genomes'
+cs1essaccessorydir = outdir + '/ecolics17-accessory-essential-genomes'
+cs1sessaccessorydir = outdir + '/ecolics17-accessory-sometimes-essential-genomes'
+cs1nessaccessorydir = outdir + '/ecolics17-accessory-never-essential-genomes'
+
+h10esscoredir = outdir + '/ecolih10407-core-essential-genomes'
+h10sesscoredir = outdir + '/ecolih10407-core-sometimes-essential-genomes'
+h10nesscoredir = outdir + '/ecolih10407-core-never-essential-genomes'
+h10essaccessorydir = outdir + '/ecolih10407-accessory-essential-genomes'
+h10sessaccessorydir = outdir + '/ecolih10407-accessory-sometimes-essential-genomes'
+h10nessaccessorydir = outdir + '/ecolih10407-accessory-never-essential-genomes'
+
+rh2esscoredir = outdir + '/klebsiellarh201207-core-essential-genomes'
+rh2sesscoredir = outdir + '/klebsiellarh201207-core-sometimes-essential-genomes'
+rh2nesscoredir = outdir + '/klebsiellarh201207-core-never-essential-genomes'
+rh2essaccessorydir = outdir + '/klebsiellarh201207-accessory-essential-genomes'
+rh2sessaccessorydir = outdir + '/klebsiellarh201207-accessory-sometimes-essential-genomes'
+rh2nessaccessorydir = outdir + '/klebsiellarh201207-accessory-never-essential-genomes'
+
+eclesscoredir = outdir + '/klebsiellaecl8-core-essential-genomes'
+eclsesscoredir = outdir + '/klebsiellaecl8-core-sometimes-essential-genomes'
+eclnesscoredir = outdir + '/klebsiellaecl8-core-never-essential-genomes'
+eclessaccessorydir = outdir + '/klebsiellaecl8-accessory-essential-genomes'
+eclsessaccessorydir = outdir + '/klebsiellaecl8-accessory-sometimes-essential-genomes'
+eclnessaccessorydir = outdir + '/klebsiellaecl8-accessory-never-essential-genomes'
 
 makedir(outdir)
 makedir(esscoredir)
@@ -154,6 +225,76 @@ makedir(keessaccessorydir)
 makedir(kesessaccessorydir)
 makedir(kenessaccessorydir)
 
+makedir(ty2esscoredir)
+makedir(ty2sesscoredir)
+makedir(ty2nesscoredir)
+makedir(ty2essaccessorydir)
+makedir(ty2sessaccessorydir)
+makedir(ty2nessaccessorydir)
+
+makedir(p12esscoredir)
+makedir(p12sesscoredir)
+makedir(p12nesscoredir)
+makedir(p12essaccessorydir)
+makedir(p12sessaccessorydir)
+makedir(p12nessaccessorydir)
+
+makedir(sl1esscoredir)
+makedir(sl1sesscoredir)
+makedir(sl1nesscoredir)
+makedir(sl1essaccessorydir)
+makedir(sl1sessaccessorydir)
+makedir(sl1nessaccessorydir)
+
+makedir(a13esscoredir)
+makedir(a13sesscoredir)
+makedir(a13nesscoredir)
+makedir(a13essaccessorydir)
+makedir(a13sessaccessorydir)
+makedir(a13nessaccessorydir)
+
+makedir(d23esscoredir)
+makedir(d23sesscoredir)
+makedir(d23nesscoredir)
+makedir(d23essaccessorydir)
+makedir(d23sessaccessorydir)
+makedir(d23nessaccessorydir)
+
+makedir(st1esscoredir)
+makedir(st1sesscoredir)
+makedir(st1nesscoredir)
+makedir(st1essaccessorydir)
+makedir(st1sessaccessorydir)
+makedir(st1nessaccessorydir)
+
+makedir(cs1esscoredir)
+makedir(cs1sesscoredir)
+makedir(cs1nesscoredir)
+makedir(cs1essaccessorydir)
+makedir(cs1sessaccessorydir)
+makedir(cs1nessaccessorydir)
+
+makedir(h10esscoredir)
+makedir(h10sesscoredir)
+makedir(h10nesscoredir)
+makedir(h10essaccessorydir)
+makedir(h10sessaccessorydir)
+makedir(h10nessaccessorydir)
+
+makedir(rh2esscoredir)
+makedir(rh2sesscoredir)
+makedir(rh2nesscoredir)
+makedir(rh2essaccessorydir)
+makedir(rh2sessaccessorydir)
+makedir(rh2nessaccessorydir)
+
+makedir(eclesscoredir)
+makedir(eclsesscoredir)
+makedir(eclnesscoredir)
+makedir(eclessaccessorydir)
+makedir(eclsessaccessorydir)
+makedir(eclnessaccessorydir)
+
 esscoregenes = []
 sesscoregenes = []
 nesscoregenes = []
@@ -217,10 +358,80 @@ keessaccessorygenes = []
 kesessaccessorygenes = []
 kenessaccessorygenes = []
 
-species_names = ["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM", "STMMW", "t", "b"]
+ty2esscoregenes = []
+ty2sesscoregenes = []
+ty2nesscoregenes = []
+ty2essaccessorygenes = []
+ty2sessaccessorygenes = []
+ty2nessaccessorygenes = []
+
+p12esscoregenes = []
+p12sesscoregenes = []
+p12nesscoregenes = []
+p12essaccessorygenes = []
+p12sessaccessorygenes = []
+p12nessaccessorygenes = []
+
+sl1esscoregenes = []
+sl1sesscoregenes = []
+sl1nesscoregenes = []
+sl1essaccessorygenes = []
+sl1sessaccessorygenes = []
+sl1nessaccessorygenes = []
+
+a13esscoregenes = []
+a13sesscoregenes = []
+a13nesscoregenes = []
+a13essaccessorygenes = []
+a13sessaccessorygenes = []
+a13nessaccessorygenes = []
+
+d23esscoregenes = []
+d23sesscoregenes = []
+d23nesscoregenes = []
+d23essaccessorygenes = []
+d23sessaccessorygenes = []
+d23nessaccessorygenes = []
+
+st1esscoregenes = []
+st1sesscoregenes = []
+st1nesscoregenes = []
+st1essaccessorygenes = []
+st1sessaccessorygenes = []
+st1nessaccessorygenes = []
+
+cs1esscoregenes = []
+cs1sesscoregenes = []
+cs1nesscoregenes = []
+cs1essaccessorygenes = []
+cs1sessaccessorygenes = []
+cs1nessaccessorygenes = []
+
+h10esscoregenes = []
+h10sesscoregenes = []
+h10nesscoregenes = []
+h10essaccessorygenes = []
+h10sessaccessorygenes = []
+h10nessaccessorygenes = []
+
+rh2esscoregenes = []
+rh2sesscoregenes = []
+rh2nesscoregenes = []
+rh2essaccessorygenes = []
+rh2sessaccessorygenes = []
+rh2nessaccessorygenes = []
+
+eclesscoregenes = []
+eclsesscoregenes = []
+eclnesscoregenes = []
+eclessaccessorygenes = []
+eclsessaccessorygenes = []
+eclnessaccessorygenes = []
+
+species_names = ["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM", "STMMW", "t"]
 num_species = len(species_names)
 gene_dict = {species_names[i]: 0 for i in range(num_species)}
-essentiality_dict = {species_names[i]: 0 for i in range(num_species-1)}
+essentiality_dict = {species_names[i]: 0 for i in range(num_species)}
 
 sal_species_names = ["SEN", "SL1344", "STM", "STMMW", "t"]
 sal_num_species = len(sal_species_names)
@@ -262,12 +473,61 @@ ke_num_species = len(ke_species_names)
 ke_gene_dict = {ke_species_names[i]: 0 for i in range(ke_num_species)}
 ke_essentiality_dict = {ke_species_names[i]: 0 for i in range(ke_num_species)}
 
+ty2_species_names = ["t"]
+ty2_num_species = len(ty2_species_names)
+ty2_gene_dict = {ty2_species_names[i]: 0 for i in range(ty2_num_species)}
+ty2_essentiality_dict = {ty2_species_names[i]: 0 for i in range(ty2_num_species)}
+
+p12_species_names = ["SEN"]
+p12_num_species = len(p12_species_names)
+p12_gene_dict = {p12_species_names[i]: 0 for i in range(p12_num_species)}
+p12_essentiality_dict = {p12_species_names[i]: 0 for i in range(p12_num_species)}
+
+sl1_species_names = ["SL1344"]
+sl1_num_species = len(sl1_species_names)
+sl1_gene_dict = {sl1_species_names[i]: 0 for i in range(sl1_num_species)}
+sl1_essentiality_dict = {sl1_species_names[i]: 0 for i in range(sl1_num_species)}
+
+a13_species_names = ["STM"]
+a13_num_species = len(a13_species_names)
+a13_gene_dict = {a13_species_names[i]: 0 for i in range(a13_num_species)}
+a13_essentiality_dict = {a13_species_names[i]: 0 for i in range(a13_num_species)}
+
+d23_species_names = ["STMMW"]
+d23_num_species = len(d23_species_names)
+d23_gene_dict = {d23_species_names[i]: 0 for i in range(d23_num_species)}
+d23_essentiality_dict = {d23_species_names[i]: 0 for i in range(d23_num_species)}
+
+st1_species_names = ["NCTC13441"]
+st1_num_species = len(st1_species_names)
+st1_gene_dict = {st1_species_names[i]: 0 for i in range(st1_num_species)}
+st1_essentiality_dict = {st1_species_names[i]: 0 for i in range(st1_num_species)}
+
+cs1_species_names = ["CS17"]
+cs1_num_species = len(cs1_species_names)
+cs1_gene_dict = {cs1_species_names[i]: 0 for i in range(cs1_num_species)}
+cs1_essentiality_dict = {cs1_species_names[i]: 0 for i in range(cs1_num_species)}
+
+h10_species_names = ["ETEC"]
+h10_num_species = len(h10_species_names)
+h10_gene_dict = {h10_species_names[i]: 0 for i in range(h10_num_species)}
+h10_essentiality_dict = {h10_species_names[i]: 0 for i in range(h10_num_species)}
+
+rh2_species_names = ["ERS227112"]
+rh2_num_species = len(rh2_species_names)
+rh2_gene_dict = {rh2_species_names[i]: 0 for i in range(rh2_num_species)}
+rh2_essentiality_dict = {rh2_species_names[i]: 0 for i in range(rh2_num_species)}
+
+ecl_species_names = ["BN373"]
+ecl_num_species = len(ecl_species_names)
+ecl_gene_dict = {ecl_species_names[i]: 0 for i in range(ecl_num_species)}
+ecl_essentiality_dict = {ecl_species_names[i]: 0 for i in range(ecl_num_species)}
+
 list_of_files = listdir(clusters)
 for filename in list_of_files:
     for key in gene_dict.keys():
         gene_dict[key] = 0
-        if key in essentiality_dict.keys():
-            essentiality_dict[key] = 0
+        essentiality_dict[key] = 0
 
     for key in sal_gene_dict.keys():
         sal_gene_dict[key] = 0
@@ -301,6 +561,46 @@ for filename in list_of_files:
         ke_gene_dict[key] = 0
         ke_essentiality_dict[key] = 0
 
+    for key in ty2_gene_dict.keys():
+        ty2_gene_dict[key] = 0
+        ty2_essentiality_dict[key] = 0
+
+    for key in p12_gene_dict.keys():
+        p12_gene_dict[key] = 0
+        p12_essentiality_dict[key] = 0
+
+    for key in sl1_gene_dict.keys():
+        sl1_gene_dict[key] = 0
+        sl1_essentiality_dict[key] = 0
+
+    for key in a13_gene_dict.keys():
+        a13_gene_dict[key] = 0
+        a13_essentiality_dict[key] = 0
+
+    for key in d23_gene_dict.keys():
+        d23_gene_dict[key] = 0
+        d23_essentiality_dict[key] = 0
+
+    for key in st1_gene_dict.keys():
+        st1_gene_dict[key] = 0
+        st1_essentiality_dict[key] = 0
+
+    for key in cs1_gene_dict.keys():
+        cs1_gene_dict[key] = 0
+        cs1_essentiality_dict[key] = 0
+
+    for key in h10_gene_dict.keys():
+        h10_gene_dict[key] = 0
+        h10_essentiality_dict[key] = 0
+
+    for key in rh2_gene_dict.keys():
+        rh2_gene_dict[key] = 0
+        rh2_essentiality_dict[key] = 0
+
+    for key in ecl_gene_dict.keys():
+        ecl_gene_dict[key] = 0
+        ecl_essentiality_dict[key] = 0
+
     list_of_genes = []
     sal_list_of_genes = []
     eco_list_of_genes = []
@@ -310,6 +610,16 @@ for filename in list_of_files:
     se_list_of_genes = []
     sec_list_of_genes = []
     ke_list_of_genes = []
+    ty2_list_of_genes = []
+    p12_list_of_genes = []
+    sl1_list_of_genes = []
+    a13_list_of_genes = []
+    d23_list_of_genes = []
+    st1_list_of_genes = []
+    cs1_list_of_genes = []
+    h10_list_of_genes = []
+    rh2_list_of_genes = []
+    ecl_list_of_genes = []
 
     with open('{0}/{1}'.format(clusters, filename)) as from_file:
         for line in from_file:
@@ -323,7 +633,7 @@ for filename in list_of_files:
                 if name in gene_dict.keys():
                     list_of_genes.append(cells[1])
                     gene_dict[name] = 1
-                    if name in essentiality_dict.keys() and float(cells[4]) < 0.2:
+                    if float(cells[4]) < 0.2:
                         essentiality_dict[name] = 1
 
                 if name in sal_gene_dict.keys():
@@ -373,6 +683,66 @@ for filename in list_of_files:
                     ke_gene_dict[name] = 1
                     if float(cells[4]) < 0.2:
                         ke_essentiality_dict[name] = 1
+
+                if name in ty2_gene_dict.keys():
+                    ty2_list_of_genes.append(cells[1])
+                    ty2_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        ty2_essentiality_dict[name] = 1
+
+                if name in p12_gene_dict.keys():
+                    p12_list_of_genes.append(cells[1])
+                    p12_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        p12_essentiality_dict[name] = 1
+
+                if name in sl1_gene_dict.keys():
+                    sl1_list_of_genes.append(cells[1])
+                    sl1_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        sl1_essentiality_dict[name] = 1
+
+                if name in a13_gene_dict.keys():
+                    a13_list_of_genes.append(cells[1])
+                    a13_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        a13_essentiality_dict[name] = 1
+
+                if name in d23_gene_dict.keys():
+                    d23_list_of_genes.append(cells[1])
+                    d23_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        d23_essentiality_dict[name] = 1
+
+                if name in st1_gene_dict.keys():
+                    st1_list_of_genes.append(cells[1])
+                    st1_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        st1_essentiality_dict[name] = 1
+
+                if name in cs1_gene_dict.keys():
+                    cs1_list_of_genes.append(cells[1])
+                    cs1_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        cs1_essentiality_dict[name] = 1
+
+                if name in h10_gene_dict.keys():
+                    h10_list_of_genes.append(cells[1])
+                    h10_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        h10_essentiality_dict[name] = 1
+
+                if name in rh2_gene_dict.keys():
+                    rh2_list_of_genes.append(cells[1])
+                    rh2_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        rh2_essentiality_dict[name] = 1
+
+                if name in ecl_gene_dict.keys():
+                    ecl_list_of_genes.append(cells[1])
+                    ecl_gene_dict[name] = 1
+                    if float(cells[4]) < 0.2:
+                        ecl_essentiality_dict[name] = 1
 
     if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
         if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
@@ -509,6 +879,156 @@ for filename in list_of_files:
         else:
             kesessaccessorygenes += ke_list_of_genes
 
+    if ty2_gene_dict[min(ty2_gene_dict, key=ty2_gene_dict.get)] == 1:
+        if ty2_essentiality_dict[min(ty2_essentiality_dict, key=ty2_essentiality_dict.get)] == 1:
+            ty2esscoregenes += ty2_list_of_genes
+        elif ty2_essentiality_dict[max(ty2_essentiality_dict, key=ty2_essentiality_dict.get)] == 0:
+            ty2nesscoregenes += ty2_list_of_genes
+        else:
+            ty2sesscoregenes += ty2_list_of_genes
+    else:
+        if not sum([ty2_gene_dict[item] - ty2_essentiality_dict[item] for item in ty2_essentiality_dict.keys()]):
+            ty2essaccessorygenes += ty2_list_of_genes
+        elif ty2_essentiality_dict[max(ty2_essentiality_dict, key=ty2_essentiality_dict.get)] == 0:
+            ty2nessaccessorygenes += ty2_list_of_genes
+        else:
+            ty2sessaccessorygenes += ty2_list_of_genes
+
+    if p12_gene_dict[min(p12_gene_dict, key=p12_gene_dict.get)] == 1:
+        if p12_essentiality_dict[min(p12_essentiality_dict, key=p12_essentiality_dict.get)] == 1:
+            p12esscoregenes += p12_list_of_genes
+        elif p12_essentiality_dict[max(p12_essentiality_dict, key=p12_essentiality_dict.get)] == 0:
+            p12nesscoregenes += p12_list_of_genes
+        else:
+            p12sesscoregenes += p12_list_of_genes
+    else:
+        if not sum([p12_gene_dict[item] - p12_essentiality_dict[item] for item in p12_essentiality_dict.keys()]):
+            p12essaccessorygenes += p12_list_of_genes
+        elif p12_essentiality_dict[max(p12_essentiality_dict, key=p12_essentiality_dict.get)] == 0:
+            p12nessaccessorygenes += p12_list_of_genes
+        else:
+            p12sessaccessorygenes += p12_list_of_genes
+
+    if sl1_gene_dict[min(sl1_gene_dict, key=sl1_gene_dict.get)] == 1:
+        if sl1_essentiality_dict[min(sl1_essentiality_dict, key=sl1_essentiality_dict.get)] == 1:
+            sl1esscoregenes += sl1_list_of_genes
+        elif sl1_essentiality_dict[max(sl1_essentiality_dict, key=sl1_essentiality_dict.get)] == 0:
+            sl1nesscoregenes += sl1_list_of_genes
+        else:
+            sl1sesscoregenes += sl1_list_of_genes
+    else:
+        if not sum([sl1_gene_dict[item] - sl1_essentiality_dict[item] for item in sl1_essentiality_dict.keys()]):
+            sl1essaccessorygenes += sl1_list_of_genes
+        elif sl1_essentiality_dict[max(sl1_essentiality_dict, key=sl1_essentiality_dict.get)] == 0:
+            sl1nessaccessorygenes += sl1_list_of_genes
+        else:
+            sl1sessaccessorygenes += sl1_list_of_genes
+
+    if a13_gene_dict[min(a13_gene_dict, key=a13_gene_dict.get)] == 1:
+        if a13_essentiality_dict[min(a13_essentiality_dict, key=a13_essentiality_dict.get)] == 1:
+            a13esscoregenes += a13_list_of_genes
+        elif a13_essentiality_dict[max(a13_essentiality_dict, key=a13_essentiality_dict.get)] == 0:
+            a13nesscoregenes += a13_list_of_genes
+        else:
+            a13sesscoregenes += a13_list_of_genes
+    else:
+        if not sum([a13_gene_dict[item] - a13_essentiality_dict[item] for item in a13_essentiality_dict.keys()]):
+            a13essaccessorygenes += a13_list_of_genes
+        elif a13_essentiality_dict[max(a13_essentiality_dict, key=a13_essentiality_dict.get)] == 0:
+            a13nessaccessorygenes += a13_list_of_genes
+        else:
+            a13sessaccessorygenes += a13_list_of_genes
+
+    if d23_gene_dict[min(d23_gene_dict, key=d23_gene_dict.get)] == 1:
+        if d23_essentiality_dict[min(d23_essentiality_dict, key=d23_essentiality_dict.get)] == 1:
+            d23esscoregenes += d23_list_of_genes
+        elif d23_essentiality_dict[max(d23_essentiality_dict, key=d23_essentiality_dict.get)] == 0:
+            d23nesscoregenes += d23_list_of_genes
+        else:
+            d23sesscoregenes += d23_list_of_genes
+    else:
+        if not sum([d23_gene_dict[item] - d23_essentiality_dict[item] for item in d23_essentiality_dict.keys()]):
+            d23essaccessorygenes += d23_list_of_genes
+        elif d23_essentiality_dict[max(d23_essentiality_dict, key=d23_essentiality_dict.get)] == 0:
+            d23nessaccessorygenes += d23_list_of_genes
+        else:
+            d23sessaccessorygenes += d23_list_of_genes
+
+    if st1_gene_dict[min(st1_gene_dict, key=st1_gene_dict.get)] == 1:
+        if st1_essentiality_dict[min(st1_essentiality_dict, key=st1_essentiality_dict.get)] == 1:
+            st1esscoregenes += st1_list_of_genes
+        elif st1_essentiality_dict[max(st1_essentiality_dict, key=st1_essentiality_dict.get)] == 0:
+            st1nesscoregenes += st1_list_of_genes
+        else:
+            st1sesscoregenes += st1_list_of_genes
+    else:
+        if not sum([st1_gene_dict[item] - st1_essentiality_dict[item] for item in st1_essentiality_dict.keys()]):
+            st1essaccessorygenes += st1_list_of_genes
+        elif st1_essentiality_dict[max(st1_essentiality_dict, key=st1_essentiality_dict.get)] == 0:
+            st1nessaccessorygenes += st1_list_of_genes
+        else:
+            st1sessaccessorygenes += st1_list_of_genes
+
+    if cs1_gene_dict[min(cs1_gene_dict, key=cs1_gene_dict.get)] == 1:
+        if cs1_essentiality_dict[min(cs1_essentiality_dict, key=cs1_essentiality_dict.get)] == 1:
+            cs1esscoregenes += cs1_list_of_genes
+        elif cs1_essentiality_dict[max(cs1_essentiality_dict, key=cs1_essentiality_dict.get)] == 0:
+            cs1nesscoregenes += cs1_list_of_genes
+        else:
+            cs1sesscoregenes += cs1_list_of_genes
+    else:
+        if not sum([cs1_gene_dict[item] - cs1_essentiality_dict[item] for item in cs1_essentiality_dict.keys()]):
+            cs1essaccessorygenes += cs1_list_of_genes
+        elif cs1_essentiality_dict[max(cs1_essentiality_dict, key=cs1_essentiality_dict.get)] == 0:
+            cs1nessaccessorygenes += cs1_list_of_genes
+        else:
+            cs1sessaccessorygenes += cs1_list_of_genes
+
+    if h10_gene_dict[min(h10_gene_dict, key=h10_gene_dict.get)] == 1:
+        if h10_essentiality_dict[min(h10_essentiality_dict, key=h10_essentiality_dict.get)] == 1:
+            h10esscoregenes += h10_list_of_genes
+        elif h10_essentiality_dict[max(h10_essentiality_dict, key=h10_essentiality_dict.get)] == 0:
+            h10nesscoregenes += h10_list_of_genes
+        else:
+            h10sesscoregenes += h10_list_of_genes
+    else:
+        if not sum([h10_gene_dict[item] - h10_essentiality_dict[item] for item in h10_essentiality_dict.keys()]):
+            h10essaccessorygenes += h10_list_of_genes
+        elif h10_essentiality_dict[max(h10_essentiality_dict, key=h10_essentiality_dict.get)] == 0:
+            h10nessaccessorygenes += h10_list_of_genes
+        else:
+            h10sessaccessorygenes += h10_list_of_genes
+
+    if rh2_gene_dict[min(rh2_gene_dict, key=rh2_gene_dict.get)] == 1:
+        if rh2_essentiality_dict[min(rh2_essentiality_dict, key=rh2_essentiality_dict.get)] == 1:
+            rh2esscoregenes += rh2_list_of_genes
+        elif rh2_essentiality_dict[max(rh2_essentiality_dict, key=rh2_essentiality_dict.get)] == 0:
+            rh2nesscoregenes += rh2_list_of_genes
+        else:
+            rh2sesscoregenes += rh2_list_of_genes
+    else:
+        if not sum([rh2_gene_dict[item] - rh2_essentiality_dict[item] for item in rh2_essentiality_dict.keys()]):
+            rh2essaccessorygenes += rh2_list_of_genes
+        elif rh2_essentiality_dict[max(rh2_essentiality_dict, key=rh2_essentiality_dict.get)] == 0:
+            rh2nessaccessorygenes += rh2_list_of_genes
+        else:
+            rh2sessaccessorygenes += rh2_list_of_genes
+
+    if ecl_gene_dict[min(ecl_gene_dict, key=ecl_gene_dict.get)] == 1:
+        if ecl_essentiality_dict[min(ecl_essentiality_dict, key=ecl_essentiality_dict.get)] == 1:
+            eclesscoregenes += ecl_list_of_genes
+        elif ecl_essentiality_dict[max(ecl_essentiality_dict, key=ecl_essentiality_dict.get)] == 0:
+            eclnesscoregenes += ecl_list_of_genes
+        else:
+            eclsesscoregenes += ecl_list_of_genes
+    else:
+        if not sum([ecl_gene_dict[item] - ecl_essentiality_dict[item] for item in ecl_essentiality_dict.keys()]):
+            eclessaccessorygenes += ecl_list_of_genes
+        elif ecl_essentiality_dict[max(ecl_essentiality_dict, key=ecl_essentiality_dict.get)] == 0:
+            eclnessaccessorygenes += ecl_list_of_genes
+        else:
+            eclsessaccessorygenes += ecl_list_of_genes
+
 esscoregenes = list(set(esscoregenes))
 esscoregenes.sort()
 sesscoregenes = list(set(sesscoregenes))
@@ -625,6 +1145,136 @@ kesessaccessorygenes = list(set(kesessaccessorygenes))
 kesessaccessorygenes.sort()
 kenessaccessorygenes = list(set(kenessaccessorygenes))
 kenessaccessorygenes.sort()
+
+ty2esscoregenes = list(set(ty2esscoregenes))
+ty2esscoregenes.sort()
+ty2sesscoregenes = list(set(ty2sesscoregenes))
+ty2sesscoregenes.sort()
+ty2nesscoregenes = list(set(ty2nesscoregenes))
+ty2nesscoregenes.sort()
+ty2essaccessorygenes = list(set(ty2essaccessorygenes))
+ty2essaccessorygenes.sort()
+ty2sessaccessorygenes = list(set(ty2sessaccessorygenes))
+ty2sessaccessorygenes.sort()
+ty2nessaccessorygenes = list(set(ty2nessaccessorygenes))
+ty2nessaccessorygenes.sort()
+
+p12esscoregenes = list(set(p12esscoregenes))
+p12esscoregenes.sort()
+p12sesscoregenes = list(set(p12sesscoregenes))
+p12sesscoregenes.sort()
+p12nesscoregenes = list(set(p12nesscoregenes))
+p12nesscoregenes.sort()
+p12essaccessorygenes = list(set(p12essaccessorygenes))
+p12essaccessorygenes.sort()
+p12sessaccessorygenes = list(set(p12sessaccessorygenes))
+p12sessaccessorygenes.sort()
+p12nessaccessorygenes = list(set(p12nessaccessorygenes))
+p12nessaccessorygenes.sort()
+
+sl1esscoregenes = list(set(sl1esscoregenes))
+sl1esscoregenes.sort()
+sl1sesscoregenes = list(set(sl1sesscoregenes))
+sl1sesscoregenes.sort()
+sl1nesscoregenes = list(set(sl1nesscoregenes))
+sl1nesscoregenes.sort()
+sl1essaccessorygenes = list(set(sl1essaccessorygenes))
+sl1essaccessorygenes.sort()
+sl1sessaccessorygenes = list(set(sl1sessaccessorygenes))
+sl1sessaccessorygenes.sort()
+sl1nessaccessorygenes = list(set(sl1nessaccessorygenes))
+sl1nessaccessorygenes.sort()
+
+a13esscoregenes = list(set(a13esscoregenes))
+a13esscoregenes.sort()
+a13sesscoregenes = list(set(a13sesscoregenes))
+a13sesscoregenes.sort()
+a13nesscoregenes = list(set(a13nesscoregenes))
+a13nesscoregenes.sort()
+a13essaccessorygenes = list(set(a13essaccessorygenes))
+a13essaccessorygenes.sort()
+a13sessaccessorygenes = list(set(a13sessaccessorygenes))
+a13sessaccessorygenes.sort()
+a13nessaccessorygenes = list(set(a13nessaccessorygenes))
+a13nessaccessorygenes.sort()
+
+d23esscoregenes = list(set(d23esscoregenes))
+d23esscoregenes.sort()
+d23sesscoregenes = list(set(d23sesscoregenes))
+d23sesscoregenes.sort()
+d23nesscoregenes = list(set(d23nesscoregenes))
+d23nesscoregenes.sort()
+d23essaccessorygenes = list(set(d23essaccessorygenes))
+d23essaccessorygenes.sort()
+d23sessaccessorygenes = list(set(d23sessaccessorygenes))
+d23sessaccessorygenes.sort()
+d23nessaccessorygenes = list(set(d23nessaccessorygenes))
+d23nessaccessorygenes.sort()
+
+st1esscoregenes = list(set(st1esscoregenes))
+st1esscoregenes.sort()
+st1sesscoregenes = list(set(st1sesscoregenes))
+st1sesscoregenes.sort()
+st1nesscoregenes = list(set(st1nesscoregenes))
+st1nesscoregenes.sort()
+st1essaccessorygenes = list(set(st1essaccessorygenes))
+st1essaccessorygenes.sort()
+st1sessaccessorygenes = list(set(st1sessaccessorygenes))
+st1sessaccessorygenes.sort()
+st1nessaccessorygenes = list(set(st1nessaccessorygenes))
+st1nessaccessorygenes.sort()
+
+cs1esscoregenes = list(set(cs1esscoregenes))
+cs1esscoregenes.sort()
+cs1sesscoregenes = list(set(cs1sesscoregenes))
+cs1sesscoregenes.sort()
+cs1nesscoregenes = list(set(cs1nesscoregenes))
+cs1nesscoregenes.sort()
+cs1essaccessorygenes = list(set(cs1essaccessorygenes))
+cs1essaccessorygenes.sort()
+cs1sessaccessorygenes = list(set(cs1sessaccessorygenes))
+cs1sessaccessorygenes.sort()
+cs1nessaccessorygenes = list(set(cs1nessaccessorygenes))
+cs1nessaccessorygenes.sort()
+
+h10esscoregenes = list(set(h10esscoregenes))
+h10esscoregenes.sort()
+h10sesscoregenes = list(set(h10sesscoregenes))
+h10sesscoregenes.sort()
+h10nesscoregenes = list(set(h10nesscoregenes))
+h10nesscoregenes.sort()
+h10essaccessorygenes = list(set(h10essaccessorygenes))
+h10essaccessorygenes.sort()
+h10sessaccessorygenes = list(set(h10sessaccessorygenes))
+h10sessaccessorygenes.sort()
+h10nessaccessorygenes = list(set(h10nessaccessorygenes))
+h10nessaccessorygenes.sort()
+
+rh2esscoregenes = list(set(rh2esscoregenes))
+rh2esscoregenes.sort()
+rh2sesscoregenes = list(set(rh2sesscoregenes))
+rh2sesscoregenes.sort()
+rh2nesscoregenes = list(set(rh2nesscoregenes))
+rh2nesscoregenes.sort()
+rh2essaccessorygenes = list(set(rh2essaccessorygenes))
+rh2essaccessorygenes.sort()
+rh2sessaccessorygenes = list(set(rh2sessaccessorygenes))
+rh2sessaccessorygenes.sort()
+rh2nessaccessorygenes = list(set(rh2nessaccessorygenes))
+rh2nessaccessorygenes.sort()
+
+eclesscoregenes = list(set(eclesscoregenes))
+eclesscoregenes.sort()
+eclsesscoregenes = list(set(eclsesscoregenes))
+eclsesscoregenes.sort()
+eclnesscoregenes = list(set(eclnesscoregenes))
+eclnesscoregenes.sort()
+eclessaccessorygenes = list(set(eclessaccessorygenes))
+eclessaccessorygenes.sort()
+eclsessaccessorygenes = list(set(eclsessaccessorygenes))
+eclsessaccessorygenes.sort()
+eclnessaccessorygenes = list(set(eclnessaccessorygenes))
+eclnessaccessorygenes.sort()
 
 sequences = read_fasta_sequences(seqdb)
 
@@ -1328,4 +1978,784 @@ for item in kenessaccessorygenes:
             kenessaccessorygenesfile.close()
         kenessaccessorygenesfile = open(kenessaccessorydir + '/' + name + '.fasta', 'w')
     kenessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in ty2esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'ty2esscoregenesfile' in locals():
+            ty2esscoregenesfile.close()
+        ty2esscoregenesfile = open(ty2esscoredir + '/' + name + '.fasta', 'w')
+    ty2esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in ty2sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'ty2sesscoregenesfile' in locals():
+            ty2sesscoregenesfile.close()
+        ty2sesscoregenesfile = open(ty2sesscoredir + '/' + name + '.fasta', 'w')
+    ty2sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in ty2nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'ty2nesscoregenesfile' in locals():
+            ty2nesscoregenesfile.close()
+        ty2nesscoregenesfile = open(ty2nesscoredir + '/' + name + '.fasta', 'w')
+    ty2nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in ty2essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'ty2essaccessorygenesfile' in locals():
+            ty2essaccessorygenesfile.close()
+        ty2essaccessorygenesfile = open(ty2essaccessorydir + '/' + name + '.fasta', 'w')
+    ty2essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in ty2sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'ty2sessaccessorygenesfile' in locals():
+            ty2sessaccessorygenesfile.close()
+        ty2sessaccessorygenesfile = open(ty2sessaccessorydir + '/' + name + '.fasta', 'w')
+    ty2sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in ty2nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'ty2nessaccessorygenesfile' in locals():
+            ty2nessaccessorygenesfile.close()
+        ty2nessaccessorygenesfile = open(ty2nessaccessorydir + '/' + name + '.fasta', 'w')
+    ty2nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+    prev_name = ''
+for item in p12esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'p12esscoregenesfile' in locals():
+            p12esscoregenesfile.close()
+        p12esscoregenesfile = open(p12esscoredir + '/' + name + '.fasta', 'w')
+    p12esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in p12sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'p12sesscoregenesfile' in locals():
+            p12sesscoregenesfile.close()
+        p12sesscoregenesfile = open(p12sesscoredir + '/' + name + '.fasta', 'w')
+    p12sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in p12nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'p12nesscoregenesfile' in locals():
+            p12nesscoregenesfile.close()
+        p12nesscoregenesfile = open(p12nesscoredir + '/' + name + '.fasta', 'w')
+    p12nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in p12essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'p12essaccessorygenesfile' in locals():
+            p12essaccessorygenesfile.close()
+        p12essaccessorygenesfile = open(p12essaccessorydir + '/' + name + '.fasta', 'w')
+    p12essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in p12sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'p12sessaccessorygenesfile' in locals():
+            p12sessaccessorygenesfile.close()
+        p12sessaccessorygenesfile = open(p12sessaccessorydir + '/' + name + '.fasta', 'w')
+    p12sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in p12nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'p12nessaccessorygenesfile' in locals():
+            p12nessaccessorygenesfile.close()
+        p12nessaccessorygenesfile = open(p12nessaccessorydir + '/' + name + '.fasta', 'w')
+    p12nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in sl1esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'sl1esscoregenesfile' in locals():
+            sl1esscoregenesfile.close()
+        sl1esscoregenesfile = open(sl1esscoredir + '/' + name + '.fasta', 'w')
+    sl1esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in sl1sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'sl1sesscoregenesfile' in locals():
+            sl1sesscoregenesfile.close()
+        sl1sesscoregenesfile = open(sl1sesscoredir + '/' + name + '.fasta', 'w')
+    sl1sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in sl1nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'sl1nesscoregenesfile' in locals():
+            sl1nesscoregenesfile.close()
+        sl1nesscoregenesfile = open(sl1nesscoredir + '/' + name + '.fasta', 'w')
+    sl1nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in sl1essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'sl1essaccessorygenesfile' in locals():
+            sl1essaccessorygenesfile.close()
+        sl1essaccessorygenesfile = open(sl1essaccessorydir + '/' + name + '.fasta', 'w')
+    sl1essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in sl1sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'sl1sessaccessorygenesfile' in locals():
+            sl1sessaccessorygenesfile.close()
+        sl1sessaccessorygenesfile = open(sl1sessaccessorydir + '/' + name + '.fasta', 'w')
+    sl1sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in sl1nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'sl1nessaccessorygenesfile' in locals():
+            sl1nessaccessorygenesfile.close()
+        sl1nessaccessorygenesfile = open(sl1nessaccessorydir + '/' + name + '.fasta', 'w')
+    sl1nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in a13esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'a13esscoregenesfile' in locals():
+            a13esscoregenesfile.close()
+        a13esscoregenesfile = open(a13esscoredir + '/' + name + '.fasta', 'w')
+    a13esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in a13sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'a13sesscoregenesfile' in locals():
+            a13sesscoregenesfile.close()
+        a13sesscoregenesfile = open(a13sesscoredir + '/' + name + '.fasta', 'w')
+    a13sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in a13nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'a13nesscoregenesfile' in locals():
+            a13nesscoregenesfile.close()
+        a13nesscoregenesfile = open(a13nesscoredir + '/' + name + '.fasta', 'w')
+    a13nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in a13essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'a13essaccessorygenesfile' in locals():
+            a13essaccessorygenesfile.close()
+        a13essaccessorygenesfile = open(a13essaccessorydir + '/' + name + '.fasta', 'w')
+    a13essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in a13sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'a13sessaccessorygenesfile' in locals():
+            a13sessaccessorygenesfile.close()
+        a13sessaccessorygenesfile = open(a13sessaccessorydir + '/' + name + '.fasta', 'w')
+    a13sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in a13nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'a13nessaccessorygenesfile' in locals():
+            a13nessaccessorygenesfile.close()
+        a13nessaccessorygenesfile = open(a13nessaccessorydir + '/' + name + '.fasta', 'w')
+    a13nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in d23esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'd23esscoregenesfile' in locals():
+            d23esscoregenesfile.close()
+        d23esscoregenesfile = open(d23esscoredir + '/' + name + '.fasta', 'w')
+    d23esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in d23sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'd23sesscoregenesfile' in locals():
+            d23sesscoregenesfile.close()
+        d23sesscoregenesfile = open(d23sesscoredir + '/' + name + '.fasta', 'w')
+    d23sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in d23nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'd23nesscoregenesfile' in locals():
+            d23nesscoregenesfile.close()
+        d23nesscoregenesfile = open(d23nesscoredir + '/' + name + '.fasta', 'w')
+    d23nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in d23essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'd23essaccessorygenesfile' in locals():
+            d23essaccessorygenesfile.close()
+        d23essaccessorygenesfile = open(d23essaccessorydir + '/' + name + '.fasta', 'w')
+    d23essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in d23sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'd23sessaccessorygenesfile' in locals():
+            d23sessaccessorygenesfile.close()
+        d23sessaccessorygenesfile = open(d23sessaccessorydir + '/' + name + '.fasta', 'w')
+    d23sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in d23nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'd23nessaccessorygenesfile' in locals():
+            d23nessaccessorygenesfile.close()
+        d23nessaccessorygenesfile = open(d23nessaccessorydir + '/' + name + '.fasta', 'w')
+    d23nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in st1esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'st1esscoregenesfile' in locals():
+            st1esscoregenesfile.close()
+        st1esscoregenesfile = open(st1esscoredir + '/' + name + '.fasta', 'w')
+    st1esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in st1sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'st1sesscoregenesfile' in locals():
+            st1sesscoregenesfile.close()
+        st1sesscoregenesfile = open(st1sesscoredir + '/' + name + '.fasta', 'w')
+    st1sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in st1nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'st1nesscoregenesfile' in locals():
+            st1nesscoregenesfile.close()
+        st1nesscoregenesfile = open(st1nesscoredir + '/' + name + '.fasta', 'w')
+    st1nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in st1essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'st1essaccessorygenesfile' in locals():
+            st1essaccessorygenesfile.close()
+        st1essaccessorygenesfile = open(st1essaccessorydir + '/' + name + '.fasta', 'w')
+    st1essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in st1sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'st1sessaccessorygenesfile' in locals():
+            st1sessaccessorygenesfile.close()
+        st1sessaccessorygenesfile = open(st1sessaccessorydir + '/' + name + '.fasta', 'w')
+    st1sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in st1nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'st1nessaccessorygenesfile' in locals():
+            st1nessaccessorygenesfile.close()
+        st1nessaccessorygenesfile = open(st1nessaccessorydir + '/' + name + '.fasta', 'w')
+    st1nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in cs1esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'cs1esscoregenesfile' in locals():
+            cs1esscoregenesfile.close()
+        cs1esscoregenesfile = open(cs1esscoredir + '/' + name + '.fasta', 'w')
+    cs1esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in cs1sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'cs1sesscoregenesfile' in locals():
+            cs1sesscoregenesfile.close()
+        cs1sesscoregenesfile = open(cs1sesscoredir + '/' + name + '.fasta', 'w')
+    cs1sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in cs1nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'cs1nesscoregenesfile' in locals():
+            cs1nesscoregenesfile.close()
+        cs1nesscoregenesfile = open(cs1nesscoredir + '/' + name + '.fasta', 'w')
+    cs1nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in cs1essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'cs1essaccessorygenesfile' in locals():
+            cs1essaccessorygenesfile.close()
+        cs1essaccessorygenesfile = open(cs1essaccessorydir + '/' + name + '.fasta', 'w')
+    cs1essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in cs1sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'cs1sessaccessorygenesfile' in locals():
+            cs1sessaccessorygenesfile.close()
+        cs1sessaccessorygenesfile = open(cs1sessaccessorydir + '/' + name + '.fasta', 'w')
+    cs1sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in cs1nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'cs1nessaccessorygenesfile' in locals():
+            cs1nessaccessorygenesfile.close()
+        cs1nessaccessorygenesfile = open(cs1nessaccessorydir + '/' + name + '.fasta', 'w')
+    cs1nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in h10esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'h10esscoregenesfile' in locals():
+            h10esscoregenesfile.close()
+        h10esscoregenesfile = open(h10esscoredir + '/' + name + '.fasta', 'w')
+    salesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in h10sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'h10sesscoregenesfile' in locals():
+            h10sesscoregenesfile.close()
+        h10sesscoregenesfile = open(h10sesscoredir + '/' + name + '.fasta', 'w')
+    h10sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in h10nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'h10nesscoregenesfile' in locals():
+            h10nesscoregenesfile.close()
+        h10nesscoregenesfile = open(h10nesscoredir + '/' + name + '.fasta', 'w')
+    h10nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in h10essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'h10essaccessorygenesfile' in locals():
+            h10essaccessorygenesfile.close()
+        h10essaccessorygenesfile = open(h10essaccessorydir + '/' + name + '.fasta', 'w')
+    h10essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in h10sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'h10sessaccessorygenesfile' in locals():
+            h10sessaccessorygenesfile.close()
+        h10sessaccessorygenesfile = open(h10sessaccessorydir + '/' + name + '.fasta', 'w')
+    h10sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in h10nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'h10nessaccessorygenesfile' in locals():
+            h10nessaccessorygenesfile.close()
+        h10nessaccessorygenesfile = open(h10nessaccessorydir + '/' + name + '.fasta', 'w')
+    h10nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in rh2esscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'rh2esscoregenesfile' in locals():
+            rh2esscoregenesfile.close()
+        rh2esscoregenesfile = open(rh2esscoredir + '/' + name + '.fasta', 'w')
+    rh2esscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in rh2sesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'rh2sesscoregenesfile' in locals():
+            rh2sesscoregenesfile.close()
+        rh2sesscoregenesfile = open(rh2sesscoredir + '/' + name + '.fasta', 'w')
+    rh2sesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in rh2nesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'rh2nesscoregenesfile' in locals():
+            rh2nesscoregenesfile.close()
+        rh2nesscoregenesfile = open(rh2nesscoredir + '/' + name + '.fasta', 'w')
+    rh2nesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in rh2essaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'rh2essaccessorygenesfile' in locals():
+            rh2essaccessorygenesfile.close()
+        rh2essaccessorygenesfile = open(rh2essaccessorydir + '/' + name + '.fasta', 'w')
+    rh2essaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in rh2sessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'rh2sessaccessorygenesfile' in locals():
+            rh2sessaccessorygenesfile.close()
+        rh2sessaccessorygenesfile = open(rh2sessaccessorydir + '/' + name + '.fasta', 'w')
+    rh2sessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in rh2nessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'rh2nessaccessorygenesfile' in locals():
+            rh2nessaccessorygenesfile.close()
+        rh2nessaccessorygenesfile = open(rh2nessaccessorydir + '/' + name + '.fasta', 'w')
+    rh2nessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in eclesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'eclesscoregenesfile' in locals():
+            eclesscoregenesfile.close()
+        eclesscoregenesfile = open(eclesscoredir + '/' + name + '.fasta', 'w')
+    eclesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in eclsesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'eclsesscoregenesfile' in locals():
+            eclsesscoregenesfile.close()
+        eclsesscoregenesfile = open(eclsesscoredir + '/' + name + '.fasta', 'w')
+    eclsesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in eclnesscoregenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'eclnesscoregenesfile' in locals():
+            eclnesscoregenesfile.close()
+        eclnesscoregenesfile = open(eclnesscoredir + '/' + name + '.fasta', 'w')
+    eclnesscoregenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in eclessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'eclessaccessorygenesfile' in locals():
+            eclessaccessorygenesfile.close()
+        eclessaccessorygenesfile = open(eclessaccessorydir + '/' + name + '.fasta', 'w')
+    eclessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in eclsessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'eclsessaccessorygenesfile' in locals():
+            eclsessaccessorygenesfile.close()
+        eclsessaccessorygenesfile = open(eclsessaccessorydir + '/' + name + '.fasta', 'w')
+    eclsessaccessorygenesfile.write(sequences[item].format('fasta'))
+    prev_name = name
+
+prev_name = ''
+for item in eclnessaccessorygenes:
+    match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    if not match_result:
+        match_result = match('([a-zA-Z]+?)\d+\S*', item)
+    name = match_result.group(1)
+    if name != prev_name:
+        if 'eclnessaccessorygenesfile' in locals():
+            eclnessaccessorygenesfile.close()
+        eclnessaccessorygenesfile = open(eclnessaccessorydir + '/' + name + '.fasta', 'w')
+    eclnessaccessorygenesfile.write(sequences[item].format('fasta'))
     prev_name = name

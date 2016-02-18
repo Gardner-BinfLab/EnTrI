@@ -60,8 +60,9 @@ par(mar = mar.default + c(0, 1, 0, 0))
 n= 30
 cols = c("green1","orange", "gray35")
 midpoints <- barplot(rbind(table(factor(orfan, levels=1:100)),table(factor(singcopy, levels=1:100)),
-                           table(factor(multicopy, levels=1:100))), col = cols, xlim=c(0,n), xaxt="n", border = NA)
-axis(1, at=midpoints[seq(2,n,2)], labels=seq(2,n,2))
+                           table(factor(multicopy, levels=1:100))), col = cols, xlim=c(0,n), xaxt="n", border = NA,
+                     xlab="Cluster size",ylab="Frequency", main ="Cluster size distribution", , cex.lab = 2, cex.axis = 1.5, cex.main = 2)
+axis(1, at=midpoints[seq(2,n,2)], labels=c(rbind(seq(2,n,4),NA))[1:(n/2)], cex.axis=1.5)
 legend(7,2300, c("ORFan","Single copy", "Multiple copy"), lty=c(1,1,1),cex=1.5, bty="n", lwd=c(4,4, 4),col=cols)
 
 dev.off()

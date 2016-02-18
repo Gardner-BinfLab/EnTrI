@@ -133,7 +133,7 @@ plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab=NA, yla
      xlim=c(0,4), ylim=c(0,100), lty= "blank", axes=FALSE)
 axis(1, at=seq(0,4,1), cex.axis=1.5)
 axis(2, at=seq(0,100,50), labels=c(0,NA,100), cex.axis=1.5)
-text(2.9,80, paste("n =", length(orfans)), lty=1, lwd=4, cex=1.15, bty="n")
+text(3.1,80, paste("n =", length(orfans)), lty=1, lwd=4, cex=1.15, bty="n")
 lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
 lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
 
@@ -145,7 +145,7 @@ plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab=NA, yla
      xlim=c(0,4), ylim=c(0,100), lty= "blank", axes=FALSE)
 axis(1, at=seq(0,4,1), cex.axis=1.5)
 axis(2, at=seq(0,100,50), labels=c(NA,NA,NA), cex.axis=1.5)
-text(2.9,80, paste("n =", length(single_occurrence)), lty=1, lwd=4, cex=1.15, bty="n")
+text(3,80, paste("n =", length(single_occurrence)), lty=1, lwd=4, cex=1.15, bty="n")
 lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
 lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
 
