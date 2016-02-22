@@ -9,7 +9,7 @@ import numpy as np
 genomespath = '../sequences/fasta-genome/chromosome'
 plotspath = '../sequences/plot-files/chromosome'
 genomextension = 'fa'
-logospath = '../results/100logos.txt'
+logospath = '../results/logos/100logos.txt'
 complement = {'a': 't', 'c': 'g', 'g': 'c', 't': 'a', 'u': 'a', 'm': 'k', 'k': 'm', 'r': 'y',
               'y': 'r', 'w': 'w', 's': 's', 'v': 'b', 'b': 'v', 'h': 'd', 'd': 'h', 'n': 'n'}
 
