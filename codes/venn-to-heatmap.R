@@ -1,8 +1,7 @@
 library("gplots")
 venspath <- "../results/pairwise-venn-diagrams/"
 list_of_files <- list.files(path=venspath, full.names=T, recursive=FALSE)
-plot_mains = c("Rows: essential, Columns: absent", "Rows: essential, Columns: essential", "Rows: essential, Columns: non-essential",
-               "Rows: present, Columns: absent", "Rows: present, Columns: present")
+plot_mains = c("Ess(rows)-Abs(columns)", "Ess-Ess", "Ess(rows)-NoEs(columns)", "Pres(rows)-Abs(columns)", "Pres-Pres")
 i = 1
 
 pdf("../results/essentiality-heatmap.pdf")

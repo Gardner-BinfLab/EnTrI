@@ -8,16 +8,23 @@
 \graphicspath{{../../results/}}
 
 \begin{document}
-\section{Are EnTrI results biased?}
-Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for two types of biases: the distance from the origin and GC content.
-% As Figure~\ref{fig:distance_bias} shows, there is an insertion index bias towards the position of the genes for different strains.
-The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin. We have used the LOESS curve and for each strain, divided the insertion indices by the predicted LOESS value to normalise the insertion indices. As the distribution of new insertion indices will be around 1, we have multiplied the resulted values by the mean of the initial insertion indices to have a distribution around the mean. The results are shown in Figure~\ref{fig:normalised_distance_bias}.
+\section{The homologue clustering program}
+We have developed a program which clusters homologous genes. This program uses jackhmmer from HMMER package for clustering. Figure~\ref{fig:cluster-size-dist} shows the results of this clustering on all the genes in the 13 species under study. To divide our clusters into ORFan, single copy, and multiple copy groups, we have used the procedure represented in Figure~\ref{fig:orfan-singlecopy-multiplecopy}.
 
-%\begin{figure}[H]
-%\includegraphics[scale=0.28, page=1]{biases.pdf}
-%\caption{The bias towards the distance from origin (DnaA gene) for all of the species under study. The red curve shows the fitted LOWESS regression curve.}
-%\label{fig:distance_bias}
-%\end{figure}
+\begin{figure}[H]
+\includegraphics[scale=0.40]{cluster-size-dist.pdf}
+\caption{The distribution of the size of the clusters resulted from clustering all homologous genes in the 13 species under study.}
+\label{fig:cluster-size-dist}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.25, angle=90]{flowchart_orfan_sing_mult/flowchart-orfansingmult.pdf}
+\caption{The procedure used to divide clusters into three groups: ORFan, single copy, and multiple copy.}
+\label{fig:orfan-singlecopy-multiplecopy}
+\end{figure}
+
+\section{Are EnTrI results biased?}
+Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for two types of biases: the distance from the origin and GC content. The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin. We have used the LOESS curve and for each strain, divided the insertion indices by the predicted LOESS value to normalise the insertion indices. As the distribution of new insertion indices will be around 1, we have multiplied the resulted values by the mean of the initial insertion indices to have a distribution around the mean. The results are shown in Figure~\ref{fig:normalised_distance_bias}.
 
 \begin{figure*}
 \centering
@@ -67,11 +74,11 @@ We have also checked for GC bias. There was a bias towards the GC content of the
 \includegraphics[scale=0.35, page=26]{biases.pdf} &
 \includegraphics[scale=0.35, page=27]{biases.pdf}
 \end{tabular}
-\caption{The bias towards GC content. The LOESS curve is shown in red.}
+\caption{The bias towards GC content (left) and the data after normalising GC bias using LOESS curve and mean (right). The LOESS curve is shown in red.}
 \label{fig:GC_bias}
 \end{figure*}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \begin{tabular}{c c}
 \includegraphics[scale=.98, angle = -90]{logos/logo-prob.pdf} &
@@ -81,63 +88,94 @@ We have also checked for GC bias. There was a bias towards the GC content of the
 \label{fig:logo}
 \end{figure}
 
-\section{Can we recover phylogenetic information from the essential genes?}
-To get the evolutionary relationship among all our strains, we collected all clusters with one and only one gene per genome and concatenated all the genes corresponding to every strain. Then aligned them using mafft and generated a phylogenetic tree using fasttree software. The resulted phylogenetic tree is depicted in Figure~\ref{fig:species-tree}.
+\section{Gene essentiality}
+After normalising the insertion indices, we have used these values to determine the essentiality of genes. The insertion index distribution for each single strain is pictured in Figure~\ref{fig:ii-singlestrain}. If the insertion index is less than 0.2, the corresponding gene is regarded as essential, if it is between 0.2 and 2, the gene is non-essential, and otherwise, it is considered as a beneficial loss.
 
-\begin{figure}
-\includegraphics[scale=0.14]{../speciestree/speciestree-annotated.png}
-\caption{The tree is generated from all the clusters with one and only one gene per strain.}
+\begin{figure*}
+\centering
+\begin{tabular}{c c c}
+\includegraphics[page=1, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=2, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=3, scale=0.28]{per-species-insertion-index.pdf} \\ 
+\includegraphics[page=4, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=5, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=6, scale=0.28]{per-species-insertion-index.pdf} \\
+\includegraphics[page=7, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=8, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=9, scale=0.28]{per-species-insertion-index.pdf} \\
+\includegraphics[page=10, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=11, scale=0.28]{per-species-insertion-index.pdf} &
+\includegraphics[page=12, scale=0.28]{per-species-insertion-index.pdf} \\
+\end{tabular}
+\caption{Insertion index distribution for every single strain.}
+\label{fig:ii-singlestrain}
+\end{figure*}
+
+Figure~\ref{fig:ii-clusters} shows the insertion index distribution for all clusters. We have divided the clusters into ORFan, single copy, and multiple copy groups and studied the essentiality in these groups.
+
+\begin{figure}[H]
+\includegraphics[scale=0.4]{cluster-essentiality.pdf}
+\caption{Essentiality of clusters in all clusters, ORFan, single copy clusters, and multiple copy clusters.}
+\label{fig:ii-clusters}
+\end{figure}
+
+\section{Can we recover phylogenetic information from the essential genes?}
+To get the evolutionary relationship among all our strains, we collected all clusters with one and only one gene per genome and concatenated all the genes corresponding to every strain. Then, aligned them using mafft and generated a phylogenetic tree using fasttree software. The resulted phylogenetic tree is depicted in Figure~\ref{fig:species-tree}.
+
+\begin{figure}[H]
+\includegraphics[scale=0.13]{../speciestree/speciestree-annotated.png}
+\caption{The tree is generated from all genes that are copied only once per genome using an approximately-maximum-likelihood method called fasttree.}
 \label{fig:species-tree}
 \end{figure}
 
-To test if the same tree can be obtained from the essentiality of genes, we have selected all clusters that contain exactly one gene from each strain (82 clusters) and made a binary matrix from the essentiality of the genes in these clusters. If a gene is essential in a strain, the corresponding value in the matrix is 1 and if the gene  is not essential, the value is 0. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree.  Figure~\ref{fig:essentiality-tree} indicates that the resulting tree does not maintain the phylogenetic information of the species under study.
+To test if the same tree can be obtained from the essentiality of genes, we have selected all clusters that contain exactly one gene from each strain (82 clusters) and made a binary matrix from the essentiality of the genes in these clusters. If a gene is essential in a strain, the corresponding value in the matrix is 1 and if the gene  is not essential, the value is 0. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree using ``phylip neighbor'' software which uses a neighbour joining method.  Figure~\ref{fig:essentiality-tree} indicates that the resulting tree does not maintain the phylogenetic information of the species under study.
 
-\begin{figure}
-\includegraphics[scale=0.14]{make-essentiality-tree/essentiality-tree.pdf}
-\caption{The phylogenetic tree is generated using ``phylip neighbor'' software.}
+\begin{figure}[H]
+\includegraphics[scale=0.13]{make-essentiality-tree/essentiality-tree.pdf}
+\caption{The tree is generated from all the genes that are copied only once per genome. We have made a binary matrix from the essentiality of these genes. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree using ``phylip neighbor'' software which uses a neighbour joining method.}
 \label{fig:essentiality-tree}
 \end{figure}
 
-We have also compared every pair of strains and calculated the number of genes that are essential in one strain and absent in the other, the number of genes that are essential in both strains, the number of genes that are essential in one strain and present but not essential in the other strain, the number of genes that are present in one strain and absent in the other, and the number of genes that are shared between the two strains. The resulted heatmaps can be seen in Figure~\ref{fig:pairwise-venn}. The dendograms obtained from heatmaps in this figure are consistent with the species tree to some extent. 
+We have also compared every pair of strains and calculated the number of genes that are essential in one strain and absent in the other, the number of genes that are essential in both strains, the number of genes that are essential in one strain and present but not essential in the other strain, the number of genes that are present in one strain and absent in the other, and the number of genes that are shared between the two strains. The resulted heatmaps can be seen in Figure~\ref{fig:pairwise-venn}. 
 
 \begin{figure*}
 \centering
 \begin{tabular}{c c}
-\includegraphics[page=1, scale=0.35]{essentiality-heatmap.pdf} & 
-\includegraphics[page=2, scale=0.35]{essentiality-heatmap.pdf} \\
-\includegraphics[page=3, scale=0.35]{essentiality-heatmap.pdf} & 
-\includegraphics[page=4, scale=0.35]{essentiality-heatmap.pdf} \\
-\includegraphics[page=5, scale=0.35]{essentiality-heatmap.pdf} & 
-\\
+\includegraphics[scale=0.35]{venn/venn.pdf}&
+\includegraphics[page=5, scale=0.34]{essentiality-heatmap.pdf} \\ 
+\includegraphics[page=2, scale=0.34]{essentiality-heatmap.pdf} &
+\includegraphics[page=3, scale=0.34]{essentiality-heatmap.pdf} \\ 
+\includegraphics[page=1, scale=0.34]{essentiality-heatmap.pdf} &
+\includegraphics[page=4, scale=0.34]{essentiality-heatmap.pdf}
 \end{tabular}
-\caption{The number of genes that are essential in one strain and absent in the other (upper left), the number of genes that are essential in both strains (upper right), the number of genes that are essential in one strain and present but not essential in the other strain (middle left), the number of genes that are present in one strain and absent in the other (middle right), and the number of genes that are shared between the two strains (lower left).}
+\caption{The heat maps shows the normalised number of genes in each group. The genes can be present in both strains (Pres-Pres in the Venn diagram and the upper right heat map), essential in both strains (Ess-Ess in the Venn diagram and the middle left heat map), essential in one species and not essential in the other (Ess-NoEs in the Venn diagram and the middle right heat map), essential in one species and absent in the other species (Ess-Abs in the Venn diagram and the bottom left heat map), and present in one species and absent in the other (pres-Abs in the Venn diagram and the bottom right heat map).}
 \label{fig:pairwise-venn}
 \end{figure*}
 
 \section{Are conserved genes more likely to be essential?}
-To find out whether conserved genes are more likely to be essential or not we have counted the number of essential, sometimes essential and never essential genes in both core and accessory genomes. The results are summarised in Table~\ref{table:core-accessory}. Core genes are the ones that have at least one copy per genome, otherwise, the genes are called accessory.
+To find out whether conserved genes are more likely to be essential or not we have counted the number of essential, sometimes essential and never essential genes in both core and accessory genomes. The results are summarised in Table~\ref{table:core-accessory}. Core genes are the ones that have at least one copy per genome, otherwise, the genes are called accessory. The p-values show that the essentiality of genes is not independent of their conservation.
 
 \begin{table*}
 \centering
-\begin{tabular}{| l || c | c | c || c || c | c | c || c |}
+\begin{tabular}{| l || c | c | c || c || c | c | c || c || c |}
 \hline
-Species&\multicolumn{4}{c ||}{Core} & \multicolumn{4}{c |}{Accessory}\\
+Species&\multicolumn{4}{c ||}{Core} & \multicolumn{4}{c |}{Accessory} & Fisher's test\\
 \cline{2-9}
-Name&Ess&SEss&NEss&Sum&Ess&SEss&NEss&Sum\\
+Name&Ess&SEss&NEss&Sum&Ess&SEss&NEss&Sum&p-value\\
 \hline
-Salmonella typhimurium A130&266&665&1621&2552&53&327&1528&1908\\
-Salmonella typhimurium D23580&267&670&1624&2561&54&339&1550&1943\\
-Salmonella typhimurium SL1344&266&674&1630&2570&63&350&1546&1959\\
-Salmonella enteritidis P125109&266&679&1615&2560&61&311&1015&1387\\
-Salmonella typhi Ty2&265&628&1564&2457&56&294&1505&1855\\
-Escherichia coli UPEC ST131&299&685&1635&2619&62&323&1767&2152\\
-Escherichia coli ETEC CS17&280&656&1603&2539&107&356&1586&2049\\
-Escherichia coli ETEC H10407&284&656&1623&2563&89&329&1743&2161\\
-Escherichia coli K-12&279&657&1612&2548&174&278&1311&1763\\
-Citrobacter rodentium ICC168&304&685&1630&2619&96&356&1868&2320\\
-Enterobacter cloacae NCTC 9394&280&623&1526&2429&34&129&1128&1291\\
-Klebsiella penumoniae RH201207&357&864&1780&3001&69&279&2314&2662\\
-Klebsiella pneumoniae Ecl8&357&840&1770&2967&61&225&1751&2037\\
+Salmonella typhimurium A130&266&665&1621&2552&53&327&1528&1908&$< 2.2e-16$\\
+Salmonella typhimurium D23580&267&670&1624&2561&54&339&1550&1943&$< 2.2e-16$\\
+Salmonella typhimurium SL1344&266&674&1630&2570&63&350&1546&1959&$< 2.2e-16$\\
+Salmonella enteritidis P125109&266&679&1615&2560&61&311&1015&1387&$= 2.669e-14$\\
+Salmonella typhi Ty2&265&628&1564&2457&56&294&1505&1855&$< 2.2e-16$\\
+Escherichia coli UPEC ST131&299&685&1635&2619&62&323&1767&2152&$< 2.2e-16$\\
+Escherichia coli ETEC CS17&280&656&1603&2539&107&356&1586&2049&$< 2.2e-16$\\
+Escherichia coli ETEC H10407&284&656&1623&2563&89&329&1743&2161&$< 2.2e-16$\\
+%Escherichia coli K-12&279&657&1612&2548&174&278&1311&1763&$= 6.664e-16$\\
+Citrobacter rodentium ICC168&304&685&1630&2619&96&356&1868&2320&$< 2.2e-16$\\
+Enterobacter cloacae NCTC 9394&280&623&1526&2429&34&129&1128&1291&$< 2.2e-16$\\
+Klebsiella penumoniae RH201207&357&864&1780&3001&69&279&2314&2662&$< 2.2e-16$\\
+Klebsiella pneumoniae Ecl8&357&840&1770&2967&61&225&1751&2037&$< 2.2e-16$\\
 \hline
 \end{tabular}
 \caption{The number of essential (Ess), sometimes essential (SEss) and never essential (NEss) genes in both core and accessory genomes. Core genes are the ones that have at least one copy per genome, otherwise, the genes are called accessory.}
