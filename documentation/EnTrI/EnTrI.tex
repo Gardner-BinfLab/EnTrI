@@ -24,7 +24,7 @@ We have developed a program which clusters homologous genes. This program uses j
 \end{figure}
 
 \section{Are EnTrI results biased?}
-Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for two types of biases: the distance from the origin and GC content. The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin. We have used the LOESS curve and for each strain, divided the insertion indices by the predicted LOESS value to normalise the insertion indices. As the distribution of new insertion indices will be around 1, we have multiplied the resulted values by the mean of the initial insertion indices to have a distribution around the mean. The results are shown in Figure~\ref{fig:normalised_distance_bias}.
+Since transposon insertion biases can affect the essentiallity level inferred from transposon mutagenesis experiments, the dataset has been tested for three types of biases: the distance from the origin, GC content, and the position of insertions in genes. The distance bias in every individual strain is depicted in Figure~\ref{fig:distance_bias_individual}. These plots indicate that the bias is negligible in some strains like Salmonella typhi, while the insertion indices of the genes in other strains need to be normalised by their distances from the origin. We have used the LOESS curve and for each strain, divided the insertion indices by the predicted LOESS value to normalise the insertion indices. As the distribution of new insertion indices will be around 1, we have multiplied the resulted values by the mean of the initial insertion indices to have a distribution around the mean. The results are shown in Figure~\ref{fig:normalised_distance_bias}.
 
 \begin{figure*}
 \centering
@@ -66,7 +66,7 @@ Since transposon insertion biases can affect the essentiallity level inferred fr
 \label{fig:normalised_distance_bias}
 \end{figure*}
 
-We have also checked for GC bias. There was a bias towards the GC content of the genes and we normalised the insertion indices for GC content in the same way as we did for gene position. The results, before and after the normalisation, are plotted in Figure~\ref{fig:GC_bias}. To see if there is any positional bias for any nucleotide, the nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences. It can be inferred from Figure~\ref{fig:logo} that there is no significant bias in any position. 
+We have also checked for GC bias. There was a bias towards the GC content of the genes and we normalised the insertion indices for GC content in the same way as we did for gene position. The results, before and after the normalisation, are plotted in Figure~\ref{fig:GC_bias}. To see if there is any positional bias for any nucleotide, the nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences. It can be inferred from Figure~\ref{fig:logo} that there is no significant bias in any position.
 
 \begin{figure*}
 \centering
@@ -87,6 +87,20 @@ We have also checked for GC bias. There was a bias towards the GC content of the
 \caption{The nucleotides around the insertion sites (the insertion site and 10 nucleotides on each side) are stacked on top of each other and a sequence logo is generated from these sequences using webLogo stand-alone package. The height of the letter stack in each position shows how conserved the bases in that position are.}
 \label{fig:logo}
 \end{figure}
+
+The bias towards the position of insertions within genes has been studied since the genes can tolerate lower number of insertions at the start of the gene. We have divided our genes into 3 parts: first 60 nucleotides, last 60 nucleotides, and the rest and plotted the normalised number of insertions in each of these groups. Figure~\ref{fig:insertion-position-bias} summarises the results.
+
+\begin{figure*}
+\centering
+\begin{tabular}{c c}
+\includegraphics[scale=.45, page = 1]{insertion-position-bias.pdf} &
+\includegraphics[scale=.45, page = 2]{insertion-position-bias.pdf} \\
+\includegraphics[scale=.45, page = 3]{insertion-position-bias.pdf} &
+\includegraphics[scale=.45, page = 4]{insertion-position-bias.pdf}
+\end{tabular}
+\caption{We have divided our genes into 3 parts: first 60 nucleotides (position 1-60), last 60 nucleotides (position 121-180), and the rest (position 61-120) and plotted the normalised number of insertion sites in each of these groups.}
+\label{fig:insertion-position-bias}
+\end{figure*}
 
 \section{Gene essentiality}
 After normalising the insertion indices, we have used these values to determine the essentiality of genes. The insertion index distribution for each single strain is pictured in Figure~\ref{fig:ii-singlestrain}. If the insertion index is less than 0.2, the corresponding gene is regarded as essential, if it is between 0.2 and 2, the gene is non-essential, and otherwise, it is considered as a beneficial loss.
