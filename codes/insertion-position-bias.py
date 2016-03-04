@@ -20,7 +20,7 @@ for filename in list_of_files:
 
 genome_insertions = dict()
 for item in plots_dict.keys():
-    genome_insertions[item] = sum(plots_dict[item])
+    genome_insertions[item] = sum([1 for x in plots_dict[item] if x > 0])
 
 gene_name = ''
 position_insertion = [0]*180
@@ -64,4 +64,7 @@ with open(result, 'w') as tofile:
                         gene_insertions = sum([1 for x in plots_dict[strain_name][start:end+1] if x > 0])
                         ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
                     if strand == 'Complement':
-                        position_insertion.reverse()
+                        temp = position_insertion[0:(len(position_insertion)-1)]
+                        temp.reverse()
+                        temp.append(position_insertion[len(position_insertion)-1])
+                        position_insertion = temp

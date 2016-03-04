@@ -15,13 +15,13 @@ for (filename in list_of_files)
   cuts <- cut(h$breaks, c(-Inf,0.18, 1.98, Inf))
   plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion Index",
        main =dict[strsplit(basename(filename), "\\.")[[1]][1]], cex.lab = 2,
-       cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,200), lty= "blank", axes=FALSE)
+       cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,100), lty= "blank", axes=FALSE)
   axis(1, at=seq(0,4,1), cex.axis=1.5)
-  axis(2, at=seq(0,200,50), labels=c(0,NA,NA,NA,200), cex.axis=1.5)
-  text(2.85,190, paste("n =", nrow(iitable)), lty=1, lwd=4, cex=1.15, bty="n")
-  legend(2.4,180, c("Essential","Non-essential", "Beneficial loss"), lty=c(1,1,1), lwd=c(4,4,4),cex=1.15,
+  axis(2, at=seq(0,100,50), labels=c(0,50,100), cex.axis=1.5)
+  text(2.85,83, paste("n =", nrow(iitable)), lty=1, lwd=4, cex=1.15, bty="n")
+  legend(2.4,80, c("Essential","Non-essential", "Beneficial loss"), lty=c(1,1,1), lwd=c(4,4,4),cex=1.15,
          col=c("darkgoldenrod4","turquoise4", "darkmagenta"), bty="n")
-  lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
-  lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
+  # lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
+  # lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
 }
 dev.off()
