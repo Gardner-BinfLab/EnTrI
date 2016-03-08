@@ -4,6 +4,8 @@ dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherich
          "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
          "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi")
 names(dict) <- names
+resolutions = c(12, 8, 8, 9, 11, 10, 22, 7, 20, 7, 11, 10)
+names(resolutions) <- names
 pdf("../results/per-species-insertion-index.pdf")
 list_of_files <- list.files(path=indir, full.names=T, recursive=FALSE)
 for (filename in list_of_files)
@@ -18,7 +20,8 @@ for (filename in list_of_files)
        cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,100), lty= "blank", axes=FALSE)
   axis(1, at=seq(0,4,1), cex.axis=1.5)
   axis(2, at=seq(0,100,50), labels=c(0,50,100), cex.axis=1.5)
-  text(2.85,83, paste("n =", nrow(iitable)), lty=1, lwd=4, cex=1.15, bty="n")
+  text(2.4,87, paste("N =", nrow(iitable)), lty=1, lwd=4, cex=1.15, bty="n",pos=4)
+  text(2.4,82.5, paste("Resolution =", resolutions[strsplit(basename(filename), "\\.")[[1]][1]]), lty=1, lwd=4, cex=1.15, bty="n", pos=4)
   legend(2.4,80, c("Essential","Non-essential", "Beneficial loss"), lty=c(1,1,1), lwd=c(4,4,4),cex=1.15,
          col=c("darkgoldenrod4","turquoise4", "darkmagenta"), bty="n")
   # lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
