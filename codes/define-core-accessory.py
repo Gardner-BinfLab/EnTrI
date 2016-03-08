@@ -33,8 +33,8 @@ sequences = read_fasta_sequences(seqdb)
 list_of_files = listdir(clusters)
 species_names = defaultdict()
 species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
-    "STMMW", "t"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t"], "ecoli":["CS17", "ETEC",
-    "NCTC13441"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
+    "STMMW", "t"],"typhimurium":["STM", "SL1344", "STMMW"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t"],
+    "ecoli":["CS17", "ETEC", "NCTC13441"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
     ["ENC"], "salmonellaecoli":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441"],
     "salmonellaecolicitrobacter":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "ROD"],
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
