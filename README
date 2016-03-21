@@ -33,10 +33,11 @@
 
 2. Run check-biases
 	cd EnTrI/codes
+	mkdir ../results/check-biases
 	python check-biases.py
 	Rscript check-biases.R
 3. Save fasta genomes in sequences/fasta-genome/chromosome (Most of them were downloadable or provided previously)
-4. Rename the files as in the "STUDY CLUSTERS" section, point 1.
+4. Rename the files as in the "CHECK FOR BIASES" section, point 1.
 5. Run make-logos.py
 	cd EnTrI/codes
 	mkdir ../results/logos
@@ -75,7 +76,7 @@
 	cd EnTrI/codes  
 	Rscript clust2plot.R
 - The output is a file called "cluster-essentiality.pdf" in results directory.
-4. Generate per plots for per species insertion indices:
+4. Generate plots for per species insertion indices:
 	cd EnTrI/codes
 	per-species-ii.py
 	Rscript per-species-ii.R

@@ -57,23 +57,4 @@ for key1, key2 in combinations(ec_clusters.keys(), r=2):
             tp += 1
 print tp, fn, fp, tn
 
-# 17098 31857 16901 13373664
-# sensitivity = 0.349259524
-# specificity = 0.998737843
-# PPV         = 0.5028971
-# NPV         = 0.9976236
-
-
-#NEW
-# 16567 32388 11401 13379164
-# sensitivity = 0.338412828
-# specificity = 0.99914858
-# PPV         = 0.592355549
-# NPV         = 0.997585067
-
-#
-# 14886 34069 7448 13383117
-# sensitivity = 0.304075171
-# specificity = 0.997460492
-# PPV         = 0.666517417
-# NPV         = 0.997460794
+# 9138 158507 971 6838280

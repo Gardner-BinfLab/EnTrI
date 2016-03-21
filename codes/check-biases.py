@@ -4,7 +4,8 @@ from os import listdir, path
 
 seqdb = '../sequences/fasta-dna/chromosome/seqdb.fasta'
 plots = '../sequences/plot-files/chromosome'
-result = '../results/check-biases.out'
+resultwithends = '../results/check-biases/with-ends.txt'
+resultwithoutends = '../results/check-biases/without-ends.txt'
 genome_length = {"SL1344":4878012, "STMMW":4879400, "SEN":4685848, "t":4791961, "STM":4895639, "ETEC":5153435,
                  "b":4641652, "CS17":4994793, "NCTC13441":5174631, "ROD":5346659, "BN373":5324709, "ERS227112":5869288,
                  "ENC":4908759}
@@ -23,7 +24,7 @@ for item in plots_dict.keys():
     genome_insertions[item] = sum([1 for x in plots_dict[item] if x > 0])
 
 gene_name = ''
-with open(result, 'w') as tofile:
+with open(resultwithends, 'w') as tofile:
     with open(seqdb, 'r') as sequencefile:
         for line in sequencefile:
             if line.startswith('>'):
@@ -47,3 +48,34 @@ with open(result, 'w') as tofile:
                     ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
             else:
                 gc += line.count('g') + line.count('c')
+
+gene_name = ''
+with open(resultwithoutends, 'w') as tofile:
+    with open(seqdb, 'r') as sequencefile:
+        for line in sequencefile:
+            if line.startswith('>'):
+                if gene_name != '':
+                    seq = seq[19:len(seq)-60]
+                    gc = seq.count('g') + seq.count('c')
+                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(start)/genome_length[strain_name], float(gc)/(end-start+1)))
+                seq = ''
+                match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
+                if match_result is None:
+                    match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
+                if match_result is not None:
+                    gene_name = match_result.group(1)
+                    strain_name = match_result.group(2)
+                    start = int(match_result.group(3)) + 20
+                    end = int(match_result.group(4)) - 60
+                    if (end - start + 1) < 60:
+                        strain_name = ''
+                else:
+                    strain_name = ''
+                if strain_name not in plots_dict.keys():
+                    gene_name = ''
+                else:
+                    gene_insertions = sum([1 for x in plots_dict[strain_name][start-1:end] if x > 0])
+                    ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
+            else:
+                seq += line.rstrip()
+                # gc += line.count('g') + line.count('c')

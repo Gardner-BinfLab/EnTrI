@@ -4,7 +4,7 @@ dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherich
          "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
          "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi")
 names(dict) <- names
-resolutions = c(12, 8, 8, 9, 11, 10, 22, 7, 20, 7, 11, 10)
+resolutions = c(11.72, 7.50, 7.74, 9.18, 11.26, 9.78, 21.76, 7.08, 19.80, 7.49, 10.54, 9.89)
 names(resolutions) <- names
 pdf("../results/per-species-insertion-index.pdf")
 list_of_files <- list.files(path=indir, full.names=T, recursive=FALSE)
