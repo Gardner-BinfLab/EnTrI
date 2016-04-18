@@ -59,15 +59,18 @@
 	python insertion-position-bias.py
 	Rscript insertion-position-bias.R
 
+10. Select predicted operons from DOOR (http://csbl.bmb.uga.edu/DOOR/) because it is mentioned as the best method in this benchmark (Brouwer, Rutger WW, Oscar P. Kuipers, and Sacha AFT van Hijum. "The relative value of operon predictions." Briefings in bioinformatics 9, no. 5 (2008): 367-375.)
+
 ============ REMOVE BIASES
 1. Run remove-biases
 	cd EnTrI/codes
+	mkdir ../results/remove-biases
 	Rscript remove-biases.R
 
 ============ STUDY CLUSTERS
 1. Run merge-clust-plot to add insertion indices to genes in clusters
 	cd EnTrI/codes
-	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/normalised-iis.txt ../results/merge-clust-plot
+	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/remove-biases/normalised-iis-without-ends.txt ../results/merge-clust-plot
 2. Plot cluster size distribution (This is not a general script and can only be used for this case)
 	cd EnTrI/codes
 	Rscript orfan-single-multiple.R

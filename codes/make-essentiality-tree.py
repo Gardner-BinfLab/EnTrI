@@ -44,11 +44,12 @@ for filename in list_of_files:
                 name = match_result.group(1)
                 if name in gene_dict.keys():
                     gene_dict[name] += 1
-                    if float(cells[4]) < 0.2:
+                    if 0 <= float(cells[4]) < 0.2:
                         iil[ii_dict[name]] = 1
     if gene_dict[max(gene_dict, key=gene_dict.get)] == 1 and gene_dict[min(gene_dict, key=gene_dict.get)] == 1 and 1 < sum(iil) < num_species-1:
         list_of_gene_files.append(path.basename(filename))
         list_of_insertion_indices.append(list(iil)) # Without list, it will append the reference to iil and if we change iil, the matrix will change.
+print(list_of_gene_files)
 
 num_genes = len(list_of_insertion_indices)
 list_of_insertion_indices = [list(i) for i in zip(*list_of_insertion_indices)]

@@ -1,7 +1,8 @@
 library(stringr)
 # args <- commandArgs(trailingOnly = TRUE)
 # clusters <- args[1]
-clusters_path <- c("../results/merge-clust-plot", "../results/merge-clust-plot-without-ends/")
+clusters_path <- "../results/merge-clust-plot"
+# clusters_path <- c("../results/merge-clust-plot", "../results/merge-clust-plot-without-ends/")
 for (cpitem in clusters_path)
 {
   list_of_files <- list.files(path=cpitem, full.names=T, recursive=FALSE)
@@ -60,10 +61,11 @@ for (cpitem in clusters_path)
   size_index <- sapply(file_size, function(x){as.numeric(x[1])})
   group_index <- file_group
   
-  if (cpitem == clusters_path[1])
-    pdf("../results/cluster-essentiality.pdf")
-  else
-    pdf("../results/cluster-essentiality-without-ends.pdf")
+  # if (cpitem == clusters_path[1])
+  #   pdf("../results/cluster-essentiality.pdf")
+  # else
+  #   pdf("../results/cluster-essentiality-without-ends.pdf")
+  pdf("../results/cluster-essentiality.pdf")
   
   m <- rbind(c(0,1,0.5,1), c(0, 0.34, 0, 0.5), c(0.34, 0.67, 0, 0.5), c(0.67, 1, 0, 0.5))
   temp <- split.screen(m)

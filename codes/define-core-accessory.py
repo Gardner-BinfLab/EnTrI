@@ -72,6 +72,7 @@ for item in species_names.keys():
             gene_dict[key] = 0
             essentiality_dict[key] = 0
         list_of_genes = []
+        list_of_essential_genes = []
 
         with open('{0}/{1}'.format(clusters, filename)) as from_file:
             for line in from_file:
@@ -84,17 +85,20 @@ for item in species_names.keys():
                     if name in gene_dict.keys():
                         list_of_genes.append(cells[1])
                         gene_dict[name] = 1
-                        if float(cells[4]) < 0.2:
+                        if 0 <= float(cells[4]) < 0.2:
+                            list_of_essential_genes.append(cells[1])
                             essentiality_dict[name] = 1
         if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
-            if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
+            #if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
+            if len(list_of_essential_genes) == len(list_of_genes):
                 esscoregenes += list_of_genes
             elif essentiality_dict[max(essentiality_dict, key=essentiality_dict.get)] == 0:
                 nesscoregenes += list_of_genes
             else:
                 sesscoregenes += list_of_genes
         else:
-            if not sum([gene_dict[item] - essentiality_dict[item] for item in essentiality_dict.keys()]):
+            #if not sum([gene_dict[item] - essentiality_dict[item] for item in essentiality_dict.keys()]):
+            if len(list_of_essential_genes) == len(list_of_genes):
                 essaccessorygenes += list_of_genes
             elif essentiality_dict[max(essentiality_dict, key=essentiality_dict.get)] == 0:
                 nessaccessorygenes += list_of_genes

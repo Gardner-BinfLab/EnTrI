@@ -1,5 +1,5 @@
 from collections import defaultdict
-from re import match
+from re import match, findall
 from os import listdir, path
 
 seqdb = '../sequences/fasta-dna/chromosome/seqdb.fasta'
@@ -29,23 +29,32 @@ with open(resultwithends, 'w') as tofile:
         for line in sequencefile:
             if line.startswith('>'):
                 if gene_name != '':
-                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(start)/genome_length[strain_name], float(gc)/(end-start+1)))
+                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(start[0])/genome_length[strain_name], float(gc)/gene_length))
                 gc = 0
-                match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
+                match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                 if match_result is None:
-                    match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
+                    match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                 if match_result is not None:
                     gene_name = match_result.group(1)
                     strain_name = match_result.group(2)
-                    start = int(match_result.group(3))
-                    end = int(match_result.group(4))
+                    starts_ends = findall('\d+\-\d+\s', match_result.group(3))
+                    start = []
+                    end =  []
+                    for item in starts_ends:
+                        match_result = match('(\d+)-(\d+)', item)
+                        start.append(int(match_result.group(1)))
+                        end.append(int(match_result.group(2)))
                 else:
                     strain_name = ''
                 if strain_name not in plots_dict.keys():
                     gene_name = ''
                 else:
-                    gene_insertions = sum([1 for x in plots_dict[strain_name][start-1:end] if x > 0])
-                    ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
+                    gene_insertions = 0
+                    gene_length = 0
+                    for i in range(0,len(start)):
+                        gene_insertions += sum([1 for x in plots_dict[strain_name][start[i]-1:end[i]] if x > 0])
+                        gene_length += end[i] - start[i] + 1
+                    ii = (float(gene_insertions)/gene_length)/(float(genome_insertions[strain_name])/genome_length[strain_name])
             else:
                 gc += line.count('g') + line.count('c')
 
@@ -55,27 +64,43 @@ with open(resultwithoutends, 'w') as tofile:
         for line in sequencefile:
             if line.startswith('>'):
                 if gene_name != '':
-                    seq = seq[19:len(seq)-60]
+                    seq = seq[20:len(seq)-60]
                     gc = seq.count('g') + seq.count('c')
-                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(start)/genome_length[strain_name], float(gc)/(end-start+1)))
+                    tofile.write('{0}\t{1}\t{2}\t{3}\n'.format(gene_name, ii, float(start[0])/genome_length[strain_name], float(gc)/gene_length))
                 seq = ''
-                match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
+                match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                 if match_result is None:
-                    match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/(\d+)\-(\d+)\s\(', line)
+                    match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                 if match_result is not None:
                     gene_name = match_result.group(1)
                     strain_name = match_result.group(2)
-                    start = int(match_result.group(3)) + 20
-                    end = int(match_result.group(4)) - 60
-                    if (end - start + 1) < 60:
+                    starts_ends = findall('\d+\-\d+\s', match_result.group(3))
+                    start = []
+                    end = []
+                    for item in starts_ends:
+                        match_result = match('(\d+)-(\d+)', item)
+                        if item == starts_ends[0]:
+                            start.append(int(match_result.group(1))+21)
+                        else:
+                            start.append(int(match_result.group(1)))
+                        if item == starts_ends[len(starts_ends)-1]:
+                            end.append(int(match_result.group(2))-60)
+                        else:
+                            end.append(int(match_result.group(2)))
+                    gene_length = 0
+                    for i in range(0, len(start)):
+                        gene_length += end[i] - start[i] + 1
+                    if gene_length < 140:
                         strain_name = ''
                 else:
                     strain_name = ''
                 if strain_name not in plots_dict.keys():
                     gene_name = ''
                 else:
-                    gene_insertions = sum([1 for x in plots_dict[strain_name][start-1:end] if x > 0])
-                    ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
+                    gene_insertions = 0
+                    for i in range(0, len(start)):
+                        gene_insertions += sum([1 for x in plots_dict[strain_name][start[i]-1:end[i]] if x > 0])
+                    ii = (float(gene_insertions)/gene_length)/(float(genome_insertions[strain_name])/genome_length[strain_name])
             else:
                 seq += line.rstrip()
                 # gc += line.count('g') + line.count('c')

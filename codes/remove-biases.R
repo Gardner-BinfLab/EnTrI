@@ -17,40 +17,24 @@ for (item in biasespath)
   {
     ii <- c()
     d <- c()
-    while((i == length(names) & j <= length(biasestable$name)) | !startsWith(biasestable$name[j], names[i+1]))
+    while((i == length(names) & j <= length(biasestable$name)) | !startsWith(toString(biasestable$name[j]), names[i+1]))
     {
       ii <- c(ii, biasestable$ii[j])
       d <- c(d, biasestable$dist[j])
       j = j + 1
     }
-    l = loess(ii ~ d)
-    loessprediction <- predict(l, d)
-    minimum = min(loessprediction[loessprediction>0])
-    for (k in seq(1, length(loessprediction)))
-    {
-      if (loessprediction[k] <= 0)
-      {
-        biasestable$ii[k] = minimum + biasestable$ii[k] - loessprediction[k]
-        loessprediction[k] = minimum
-      }
-    }
-    ii = (ii * mean(ii)) / loessprediction
+    fit <- gam(ii~s(d))
+    gamprediction <- predict.gam(fit, data.frame(d))
+    ii = (ii * mean(ii)) / gamprediction
     biasestable$ii[prevj : (j-1)] = ii
     prevj = j
   }
-  l = loess(biasestable$ii ~ biasestable$gc)
-  loessprediction <- predict(l, biasestable$gc)
-  minimum = min(loessprediction[loessprediction>0])
-  for (k in seq(1, length(loessprediction)))
-  {
-    if (loessprediction[k] <= 0)
-    {
-      biasestable$ii[k] = minimum + biasestable$ii[k] - loessprediction[k]
-      loessprediction[k] = minimum
-    }
-  }
-  biasestable$ii = (biasestable$ii * mean(biasestable$ii))/loessprediction
-  write.table(biasestable, file = paste("../results/normalised-iis-", strsplit(basename(item), "\\.")[[1]][1], ".txt",sep=''), quote = FALSE, row.names = FALSE, col.names = FALSE) 
+  ii <- c(biasestable$ii)
+  gc = c(biasestable$gc)
+  fit <- gam(ii~s(gc))
+  gamprediction <- predict.gam(fit, data.frame(gc))
+  biasestable$ii = (biasestable$ii * mean(biasestable$ii))/gamprediction
+  write.table(biasestable, file = paste("../results/remove-biases/normalised-iis-", strsplit(basename(item), "\\.")[[1]][1], ".txt",sep=''), quote = FALSE, row.names = FALSE, col.names = FALSE) 
 }
 
 # hist(biasestable$ii, xlim=c(0,3),breaks=1e5)
