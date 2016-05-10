@@ -6,6 +6,7 @@ exec python3 $0 ${1+"$@"}
 from sys import argv
 from os import listdir, mkdir, path
 from shutil import rmtree
+from re import match
 
 
 def makedir(dirname):
@@ -21,7 +22,7 @@ def makedir(dirname):
     mkdir(dirname)
 
 
-def add_insertion_index(in_clusters, in_iis, output):
+def add_insertion_index(in_clusters, in_iis, k12essentials, output):
     iis_dict = {}
     with open(in_iis) as iis_file:
         for line in iis_file:
@@ -33,15 +34,26 @@ def add_insertion_index(in_clusters, in_iis, output):
             with open('{0}/{1}'.format(output, filename), 'w') as to_file:
                 for line in from_file:
                     cells = line.split()
+                    match_result = match('b\d\d\d\d', cells[1])
                     for item in cells:
                         to_file.write(item+'\t')
                     if cells[1] in iis_dict.keys():
                         to_file.write(iis_dict[cells[1]]+'\n')
+                    elif match_result is not None:
+                        if cells[1] in k12essentials:
+                            to_file.write('0\n')
+                        else:
+                            to_file.write('7\n')
                     else:
                         to_file.write('-1\n')
 
 indir = str(argv[1])
 iifile = str(argv[2])
-outdir = str(argv[3])
+k12file = str(argv[3])
+outdir = str(argv[4])
 makedir(outdir)
-add_insertion_index(indir, iifile, outdir)
+k12list = list()
+with open (k12file, 'r') as infile:
+    for line in infile:
+        k12list.append(line.rstrip())
+add_insertion_index(indir, iifile, k12list, outdir)

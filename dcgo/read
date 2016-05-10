@@ -1,0 +1,4 @@
+hmmer2go:
+hmmer2go run -i ~/EnTrI/results/beneficial-losses.fasta -d ~/data/pfam/Pfam-A.hmm
+hmmer2go fetchmap -o pfam2go
+hmmer2go mapterms -i beneficial-losses_Pfam-A.tblout -p pfam2go -o beneficial-losses_Pfam-A_GO.tsv --map

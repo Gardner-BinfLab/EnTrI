@@ -7,6 +7,8 @@ for (cpitem in clusters_path)
 {
   list_of_files <- list.files(path=cpitem, full.names=T, recursive=FALSE)
   names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "b")
+  genuses = c(1, 2, 3, 2, 2, 3, 3, 4, 4, 4, 4, 4, 2)
+  names(genuses) <- names
   numspecies = length(names)
   file_II = list()
   file_size = list()
@@ -41,9 +43,16 @@ for (cpitem in clusters_path)
     {
       file_II[basename(filename)] = i_sum / clust_with_ii_size
       file_size[basename(filename)] = cluster_size
-      one_or_more = length(unique(clustspecies))
+      unique_clustspecies = unique(clustspecies)
+      one_or_more = length(unique_clustspecies)
       greater_than_one = length(table(clustspecies)[table(clustspecies)>1])
-      if (as.numeric(one_or_more) <= 0.3 * numspecies)
+      cluster_genuses = c()
+      for (item in unique_clustspecies)
+      {
+        cluster_genuses <- c(cluster_genuses, genuses[unique_clustspecies])
+      }
+      # if (as.numeric(one_or_more) <= 0.3 * numspecies)
+      if (length(unique(cluster_genuses)) == 1)
       {
         file_group[basename(filename)] = 'ORFan'
       }
@@ -136,7 +145,7 @@ for (cpitem in clusters_path)
   cuts <- cut(h$breaks, c(-Inf,0.18, 1.98, Inf))
   screen(2)
   par(mar=c(5.1,2.5,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="ORFan", cex.axis=1.5, cex.main = 1.5,
+  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Genus specific", cex.axis=1.5, cex.main = 1.5,
        xlim=c(0,4), ylim=c(0,100), lty= "blank", axes=FALSE)
   axis(1, at=seq(0,4,1), cex.axis=1.5)
   axis(2, at=seq(0,100,50), labels=c(0,NA,100), cex.axis=1.5)

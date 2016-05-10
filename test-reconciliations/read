@@ -1,0 +1,23 @@
+if the tree is not binary:
+http://www.phytools.org/eqg/Exercise_3.2/
+write a tree as a file:
+http://www.inside-r.org/packages/cran/ape/docs/write.tree
+if the tree is not ultrametric:
+http://www.inside-r.org/packages/cran/ape/docs/chronopl
+
+Notung:
+for filename in EFam-*.fasttree; do java -jar ~/program-bank/Notung-2.6/Notung-2.6.jar -g $filename -s ultrametric-rooted-species-tree --reconcile --speciestag prefix --outputdir binary-trees/notung-results/ --silent --savepng; done
+
+Run RAxml:
+~/program-bank/standard-RAxML-master/raxmlHPC -s markers.align.phylip -n test-raxml.out -m PROTGAMMALG4M -p 12345
+
+Run ecceTERA:
+ecceTERA_linux64 species.file=ultrametric-rooted-species-tree gene.file=binary-trees/binary-EFam-000052.fasttree char.sep=_ print.reconciliations.file=reconciliations.txt print.reconciliations=1 output.dir=binary-trees/ecceTERA-results resolve.trees=true orthology.output=orthologies.txt
+
+Run ranger-dtl:
+cd program-bank/...
+ranger-dtl-D.linux -i ~/EnTrI/test-reconciliations/ranger-dtl-input.txt -o ~/EnTrI/test-reconciliations/ranger-dtl-output.txt
+
+Run AnGST
+cd program-bank/AnGST/angst_lib
+AnGST.py ~/EnTrI/test-reconciliations/AnGST.in
