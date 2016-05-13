@@ -9,6 +9,8 @@ presence = list("ROD"=c(), "CS17"=c(), "ENC"=c(), "ETEC"=c(), "NCTC13441"=c(), "
                 "SL1344"=c(), "STMMW"=c(), "t"=c(), "b"=c())
 essentiality = list("ROD"=c(), "CS17"=c(), "ENC"=c(), "ETEC"=c(), "NCTC13441"=c(), "ERS227112"=c(), "BN373"=c(), "SEN"=c(), "STM"=c(),
                     "SL1344"=c(), "STMMW"=c(), "t"=c(), "b"=c())
+list_of_essential_genes = list("ROD"=c(), "CS17"=c(), "ENC"=c(), "ETEC"=c(), "NCTC13441"=c(), "ERS227112"=c(), "BN373"=c(), "SEN"=c(), "STM"=c(),
+                    "SL1344"=c(), "STMMW"=c(), "t"=c(), "b"=c())
 for (filename in list_of_files)
 {
   cluster <- as.matrix(read.table(filename))
@@ -28,6 +30,7 @@ for (filename in list_of_files)
         if (as.numeric(cluster[i,5]) < 0.2)
         {
           essentiality[[match]] = c(essentiality[[match]], strsplit(basename(filename),"\\.")[[1]][1])
+          list_of_essential_genes[[match]] = c(list_of_essential_genes[[match]], cluster[i,2])
         }
       }
     }
