@@ -1,0 +1,19 @@
+raxml: (selected raxml best tree)
+raxmlHPC -s markers.align -n fatemeh-aa.raxml -m PROTGAMMALG4M -p 1
+raxmlHPC -m GTRCAT -s markers.pal2nal -n fatemeh-n.raxml -p 1234
+
+fasttree:
+fasttree -nt markers.pal2nal > ~/EnTrI/test-trees/fatemeh-n.fasttree
+
+run phyla-amphora:
+perl ~/program-bank/Phyla_AMPHORA/Scripts/MarkerScanner.pl -Phylum 3 ~/EnTrI/sequences/fasta-protein/chromosome/CS17.fasta
+perl ~/program-bank/Phyla_AMPHORA/Scripts/MarkerAlignTrim.pl -OutputFormat fasta
+cat *.aln > peptides_alignment.fasta
+sed '/^>/ d' peptides_alignment.fasta > peptides.alignment
+rm peptides_alignment.fasta
+
+run phylosift:
+find /home/fatemeh/EnTrI/sequences/fasta-genome/chromosome/ -maxdepth 1 -name "*.fa" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
+find /home/fatemeh/EnTrI/sequences/fasta-genome/chromosome/ -maxdepth 1 -name "*.fa" -exec ~/program-bank/phylosift_v1.0.1/phylosift align --isolate --besthit {} \;
+for f in PS_temp/*/alignDir/concat.codon.updated.1.fasta; do cat "$f" >> codone_alignment.fa; done
+FastTree -nt -gtr < codon_alignment.fa > codon_tree.tre
