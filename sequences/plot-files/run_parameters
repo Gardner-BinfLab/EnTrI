@@ -1,0 +1,8 @@
+#for reference - parameters I used in trimming and mapping tradis data
+
+for i in $( ls *.fastq.gz); do NAME=${i%%.fastq.gz}; zcat $i | ~/prinseq-lite-0.20.4/prinseq-lite.pl -fastq st
+din -out_good stdout -out_bad null -min_len 30 -trim_tail_right 2 -trim_ns_right 1 -trim_qual_right 20 -trim_q
+ual_window 3 | gzip > $NAME.trim.fastq.gz; done
+ls *.trim.fastq.gz > fastqs.txt
+bacteria_tradis -v --smalt_r 0 --smalt_k 8 --smalt_s 1 --smalt_y 0.9 -m 0 -f fastqs.txt -t TAAGAGACAG -r ref.f
+a
