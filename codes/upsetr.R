@@ -42,5 +42,5 @@ names(presence) <- c("Citrobacter", "EC_ETEC_CS17", "Enterobacter", "EC_ETEC_H10
 names(essentiality) <- c("Citrobacter", "EC_ETEC_CS17", "Enterobacter", "EC_ETEC_H10407", "EC_UPEC",
                      "KP_RH201207", "KP_Ecl8", "S_enteritidis", "S_typhimurium_A130",
                      "S_typhimurium_SL1344", "S_typhimurium_D23580", "S_typhi", "EC_k12")
-upset(fromList(presence), nsets = 13, order.by="freq", nintersects=66)
+upset(fromList(presence), nsets = 13, order.by="freq", nintersects=66, show.numbers = "no")
 upset(fromList(essentiality), nsets = 13, order.by="freq", nintersects=51)

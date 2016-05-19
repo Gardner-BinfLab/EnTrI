@@ -71,7 +71,7 @@ for (value in ds)
 df <- data.frame(ds_quartiles, dii)
 df$ds_quartiles <- factor(df$ds_quartiles,levels = c("New", "Older new", "Newer old", "Old"),ordered = TRUE)
 ggplot(df)+geom_violin(aes(x=ds_quartiles,y=dii,group=ds_quartiles),color="black",fill="grey",size=2)+
-  theme(axis.text.x=element_text(colour="black"), axis.text.y=element_text(colour="black"))   # build the base violins
-
+  theme(axis.text.x=element_text(colour="black"), axis.text.y=element_text(colour="black"))+   # build the base violins
+  labs(x="Distance", y = "Delta ii")
 dev.off()
 #http://stackoverflow.com/questions/22278951/combining-violin-plot-with-box-plot
