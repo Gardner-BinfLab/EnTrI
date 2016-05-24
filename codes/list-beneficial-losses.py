@@ -6,7 +6,7 @@ def read_fasta_sequences(filepath):
         fasta_dict = SeqIO.to_dict(SeqIO.parse(fasta_file, 'fasta'))
     return fasta_dict
 
-seqdb = '../sequences/fasta-dna/chromosome/seqdb.fasta'
+seqdb = '../sequences/fasta-protein/chromosome/seqdb.fasta'
 iis = '../results/check-biases/without-ends.txt'
 coreesspath = '../results/define-core-accessory/all/core-essential-genomes'
 corenespath = '../results/define-core-accessory/all/core-never-essential-genomes'
@@ -22,7 +22,7 @@ with open(iis, 'r') as iisfile:
     with open(benloss, 'w') as benlossfile:
         for line in iisfile:
             cells = line.split()
-            if cells[1] > 2:
+            if float(cells[1]) > 2:
                 benlossfile.write('>')
                 benlossfile.write(sequence_dict[cells[0]].description)
                 benlossfile.write('\n')

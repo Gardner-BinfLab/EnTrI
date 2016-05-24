@@ -2,7 +2,7 @@ library(stringr)
 # args <- commandArgs(trailingOnly = TRUE)
 # clusters <- args[1]
 clusters_path <- "../results/merge-clust-plot"
-# clusters_path <- c("../results/merge-clust-plot", "../results/merge-clust-plot-without-ends/")
+#clusters_path <- c("../results/merge-clust-plot", "../results/merge-clust-plot-without-ends/")
 for (cpitem in clusters_path)
 {
   list_of_files <- list.files(path=cpitem, full.names=T, recursive=FALSE)
@@ -52,7 +52,7 @@ for (cpitem in clusters_path)
         cluster_genuses <- c(cluster_genuses, genuses[unique_clustspecies])
       }
       # if (as.numeric(one_or_more) <= 0.3 * numspecies)
-      if (length(unique(cluster_genuses)) == 1)
+      if (length(unique(cluster_genuses)) <= 1)
       {
         file_group[basename(filename)] = 'ORFan'
       }

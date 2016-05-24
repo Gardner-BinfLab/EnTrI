@@ -26,8 +26,8 @@ def makedir(dirname):
     mkdir(dirname)
 
 seqdb = '/home/fatemeh/EnTrI/sequences/fasta-protein/chromosome/seqdb.fasta'
-clusters = '/home/fatemeh/EnTrI/results/merge-clust-plot'
-outdir = '/home/fatemeh/EnTrI/results/define-core-accessory'
+clusters = '/home/fatemeh/EnTrI/results/single-copy-genes'
+outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-singcopy'
 makedir(outdir)
 sequences = read_fasta_sequences(seqdb)
 list_of_files = listdir(clusters)

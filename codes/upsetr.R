@@ -3,7 +3,7 @@ library(stringr)
 # listinput <- list(a=c(1,1,1,1,2,1,2,3,3,3), b=c(1,4,5), d=c(1,2,5,6,7), e=c(4,8,9))
 # upset(fromList(listinput))
 
-clusters_path <- "../results/merge-clust-plot"
+clusters_path <- "../results/single-copy-genes/"
 list_of_files <- list.files(path=clusters_path, full.names=T, recursive=FALSE)
 presence = list("ROD"=c(), "CS17"=c(), "ENC"=c(), "ETEC"=c(), "NCTC13441"=c(), "ERS227112"=c(), "BN373"=c(), "SEN"=c(), "STM"=c(),
                 "SL1344"=c(), "STMMW"=c(), "t"=c(), "b"=c())
