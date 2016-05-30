@@ -69,9 +69,17 @@ for (filename in list_of_files)
   write.table(iitable, file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
 }
 
+names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t")
+dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
+         "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
+         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi")
+names(dict) <- names
+
+pdf("~/EnTrI/results/insertion-indices/results.pdf")
 list_of_files <- list.files(path=output_dir1, full.names=T, recursive=FALSE)
 for (filename in list_of_files)
 {
+  locusid = strsplit(basename(filename),"\\.")[[1]][1]
   iifile = as.matrix(read.table(filename, as.is = TRUE))
   
   ii= as.numeric(iifile[,2])
@@ -85,10 +93,10 @@ for (filename in list_of_files)
   #find inter-mode minima with loess
   r <- floor(maxval *1000)
   I = ii < r / 1000
-  h1 = hist(ii[I],breaks=(0:r/1000))
+  h1 = hist(ii[I],breaks=(0:r/1000),plot=FALSE)
   lo <- loess(h1$density ~ c(1:length(h1$density))) #loess smothing over density
-  plot(h1$density, main="Density",ylim = c(0,5))
-  lines(predict(lo),col='red',lwd=2)
+  # plot(h1$density, main="Density",ylim = c(0,5))
+  # lines(predict(lo),col='red',lwd=2)
   m1 = h1$mids[which.min(predict(lo))]
   m2 = h$mids[max(which(h$counts>5))]
   I1 = ((ii < m1)&(ii > 0))
@@ -104,7 +112,7 @@ for (filename in list_of_files)
   # d3 = fitdistr(ii[I3], "gamma")
 
   #plots
-  hist(ii,breaks=200, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main="Gamma fits")
+  hist(ii,breaks=200, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
   lines(0:2000/500, f1*dgamma(0:2000/500, 1, d1$estimate[2])) # was [2]
   lines(0:2000/500, f2*dgamma(0:2000/500, d2$estimate[1], d2$estimate[2]))
   # print changepoint
@@ -145,3 +153,4 @@ for (filename in list_of_files)
   outputpath = gsub("insfree", "gamma", filename)
   write.table(iifile, file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
 }
+dev.off()
