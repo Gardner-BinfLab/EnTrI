@@ -42,12 +42,15 @@ for (filename in list_of_files)
         }
         if (!(is.null(plots[[locusid]])))
         {
-          ii = (sum(plots[[locusid]][start:end]>0) / (end-start+1)) / (sumlength[[locusid]][1] / sumlength[[locusid]][2])
+          len = end - start + 1
+          starttrim = floor(len*5/100)
+          endtrim = floor(len*20/100)
+          ii = (sum(plots[[locusid]][start:end]>0) / len) / (sumlength[[locusid]][1] / sumlength[[locusid]][2])
           # ii = sum(plots[[locusid]][start:end]>0) / (end-start+1)
           essentiality = "not"
           if (direction == "Forward")
           {
-            if (141 < (end-start+1) & sum(plots[[locusid]][(start+21):(end-60)]) == 0)
+            if (100 < len & sum(plots[[locusid]][(start+starttrim):(end-endtrim)]) == 0)
             {
               essentiality = "essential"
             }
@@ -55,7 +58,7 @@ for (filename in list_of_files)
           }
           else
           {
-            if (141 < (end-start+1) & sum(plots[[locusid]][(start+60):(end-21)]) == 0)
+            if (100 < len & sum(plots[[locusid]][(start+endtrim):(end-starttrim)]) == 0)
             {
               essentiality = "essential"
             }
