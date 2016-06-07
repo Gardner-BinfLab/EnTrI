@@ -1,5 +1,6 @@
 library(stringr)
 library("MASS")
+library(mixtools)
 fastas_dir <- "~/EnTrI/sequences/fasta-protein/chromosome"
 plots_dir <- "~/EnTrI/sequences/plot-files/chromosome"
 output_dir1 <- "~/EnTrI/results/insertion-indices/insfree/"
@@ -43,27 +44,31 @@ for (filename in list_of_files)
         if (!(is.null(plots[[locusid]])))
         {
           len = end - start + 1
-          starttrim = floor(len*5/100)
-          endtrim = floor(len*20/100)
-          ii = (sum(plots[[locusid]][start:end]>0) / len) / (sumlength[[locusid]][1] / sumlength[[locusid]][2])
-          # ii = sum(plots[[locusid]][start:end]>0) / (end-start+1)
+          starttrim = floor(len*0/100)
+          endtrim = floor(len*0/100)
           essentiality = "not"
           if (direction == "Forward")
           {
-            if (100 < len & sum(plots[[locusid]][(start+starttrim):(end-endtrim)]) == 0)
+            newstart = start + starttrim
+            newend = end - endtrim
+            if (70 < len & sum(plots[[locusid]][newstart:newend]) == 0)
             {
               essentiality = "essential"
             }
-            iitable <- rbind(iitable, c(locustag, ii, essentiality))
           }
           else
           {
-            if (100 < len & sum(plots[[locusid]][(start+endtrim):(end-starttrim)]) == 0)
+            newstart = start + endtrim
+            newend = end - starttrim
+            if (70 < len & sum(plots[[locusid]][newstart:newend]) == 0)
             {
               essentiality = "essential"
             }
-            iitable <- rbind(iitable, c(locustag, ii, essentiality))
           }
+          newlen = newend - newstart + 1
+          ii = (sum(plots[[locusid]][newstart:newend]>0) / newlen) / (sumlength[[locusid]][1] / sumlength[[locusid]][2])
+          # ii = sum(plots[[locusid]][start:end]>0) / (end-start+1)
+          iitable <- rbind(iitable, c(locustag, ii, essentiality))
         }
       }
     }
@@ -86,13 +91,20 @@ for (filename in list_of_files)
   iifile = as.matrix(read.table(filename, as.is = TRUE))
   
   ii= as.numeric(iifile[,2])
-  nG = length(ii)
+  # h <- hist(ii,breaks=(0:(max(ii)*50+1)/50), xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
+  # upperbound = h$mids[min(which(h$counts<10 & h$mids>1))]
+  # iinonzero = ii+1e-3
+  # mixmdl = gammamixEM(iinonzero, k=2)
+  # essen = max(min(iinonzero[apply(mixmdl$posterior, 1, which.max)==2]), min(iinonzero[apply(mixmdl$posterior, 1, which.max)==1]))-1e-3
   
+  
+  nG = length(ii)
+
   #identify second maxima
-  h <- hist(ii, breaks=100,plot=FALSE)
+  h <- hist(ii, breaks=0:(max(ii)*50+1)/50,plot=FALSE)
   maxindex <- which.max(h$density[3:length(h$density)])
   maxval <- h$mids[maxindex+2]
-  
+
   #find inter-mode minima with loess
   r <- floor(maxval *1000)
   I = ii < r / 1000
@@ -105,45 +117,45 @@ for (filename in list_of_files)
   I1 = ((ii < m1)&(ii > 0))
   I2 = ((ii >= m1)&(ii < m2))
   # I3 = (ii >= m2)
-  
+
   f1 = (sum(I1) + sum(ii == 0))/nG
   f2 = (sum(I2))/nG
   # f3 = (sum(I3))/nG
-  
+
   d1 = fitdistr(ii[I1], "gamma", lower=min(ii[I1]))
   d2 = fitdistr(ii[I2], "gamma", lower=min(ii[I2])) #fit curves
   # d3 = fitdistr(ii[I3], "gamma")
 
   #plots
-  hist(ii,breaks=200, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
+  hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
   lines(0:2000/500, f1*dgamma(0:2000/500, 1, d1$estimate[2])) # was [2]
   lines(0:2000/500, f2*dgamma(0:2000/500, d2$estimate[1], d2$estimate[2]))
   # print changepoint
-  
+
   #calculate log-odds ratios to choose thresholds
   lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -2))
   upper <- min(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) > 2))
-  
+
   essen <- lower/10000
   ambig <- upper/10000
-  # noness <- m2
+  noness <- m2
   noness <- min(ii[pgamma(ii, d2$e[1],d2$e[2])>=0.99])
-  
+
   lines(c(essen, essen), c(0,20), col="red")
   lines(c(ambig, ambig), c(0,20), col="red")
   lines(c(noness, noness), c(0,20), col="red")
-  
+
   mtext(paste(essen, ":", "Essential changepoint"), side=3, adj=1, padj=2)
   mtext(paste(ambig, ":", "Ambiguous changepoint"), side=3, adj=1, padj=3.75)
   mtext(paste(noness, ":", "Non-essential changepoint"), side=3, adj=1, padj=5.5)
   ###https://cran.r-project.org/web/views/Cluster.html
   for (i in (1:length(iifile[,1])))
   {
-    if (iifile[i,2] < essen)
+    if (ii[i] < essen)
     {
       iifile[i,3] = "essential"
     }
-    else if(iifile[i,2] < noness)
+    else if(ii[i] < noness)
     {
       iifile[i,3] = "non-essential"
     }
