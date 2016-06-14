@@ -64,6 +64,26 @@ Essential gene functions underpin the core reactions required for cell viability
 	keywords = {Medical / General, Medical / Microbiology, Medical / Research, Science / Biotechnology, Science / Life Sciences / Bacteriology, Science / Life Sciences / Biology, Science / Life Sciences / General, Science / Life Sciences / Microbiology}
 }
 
+@article{mistry_challenges_2013,
+	title = {Challenges in homology search: {HMMER}3 and convergent evolution of coiled-coil regions},
+	volume = {41},
+	issn = {0305-1048, 1362-4962},
+	url = {http://nar.oxfordjournals.org/content/41/12/e121},
+	doi = {10.1093/nar/gkt263},
+	shorttitle = {Challenges in homology search},
+	abstract = {Detection of protein homology via sequence similarity has important applications in biology, from protein structure and function prediction to reconstruction of phylogenies. Although current methods for aligning protein sequences are powerful, challenges remain, including problems with homologous overextension of alignments and with regions under convergent evolution. Here, we test the ability of the profile hidden Markov model method {HMMER}3 to correctly assign homologous sequences to {\textgreater}13 000 manually curated families from the Pfam database. We identify problem families using protein regions that match two or more Pfam families not currently annotated as related in Pfam. We find that {HMMER}3 E-value estimates seem to be less accurate for families that feature periodic patterns of compositional bias, such as the ones typically observed in coiled-coils. These results support the continued use of manually curated inclusion thresholds in the Pfam database, especially on the subset of families that have been identified as problematic in experiments such as these. They also highlight the need for developing new methods that can correct for this particular type of compositional bias.},
+	pages = {e121--e121},
+	number = {12},
+	journaltitle = {Nucleic Acids Research},
+	shortjournal = {Nucl. Acids Res.},
+	author = {Mistry, Jaina and Finn, Robert D. and Eddy, Sean R. and Bateman, Alex and Punta, Marco},
+	urldate = {2016-06-13},
+	date = {2013-07-01},
+	langid = {english},
+	pmid = {23598997},
+	file = {Full Text PDF:/home/fatemeh/.zotero/zotero/erb1mwao.default/zotero/storage/BDGWJVHB/Mistry et al. - 2013 - Challenges in homology search HMMER3 and converge.pdf:application/pdf;Snapshot:/home/fatemeh/.zotero/zotero/erb1mwao.default/zotero/storage/NNQXG7A5/e121.html:text/html}
+}
+
 @article{baba_construction_2006,
 	title = {Construction of Escherichia coli K-12 in-frame, single-gene knockout mutants: the Keio collection},
 	volume = {2},
@@ -167,6 +187,23 @@ Cycles of design, building, and testing produced a 531-kilobase genome comprisin
 	file = {Full Text PDF:/home/fatemeh/.zotero/zotero/erb1mwao.default/zotero/storage/F84V3JMW/Hutchison et al. - 1999 - Global Transposon Mutagenesis and a Minimal Mycopl.pdf:application/pdf;Snapshot:/home/fatemeh/.zotero/zotero/erb1mwao.default/zotero/storage/CXWB97MX/2165.html:text/html}
 }
 
+@article{schreiber_hieranoid:_2013,
+	title = {Hieranoid: hierarchical orthology inference},
+	volume = {425},
+	issn = {1089-8638},
+	doi = {10.1016/j.jmb.2013.02.018},
+	shorttitle = {Hieranoid},
+	abstract = {An accurate inference of orthologs is essential in many research fields such as comparative genomics, molecular evolution, and genome annotation. Existing methods for genome-scale orthology inference are mostly based on all-versus-all similarity searches that scale quadratically with the number of species. This limits their application to the increasing number of available large-scale datasets. Here, we present Hieranoid, a new orthology inference method using a hierarchical approach. Hieranoid performs pairwise orthology analysis using {InParanoid} at each node in a guide tree as it progresses from its leaves to the root. This concept reduces the total runtime complexity from a quadratic to a linear function of the number of species. The tree hierarchy provides a natural structure in multi-species ortholog groups, and the aggregation of multiple sequences allows for multiple alignment similarity searching techniques, which can yield more accurate ortholog groups. Using the recently published orthobench benchmark, Hieranoid showed the overall best performance. Our progressive approach presents a new way to infer orthologs that combines efficient graph-based methodology with aspects of compute-intensive tree-based methods. The linear scaling with the number of species is a major advantage for large-scale applications and makes Hieranoid well suited to cope with vast amounts of sequenced genomes in the future. Hieranoid is an open source and can be downloaded at Hieranoid.sbc.su.se.},
+	pages = {2072--2081},
+	number = {11},
+	journaltitle = {Journal of Molecular Biology},
+	shortjournal = {J. Mol. Biol.},
+	author = {Schreiber, Fabian and Sonnhammer, Erik L. L.},
+	date = {2013-06-12},
+	pmid = {23485417},
+	keywords = {Computational Biology, Evolution, Molecular, Sequence Homology}
+}
+
 @article{goodman_identifying_2011,
 	title = {Identifying microbial fitness determinants by insertion sequencing using genome-wide transposon mutant libraries},
 	volume = {6},
@@ -219,6 +256,26 @@ Cycles of design, building, and testing produced a 531-kilobase genome comprisin
 	pmid = {19826075},
 	pmcid = {PMC2792183},
 	keywords = {Bacterial Proteins, Bile, Chromosome Mapping, Chromosomes, Bacterial, Computational Biology, {DNA} Transposable Elements, Genes, Essential, Mutagenesis, Insertional, Mutation, Salmonella typhi, Sequence Analysis, {DNA}}
+}
+
+@article{altenhoff_standardized_2016,
+	title = {Standardized benchmarking in the quest for orthologs},
+	volume = {13},
+	rights = {© 2016 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+	issn = {1548-7091},
+	url = {http://www.nature.com/nmeth/journal/v13/n5/full/nmeth.3830.html},
+	doi = {10.1038/nmeth.3830},
+	abstract = {Achieving high accuracy in orthology inference is essential for many comparative, evolutionary and functional genomic analyses, yet the true evolutionary history of genes is generally unknown and orthologs are used for very different applications across phyla, requiring different precision–recall trade-offs. As a result, it is difficult to assess the performance of orthology inference methods. Here, we present a community effort to establish standards and an automated web-based service to facilitate orthology benchmarking. Using this service, we characterize 15 well-established inference methods and resources on a battery of 20 different benchmarks. Standardized benchmarking provides a way for users to identify the most effective methods for the problem at hand, sets a minimum requirement for new tools and resources, and guides the development of more accurate orthology inference methods.},
+	pages = {425--430},
+	number = {5},
+	journaltitle = {Nature Methods},
+	shortjournal = {Nat Meth},
+	author = {Altenhoff, Adrian M. and Boeckmann, Brigitte and Capella-Gutierrez, Salvador and Dalquen, Daniel A. and DeLuca, Todd and Forslund, Kristoffer and Huerta-Cepas, Jaime and Linard, Benjamin and Pereira, Cécile and Pryszcz, Leszek P. and Schreiber, Fabian and da Silva, Alan Sousa and Szklarczyk, Damian and Train, Clément-Marie and Bork, Peer and Lecompte, Odile and von Mering, Christian and Xenarios, Ioannis and Sjölander, Kimmen and Jensen, Lars Juhl and Martin, Maria J. and Muffato, Matthieu and {Quest for Orthologs Consortium} and Gabaldón, Toni and Lewis, Suzanna E. and Thomas, Paul D. and Sonnhammer, Erik and Dessimoz, Christophe},
+	urldate = {2016-06-13},
+	date = {2016-05},
+	langid = {english},
+	keywords = {Phylogeny, Protein function predictions, Sequence annotation, Standards},
+	file = {Full Text PDF:/home/fatemeh/.zotero/zotero/erb1mwao.default/zotero/storage/QZRJWBTR/Altenhoff et al. - 2016 - Standardized benchmarking in the quest for ortholo.pdf:application/pdf;Snapshot:/home/fatemeh/.zotero/zotero/erb1mwao.default/zotero/storage/GK5V2U8A/nmeth.3830.html:text/html}
 }
 
 @article{xu_staphylococcus_2010,

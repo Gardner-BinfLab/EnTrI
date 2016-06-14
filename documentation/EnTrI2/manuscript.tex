@@ -91,6 +91,7 @@
 %% like extended math fonts and math commands.
 
 \usepackage{amssymb,amsfonts,amsmath}
+\usepackage{color}
 
 %------------------------------------------------
 % OPTIONAL MACRO FILES
@@ -200,13 +201,16 @@ of the United States of America}
 
 Although the essentiality of genes has been studied in a variety of organisms, there is still room to study the evolutionary conservation of essentiality. Barquist et al.\@ \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to study the differentiation of the essentiality of genes in \textit{Salmonella} serovars Typhi and Typhimurium which has led to divergence in their pathogenecity and host ranges. We extend this research by studying 12 bacterial strains. These include \textit{Salmonella} enterica subsp.\@ enterica serovar Typhi str.\@ Ty2, \textit{Salmonella} enterica subsp.\@ enterica serovar Enteritidis str.\@ P125109, \textit{Salmonella} enterica subsp.\@ enterica serovar Typhimurium str.\@ SL1344, \textit{Salmonella} enterica subsp.\@ enterica serovar Typhimurium str.\@ A130, \textit{Salmonella} enterica subsp.\@ enterica serovar Typhimurium str.\@ D23580, \textit{Escherichia} coli UPEC ST131, \textit{Escherichia} coli ETEC CS17, \textit{Escherichia} coli ETEC H10407, \textit{Citrobacter} rodentium ICC168, \textit{Klebsiella} pneumoniae RH201207, \textit{Klebsiella} pneumoniae subsp.\@ pneumoniae Ecl8, and \textit{Enterobacter} cloacae subsp.\@ cloacae NCTC 9394. All these strains are selected from Enterobacteriaceae family.
 
-Enterobacteriaceae is a family that includes bacteria with different host ranges and pathogenecity found in soil, water, plants, animals and humans \cite{brenner_bergeys_2006}. In humans, various strains from this family can cause diarrhoea, septicaemia, urinary tract infection, meningitis, respiratory disease, and wound and burn infection \cite{brenner_bergeys_2006}. Besides, they can infect poultry and livestocks and cause financial losses for farmers \cite{brenner_bergeys_2006}. Here, we perform a transposon-directed insertion-site sequencing experiment to study the conservation of essentiality in strains from 5 different species in this family.
+Enterobacteriaceae is a family that includes bacteria with different host ranges and pathogenecity found in soil, water, plants, animals and humans \cite{brenner_bergeys_2006}. In humans, various strains from this family can cause diarrhoea, septicaemia, urinary tract infection, meningitis, respiratory disease, and wound and burn infection \cite{brenner_bergeys_2006}. Besides, they can infect poultry and livestocks and cause financial losses for farmers \cite{brenner_bergeys_2006}. Here, we perform a transposon-directed insertion-site sequencing experiment to study the conservation of essentiality of genes in strains from 5 different species in this family.
+
+\textcolor{red}{\{A summary of what we have done\}}
 
 %------------------------------------------------
 
 \section{Results}
+\textcolor{red}{\{An explanation of the experiment\}}
 
-%We have studied the essentiality of genes in 12 strains from Enterobacteriaceae family. The species are depicted in Fig~\ref{fig:tree}.
+\textbf{Clustering orthologous and paralogous genes.} To study the essentiality of genes in 12 strains depicted in Fig~\ref{fig:tree}, We needed to cluster sets of orthologous genes in these strain. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
 
 %------------------------------------------------
 
@@ -285,11 +289,11 @@ Enterobacteriaceae is a family that includes bacteria with different host ranges
 %----------------------------------------------------------------------------------------
 %	FIGURES AND TABLES
 %----------------------------------------------------------------------------------------
-%\begin{figure}
-%\includegraphics[scale=0.25]{consensus-tree.pdf}
-%\label{fig:tree}
-%\caption{Species tree. How is it made?}
-%\end{figure}
+\begin{figure}
+\includegraphics[scale=0.25]{consensustree.pdf}
+\label{fig:tree}
+\caption{Species tree. How is it made?}
+\end{figure}
 
 
 %----------------------------------------------------------------------------------------

@@ -91,12 +91,6 @@ for (filename in list_of_files)
   iifile = as.matrix(read.table(filename, as.is = TRUE))
   
   ii= as.numeric(iifile[,2])
-  # h <- hist(ii,breaks=(0:(max(ii)*50+1)/50), xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
-  # upperbound = h$mids[min(which(h$counts<10 & h$mids>1))]
-  # iinonzero = ii+1e-3
-  # mixmdl = gammamixEM(iinonzero, k=2)
-  # essen = max(min(iinonzero[apply(mixmdl$posterior, 1, which.max)==2]), min(iinonzero[apply(mixmdl$posterior, 1, which.max)==1]))-1e-3
-  
   
   nG = length(ii)
 
@@ -116,29 +110,43 @@ for (filename in list_of_files)
   m2 = h$mids[max(which(h$counts>5))]
   I1 = ((ii < m1)&(ii > 0))
   I2 = ((ii >= m1)&(ii < m2))
-  # I3 = (ii >= m2)
 
   f1 = (sum(I1) + sum(ii == 0))/nG
   f2 = (sum(I2))/nG
-  # f3 = (sum(I3))/nG
 
   d1 = fitdistr(ii[I1], "gamma", lower=min(ii[I1]))
   d2 = fitdistr(ii[I2], "gamma", lower=min(ii[I2])) #fit curves
-  # d3 = fitdistr(ii[I3], "gamma")
+  
+  # use mixtools
+  # eps = 1e-3
+  # iinonzero = ii+eps
+  # mixmdl = gammamixEM(iinonzero, alpha = c(1,d2$estimate[1]), beta = c(1/d1$estimate[2],1/d2$estimate[2]), k=2)
 
   #plots
   hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
   lines(0:2000/500, f1*dgamma(0:2000/500, 1, d1$estimate[2])) # was [2]
   lines(0:2000/500, f2*dgamma(0:2000/500, d2$estimate[1], d2$estimate[2]))
+  # h <- hist(ii,breaks=(0:(max(ii)*50+1)/50), xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
+  # lines(0:2000/500, f1*dgamma(0:2000/500, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"]))
+  # lines(0:2000/500, f2*dgamma(0:2000/500, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"]))
   # print changepoint
 
   #calculate log-odds ratios to choose thresholds
   lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -2))
   upper <- min(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) > 2))
 
+  # lower <- max(which(log((pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"])
+  #                         *(1-pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)))
+  #                        /(pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)
+  #                          *(1-pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"]))) , base=2) < -2))
+  # upper <- min(which(log((pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"])
+  #                         *(1-pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)))
+  #                        /(pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)*
+  #                            (1-pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"]))) , base=2) > 2))
+
   essen <- lower/10000
   ambig <- upper/10000
-  noness <- m2
+  # noness <- min(iinonzero[pgamma(iinonzero, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"])>=0.99])
   noness <- min(ii[pgamma(ii, d2$e[1],d2$e[2])>=0.99])
 
   lines(c(essen, essen), c(0,20), col="red")
