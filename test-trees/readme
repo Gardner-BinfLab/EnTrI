@@ -1,6 +1,6 @@
 raxml: (selected raxml best tree)
-raxmlHPC -s markers.align -n fatemeh-aa.raxml -m PROTGAMMALG4M -p 1
-raxmlHPC -m GTRCAT -s markers.pal2nal -n fatemeh-n.raxml -p 1234
+raxmlHPC -s phylosift-markers/protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
+raxmlHPC -s phylosift-markers/codon_alignment.fa -n phylosift-n.raxmlbootstrap -m GTRCAT -p 1234 -f a -x 1234 -# 100
 
 fasttree:
 fasttree -nt markers.pal2nal > ~/EnTrI/test-trees/fatemeh-n.fasttree
