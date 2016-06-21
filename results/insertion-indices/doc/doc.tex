@@ -16,7 +16,7 @@
 \includegraphics[scale=0.2, page=10]{mixtools.pdf}
 \includegraphics[scale=0.2, page=11]{mixtools.pdf}
 \includegraphics[scale=0.2, page=12]{mixtools.pdf}
-\caption{$ii=\frac{\frac{insertioncites(gene)}{length(gene)}}{\frac{insertioncites(genome)}{length(genome)}}$\newline
+\caption{$ii=\frac{\frac{insertions(gene)}{length(gene)}}{\frac{insertions(genome)}{length(genome)}}$\newline
 \textbf{Method:} gammamixEM \newline
 \textbf{trimming:} 5 prime site: 5\%, 3 prime site: 10\%\newline
 \textbf{plot manipulations:} Added 0.001 to all numbers, used Lars' shape and rate parameters \newline
@@ -129,5 +129,69 @@ Salmonella typhimurium SL1344: 416 \newline
 Salmonella typhimurium D23580: 333 \newline
 Salmonella typhimurium A130: 357 \newline
 Salmonella typhi: 361}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.2, page=1]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=2]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=3]{results-normalised.pdf}\\
+\includegraphics[scale=0.2, page=4]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=5]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=6]{results-normalised.pdf}\\
+\includegraphics[scale=0.2, page=7]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=8]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=9]{results-normalised.pdf}\\
+\includegraphics[scale=0.2, page=10]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=11]{results-normalised.pdf}
+\includegraphics[scale=0.2, page=12]{results-normalised.pdf}
+\caption{$ii=\frac{\frac{insertion(gene)}{length(gene)}}{\frac{insertionss(genome)}{length(genome)}}$\newline
+\textbf{Method:} Lars' method \newline
+\textbf{trimming:} 5 prime site: 5\%, 3 prime site: 10\%\newline
+\textbf{plot manipulations:} Lars' manipulations + normalised ii for GC bias and gene location\newline
+\textbf{Number of essential genes:}\newline
+Klebsiella pneumoniae Ecl8: 399 \newline
+Escherichia coli ETEC CS17: 648 \newline
+Enterobacter: 389 \newline
+Klebsiella pneumoniae RH201207: 433 \newline
+Escherichia coli ETEC H10407: 480 \newline
+Escherichia coli UPEC: 411 \newline
+Citrobacter: 358 \newline
+Salmonella enteritidis: 354 \newline
+Salmonella typhimurium SL1344: 453 \newline
+Salmonella typhimurium D23580: 384 \newline
+Salmonella typhimurium A130: 385 \newline
+Salmonella typhi: 380}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.2, page=1]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=2]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=3]{results-normalised-distance.pdf}\\
+\includegraphics[scale=0.2, page=4]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=5]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=6]{results-normalised-distance.pdf}\\
+\includegraphics[scale=0.2, page=7]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=8]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=9]{results-normalised-distance.pdf}\\
+\includegraphics[scale=0.2, page=10]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=11]{results-normalised-distance.pdf}
+\includegraphics[scale=0.2, page=12]{results-normalised-distance.pdf}
+\caption{$ii=\frac{\frac{insertion(gene)}{length(gene)}}{\frac{insertionss(genome)}{length(genome)}}$\newline
+\textbf{Method:} Lars' method \newline
+\textbf{trimming:} 5 prime site: 5\%, 3 prime site: 10\%\newline
+\textbf{plot manipulations:} Lars' manipulations + normalised ii for gene location\newline
+\textbf{Number of essential genes:}\newline
+Klebsiella pneumoniae Ecl8: 351 \newline
+Escherichia coli ETEC CS17: 555 \newline
+Enterobacter: 347 \newline
+Klebsiella pneumoniae RH201207: 400 \newline
+Escherichia coli ETEC H10407: 432 \newline
+Escherichia coli UPEC: 353 \newline
+Citrobacter: 325 \newline
+Salmonella enteritidis: 317 \newline
+Salmonella typhimurium SL1344: 427 \newline
+Salmonella typhimurium D23580: 358 \newline
+Salmonella typhimurium A130: 354 \newline
+Salmonella typhi: 334}
 \end{figure}
 \end{document}

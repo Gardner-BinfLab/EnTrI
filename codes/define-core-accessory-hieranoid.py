@@ -17,7 +17,7 @@ def read_fasta_sequences(filepath):
 def makedir(dirname):
     if path.exists(dirname):
         input_var = 'i'
-        while not (input_var == 'y' or input_vawr == 'Y' or input_var == 'n' or input_var == 'N'):
+        while not (input_var == 'y' or input_var == 'Y' or input_var == 'n' or input_var == 'N'):
             input_var = input('Directory {0} already exists. Replace? [Y/n] '.format(dirname))
         if input_var == 'Y' or input_var == 'y':
             rmtree(dirname)
@@ -44,7 +44,7 @@ def read_k12(inpath, iidict):
 
 seqdb = '/home/fatemeh/EnTrI/sequences/fasta-protein/chromosome/seqdb.fasta'
 clusters = '/home/fatemeh/EnTrI/results/hieranoid-result.txt'
-insertion_indices = '/home/fatemeh/EnTrI/results/insertion-indices/gamma'
+insertion_indices = '/home/fatemeh/EnTrI/results/insertion-indices/normalised-insertion-indices'
 k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid'
 makedir(outdir)
@@ -55,7 +55,7 @@ species_names = defaultdict()
 species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
     "STMMW", "t", "b"],"typhimurium":["STM", "SL1344", "STMMW"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t"],
     "ecoli":["CS17", "ETEC", "NCTC13441", "b"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
-    ["ENC"], "salmonellaecoli":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "b"],
+    ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "STM", "STMMW", "t", "ROD"],
     "salmonellaecolicitrobacter":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "b", "ROD"],
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
@@ -102,14 +102,14 @@ for item in species_names.keys():
             for matches in temp_result:
                 if matches[1] != 'n':
                     findall_result.append(matches)
-                for element in findall_result:
-                    name = element[1]
-                    if name in gene_dict.keys():
-                        list_of_genes.append(element[0])
-                        gene_dict[name] = 1
-                        if element[0] in gene_essentiality and gene_essentiality[element[0]] == 'essential':
-                            list_of_essential_genes.append(element[0])
-                            essentiality_dict[name] = 1
+            for element in findall_result:
+                name = element[1]
+                if name in gene_dict.keys():
+                    list_of_genes.append(element[0])
+                    gene_dict[name] = 1
+                    if element[0] in gene_essentiality and gene_essentiality[element[0]] == 'essential':
+                        list_of_essential_genes.append(element[0])
+                        essentiality_dict[name] = 1
             if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
                 #if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
                 if len(list_of_essential_genes) == len(list_of_genes):
@@ -140,79 +140,79 @@ for item in species_names.keys():
     nessaccessorygenes.sort()
 
     prev_name = ''
-    for item in esscoregenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    for gene in esscoregenes:
+        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
         if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', item)
+            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
         name = match_result.group(1)
         if name != prev_name:
             if 'esscoregenesfile' in locals():
                 esscoregenesfile.close()
             esscoregenesfile = open(esscoredir + '/' + name + '.fasta', 'w')
-        esscoregenesfile.write(sequences[item].format('fasta'))
+        esscoregenesfile.write(sequences[gene].format('fasta'))
         prev_name = name
 
     prev_name = ''
-    for item in sesscoregenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    for gene in sesscoregenes:
+        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
         if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', item)
+            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
         name = match_result.group(1)
         if name != prev_name:
             if 'sesscoregenesfile' in locals():
                 sesscoregenesfile.close()
             sesscoregenesfile = open(sesscoredir + '/' + name + '.fasta', 'w')
-        sesscoregenesfile.write(sequences[item].format('fasta'))
+        sesscoregenesfile.write(sequences[gene].format('fasta'))
         prev_name = name
 
     prev_name = ''
-    for item in nesscoregenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    for gene in nesscoregenes:
+        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
         if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', item)
+            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
         name = match_result.group(1)
         if name != prev_name:
             if 'nesscoregenesfile' in locals():
                 nesscoregenesfile.close()
             nesscoregenesfile = open(nesscoredir + '/' + name + '.fasta', 'w')
-        nesscoregenesfile.write(sequences[item].format('fasta'))
+        nesscoregenesfile.write(sequences[gene].format('fasta'))
         prev_name = name
 
     prev_name = ''
-    for item in essaccessorygenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    for gene in essaccessorygenes:
+        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
         if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', item)
+            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
         name = match_result.group(1)
         if name != prev_name:
             if 'essaccessorygenesfile' in locals():
                 essaccessorygenesfile.close()
             essaccessorygenesfile = open(essaccessorydir + '/' + name + '.fasta', 'w')
-        essaccessorygenesfile.write(sequences[item].format('fasta'))
+        essaccessorygenesfile.write(sequences[gene].format('fasta'))
         prev_name = name
 
     prev_name = ''
-    for item in sessaccessorygenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    for gene in sessaccessorygenes:
+        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
         if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', item)
+            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
         name = match_result.group(1)
         if name != prev_name:
             if 'sessaccessorygenesfile' in locals():
                 sessaccessorygenesfile.close()
             sessaccessorygenesfile = open(sessaccessorydir + '/' + name + '.fasta', 'w')
-        sessaccessorygenesfile.write(sequences[item].format('fasta'))
+        sessaccessorygenesfile.write(sequences[gene].format('fasta'))
         prev_name = name
 
     prev_name = ''
-    for item in nessaccessorygenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', item)
+    for gene in nessaccessorygenes:
+        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
         if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', item)
+            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
         name = match_result.group(1)
         if name != prev_name:
             if 'nessaccessorygenesfile' in locals():
                 nessaccessorygenesfile.close()
             nessaccessorygenesfile = open(nessaccessorydir + '/' + name + '.fasta', 'w')
-        nessaccessorygenesfile.write(sequences[item].format('fasta'))
+        nessaccessorygenesfile.write(sequences[gene].format('fasta'))
         prev_name = name

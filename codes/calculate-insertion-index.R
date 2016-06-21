@@ -1,6 +1,6 @@
 library(stringr)
 library("MASS")
-library(mixtools)
+# library(mixtools)
 fastas_dir <- "~/EnTrI/sequences/fasta-protein/chromosome"
 plots_dir <- "~/EnTrI/sequences/plot-files/chromosome"
 output_dir1 <- "~/EnTrI/results/insertion-indices/insfree/"
