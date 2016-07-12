@@ -84,6 +84,7 @@ for item in species_names.keys():
     gene_dict = {species_names[item][i]: 0 for i in range(num_species)}
     essentiality_dict = {species_names[item][i]: 0 for i in range(num_species)}
     nodeinfo = speciestreedir + '/nodeessentiality.txt'
+    speciestree = speciestreedir + '/' + item + '.tre'
 
     with open (clusters) as from_file:
         for line in from_file:
@@ -91,10 +92,9 @@ for item in species_names.keys():
                 gene_dict[key] = 0
                 essentiality_dict[key] = 0
             list_of_genes = []
-            speciestree = speciestreedir + '/' + item + '.tre'
 
             # cells = line.split()
-            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-z0-9]+):', line)
+            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
             temp_result = findall('(([a-zA-Z]+?)\d+):', line)
             for matches in temp_result:
                 if matches[1] != 'n':
@@ -108,6 +108,28 @@ for item in species_names.keys():
                         essentiality_dict[name] = 1
 
             if len(species_names[item]) > 1:
+                with open(nodeinfo, 'w') as nodefile:
+                    nodefile.write('     ' + str(len(species_names[item])) + '    1\n')
+                    for key in gene_dict:
+                        if gene_dict[key] == 1:
+                            nodefile.write(key + '          1\n')
+                        else:
+                            nodefile.write(key + '          0\n')
+
+                try:
+                    system(
+                        'fdollop -infile {0} -intreefile {1} -outfile {2} -method d -progress N -treeprint N -ancseq Y'.format(
+                            nodeinfo, speciestree, dollopout))
+                except:
+                    raise SystemExit
+                presence = 0
+                with open(dollopout, 'r') as dollopfile:
+                    for line in dollopfile:
+                        if line.startswith('root'):
+                            cells = line.split()
+                            if cells[2] == 'yes':
+                                presence = 1
+
                 with open(nodeinfo, 'w') as nodefile:
                     nodefile.write('     ' + str(len(species_names[item])) + '    1\n')
                     for key in essentiality_dict:
@@ -128,7 +150,7 @@ for item in species_names.keys():
                             if cells[2] == 'yes':
                                 essentiality = 1
 
-                if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
+                if presence:
                     if essentiality:
                         esscoregenes += list_of_genes
                     else:

@@ -44,8 +44,8 @@ for (filename in list_of_files)
         if (!(is.null(plots[[locusid]])))
         {
           len = end - start + 1
-          starttrim = floor(len*0/100)
-          endtrim = floor(len*0/100)
+          starttrim = floor(len*5/100)
+          endtrim = floor(len*20/100)
           essentiality = "not"
           if (direction == "Forward")
           {

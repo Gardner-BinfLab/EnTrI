@@ -15,11 +15,19 @@ iitotal = c()
 gctotal = c()
 dtotal = c()
 ii_dnormalisedtotal = c()
+# lengths=c()
 pdf("../results/insertion-indices/biases.pdf")
 for (filename in list_of_files)
 {
   biasestable = read.table(filename, header = FALSE)
-  colnames(biasestable) <- c("name", "ii", "essentiality", "dist", "gc")
+  colnames(biasestable) <- c("name", "ii", "essentiality", "dist", "gc", "length")
+  # for (i in seq(1, nrow(biasestable), 1))
+  # {
+  #   if (biasestable$"gc"[i] < 0.45)
+  #   {
+  #     lengths[as.character(biasestable$"name"[i])] = biasestable$"length"[i]
+  #   }
+  # }
   mar.default <- c(5,4,4,2) + 0.1
   par(mar = mar.default + c(0, 1, 0, 0))
   ii <- c(biasestable$ii)
@@ -28,36 +36,42 @@ for (filename in list_of_files)
   gctotal <- c(gctotal , gc)
   d <- c(biasestable$dist)
   dtotal <- c(dtotal , d)
-  plot(d, ii, pch = '.', ylim=c(0,3), xlab = "Gene position", ylab = "insertion index",
-       main = paste("Distance bias -", strsplit(basename(filename), "\\.")[[1]][1]), cex.lab = 2, cex.axis = 2, cex.main =2)
-  fit <- gam(ii~s(d))
-  gamprediction <- predict.gam(fit, data.frame(d))
-  lines(loess.smooth(d,ii, span=0.2), col=2, lwd=5)
   
-  ii_dnormalised = ii/(gamprediction/mean(ii))
+  plot(gc, ii, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
+       main = paste("GC bias -", strsplit(basename(filename), "\\.")[[1]][1]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  lines(loess.smooth(gc,ii, span=0.2), col=2, lwd=5)
+  
+  plot(d, ii, pch = '.', ylim=c(0,5), xlab = "Gene position", ylab = "insertion index",
+       main = paste("Distance bias -", strsplit(basename(filename), "\\.")[[1]][1]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  lines(loess.smooth(d,ii, span=0.2), col=2, lwd=5)
+  fit <- loess(ii~d)
+  loessprediction <- predict(fit, d)
+  
+  ii_dnormalised = ii/(loessprediction/mean(ii))
   ii_dnormalisedtotal <- c(ii_dnormalisedtotal, ii_dnormalised)
   plot(d, ii_dnormalised, pch='.', xlab = "Gene position", ylab = "insertion index",
-       main = paste(strsplit(basename(filename), "\\.")[[1]][1], '- normalised'), cex.lab = 2, cex.axis = 2, cex.main =2,
-       ylim=c(0,2))
-  fit <- gam(ii_dnormalised~s(d))
-  gamprediction <- predict.gam(fit, data.frame(d))
+       main = paste(strsplit(basename(filename), "\\.")[[1]][1], '- normalised distance'), cex.lab = 2, cex.axis = 2, cex.main =2,
+       ylim=c(0,5))
   lines(loess.smooth(d,ii_dnormalised, span=0.2), col=2, lwd=5)
+  # fit <- loess(ii_dnormalised~d)
+  # loessprediction <- predict(fit, d)
 }
 
-plot(gctotal, iitotal, pch = '.', ylim=c(0,3), xlab = "GC content", ylab = "insertion index", main = "GC bias", 
+plot(gctotal, iitotal, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index", main = "GC bias", 
      cex.lab = 2, cex.axis = 2, cex.main =2)
-fit <- gam(iitotal~s(gctotal))
-gamprediction <- predict.gam(fit, data.frame(gctotal))
 lines(loess.smooth(gctotal,iitotal, span=0.2), col=2, lwd=5)
+# fit <- loess(iitotal~gctotal)
+# loessprediction <- predict(fit, gctotal)
 
-fit <- gam(ii_dnormalisedtotal~s(gctotal))
-gamprediction <- predict.gam(fit, data.frame(gctotal))
-iinormalisedtotal = ii_dnormalisedtotal/(gamprediction/mean(ii_dnormalisedtotal))
-plot(gctotal, iinormalisedtotal, pch='.', ylim=c(0,3), xlab = "GC content",
+
+fit <- loess(ii_dnormalisedtotal~gctotal)
+loessprediction <- predict(fit, gctotal)
+iinormalisedtotal = ii_dnormalisedtotal/(loessprediction/mean(ii_dnormalisedtotal))
+plot(gctotal, iinormalisedtotal, pch='.', ylim=c(0,5), xlab = "GC content",
      ylab = "insertion index", main = "GC bias - normalised", cex.lab = 2, cex.axis = 2, cex.main =2)
-fit <- gam(iinormalisedtotal~s(gctotal))
-gamprediction <- predict.gam(fit, data.frame(gctotal))
 lines(loess.smooth(gctotal,iinormalisedtotal, span=0.2), col=2, lwd=5)
+# fit <- loess(iinormalisedtotal~gctotal)
+# loessprediction <- predict(fit, gctotal)
 
 dev.off()
 

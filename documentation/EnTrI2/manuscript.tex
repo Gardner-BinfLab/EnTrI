@@ -175,7 +175,7 @@ of the United States of America}
 
 %------------------------------------------------
 
-\keywords{Keyword1 | Keyword2 | Keyword3} % When adding keywords, separate each term with a straight line: |
+\keywords{essentiality | conservation | transposon insertion} % When adding keywords, separate each term with a straight line: |
 
 %------------------------------------------------
 
@@ -186,7 +186,7 @@ of the United States of America}
 %% octadecyltrichlorosilane}
 
 % \abbreviations{}
-\abbreviations{SAM, self-assembled monolayer; OTS, octadecyltrichlorosilane}
+%\abbreviations{SAM, self-assembled monolayer; OTS, octadecyltrichlorosilane}
 
 %----------------------------------------------------------------------------------------
 %	PUBLICATION CONTENT
@@ -207,10 +207,18 @@ Enterobacteriaceae is a family that includes bacteria with different host ranges
 
 %------------------------------------------------
 
-\section{Results}
-\textcolor{red}{\{An explanation of the experiment\}}
+\section{Bias}
 
-\textbf{Clustering orthologous and paralogous genes.} To study the essentiality of genes in 12 strains depicted in Fig~\ref{fig:tree}, We needed to cluster sets of orthologous genes in these strain. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
+\section{Gene classes}
+\subsection{Genus specific}
+\subsection{Single copy}
+\subsection{Multi-copy}
+\section{Evolution of essentiality}
+
+\section{Case study of genes}
+\subsection{Core genes}
+\subsection{Accessory genes}
+
 
 %------------------------------------------------
 
@@ -226,7 +234,7 @@ Enterobacteriaceae is a family that includes bacteria with different host ranges
 %% The Materials and Methods section header will be added automatically.
 
 \begin{materials}
-
+\textbf{Clustering orthologous and paralogous genes.} To study the essentiality of genes in 12 our strains, We needed to cluster sets of orthologous genes in these strain. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
 \end{materials}
 
 %----------------------------------------------------------------------------------------
@@ -289,11 +297,7 @@ Enterobacteriaceae is a family that includes bacteria with different host ranges
 %----------------------------------------------------------------------------------------
 %	FIGURES AND TABLES
 %----------------------------------------------------------------------------------------
-\begin{figure}
-\includegraphics[scale=0.25]{consensustree.pdf}
-\label{fig:tree}
-\caption{Species tree. How is it made?}
-\end{figure}
+
 
 
 %----------------------------------------------------------------------------------------

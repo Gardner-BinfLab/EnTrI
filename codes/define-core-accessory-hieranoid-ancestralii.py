@@ -6,7 +6,7 @@ exec python3 $0 ${1+"$@"}
 from os import listdir, path, mkdir
 from Bio import SeqIO
 from shutil import rmtree
-from re import match, search
+from re import match, findall
 from collections import defaultdict
 
 
@@ -49,23 +49,23 @@ def read_gene_essentiality(indir):
         with open(indir+'/'+filename) as from_file:
             for line in from_file:
                 cells = line.split()
-                iidict[cells[0]] = cells[1]
+                iidict[cells[0]] = float(cells[1])
     return iidict
 
-def read_k12(inpath, iidict):
-    with open(inpath) as from_file:
-        for line in from_file:
-            cells = line.split()
-            iidict[cells[0]] = 'essential'
-    return iidict
+# def read_k12(inpath, iidict):
+#     with open(inpath) as from_file:
+#         for line in from_file:
+#             cells = line.split()
+#             iidict[cells[0]] = 'essential'
+#     return iidict
 
 seqdb = '/home/fatemeh/EnTrI/sequences/fasta-protein/chromosome/seqdb.fasta'
 clusters = '/home/fatemeh/EnTrI/results/hieranoid-result.txt'
 insertion_indices = '/home/fatemeh/EnTrI/results/insertion-indices/gamma'
 # k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
-outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid'
+outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-ancestralii'
 makedir(outdir)
-speciestreedir = '/home/fatemeh/EnTrI/codes/speciestrees'
+speciestreedir = '/home/fatemeh/EnTrI/codes/speciestrees-no-k12'
 sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 # gene_essentiality = read_k12(k12path, gene_essentiality)
@@ -73,8 +73,8 @@ species_names = defaultdict()
 species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
     "STMMW", "t"],"typhimurium":["STM", "SL1344", "STMMW"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t"],
     "ecoli":["CS17", "ETEC", "NCTC13441"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
-    ["ENC"], "salmonellaecoli":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441"],
-    "salmonellaecolicitrobacter":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "ROD"],
+    ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "STM", "STMMW", "t", "ROD"],
+    "salmonellacitrobacterecoli":["SEN", "SL1344", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "ROD"],
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
     "ecolics17":["CS17"], "ecolih10407":["ETEC"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"]}
@@ -98,24 +98,142 @@ for item in species_names.keys():
 
     num_species = len(species_names[item])
     gene_dict = {species_names[item][i]: 0 for i in range(num_species)}
+    essentiality_dict = {species_names[item][i]: 0 for i in range(num_species)}
+    num_repeats = {species_names[item][i]: 0 for i in range(num_species)}
 
-    with open (clusters) as from_file:
+    with open(clusters) as from_file:
         for line in from_file:
             for key in gene_dict.keys():
                 gene_dict[key] = 0
+                essentiality_dict[key] = 0
+                num_repeats[key] = 0
             list_of_genes = []
-            stack_of_genes = Stack()
-            sp_name = ''
-            for char in line:
-                if search('[(,]', char):
-                    if sp_name in species_names[item]:
+            stack_of_species = Stack()
+            # list_of_essential_genes = []
 
+            # cells = line.split()
+            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
+            temp_result = findall('(([a-zA-Z]+?)\d+):', line)
+            for matches in temp_result:
+                if matches[1] != 'n':
+                    findall_result.append(matches)
+            for element in findall_result:
+                name = element[1]
+                if name in gene_dict.keys():
+                    list_of_genes.append(element[0])
+                    gene_dict[name] = 1
+                    if element[0] in gene_essentiality:
+                        # list_of_essential_genes.append(element[0])
+                        essentiality_dict[name] += gene_essentiality[element[0]]
+                        num_repeats[name] += 1
+            for i in essentiality_dict.keys():
+                if num_repeats[i] > 0:
+                    essentiality_dict[i] /= num_repeats[i]
+                else:
+                    essentiality_dict[i] = 7
+            if len(species_names[item]) > 1:
+                with open(speciestreedir + '/' + item + '.tre') as tree_file:
+                    treeline = tree_file.readline()
                     sp_name = ''
-                elif search('[a-zA-Z0-9]', char):
-                    sp_name += char
-                elif search(')',char)
+                    i = 0
+                    char = treeline[i]
+                    while char != ';':
+                        if char == '(':
+                            i += 1
+                            char = treeline[i]
+                        elif char == ',':
+                            if sp_name != '':
+                                stack_of_species.push(essentiality_dict[sp_name])
+                                sp_name = ''
+                            i += 1
+                            char = treeline[i]
+                        elif char == ')':
+                            if sp_name != '':
+                                stack_of_species.push(essentiality_dict[sp_name])
+                                sp_name = ''
+                            val1 = stack_of_species.pop()
+                            val2 = stack_of_species.pop()
+                            ave = (val1 + val2) / 2
+                            stack_of_species.push(ave)
+                            i += 1
+                            char = treeline[i]
+                        else:
+                            sp_name += char
+                            i += 1
+                            char = treeline[i]
+                    ii = stack_of_species.pop()
 
+                    if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
+                        # if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
+                        if ii < 0.2:
+                            esscoregenes += list_of_genes
+                        else:
+                            nesscoregenes += list_of_genes
+                    else:
+                        # if not sum([gene_dict[item] - essentiality_dict[item] for item in essentiality_dict.keys()]):
+                        if ii < 0.2:
+                            essaccessorygenes += list_of_genes
+                        else:
+                            nessaccessorygenes += list_of_genes
+            else:
+                name = gene_dict.keys()[0]
+                if gene_dict[name]:
+                    if essentiality_dict[name]<0.2:
+                        esscoregenes += list_of_genes
+                    else:
+                        nesscoregenes += list_of_genes
+                else:
+                    if essentiality_dict[name]<0.2:
+                        essaccessorygenes += list_of_genes
+                    else:
+                        nessaccessorygenes += list_of_genes
 
+    # with open (clusters) as from_file:
+    #     for line in from_file:
+    #         for key in gene_dict.keys():
+    #             gene_dict[key] = 0
+    #         list_of_genes = []
+    #         stack_of_genes = Stack()
+    #         sp_name = ''
+    #         i = 0
+    #         while line[i] != '(':
+    #             i += 1
+    #         char = line[i]
+    #         while i < len(line):
+    #             if char == '(':
+    #                 stack_of_genes.push(char)
+    #                 i += 1
+    #                 char = line[i]
+    #             elif char == ':':
+    #                 while not search('[,)]', char):
+    #                     i += 1
+    #                     char = line[i]
+    #                 if sp_name in gene_essentiality.keys():
+    #                     stack_of_genes.push(gene_essentiality[sp_name])
+    #                 else:
+    #                     stack_of_genes.push(3.0)
+    #                 sp_name = ''
+    #             elif search('[,;]', char):
+    #                 i += 1
+    #                 char = line[i]
+    #             elif char == ')':
+    #                 while not search('[,;)]',char):
+    #                     i += 1
+    #                     char = line[i]
+    #                 stack_item = stack_of_genes.pop()
+    #                 counter = 0
+    #                 average = 0
+    #                 while stack_item != '(':
+    #                     average += stack_item
+    #                     counter += 1
+    #                     stack_item = stack_of_genes.pop()
+    #                 average /= counter
+    #                 stack_of_genes.push(average)
+    #             else:
+    #                 sp_name += char
+    #                 i += 1
+    #                 char = line[i]
+    #         ii = stack_of_genes.pop()
 
     esscoregenes = list(set(esscoregenes))
     esscoregenes.sort()

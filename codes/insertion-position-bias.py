@@ -23,7 +23,7 @@ for item in plots_dict.keys():
     genome_insertions[item] = sum([1 for x in plots_dict[item] if x > 0])
 
 gene_name = ''
-position_insertion = [0]*180
+position_insertion = [0]*100
 with open(result, 'w') as tofile:
     with open(seqdb, 'r') as sequencefile:
         for line in sequencefile:
@@ -44,23 +44,23 @@ with open(result, 'w') as tofile:
                     strand = match_result.group(5)
                 else:
                     strain_name = ''
-                if strain_name not in plots_dict.keys() or (end - start + 1) < 180:
+                if strain_name not in plots_dict.keys() or (end - start + 1) < 100:
                     gene_name = ''
                 else:
-                    for i in range(0,60):
-                        if plots_dict[strain_name][start+i] > 0:
-                            position_insertion[i] = float(1) / (float(genome_insertions[strain_name])/genome_length[strain_name])
-                        else:
-                            position_insertion[i] = float(0)
-                        if plots_dict[strain_name][end-59+i] > 0:
-                            position_insertion[120+i] = float(1) / (float(genome_insertions[strain_name])/genome_length[strain_name])
-                        else:
-                            position_insertion[120+i] = float(0)
-                        interval = (end - 60) - (start + 60) + 1
-                        ithstart = int(start + 60 + floor(float(interval * i)/60))
-                        ithend = int(start + 60 + floor(float(interval * (i+1))/60))
+                    for i in range(0,100):
+                        # if plots_dict[strain_name][start+i] > 0:
+                        #     position_insertion[i] = float(1) / (float(genome_insertions[strain_name])/genome_length[strain_name])
+                        # else:
+                        #     position_insertion[i] = float(0)
+                        # if plots_dict[strain_name][end-59+i] > 0:
+                        #     position_insertion[120+i] = float(1) / (float(genome_insertions[strain_name])/genome_length[strain_name])
+                        # else:
+                        #     position_insertion[120+i] = float(0)
+                        interval = end - start + 1
+                        ithstart = int(start + floor(float(interval * i)/100))
+                        ithend = int(start + floor(float(interval * (i+1))/100))
                         length = ithend - ithstart
-                        position_insertion[60+i] = float(float(sum([1 for x in plots_dict[strain_name][ithstart:ithend] if x > 0]))/length)/(float(genome_insertions[strain_name])/genome_length[strain_name])
+                        position_insertion[i] = float(float(sum([1 for x in plots_dict[strain_name][ithstart:ithend] if x > 0]))/length)/(float(genome_insertions[strain_name])/genome_length[strain_name])
                         gene_insertions = sum([1 for x in plots_dict[strain_name][start:end+1] if x > 0])
                         ii = (float(gene_insertions)/(end-start+1))/(float(genome_insertions[strain_name])/genome_length[strain_name])
                     if strand == 'Complement':

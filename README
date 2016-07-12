@@ -9,6 +9,7 @@
 	mkdir ../sequences/fasta-protein
 	mkdir ../sequences/fasta-protein/chromosome
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2peptides.py $filename ../sequences/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+4.b. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
 5. Make a fasta file with all sequences in it.
 	cd EnTrI/sequences/fasta-protein/chromosome
 	cat * > seqdb.fasta
@@ -21,6 +22,7 @@
 	cd EnTrI/codes
 	mkdir ../sequences/fasta-dna && mkdir ../sequences/fasta-dna/chromosome
 	for filename in ../sequences/embl/chromosome/*.embl; do embl2dna.py $filename ../sequences/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+1.b. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
 2. Make a fasta file with all sequences in it.
 	cd EnTrI/sequences/fasta-dna/chromosome
 	cat * > seqdb.fasta

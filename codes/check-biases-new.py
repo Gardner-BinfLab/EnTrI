@@ -23,7 +23,7 @@ for filename in list_of_files:
             for line in sequencefile:
                 if line.startswith('>'):
                     if gene_name != '':
-                        tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\n'.format(gene_name, iis_dict[gene_name][0], iis_dict[gene_name][1], float(start[0])/genome_length[strain_name], float(gc)/gene_length))
+                        tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n'.format(gene_name, iis_dict[gene_name][0], iis_dict[gene_name][1], float(start[0])/genome_length[strain_name], float(gc)/gene_length, float(gene_length)))
                     gc = 0
                     match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                     if match_result is None:
@@ -33,7 +33,7 @@ for filename in list_of_files:
                         strain_name = match_result.group(2)
                         starts_ends = findall('\d+\-\d+\s', match_result.group(3))
                         start = []
-                        end =  []
+                        end = []
                         for item in starts_ends:
                             match_result = match('(\d+)-(\d+)', item)
                             start.append(int(match_result.group(1)))

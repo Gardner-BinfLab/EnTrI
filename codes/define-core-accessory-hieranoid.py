@@ -97,7 +97,7 @@ for item in species_names.keys():
             list_of_essential_genes = []
 
             # cells = line.split()
-            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-z0-9]+):', line)
+            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
             temp_result = findall('(([a-zA-Z]+?)\d+):', line)
             for matches in temp_result:
                 if matches[1] != 'n':
