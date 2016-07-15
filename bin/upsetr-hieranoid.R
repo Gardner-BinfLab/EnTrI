@@ -1,0 +1,61 @@
+library("UpSetR")
+library(stringr)
+# listinput <- list(a=c(1,1,1,1,2,1,2,3,3,3), b=c(1,4,5), d=c(1,2,5,6,7), e=c(4,8,9))
+# upset(fromList(listinput))
+
+clusters_path <- "../results/hieranoid/hieranoid-result.txt"
+essentiality_path <- "../results/insertion-indices/normalised-insertion-indices/"
+k12_path <- "../results/ecogene-k12.txt"
+list_of_files <- list.files(path=essentiality_path, full.names=T, recursive=FALSE)
+list_of_essential_genes = list()
+for (filename in list_of_files)
+{
+  iis <- as.matrix(read.table(filename))
+  list_of_essential_genes[strsplit(basename(filename),"\\.")[[1]][1]] <- list(iis[,1][iis[,3]=='essential'])
+}
+iis = as.matrix(read.table(k12_path))
+list_of_essential_genes["b"] <- list(iis[,1])
+presence = rev(list("BN373"=c(), "ERS227112"=c(), "ENC"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STM"=c(), "STMMW"=c(), "SEN"=c(),
+                "t"=c(), "NCTC13441"=c(), "CS17"=c(), "ETEC"=c(), "b"=c()))
+essentiality = rev(list("BN373"=c(), "ERS227112"=c(), "ENC"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STM"=c(), "STMMW"=c(), "SEN"=c(),
+                    "t"=c(), "NCTC13441"=c(), "CS17"=c(), "ETEC"=c(), "b"=c()))
+cluster <- readLines(clusters_path)
+numclusters = length(cluster)
+for (clusterindex in (1:numclusters))
+{
+  line = cluster[clusterindex]
+  match_result = str_match_all(line, '[[,(]](([[:alnum:]]+)_[[:alnum:]]+):')
+  temp_result = str_match_all(line, '[[,(]](([[:alpha:]]+)[[:digit:]]+):')
+  match_result[[1]] <- rbind(match_result[[1]], temp_result[[1]])
+  match_result <- match_result[[1]]
+  for (i in (1:nrow(match_result)))
+  {
+    name = match_result[i,3]
+    if (name %in% names(presence)) 
+    {
+      presence[[name]] <- rbind(presence[[name]], clusterindex)
+      gene = match_result[i,2]
+      if (gene %in% list_of_essential_genes[[name]])
+      {
+        essentiality[[name]] <- rbind(essentiality[[name]], clusterindex)
+      }
+    }
+  }
+}
+
+names(presence) <- rev(c("Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207", "Enterobacter cloacae NCTC 9394",
+                     "Citrobacter rodentium ICC168", "Salmonella Typhimurium SL1344", "Salmonella Typhimurium SL3261",
+                     "Salmonella Typhimurium A130", "Salmonella Typhimurium D23580", "Salmonella Enteritidis P125109",
+                     "Salmonella Typhi Ty2", "Escherichia coli UPEC ST131", "Escherichia coli ETEC CS17", "Escherichia coli ETEC H10407",
+                     "Escherichia coli K-12 MG1655"))
+names(essentiality) <- rev(c("Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207", "Enterobacter cloacae NCTC 9394",
+                         "Citrobacter rodentium ICC168", "Salmonella Typhimurium SL1344", "Salmonella Typhimurium SL3261",
+                         "Salmonella Typhimurium A130", "Salmonella Typhimurium D23580", "Salmonella Enteritidis P125109",
+                         "Salmonella Typhi Ty2", "Escherichia coli UPEC ST131", "Escherichia coli ETEC CS17", "Escherichia coli ETEC H10407",
+                         "Escherichia coli K-12 MG1655"))
+pdf("../figures/upsetr.pdf")
+upset(fromList(presence), nsets = 14, order.by="freq", nintersects=25
+      #, show.numbers = "no"
+     )
+upset(fromList(essentiality), nsets = 14, order.by="freq", nintersects=25)
+dev.off()

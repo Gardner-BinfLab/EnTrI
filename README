@@ -5,140 +5,52 @@
 	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
 3. Remove locus tag "ERS227112_02466:gene" from "Klebsiella_pneumoniae_RH201207_v0.3.embl" embl file. This gene has two locus tags: "ERS227112_02466" and "ERS227112_02466:gene", which probably is a mistake in annotation, and the ":gene" at the end of this tag causes jackhmmer name this gene "gene" which is impossible to track.
 4. Convert embl files to protein fasta files
-	cd EnTrI/codes
-	mkdir ../sequences/fasta-protein
-	mkdir ../sequences/fasta-protein/chromosome
-	for filename in ../sequences/embl/chromosome/*.embl; do embl2peptides.py $filename ../sequences/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
-4.b. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
-5. Make a fasta file with all sequences in it.
-	cd EnTrI/sequences/fasta-protein/chromosome
+	cd EnTrI/bin
+	mkdir ../data/fasta-protein
+	mkdir ../data/fasta-protein/chromosome
+	for filename in ../data/embl/chromosome/*.embl; do embl2peptides.py $filename ../data/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+5. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
+6. Make a fasta file with all sequences in it.
+	cd EnTrI/data/fasta-protein/chromosome
 	cat * > seqdb.fasta
-6. Run homclust to cluster homologous proteins
-	cd EnTrI/codes
-	homclust.py ../sequences/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../sequences/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 13 -s 4
+7. Run homclust to cluster homologous proteins
+	cd EnTrI/bin
+	homclust.py ../data/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../data/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 13 -s 4
 
-============ ADD CLUSTERS CONTAINING DNA SEQUENCES
-1. Convert embl files to DNA fasta files
-	cd EnTrI/codes
-	mkdir ../sequences/fasta-dna && mkdir ../sequences/fasta-dna/chromosome
-	for filename in ../sequences/embl/chromosome/*.embl; do embl2dna.py $filename ../sequences/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
-1.b. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
-2. Make a fasta file with all sequences in it.
-	cd EnTrI/sequences/fasta-dna/chromosome
-	cat * > seqdb.fasta
-3. Make clusters containing DNA fastas
-	cd EnTrI/codes
-	cluster2dnafasta.py ../sequences/fasta-dna/chromosome/seqdb.fasta ../results/homclust/EFam-clusters ../results/cluster2dnafasta
+============ RUN PHYLOSIFT & RAXML
+1. cd EnTrI/results/phylosift
+2. find ../../data/fasta-genome/chromosome/ -maxdepth 1 -name "*.fa" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
+3. find ../../data/fasta-genome/chromosome/ -maxdepth 1 -name "*.fa" -exec ~/program-bank/phylosift_v1.0.1/phylosift align --isolate --besthit {} \;
+4.a. for f in PS_temp/*/alignDir/concat.codon.updated.1.fasta; do cat "$f" >> codon_alignment.fa; done
+4.b. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
+5. Run RaXML
+	a. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
+	b. raxmlHPC -s codon_alignment.fa -n phylosift-n.raxmlbootstrap -m GTRCAT -p 1234 -f a -x 1234 -# 100
 
-============ CHECK FOR BIASES
-1. Make a directory for plot files corresponding to the sequences that we have clustered and add the extracted plot files to it. The plot files should be named based on fasta IDs of the sequences. If the fasta IDs contain an underscore, the name of the corresponding plot file = all characters before the underscore. If the name does not contain an underscore, the name of the plot file = all letters before the first digit.
+============ RUN HIERANOID
+1. Copy all the protein fasta sequences to program-bank/hieranoid/data/sequences.
+2. Copy the species tree to program-bank/hieranoid/data/tree, root it, and add node names to it.
+3. Edit program-bank/hieranoid/Configurations/Configuration.pm
+4. cd program-bank/hieranoid/
+5. perl hieranoid.pl
 
-2. Run check-biases
-	cd EnTrI/codes
-	mkdir ../results/check-biases
-	python check-biases.py
-	Rscript check-biases.R
-3. Save fasta genomes in sequences/fasta-genome/chromosome (Most of them were downloadable or provided previously)
-4. Rename the files as in the "CHECK FOR BIASES" section, point 1.
-5. Run make-logos.py
-	cd EnTrI/codes
+============ FIND ESSENTIAL GENES
+1. cd EnTrI/bin
+2. Rscript calculate-insertion-index.R
+3. Make logos for top 100 most frequent insertion sites:
 	mkdir ../results/logos
-	make-logos.py
-6. Generate a logo for the sequences resulted from the last step.
+	python3 make-logos-top-100.py
+4. Generate a logo for the sequences resulted from the last step.
 	cd EnTrI/results/logos
-	weblogo -F pdf -A dna -f logos.txt -o logo-prob.pdf -s large -U probability
-	weblogo -F pdf -A dna -f logos.txt -o logo-bits.pdf -s large
-7. To test GC bias in positions with high number of insertions:
-	cd EnTrI/codes
-	test100logos.py
-8. Generate a logo for the sequences resulted from the last step.
-	cd EnTrI/results/logos
-	weblogo -F pdf -A dna -f 100logos.txt -o 100logo-prob.pdf -s large -U probability
-	weblogo -F pdf -A dna -f 100logos.txt -o 100logo-bits.pdf -s large
+	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-prob.pdf -s large -U probability
+	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-bits.pdf -s large
+5. python3 insertion-position-bias.py
+6. Rscript insertion-position-bias.R
+7. python3 check-biases.py
+8. Rscript check-biases.R
 
-9. Check for insertion position bias
-	cd EnTrI/codes
-	python insertion-position-bias.py
-	Rscript insertion-position-bias.R
-
-10. Select predicted operons from DOOR (http://csbl.bmb.uga.edu/DOOR/) because it is mentioned as the best method in this benchmark (Brouwer, Rutger WW, Oscar P. Kuipers, and Sacha AFT van Hijum. "The relative value of operon predictions." Briefings in bioinformatics 9, no. 5 (2008): 367-375.)
-
-============ REMOVE BIASES
-1. Run remove-biases
-	cd EnTrI/codes
-	mkdir ../results/remove-biases
-	Rscript remove-biases.R
-
-============ STUDY CLUSTERS
-1. Run merge-clust-plot to add insertion indices to genes in clusters
-	cd EnTrI/codes
-	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/remove-biases/normalised-iis-without-ends.txt ../results/ecogene-k12.txt ../results/merge-clust-plot
-2. Plot cluster size distribution (This is not a general script and can only be used for this case)
-	cd EnTrI/codes
-	Rscript orfan-single-multiple.R
-- The resulting file called "cluster-size-dist.pdf" is saved in results directory.
-3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
-	cd EnTrI/codes  
-	Rscript clust2plot.R
-- The output is a file called "cluster-essentiality.pdf" in results directory.
-4. Generate plots for per species insertion indices:
-	cd EnTrI/codes
-	per-species-ii.py
-	Rscript per-species-ii.R
-- The output is a file called "per-species-insertion-index.pdf" in results directory.
-
-============ GENERATE THE SPECIES TREE
-1. Run make_marker to get marker genes (This is not a general script and can only be used for this case)
-	cd EnTrI/codes
-	mkdir ../results/make_marker
-	make_marker.py ../results/homclust/EFam-fastas/ ../results/cluster2dnafasta/ ../results/make_marker/protein-fastas ../results/make_marker/dna-fastas
-2. Align protein sequences
-	cd EnTrI/results/make_marker/protein-fastas
-	for f in *; do (cat "${f}"; echo) >> seqdb.fasta; done
-	mafft seqdb.fasta > markers.align
-	fasttree markers.align > speciestree.fasttree
-
-============ STUDY DUPLICATIONS
-1. Change the name of the genes to use better names in trees and add essentiality of the genes to their names (This is not a general script and can only be used for this case)
-	cd EnTrI/codes
-	amend-gene-names.py ../results/homclust/EFam-MSAs/ ../results/merge-clust-plot/ ../results/amend-gene-names
-2. Run pal2nal on MSAs
-	cd EnTrI/results
-	mkdir pal2nal
-	for filename in cluster2dnafasta/*; do pal2nal.pl amend-gene-names/"$(basename $filename | cut -d. -f1).msa" $filename -output fasta > pal2nal/"$(basename $filename | cut -d. -f1).pal2nal"; done
-3. Run fasttree on pal2nal results
-	cd EnTrI/results
-	mkdir genetrees
-	for filename in pal2nal/*; do FastTree -nosupport -quiet -nt $filename > genetrees/"$(basename $filename | cut -d. -f1).newick"; done
-4. Calculate the distance between duplications and the difference between their insertion indices
-	cd EnTrI/codes
-	mkdir results/duplication_distance_calculator
-	duplication_distance_calculator.py ../results/pal2nal/ ../results/merge-clust-plot/ ../results/duplication_distance_calculator/distances ../results/duplication_distance_calculator/deltaiis
-5. Plot distance vs. delta insertion index (This is not a general script and can only be used for this case)
-	cd EnTrI/codes
-	Rscript plot-distance-vs-deltaii.R
-6. Plot the insertion index for each pair of duplicated genes (This is not a general script and can only be used for this case)
-	cd EnTrI/codes
-	Rscript duplicated-genes-ii.R
-
-============ Can we recover phylogenetic information from the essential genes?
-1. Run make-essentiality-tree
-	cd EnTrI/codes
-	mkdir ../results/make-essentiality-tree
-	make-essentiality-tree.py ../results/merge-clust-plot/ ../results/make-essentiality-tree/distance-matrix.out
-2. Run Phylip on the resulted distance matrix
-	cd EnTrI/results/make-essentiality-tree
-	phylip neighbor
-	> distance-matrix.out
-	> Y
-	
-============ Define core and accessory genomes
-1. Run define-core-accessory
-	cd EnTrI/codes
-	define-core-accessory.py
-2. Count pairwise core and accessory genomes
-	cd codes
-	pairwise-venn-diagrams.py
-3. Convert the results of pairwise-venn-diagrams.py to heatmaps.
-	cd codes
-	Rscript venn-to-heatmap.R
+============ EVOLUTION OF ESSENTIALITY
+1. Download the list of E.coli K-12 essential genes from ecogenes and save it as ecogene-k12.txt in results directory.
+2. python3 define-core-accessory-hieranoid.py
+3. python3 define-core-accessory-hieranoid-fdollop.py
+4. python3 define-core-accessory-hieranoid-ancestralii.py
