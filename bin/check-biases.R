@@ -82,13 +82,13 @@ for (filename in list_of_files)
 {
   locusid = strsplit(basename(filename),"\\.")[[1]][1]
   biasestable = read.table(filename, header = FALSE)
-  colnames(biasestable) <- c("name", "ii", "essentiality", "dist", "gc")
+  colnames(biasestable) <- c("name", "ii", "essentiality", "dist", "gc", "length")
   biasestable$ii <- ii_dnormalisedtotal[s:(s+length(biasestable$ii)-1)]
-  for (i in seq(1,length(biasestable$ii)))
-  {
-    if (biasestable$ii[i] < 0)
-      biasestable$ii[i] = 0
-  }
+  # for (i in seq(1,length(biasestable$ii)))
+  # {
+  #   if (biasestable$ii[i] < 0)
+  #     biasestable$ii[i] = 0
+  # }
   ii=biasestable$ii
   nG = length(ii)
   
@@ -103,7 +103,7 @@ for (filename in list_of_files)
   h1 = hist(ii[I],breaks=(0:r/1000),plot=FALSE)
   lo <- loess(h1$density ~ c(1:length(h1$density))) #loess smothing over density
   m1 = h1$mids[which.min(predict(lo))]
-  m2 = h$mids[max(which(h$counts>5))]
+  m2 = h$mids[max(which(h$counts>30))]
   I1 = ((ii < m1)&(ii > 0))
   I2 = ((ii >= m1)&(ii < m2))
   
@@ -125,7 +125,7 @@ for (filename in list_of_files)
     hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
     lines(0:2000/500, f1*dgamma(0:2000/500, 1, d1$estimate[2])) # was [2]
     lines(0:2000/500, f2*dgamma(0:2000/500, d2$estimate[1], d2$estimate[2]))
-    lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -2))
+    lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -10))
     upper <- min(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) > 2))
     essen <- lower/10000
     ambig <- upper/10000
@@ -136,7 +136,7 @@ for (filename in list_of_files)
     hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
     lines(0:2000/500, f1*dgamma(0:2000/500, d1$estimate[1], d1$estimate[2])) # was [2]
     lines(0:2000/500, f2*dgamma(0:2000/500, d2$estimate[1], d2$estimate[2]))
-    lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, d1$e[1],d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, d1$e[1],d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -2))
+    lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, d1$e[1],d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, d1$e[1],d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -10))
     upper <- min(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, d1$e[1],d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, d1$e[1],d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) > 2))
     essen <- lower/10000
     ambig <- upper/10000
@@ -153,7 +153,7 @@ for (filename in list_of_files)
   
   for (i in (1:length(ii)))
   {
-    if (ii[i] < essen)
+    if (ii[i] < essen & 100 < biasestable$length[i])
     {
       biasestable$essentiality[i] = "essential"
     }
