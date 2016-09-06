@@ -22,6 +22,9 @@ makedir(results)
 genome_length = {"SL1344":4878012, "STMMW":4879400, "SEN":4685848, "t":4791961, "STM":4895639, "ETEC":5153435,
                  "b":4641652, "CS17":4994793, "NCTC13441":5174631, "ROD":5346659, "BN373":5324709, "ERS227112":5869288,
                  "ENC":4908759, "SL3261":4878012}
+dnaa ={"ROD":4262871, "CS17":4234263, "ENC":414484, "ETEC":4305897, "NCTC13441":4952702, "ERS227112":453004,
+       "BN373": 5024509, "SEN":3919680, "STM":4019091, "SL1344":4066338, "STMMW":4067900, "t":3790618,
+       "SL3261":4066338, "b":3883729}
 
 list_of_files = listdir(iis)
 for filename in list_of_files:
@@ -37,7 +40,8 @@ for filename in list_of_files:
             for line in sequencefile:
                 if line.startswith('>'):
                     if gene_name != '':
-                        tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n'.format(gene_name, iis_dict[gene_name][0], iis_dict[gene_name][1], float(start[0])/genome_length[strain_name], float(gc)/gene_length, float(gene_length)))
+                        dist = min(abs(start[0]-dnaa[strain_name]), genome_length[strain_name]-abs(start[0]-dnaa[strain_name])) + 1
+                        tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n'.format(gene_name, iis_dict[gene_name][0], iis_dict[gene_name][1], float(dist)/genome_length[strain_name], float(gc)/gene_length, float(gene_length)))
                     gc = 0
                     match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                     if match_result is None:

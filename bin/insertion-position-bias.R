@@ -36,3 +36,11 @@ midpoints <- barplot(toplot, main="Beneficial loss", xaxt="n", xlab="position", 
 axis(1, at=midpoints[c(1,100)], labels=c('5\'','3\''), cex.axis=1.5)
 legend(41,1.5, c("First 5%","internal", "Last 20%"), lty=c(1,1,1),cex=1.5, lwd=c(4,4, 4),col=c(cols[1],cols[6],cols[81]), bg="white")
 dev.off()
+
+# for (item in essential)
+# {
+#   if (mean(as.numeric(item[2:6])) >= (mean(as.numeric(item[7:81]))+0.02))
+#   {
+#     print(item)
+#   }
+# }

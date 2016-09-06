@@ -201,21 +201,30 @@ of the United States of America}
 
 \dropcap{S}tudying the essentiality of genes helps with identifying the fundamental processes necessary for cell viability \cite{juhas_essence_2011}. So far, scientists have studied the essential genes in organisms from different domains of life \cite{luo_deg_2014}. The results have led to new insights for developing new antibiotics that target essential genes of pathogenic bacteria \cite{clatworthy_targeting_2007, peters_comprehensive_2016} and synthesising new genomes \cite{hutchison_global_1999, hutchison_design_2016}. Researchers have used different methods for studying the essentility of genes in prokaryotes. Baba et al.\@ \cite{baba_construction_2006} have made a library of single gene deletions using phage lambda Red recombination system to screen essential genes while another group have used antisense RNA knockdowns for this purpose \cite{xu_staphylococcus_2010}. Another method that is widely used due to its simplicity and accuracy is transposon mutagenesis along with high-throughput sequencing \cite{gawronski_tracking_2009, van_opijnen_tn-seq:_2009, langridge_simultaneous_2009, christen_essential_2011, goodman_identifying_2011, wetmore_rapid_2015, rubin_essential_2015}. In this method, pools of single insertion mutants are constructed using transposon mutagenesis and the effect of each mutation on the survival of mutants is evaluated by sequencing the survivors \cite{barquist_approaches_2013}. This can lead to the identification of essential genes.
 
-Although the essentiality of genes has been studied in a variety of organisms, there is still room to study the evolutionary conservation of essentiality. Barquist et al.\@ \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to study the differentiation of the essentiality of genes in \textit{Salmonella} serovars Typhi and Typhimurium which has led to divergence in their pathogenecity and host ranges. We extend this research by studying 13 bacterial strains from Enterobacteriaceae. These strains are depicted in Fig.\@~\ref{fig:species-tree}.
+Although the essentiality of genes has been studied in a variety of organisms, there is still room to study the evolutionary conservation of essentiality. Barquist et al.\@ \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to study the differentiation of the essentiality of genes in \textit{Salmonella} serovars Typhi and Typhimurium which has led to divergence in their pathogenecity and host ranges. We extend this research by studying 13 bacterial strains from Enterobacteriaceae. These strains are depicted in Fig.\@ \ref{fig:species-tree}.
 
 Enterobacteriaceae is a family that includes bacteria with different host ranges and pathogenecity found in soil, water, plants, animals and humans \cite{brenner_bergeys_2006}. In humans, various strains from this family can cause diarrhoea, septicaemia, urinary tract infection, meningitis, respiratory disease, and wound and burn infection \cite{brenner_bergeys_2006}. Besides, they can infect poultry and livestocks and cause financial losses for farmers \cite{brenner_bergeys_2006}. Here, we perform a transposon-directed insertion-site sequencing experiment to study the conservation of essentiality of genes in strains from 5 different species in this family.
 
 \textcolor{red}{\{A summary of what we have done\}}
 
 %------------------------------------------------
-
+\section{Transposon mutagenesis}
+\subsection{Strains}
+\subsection{Transposon insertion experiment}
+\subsection{Essentiality}
 \section{Are transposons biased towards certain positions?}
-\begin{itemize}
-\item There is a bias towards the position of the gene (Fig.~\ref{fig:distance-bias}).
-\item There is a negligible bias towards certain motifs (Fig.~\ref{fig:logos})
-\item The G-C bias needs to be studied further (Fig.~\ref{fig:GC-bias})
-\item The number of insertions on the 3’ and 5’ ends is more than the internal region in essential genes and less than the internal region in beneficial losses. (Fig.~\ref{fig:insertion-position-bias})
-\end{itemize}
+Different articles have reported biases in transposon mutagenesis \cite{barquist_comparison_2013, rubin_essential_2015}. We have performed a thorough study of these biases. To study the bias towards the position of the genes, we plotted the insertion index for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome. Fig.\@ \ref{fig:distance-bias} shows the results. The red line is a loess curve that has been fitted to the data when the smoothness parameter equals $0.2$. The figure indicates that the insertion indices decrease when the genes are located further from the origin of replication. A possible explanation for this phenomenon is that the bacteria were under replication while being infected with transposons. Therefore, the number of gene copies close to the origin of replication was greater and more insertions have occurred in these genes.
+
+We have tested whether our transposons are biased towards certain motifs. For this, we have generated a logo from 10 nucleotides flanking the 100 top most
+frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index. The red lines show the loess curve when the smoothness parameter is $0.2$. \textcolor{red}{\{To be completed\}}
+
+The other bias that we have considered is the bias towards certain locations in a gene. We have divided every gene into 100 bins and calculated the mean insertion index for each bin. Fig.\@ 5a shows almost no bias towards any location. We have also divided our genes into three groups - essential genes, non-essential genes, and beneficial losses - and studied the bias in each group. The results imply that the number of insertions in the internal region of the essential genes is outnumbered by the number of insertions in the 5' and 3' ends while it is the opposite in beneficial losses. The case for the non-essential genes is similar to the average (Fig.\@ 5a). High number of insertions at the 3' end of essential genes implies that the functional part of the genes are located before the insertions. On the other hand, high number of insertions at the 5' end of the essential genes indicates there might be alternative start codons in the 5' end or it might be because of alignment errors. \textcolor{red}{\{To be tested\}}
+%\begin{itemize}
+%\item There is a bias towards the position of the gene (Fig.~\ref{fig:distance-bias}).
+%\item There is a negligible bias towards certain motifs (Fig.~\ref{fig:logos})
+%\item The G-C bias needs to be studied further (Fig.~\ref{fig:GC-bias})
+%\item The number of insertions on the 3' and 5' ends is more than the internal region in essential genes and less than the internal region in beneficial losses. (Fig.~\ref{fig:insertion-position-bias})
+%\end{itemize}
 \section{Gene classes}
 \subsection{Genus specific}
 \subsection{Single copy}
@@ -232,22 +241,22 @@ Enterobacteriaceae is a family that includes bacteria with different host ranges
 \subsection{Accessory genes}
 
 
-%------------------------------------------------
-
-\section{Discussion}
-
-
-
-%----------------------------------------------------------------------------------------
-%	MATERIALS AND METHODS
-%----------------------------------------------------------------------------------------
-
-%% Optional Materials and Methods Section
-%% The Materials and Methods section header will be added automatically.
-
-\begin{materials}
-\textbf{Clustering orthologous and paralogous genes.} To study the essentiality of genes in 12 our strains, We needed to cluster sets of orthologous genes in these strain. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
-\end{materials}
+%%------------------------------------------------
+%
+%\section{Discussion}
+%
+%
+%
+%%----------------------------------------------------------------------------------------
+%%	MATERIALS AND METHODS
+%%----------------------------------------------------------------------------------------
+%
+%%% Optional Materials and Methods Section
+%%% The Materials and Methods section header will be added automatically.
+%
+%\begin{materials}
+%\textbf{Clustering orthologous and paralogous genes.} To study the essentiality of genes in our 12 strains, We needed to cluster sets of orthologous genes in these strain. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
+%\end{materials}
 
 %----------------------------------------------------------------------------------------
 %	APPENDICES (OPTIONAL)
@@ -374,7 +383,7 @@ Enterobacteriaceae is a family that includes bacteria with different host ranges
 \includegraphics[scale=0.5, page=4]{insertion-position-bias.pdf}
 \end{tabular}
 \caption{We have divided our genes into 3 segments: 5\% of
-the genes on the 5’ end, 20\% of the genes on the 3’ end, and the rest in the middle.}
+the genes on the 5' end, 20\% of the genes on the 3' end, and the rest in the middle.}
 \label{fig:insertion-position-bias}
 \end{figure*}
 
