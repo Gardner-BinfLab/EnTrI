@@ -201,35 +201,45 @@ of the United States of America}
 
 \dropcap{S}tudying the essentiality of genes helps with identifying the fundamental processes necessary for cell viability \cite{juhas_essence_2011}. So far, scientists have studied the essential genes in organisms from different domains of life \cite{luo_deg_2014}. The results have led to new insights for developing new antibiotics that target essential genes of pathogenic bacteria \cite{clatworthy_targeting_2007, peters_comprehensive_2016} and synthesising new genomes \cite{hutchison_global_1999, hutchison_design_2016}. Researchers have used different methods for studying the essentility of genes in prokaryotes. Baba et al.\@ \cite{baba_construction_2006} have made a library of single gene deletions using phage lambda Red recombination system to screen essential genes while another group have used antisense RNA knockdowns for this purpose \cite{xu_staphylococcus_2010}. Another method that is widely used due to its simplicity and accuracy is transposon mutagenesis along with high-throughput sequencing \cite{gawronski_tracking_2009, van_opijnen_tn-seq:_2009, langridge_simultaneous_2009, christen_essential_2011, goodman_identifying_2011, wetmore_rapid_2015, rubin_essential_2015}. In this method, pools of single insertion mutants are constructed using transposon mutagenesis and the effect of each mutation on the survival of mutants is evaluated by sequencing the survivors \cite{barquist_approaches_2013}. This can lead to the identification of essential genes.
 
-Although the essentiality of genes has been studied in a variety of organisms, there is still room to study the evolutionary conservation of essentiality. Barquist et al.\@ \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to study the differentiation of the essentiality of genes in \textit{Salmonella} serovars Typhi and Typhimurium which has led to divergence in their pathogenecity and host ranges. We extend this research by studying 13 bacterial strains from Enterobacteriaceae. These strains are depicted in Fig.\@ \ref{fig:species-tree}.
+Although the essentiality of genes has been studied in a variety of organisms, there is still room to study the evolutionary conservation of essentiality. Barquist et al.\@ \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to study the differentiation of the essentiality of genes in \textit{Salmonella} serovars Typhi and Typhimurium which has led to divergence in their pathogenecity and host ranges. We extend this research by studying 13 bacterial strains from Enterobacteriaceae. These strains and \textit{Escherichia coli} K-12 MG1655 studied by Baba et al.\@ \cite{baba_construction_2006} are depicted in Fig.\@ \ref{fig:species-tree}.
 
-Enterobacteriaceae is a family that includes bacteria with different host ranges and pathogenecity found in soil, water, plants, animals and humans \cite{brenner_bergeys_2006}. In humans, various strains from this family can cause diarrhoea, septicaemia, urinary tract infection, meningitis, respiratory disease, and wound and burn infection \cite{brenner_bergeys_2006}. Besides, they can infect poultry and livestocks and cause financial losses for farmers \cite{brenner_bergeys_2006}. Here, we perform a transposon-directed insertion-site sequencing experiment to study the conservation of essentiality of genes in strains from 5 different species in this family.
+Enterobacteriaceae is a family that includes Gram-negative bacteria with different host ranges and pathogenecity found in soil, water, plants, animals and humans \cite{brenner_bergeys_2006}. In humans, various strains from this family can cause diarrhoea, septicaemia, urinary tract infection, meningitis, respiratory disease, and wound and burn infection \cite{brenner_bergeys_2006}. Besides, they can infect poultry and livestocks and cause financial losses for farmers \cite{brenner_bergeys_2006}. Here, we perform a transposon-directed insertion-site sequencing experiment to study the conservation of essentiality of genes in strains from 5 different species in this family.
 
 \textcolor{red}{\{A summary of what we have done\}}
 
 %------------------------------------------------
 \section{Transposon mutagenesis}
 \subsection{Strains}
-\subsection{Transposon insertion experiment}
+We have studied 2 \textit{Klebsiella} strains, an \textit{Enterobacter} strain, a \textit{Citrobacter} strain, 6 \textit{Salmonella} strains, and 3 \textit{Escherichia} strains and compared the essentiality of genes in these strains and \textit{Escherichia coli} K-12 MG1655 from another study \cite{baba_construction_2006}. These strains are all selected from Enterobacteriaceae family.
+\subsection{Transposon insertion workflow}
+We have used Tn5 transposon to generate single inserted mutants and placed our mutants in a selective media for Tn5. We have picked the mutants and pooled them and used the splinkerette adapter and primers designed in \cite{barquist_tradis_2016} for PCR enrichment. Then we have sequenced the fragments and mapped them back to the genome to figure out the number of insertions that have been tolerated in each position of the genome.
 \subsection{Essentiality}
+We have used a value called insertion index to evaluate the essentiality of a gene. This value is calculated by summing up the number of transposon insertion sites observed in a gene. Since the lengths of the genes are different, we have normalised the insertion index by dividing it by gene length. Our experiment has been performed on different strains and the library density is different in each experiment. Therefore, in order to make the insertion indices in all the strains comparable, we have normalised our insertion indices by the ratio between the number of insertions in the whole genome and the length of the genome. We have not studied genes shorter than 100 base-pairs as they might not be targeted by any transposon due to their shortness. 
+
+We have divided our genes into three groups: essential genes, non-essential genes, and beneficial losses. We have adapted the pipeline introduced by Barquist et al.\@ \cite{barquist_tradis_2016} to evaluate the essentiality of genes. The insertion index distribution plot has two peaks and a heavy tail Fig.\@ \ref{fig:iidist}. The first peak shows the genes with no or just a few insertions which are considered as essential genes. We have fitted an exponential distribution to the first peak and a gamma distribution to the second one. Then, we have calculated the log odds ratio for belonging to each of these distributions for each gene. The region that has log odds value between -2 and 2 is called the ambiguous region, the genes belonging to the first peak are essential and the rest of the genes are not essential. Among genes that are not essential, any gene for which the value of the cumulative distribution function for the gamma distribution is greater than or equal to 0.99 is considered as a beneficial loss and the other genes are non-essential genes.
 \section{Are transposons biased towards certain positions?}
-Different articles have reported biases in transposon mutagenesis \cite{barquist_comparison_2013, rubin_essential_2015}. We have performed a thorough study of these biases. To study the bias towards the position of the genes, we plotted the insertion index for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome. Fig.\@ \ref{fig:distance-bias} shows the results. The red line is a loess curve that has been fitted to the data when the smoothness parameter equals $0.2$. The figure indicates that the insertion indices decrease when the genes are located further from the origin of replication. A possible explanation for this phenomenon is that the bacteria were under replication while being infected with transposons. Therefore, the number of gene copies close to the origin of replication was greater and more insertions have occurred in these genes.
+Different articles have reported biases in transposon mutagenesis \cite{barquist_comparison_2013, rubin_essential_2015, kimura_nucleoid_2016}. We have performed a thorough study of these biases. To study the bias towards the position of the genes, we plotted the insertion index for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome. Fig.\@ \ref{fig:distance-bias} shows the results. The red line is a loess curve that has been fitted to the data when the smoothness parameter equals $0.2$. The figure indicates that the insertion indices decrease when the genes are located further from the origin of replication. A possible explanation for this phenomenon is that the bacteria were under replication while being infected with transposons. Therefore, the number of gene copies close to the origin of replication was greater and more insertions have occurred in these genes. To overcome this bias, we have normalised our insertion indices by dividing the value of the insertion index by the predicted value by loess for that position and then multiplying this value by the average insertion index.
 
 We have tested whether our transposons are biased towards certain motifs. For this, we have generated a logo from 10 nucleotides flanking the 100 top most
-frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index. The red lines show the loess curve when the smoothness parameter is $0.2$. \textcolor{red}{\{To be completed\}}
+frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index. The red lines show the loess curve when the smoothness parameter is $0.2$. As the figure shows, when G-C content is less than $40\%$, the insertion index is low, however when it is higher than $50\%$, the insertion index is almost constant. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which causes a reduction in the insertions in A-T rich regions \cite{kimura_nucleoid_2016}. The other reason is that the genes with low G-C content are enriched in mobile genetic elements (corrected p-value for the number of repetition of these words in the quartile with lowest G-C and the interquartile genes: pathogenicity island: 4.55189365569093e-54, prophage: 3.20756138380406e-26, phage: 1.81663788061583e-08, bacteriophage: 0.00285196530662877) compared to the genes with high G-C content and that has caused seeing a different pattern of essentiality in that region.
 
-The other bias that we have considered is the bias towards certain locations in a gene. We have divided every gene into 100 bins and calculated the mean insertion index for each bin. Fig.\@ 5a shows almost no bias towards any location. We have also divided our genes into three groups - essential genes, non-essential genes, and beneficial losses - and studied the bias in each group. The results imply that the number of insertions in the internal region of the essential genes is outnumbered by the number of insertions in the 5' and 3' ends while it is the opposite in beneficial losses. The case for the non-essential genes is similar to the average (Fig.\@ 5a). High number of insertions at the 3' end of essential genes implies that the functional part of the genes are located before the insertions. On the other hand, high number of insertions at the 5' end of the essential genes indicates there might be alternative start codons in the 5' end or it might be because of alignment errors. \textcolor{red}{\{To be tested\}}
+The other bias that we have considered is the bias towards certain locations in a gene. We have divided every gene into 100 bins and calculated the mean insertion index for each bin. Fig.\@ \ref{fig:insertion-position-bias} shows almost no bias towards any location. We have also divided our genes into three groups - essential genes, non-essential genes, and beneficial losses - and studied the bias in each group. The results imply that the number of insertions in the internal region of the essential genes is outnumbered by the number of insertions in the 5' and 3' ends while it is the opposite in beneficial losses. The case for the non-essential genes is similar to the average (Fig.\@ \ref{fig:insertion-position-bias}). High number of insertions at the 3' end of essential genes implies that the functional part of the genes are located before the insertions. On the other hand, high number of insertions at the 5' end of the essential genes indicates there might be alternative start codons in the 5' end or it might be because of alignment errors. \textcolor{red}{\{To be tested\}} We have calculated the insertion index for genes by ignoring $5\%$ from the 5' end and $20\%$ from the 3' end of the genes to overcome these biases.
 %\begin{itemize}
 %\item There is a bias towards the position of the gene (Fig.~\ref{fig:distance-bias}).
 %\item There is a negligible bias towards certain motifs (Fig.~\ref{fig:logos})
 %\item The G-C bias needs to be studied further (Fig.~\ref{fig:GC-bias})
 %\item The number of insertions on the 3' and 5' ends is more than the internal region in essential genes and less than the internal region in beneficial losses. (Fig.~\ref{fig:insertion-position-bias})
 %\end{itemize}
-\section{Gene classes}
-\subsection{Genus specific}
-\subsection{Single copy}
-\subsection{Multi-copy}
-\section{Evolution of essentiality}
+\section{Essentiality and conservation}
+\subsection{Homolog clustering algorithm (homclust)}
+To study whether each gene in our 13 organisms is conserved we have proposed a program that clusters homologous proteins. This program uses Jackhmmer from HMMER package~\cite{eddy_accelerated_2011} to compare protein sequences. It first compares a set of query proteins against all given proteins and clusters homologous proteins using Jackhmmer. Then it selects all sequences that were not selected in the first step and compares them together and clusters those protein sequences. In the next step, it breaks down large clusters by using Jackhmmer with more stringent parameters within the clusters and also merges clusters which have a single member by relaxing Jackhmmer parameters. Finally, the program merges overlapping sequences in each cluster and combines similar clusters. The program is summarised in Fig.\@ \ref{fig:homclust} and its results are illustrated in Fig.\@ \ref{fig:homclust-results}.
+\subsection{Gene classes}
+%We needed to cluster sets of orthologous genes in our strains to study the conservation of essentiality. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}. 
+To study the conservation of genes, we have used homclust and divided the clusters of homologous genes into three groups. Genus specific clusters contain genes that are present only in one genus, the genes in single copy clusters are present in more than one genus and more than 70\% of them are not duplicated, and  the genes in multi-copy clusters are present in more than one genus and less than 70\% of them are not duplicated. These three groups are depicted in Fig.\@ \ref{fig:homclust-results}.
+
+We have divided the clusters of orthologous genes into 4 groups based on their essentiality (essential, ambiguous, non-essential, and beneficial loss) and 3 groups based on their conservation (genus specific, single copy, and multi-copy). The results are depicted in Fig.\@ \ref{fig:iidist}. The figure shows that most of the essential clusters are single copy and most of the beneficial losses are genus specific. \textcolor{red}{\{KEGG results\}}
+\subsection{Evolution of essentiality}
+We have compared the number of genes that are conserved in different strains in our study and the number of genes that are essential in these strains. The results propose that although conservation of genes follows a tree-like trend, the essentiality does not show a tree-like signal.
 \begin{itemize}
 \item UpSetR results (Fig.~\ref{fig:upsetr})
 \item Stringent
@@ -255,7 +265,7 @@ The other bias that we have considered is the bias towards certain locations in 
 %%% The Materials and Methods section header will be added automatically.
 %
 %\begin{materials}
-%\textbf{Clustering orthologous and paralogous genes.} To study the essentiality of genes in our 12 strains, We needed to cluster sets of orthologous genes in these strain. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
+
 %\end{materials}
 
 %----------------------------------------------------------------------------------------
@@ -324,6 +334,18 @@ The other bias that we have considered is the bias towards certain locations in 
 \label{fig:species-tree}
 \end{figure}
 
+\begin{figure}
+\includegraphics[scale=0.7]{homclust.pdf}
+\caption{The steps of our proposed algorithm for clustering homologous genes.}
+\label{fig:homclust}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.7]{cluster-size-dist.pdf}
+\caption{Size distribution for all clusters of homologous genes. Genus specific genes are genes that are present only in one genus, single copy genes are present in more than one genus and more than 70\% of them are not duplicated, and multi-copy genes are present in more than one genus and less than 70\% of them are not duplicated.}
+\label{fig:homclust-results}
+\end{figure}
+
 \begin{figure*}
 \centering
 \begin{tabular}{c c c}
@@ -369,7 +391,8 @@ The other bias that we have considered is the bias towards certain locations in 
 \includegraphics[page=28, scale=0.25]{biases.pdf}&
 \includegraphics[page=31, scale=0.25]{biases.pdf}&
 \includegraphics[page=34, scale=0.25]{biases.pdf}\\
-&\includegraphics[page=37, scale=0.25]{biases.pdf}&\\
+\includegraphics[page=37, scale=0.25]{biases.pdf}&&
+\includegraphics[page=40, scale=0.25]{biases.pdf}\\
 \end{tabular}
 \caption{The plots show the G-C contents of the genes (normalised by the lengths of the genes) against their insertion indices}
 \label{fig:GC-bias}
@@ -386,6 +409,13 @@ The other bias that we have considered is the bias towards certain locations in 
 the genes on the 5' end, 20\% of the genes on the 3' end, and the rest in the middle.}
 \label{fig:insertion-position-bias}
 \end{figure*}
+
+\begin{figure}
+\centering
+\includegraphics[scale=1, page=1]{cluster-essentiality.pdf}
+\caption{The genes have been clustered into orthologous groups using Hieranoid and paralogous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific.}
+\label{fig:iidist}
+\end{figure}
 
 \begin{figure}
 \centering

@@ -1,8 +1,7 @@
-from collections import defaultdict
 from re import findall
-from os import listdir, path
 from math import floor, ceil
 from Bio import SeqIO
+from itertools import product
 
 def read_fasta_sequences(filepath):
     with open(filepath, 'rU') as fasta_file:
@@ -23,49 +22,46 @@ with open(positional_insertions, 'r') as fromfile:
             for line in fromfile:
                 cells = line.split()
                 if float(cells[101]) < 0.2:
-                    if (sum(list(map(float, cells[1:6]))) / 5) > (sum(list(map(float, cells[6:81]))) / 75) + 0.02:
+                    if (sum(list(map(float, cells[1:21]))) / 20) > (sum(list(map(float, cells[21:81]))) / 60) + 0.02:
                         tofile.write('>' + cells[0])
                         tofile.write('\n')
-                        fiveperc = ceil(floor(len(str(sequence_dict[cells[0]].seq))*5 / 100)/3)*3
+                        fiveperc = ceil(floor(len(str(sequence_dict[cells[0]].seq))*20 / 100)/3)*3
                         tofile.write(str(sequence_dict[cells[0]].seq)[0:fiveperc])
                         tofile.write('\n')
-                    elif (sum(list(map(float, cells[1:6]))) / 5) < (sum(list(map(float, cells[6:81]))) / 75) - 0.02:
+                    elif (sum(list(map(float, cells[1:21]))) / 20) < (sum(list(map(float, cells[21:81]))) / 60) - 0.02:
                         tofilenins.write('>' + cells[0])
                         tofilenins.write('\n')
-                        fiveperc = ceil(floor(len(str(sequence_dict[cells[0]].seq)) * 5 / 100)/3)*3
+                        fiveperc = ceil(floor(len(str(sequence_dict[cells[0]].seq)) * 20 / 100)/3)*3
                         tofilenins.write(str(sequence_dict[cells[0]].seq)[0:fiveperc])
                         tofilenins.write('\n')
 
+list_of_codons = [''.join(p) for p in product('actg', repeat=3)]
+worddictmore = dict((el,0) for el in list_of_codons)
+worddictless = dict((el,0) for el in list_of_codons)
+
+codoncountermore = 0
+with open(resultins, 'r') as fromfile:
+    for line in fromfile:
+        if not line.startswith('>'):
+            codons = findall('[atgc]{3}', line[3:len(line)])
+            codoncountermore += len(codons)
+            codons = list(set(codons))
+            for item in codons:
+                worddictmore[item] += 1
+
+codoncounterless = 0
+with open(resultnins, 'r') as fromfile:
+    for line in fromfile:
+        if not line.startswith('>'):
+            codons = findall('[atgc]{3}', line[3:len(line)])
+            codoncounterless += len(codons)
+            codons = list(set(codons))
+            for item in codons:
+                worddictless[item] += 1
 
 with open(info, 'w') as tofile:
-    worddict = {}
-    with open(resultins, 'r') as fromfile:
-        for line in fromfile:
-            if not line.startswith('>'):
-                codons = findall('[atgcATGC]{3}', line[3:len(line)])
-                for item in codons:
-                    codon = item.lower()
-                    if codon in worddict.keys():
-                        worddict[codon] += 1
-                    else:
-                        worddict[codon] = 1
-    tofile.write('##################### More insertions than average #####################\n')
-    for item in sorted(worddict, key=worddict.get, reverse=True):
-        tofile.write(item + '\t' + str(worddict[item]) + '\n')
-    tofile.write('Sum\t'+ str(sum(worddict.values())) + '\n')
-
-    worddict = {}
-    with open(resultnins, 'r') as fromfile:
-        for line in fromfile:
-            if not line.startswith('>'):
-                codons = findall('[atgcATGC]{3}', line[3:len(line)])
-                for item in codons:
-                    codon = item.lower()
-                    if codon in worddict.keys():
-                        worddict[codon] += 1
-                    else:
-                        worddict[codon] = 1
-    tofile.write('##################### Less insertions than average #####################\n')
-    for item in sorted(worddict, key=worddict.get, reverse=True):
-        tofile.write(item + '\t' + str(worddict[item]) + '\n')
-    tofile.write('Sum\t' + str(sum(worddict.values())) + '\n')
+    tofile.write('codon\tMoreThanAve\tLessThanAve\n')
+    for item in list_of_codons:
+        tofile.write(item+'\t'+str(worddictmore[item])+'\t'+str(worddictless[item])+'\n')
+    tofile.write('sum\t'+str(codoncountermore)+'\t'+str(codoncounterless))
+    # tofile.write('sum\t' + str(sum(worddictmore.values())) + '\t' + str(sum(worddictless.values())))

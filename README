@@ -54,3 +54,14 @@
 2. python3 define-core-accessory-hieranoid.py
 3. python3 define-core-accessory-hieranoid-fdollop.py
 4. python3 define-core-accessory-hieranoid-ancestralii.py
+
+============ STUDY CLUSTERS
+1. Plot cluster size distribution (This is not a general script and can only be used for this case)
+	cd EnTrI/bin
+	Rscript orfan-single-multiple.R
+2. Run merge-clust-plot to add insertion indices to genes in clusters
+	cd EnTrI/bin
+	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/insertion-indices/normalised-insertion-indices/ ../results/ecogene-k12.txt ../results/merge-clust-plot
+3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
+	cd EnTrI/codes  
+	Rscript clust2plot.R

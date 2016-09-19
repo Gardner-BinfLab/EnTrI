@@ -51,7 +51,7 @@ for (filename in list_of_files)
           {
             newstart = start + starttrim
             newend = end - endtrim
-            if (350 < len)
+            if (100 < len)
             {
               genelength = "long"
             }
@@ -60,7 +60,7 @@ for (filename in list_of_files)
           {
             newstart = start + endtrim
             newend = end - starttrim
-            if (350 < len)
+            if (100 < len)
             {
               genelength = "long"
             }
@@ -132,7 +132,7 @@ for (filename in list_of_files)
   # print changepoint
 
   #calculate log-odds ratios to choose thresholds
-  lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -10))
+  lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -2))
   upper <- min(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) > 2))
 
   # lower <- max(which(log((pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"])
