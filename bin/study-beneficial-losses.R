@@ -1,3 +1,4 @@
+library(ggplot2)
 codons <- "../results/essentiality-info.txt"
 codon_table <- read.table(codons, header = TRUE)
 fishertable =data.frame()
@@ -10,3 +11,14 @@ for (i in seq(1,(nrow(codon_table)-1)))
 fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
 write.table(fishertable, file = "../results/essentiality-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
+
+df = fishertable[-seq(33,nrow(fishertable),1),]
+df[,3] = -log10(df[,3])
+df = df[,-2]
+df = df[c(-3,-9, -10,-11,-12,-14,-17,-19,-25,-26,-28,-31),]
+names(df) = c("word", "pvalue")
+pdf("../figures/essentiality-pval.pdf")
+ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
+  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ylim(c(0,max(df[1,2], -log10(0.05))))+ggtitle("Beneficial losses") +
+  theme(text = element_text(size=15))
+dev.off()

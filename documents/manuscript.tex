@@ -237,7 +237,9 @@ To study whether each gene in our 13 organisms is conserved we have proposed a p
 %We needed to cluster sets of orthologous genes in our strains to study the conservation of essentiality. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}. 
 To study the conservation of genes, we have used homclust and divided the clusters of homologous genes into three groups. Genus specific clusters contain genes that are present only in one genus, the genes in single copy clusters are present in more than one genus and more than 70\% of them are not duplicated, and  the genes in multi-copy clusters are present in more than one genus and less than 70\% of them are not duplicated. These three groups are depicted in Fig.\@ \ref{fig:homclust-results}.
 
-We have divided the clusters of orthologous genes into 4 groups based on their essentiality (essential, ambiguous, non-essential, and beneficial loss) and 3 groups based on their conservation (genus specific, single copy, and multi-copy). The results are depicted in Fig.\@ \ref{fig:iidist}. The figure shows that most of the essential clusters are single copy and most of the beneficial losses are genus specific. \textcolor{red}{\{KEGG results\}}
+We have divided the clusters of orthologous genes into 4 groups based on their essentiality (essential, ambiguous, non-essential, and beneficial loss) and 3 groups based on their conservation (genus specific, single copy, and multi-copy). The results are depicted in Fig.\@ \ref{fig:iidist}. The figure shows that most of the essential clusters are single copy and most of the beneficial losses are genus specific.
+
+\textcolor{red}{\{KEGG results\}} We have done a word enrichment analysis on the description of the beneficial losses in Fig.\@ \ref{fig:essentiality-pval}. It shows that most of the beneficial losses are mobile elements. Most of these mobile elements are not included in KEGG database.
 \subsection{Evolution of essentiality}
 We have compared the number of genes that are conserved in different strains in our study and the number of genes that are essential in these strains. The results propose that although conservation of genes follows a tree-like trend, the essentiality does not show a tree-like signal.
 \begin{itemize}
@@ -344,6 +346,12 @@ We have compared the number of genes that are conserved in different strains in 
 \includegraphics[scale=0.7]{cluster-size-dist.pdf}
 \caption{Size distribution for all clusters of homologous genes. Genus specific genes are genes that are present only in one genus, single copy genes are present in more than one genus and more than 70\% of them are not duplicated, and multi-copy genes are present in more than one genus and less than 70\% of them are not duplicated.}
 \label{fig:homclust-results}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.7]{essentiality-pval.pdf}
+\caption{The word enrichment analysis for beneficial losses compared to other genes. The red line shows p-value = 0.05.}
+\label{fig:essentiality-pval}
 \end{figure}
 
 \begin{figure*}
