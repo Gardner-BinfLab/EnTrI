@@ -43,7 +43,7 @@ def read_k12(inpath, iidict):
     return iidict
 
 seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
-clusters = '/home/fatemeh/EnTrI/results/hieranoid/hieranoid-result.txt'
+clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
 insertion_indices = '/home/fatemeh/EnTrI/results/insertion-indices/normalised-insertion-indices'
 k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fdollop'
@@ -63,6 +63,9 @@ species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441"
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
     "ecolics17":["CS17"], "ecolih10407":["ETEC"], "ecolik12":["b"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"]}
 
+with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fdollop/info.txt', 'w') as infofile:
+    infofile.write('speciesname\tcoreessential\tcore\n')
+
 for item in species_names.keys():
     speciesdir = outdir + '/' + item
     makedir(speciesdir)
@@ -79,6 +82,8 @@ for item in species_names.keys():
     nesscoregenes = []
     essaccessorygenes = []
     nessaccessorygenes = []
+    essentials = 0
+    presents = 0
 
     num_species = len(species_names[item])
     gene_dict = {species_names[item][i]: 0 for i in range(num_species)}
@@ -86,26 +91,26 @@ for item in species_names.keys():
     nodeinfo = speciestreedir + '/nodeessentiality.txt'
     speciestree = speciestreedir + '/' + item + '.tre'
 
-    with open (clusters) as from_file:
+    with open(clusters) as from_file:
         for line in from_file:
             for key in gene_dict.keys():
                 gene_dict[key] = 0
                 essentiality_dict[key] = 0
             list_of_genes = []
 
-            # cells = line.split()
-            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
-            temp_result = findall('(([a-zA-Z]+?)\d+):', line)
-            for matches in temp_result:
-                if matches[1] != 'n':
-                    findall_result.append(matches)
-            for element in findall_result:
-                name = element[1]
-                if name in gene_dict.keys():
-                    list_of_genes.append(element[0])
-                    gene_dict[name] = 1
-                    if element[0] in gene_essentiality and gene_essentiality[element[0]] == 'essential':
-                        essentiality_dict[name] = 1
+            genes = line.split()
+            # findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
+            # temp_result = findall('(([a-zA-Z]+?)\d+):', line)
+            # for matches in temp_result:
+            #     if matches[1] != 'n':
+            #         findall_result.append(matches)
+            for g in genes:
+                s = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', g).group(1).strip('_')
+                if s in gene_dict.keys():
+                    list_of_genes.append(g)
+                    gene_dict[s] = 1
+                    if g in gene_essentiality and gene_essentiality[g] == 'essential':
+                        essentiality_dict[s] = 1
 
             if len(species_names[item]) > 1:
                 with open(nodeinfo, 'w') as nodefile:
@@ -151,8 +156,10 @@ for item in species_names.keys():
                                 essentiality = 1
 
                 if presence:
+                    presents += 1
                     if essentiality:
                         esscoregenes += list_of_genes
+                        essentials += 1
                     else:
                         nesscoregenes += list_of_genes
                 else:
@@ -163,8 +170,10 @@ for item in species_names.keys():
             else:
                 name = list(gene_dict.keys())[0]
                 if gene_dict[name]:
+                    presents += 1
                     if essentiality_dict[name]:
                         esscoregenes += list_of_genes
+                        essentials += 1
                     else:
                         nesscoregenes += list_of_genes
                 else:
@@ -181,6 +190,10 @@ for item in species_names.keys():
     essaccessorygenes.sort()
     nessaccessorygenes = list(set(nessaccessorygenes))
     nessaccessorygenes.sort()
+
+
+    with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fdollop/info.txt', 'a') as infofile:
+        infofile.write(str(item) + '\t' + str(essentials) + '\t' + str(presents) + '\n')
 
     prev_name = ''
     for gene in esscoregenes:

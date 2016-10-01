@@ -112,48 +112,21 @@ ambig <- upper/10000
 noness <- min(ii[pgamma(ii, d2$e[1],d2$e[2])>=0.99])
 
 orfans = c()
-orfans_non = c()
-orfans_es = c()
-orfans_ben = c()
 single_occurrence = c()
-single_non = c()
-single_es = c()
-single_ben = c()
 multiple_copies = c()
-multiple_non = c()
-multiple_es = c()
-multiple_ben = c()
 for (item in names(size_index))
 {
   if (group_index[item] == 'ORFan')
   {
     orfans = c(orfans, insertion_index[item])
-    if (insertion_index[item] < 0.2)
-      orfans_es = c(orfans_es, insertion_index[item])
-    else if (insertion_index[item] < 2)
-      orfans_non = c(orfans_non, insertion_index[item])
-    else
-      orfans_ben = c(orfans_ben, insertion_index[item])
   } 
   else if (group_index[item] == 'Single-copy')
   {
     single_occurrence = c(single_occurrence, insertion_index[item])
-    if (insertion_index[item] < 0.2)
-      single_es = c(single_es, insertion_index[item])
-    else if (insertion_index[item] < 2)
-      single_non = c(single_non, insertion_index[item])
-    else
-      single_ben = c(single_ben, insertion_index[item])
   }
   else
   {
     multiple_copies = c(multiple_copies, insertion_index[item])
-    if (insertion_index[item] < 0.2)
-      multiple_es = c(multiple_es, insertion_index[item])
-    else if (insertion_index[item] < 2)
-      multiple_non = c(multiple_non, insertion_index[item])
-    else
-      multiple_ben = c(multiple_ben, insertion_index[item])
   }
 }
 

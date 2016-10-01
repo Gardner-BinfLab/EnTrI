@@ -9,10 +9,12 @@ from shutil import rmtree
 from re import match, findall
 from collections import defaultdict
 
+
 def read_fasta_sequences(filepath):
     with open(filepath, 'rU') as fasta_file:
         fasta_dict = SeqIO.to_dict(SeqIO.parse(fasta_file, 'fasta'))
     return fasta_dict
+
 
 def makedir(dirname):
     if path.exists(dirname):
@@ -25,6 +27,7 @@ def makedir(dirname):
             raise SystemExit
     mkdir(dirname)
 
+
 def read_gene_essentiality(indir):
     list_of_files = listdir(indir)
     iidict = {}
@@ -35,6 +38,7 @@ def read_gene_essentiality(indir):
                 iidict[cells[0]] = cells[2]
     return iidict
 
+
 def read_k12(inpath, iidict):
     with open(inpath) as from_file:
         for line in from_file:
@@ -43,7 +47,7 @@ def read_k12(inpath, iidict):
     return iidict
 
 seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
-clusters = '/home/fatemeh/EnTrI/results/hieranoid/hieranoid-result.txt'
+clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
 insertion_indices = '/home/fatemeh/EnTrI/results/insertion-indices/normalised-insertion-indices'
 k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid'
@@ -60,6 +64,9 @@ species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441"
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
     "ecolics17":["CS17"], "ecolih10407":["ETEC"], "ecolik12":["b"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"]}
+
+with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/info.txt', 'w') as infofile:
+    infofile.write('speciesname\tcoreessential\tcore\n')
 
 for item in species_names.keys():
     speciesdir = outdir + '/' + item
@@ -96,20 +103,20 @@ for item in species_names.keys():
             list_of_genes = []
             list_of_essential_genes = []
 
-            # cells = line.split()
-            findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
-            temp_result = findall('(([a-zA-Z]+?)\d+):', line)
-            for matches in temp_result:
-                if matches[1] != 'n':
-                    findall_result.append(matches)
-            for element in findall_result:
-                name = element[1]
-                if name in gene_dict.keys():
-                    list_of_genes.append(element[0])
-                    gene_dict[name] = 1
-                    if element[0] in gene_essentiality and gene_essentiality[element[0]] == 'essential':
-                        list_of_essential_genes.append(element[0])
-                        essentiality_dict[name] = 1
+            genes = line.split()
+            # findall_result = findall('(([a-zA-Z0-9]+?)_[a-zA-Z0-9]+):', line)
+            # temp_result = findall('(([a-zA-Z]+?)\d+):', line)
+            # for matches in temp_result:
+            #     if matches[1] != 'n':
+            #         findall_result.append(matches)
+            for g in genes:
+                s = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', g).group(1).strip('_')
+                if s in gene_dict.keys():
+                    list_of_genes.append(g)
+                    gene_dict[s] = 1
+                    if g in gene_essentiality and gene_essentiality[g] == 'essential':
+                        list_of_essential_genes.append(g)
+                        essentiality_dict[s] = 1
             if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
                 #if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
                 if len(list_of_essential_genes) == len(list_of_genes):
@@ -139,12 +146,13 @@ for item in species_names.keys():
     nessaccessorygenes = list(set(nessaccessorygenes))
     nessaccessorygenes.sort()
 
+    with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/info.txt', 'a') as infofile:
+        infofile.write(str(item) + '\t' + str(len(esscoregenes)/len(species_names[item])) + '\t' +
+                       str((len(esscoregenes)+len(sesscoregenes)+len(nesscoregenes))/len(species_names[item])) + '\n')
+
     prev_name = ''
     for gene in esscoregenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
-        if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
-        name = match_result.group(1)
+        name = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gene).group(1).strip('_')
         if name != prev_name:
             if 'esscoregenesfile' in locals():
                 esscoregenesfile.close()
@@ -154,10 +162,7 @@ for item in species_names.keys():
 
     prev_name = ''
     for gene in sesscoregenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
-        if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
-        name = match_result.group(1)
+        name = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gene).group(1).strip('_')
         if name != prev_name:
             if 'sesscoregenesfile' in locals():
                 sesscoregenesfile.close()
@@ -167,10 +172,7 @@ for item in species_names.keys():
 
     prev_name = ''
     for gene in nesscoregenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
-        if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
-        name = match_result.group(1)
+        name = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gene).group(1).strip('_')
         if name != prev_name:
             if 'nesscoregenesfile' in locals():
                 nesscoregenesfile.close()
@@ -180,10 +182,7 @@ for item in species_names.keys():
 
     prev_name = ''
     for gene in essaccessorygenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
-        if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
-        name = match_result.group(1)
+        name = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gene).group(1).strip('_')
         if name != prev_name:
             if 'essaccessorygenesfile' in locals():
                 essaccessorygenesfile.close()
@@ -193,10 +192,7 @@ for item in species_names.keys():
 
     prev_name = ''
     for gene in sessaccessorygenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
-        if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
-        name = match_result.group(1)
+        name = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gene).group(1).strip('_')
         if name != prev_name:
             if 'sessaccessorygenesfile' in locals():
                 sessaccessorygenesfile.close()
@@ -206,10 +202,7 @@ for item in species_names.keys():
 
     prev_name = ''
     for gene in nessaccessorygenes:
-        match_result = match('([a-zA-Z0-9]+?)_\S+', gene)
-        if not match_result:
-            match_result = match('([a-zA-Z]+?)\d+\S*', gene)
-        name = match_result.group(1)
+        name = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gene).group(1).strip('_')
         if name != prev_name:
             if 'nessaccessorygenesfile' in locals():
                 nessaccessorygenesfile.close()

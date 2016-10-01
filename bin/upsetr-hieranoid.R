@@ -3,7 +3,7 @@ library(stringr)
 # listinput <- list(a=c(1,1,1,1,2,1,2,3,3,3), b=c(1,4,5), d=c(1,2,5,6,7), e=c(4,8,9))
 # upset(fromList(listinput))
 
-clusters_path <- "../results/hieranoid/hieranoid-result.txt"
+clusters_path <- "../results/hieranoid/clusters.txt"
 essentiality_path <- "../results/insertion-indices/normalised-insertion-indices/"
 k12_path <- "../results/ecogene-k12.txt"
 list_of_files <- list.files(path=essentiality_path, full.names=T, recursive=FALSE)
@@ -24,17 +24,20 @@ numclusters = length(cluster)
 for (clusterindex in (1:numclusters))
 {
   line = cluster[clusterindex]
-  match_result = str_match_all(line, '[[,(]](([[:alnum:]]+)_[[:alnum:]]+):')
-  temp_result = str_match_all(line, '[[,(]](([[:alpha:]]+)[[:digit:]]+):')
-  match_result[[1]] <- rbind(match_result[[1]], temp_result[[1]])
-  match_result <- match_result[[1]]
-  for (i in (1:nrow(match_result)))
+  genes = unlist(strsplit(line , "\t"))
+  match_result = str_match_all(line, '([[:alnum:]]+_|[[:alpha:]]+)[[:alnum:]]+')
+  species = gsub('_','',match_result[[1]][,2])
+  # match_result = str_match_all(line, '[[,(]](([[:alnum:]]+)_[[:alnum:]]+):')
+  # temp_result = str_match_all(line, '[[,(]](([[:alpha:]]+)[[:digit:]]+):')
+  # match_result[[1]] <- rbind(match_result[[1]], temp_result[[1]])
+  # match_result <- match_result[[1]]
+  for (i in (1:length(species)))
   {
-    name = match_result[i,3]
+    name = species[i]
     if (name %in% names(presence)) 
     {
       presence[[name]] <- rbind(presence[[name]], clusterindex)
-      gene = match_result[i,2]
+      gene = genes[i]
       if (gene %in% list_of_essential_genes[[name]])
       {
         essentiality[[name]] <- rbind(essentiality[[name]], clusterindex)
@@ -54,8 +57,8 @@ names(essentiality) <- rev(c("Klebsiella pneumoniae Ecl8", "Klebsiella pneumonia
                          "Salmonella Typhi Ty2", "Escherichia coli UPEC ST131", "Escherichia coli ETEC CS17", "Escherichia coli ETEC H10407",
                          "Escherichia coli K-12 MG1655"))
 pdf("../figures/upsetr.pdf")
-upset(fromList(presence), nsets = 14, order.by="freq", nintersects=25
+upset(fromList(presence), nsets = 14, order.by="freq", nintersects=25, keep.order = TRUE, sets=names(presence)
       #, show.numbers = "no"
      )
-upset(fromList(essentiality), nsets = 14, order.by="freq", nintersects=25)
+upset(fromList(essentiality), nsets = 14, order.by="freq", nintersects=25, keep.order = T, sets=names(essentiality))
 dev.off()

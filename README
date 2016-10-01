@@ -65,3 +65,28 @@
 3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
 	cd EnTrI/codes  
 	Rscript clust2plot.R
+
+============ WORD ENRICHMENT
+1. Word enrichment in beneficial losses
+	cd EnTrI/bin
+	python study-beneficial-losses.py
+	Rscript study-beneficial-losses.R
+2. Word enrichment in low GC genes:
+	cd EnTrI/bin
+	python study-low-gc.py
+	Rscript study-low-gc.R
+3. Codon enrichment in 5' end of essential genes:
+	cd EnTrI/bin
+	python essential5prime.py
+	Rscript essential5prime.R
+
+============ Can we recover phylogenetic information from the essential genes?
+1. Run make-essentiality-tree
+	cd EnTrI/bin
+	mkdir ../results/make-essentiality-tree
+	make-essentiality-tree.py ../results/merge-clust-plot/ ../results/make-essentiality-tree/distance-matrix.out
+2. Run Phylip on the resulted distance matrix
+	cd EnTrI/results/make-essentiality-tree
+	phylip neighbor
+	> distance-matrix.out
+	> Y
