@@ -66,7 +66,7 @@
 	cd EnTrI/codes  
 	Rscript clust2plot.R
 
-============ WORD ENRICHMENT
+============ ENRICHMENT
 1. Word enrichment in beneficial losses
 	cd EnTrI/bin
 	python study-beneficial-losses.py
@@ -79,6 +79,11 @@
 	cd EnTrI/bin
 	python essential5prime.py
 	Rscript essential5prime.R
+4. KEGG analysis
+	cd EnTrI/bin
+	buildpathwayDB.R -o KEGG_organism_code -d path_to_save_database
+	Set pathanalysis.R parameters: essentiality class, pdf file name, plot main.
+	Rscript pathanalysis.R
 
 ============ Can we recover phylogenetic information from the essential genes?
 1. Run make-essentiality-tree

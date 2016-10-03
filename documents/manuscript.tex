@@ -20,8 +20,8 @@
 % text layout - change as needed
 \raggedright
 \setlength{\parindent}{0.5cm}
-\textwidth 6in 
-\textheight 8.75in
+\textwidth 6.5in 
+\textheight 9in
 \renewcommand{\baselinestretch}{1.5}
 
 % use adjustwidth environment to exceed text width (see examples in text)
@@ -166,7 +166,7 @@ Different articles have reported biases in transposon mutagenesis \cite{barquist
 \label{fig:distance-bias}
 \end{figure*}
 
-We have tested whether our transposons are biased towards certain motifs. For this, we have generated a logo from 10 nucleotides flanking the 100 top most frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index Fig.\@  \ref{fig:GC-bias}. The red lines show the loess curve when the smoothness parameter is $0.2$. As the figure shows, when G-C content is less than $40\%$, the insertion index is low, however when it is higher than $50\%$, the insertion index is almost constant. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which causes a reduction in the insertions in A-T rich regions \cite{kimura_nucleoid_2016}. The other reason is that the genes with low G-C content are enriched in mobile genetic elements (corrected p-value for the number of repetition of these words in the quartile with lowest G-C and the interquartile genes: pathogenicity island: 4.55189365569093e-54, prophage: 3.20756138380406e-26, phage: 1.81663788061583e-08, bacteriophage: 0.00285196530662877) compared to the genes with high G-C content and that has caused seeing a different pattern of essentiality in that region.
+We have tested whether our transposons are biased towards certain motifs. For this, we have generated a logo from 10 nucleotides flanking the 100 top most frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index Fig.\@  \ref{fig:GC-bias}. The red lines show the loess curve when the smoothness parameter is $0.2$. As the figure shows, when G-C content is less than $40\%$, the insertion index is low, however when it is higher than $50\%$, the insertion index is almost constant. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which causes a reduction in the insertions in A-T rich regions \cite{kimura_nucleoid_2016}. The other reason is that the genes with low G-C content are enriched in mobile genetic elements compared to the genes with average G-C content (\ref{fig:gc-pval}) and this has caused seeing a different pattern of essentiality in that region.
 
 \begin{figure*}
 \begin{tabular}{c c}
@@ -197,6 +197,12 @@ We have tested whether our transposons are biased towards certain motifs. For th
 \end{tabular}
 \caption{The plots show the G-C contents of the genes (normalised by the lengths of the genes) against their insertion indices}
 \label{fig:GC-bias}
+\end{figure*}
+
+\begin{figure*}
+\includegraphics[scale=0.55]{lowgc-pval.pdf}
+\caption{Word enrichment analysis for low G-C genes compared to genes with interquartile G-C level. The red line shows P-value = 0.05. The P-values have been calculated using Fisher's exact test and corrected using Benjamini-Hochberg-Yekutieli.}
+\label{fig:gc-pval}
 \end{figure*}
 
 The other bias that we have considered is the bias towards certain locations in a gene. We have divided every gene into 100 bins and calculated the mean insertion index for each bin. Fig.\@ \ref{fig:insertion-position-bias} shows almost no bias towards any location. We have also studied the bias in each of the groups: essential genes, non-essential genes, and beneficial losses. The results imply that the number of insertions in the internal region of the essential genes is outnumbered by the number of insertions in the 5' and 3' ends while it is the opposite in beneficial losses. The case for the non-essential genes is similar to the average (Fig.\@ \ref{fig:insertion-position-bias}). High number of insertions at the 3' end of essential genes implies that the functional part of the genes are located before the insertions. On the other hand, high number of insertions at the 5' end of the essential genes indicates there might be alternative start codons in the 5' end or it might be because of alignment errors. \textcolor{red}{\{To be tested\}} We have calculated the insertion index for genes by ignoring $5\%$ from the 5' end and $20\%$ from the 3' end of the genes to overcome these biases. The insertion index distribution for each genome after correcting for all distance from the origin of replication bias and bias towards the position of insertion within genes is depicted in Fig.\@ \ref{fig:iidist-species-normalised}.
@@ -267,8 +273,10 @@ We have divided the clusters of orthologous genes into 4 groups based on their e
 \label{fig:iidist}
 \end{figure}
 
-\textcolor{red}{\{KEGG results\}} To study which functions are enriched in each class of essentiality, we have gathered the``note" section for each gene from their embl files. Then, we have counted the repeat number of each word for the genes in each class and the genes that do not belong to that class and the number of all other words in these two groups and used a Fisher's exact test to calculate P-values. The P-values are then corrected using Benjamini-Hochberg-Yekutieli procedure. Fig.\@ \ref{fig:essentiality-pval} shows the top 20 enriched words for each essentiality class. The results show an enrichment of the genes related to replication, transcription, translation, division, and rod shape determining proteins in essential class. The non-essential genes are mostly transport proteins, flagellar proteins, ATPase, and DNA repair proteins. Beneficial losses are enriched in transposase enzymes, putative and hypothetical proteins, and mobile elements. Beneficial losses also contain many fimbrial proteins which probably has occurred because these proteins are not needed in a rich lab medium \textcolor{red}{\{TRUE?\}}.
+To study which functions are enriched in each class of essentiality, we have gathered the``note" section for each gene from their embl files. Then, we have counted the repeat number of each word for the genes in each class and the genes that do not belong to that class and the number of all other words in these two groups and used a Fisher's exact test to calculate P-values. The P-values are then corrected using Benjamini-Hochberg-Yekutieli procedure. Fig.\@ \ref{fig:essentiality-pval} shows the top 20 enriched words for each essentiality class. The results show an enrichment of the genes related to replication, transcription, translation, division, and rod shape determining proteins in essential class. The non-essential genes are mostly transport proteins, flagellar proteins, ATPase, and DNA repair proteins. Beneficial losses are enriched in transposase enzymes, putative and hypothetical proteins, and mobile elements. Beneficial losses also contain many fimbrial proteins which probably has occurred because these proteins are not needed in a rich lab medium \textcolor{red}{\{TRUE?\}}.
 %We have done a word enrichment analysis on the description of the beneficial losses in Fig.\@ \ref{fig:essentiality-pval}. It shows that most of the beneficial losses are mobile elements. Most of these mobile elements are not included in KEGG database.
+
+We have also conducted a pathway enrichment analysis for these three groups. For this, we have downloaded pathway datasets for strains that were available in KEGG database. This includes pathways for Cirobacter rodentium ICC168, Salmonella Enteritidis P125109, Enterobacter cloacae NCTC 9394, Salmonella Typhimurium D23580, Escherichia coli ETEC H10407, Salmonella Typhimurium SL1344, Escherichia coli K-12 MG1655, and Salmonella Typhi Ty2. Then we have merged these databases and used a hypergeometric test to find which pathways are enriched in each essentiality class. Finally, we have corrected the P-values using Benjamini-Hochberg-Yekutieli. The results are depicted in ~\ref{fig:essentiality-pathway}.
 
 \begin{figure*}
 \centering
@@ -277,8 +285,19 @@ We have divided the clusters of orthologous genes into 4 groups based on their e
 \includegraphics[scale=0.4]{non-essential-pval.pdf}\\
 \includegraphics[scale=0.4]{beneficialloss-pval.pdf}&
 \end{tabular}
-\caption{The word enrichment analysis for beneficial losses, essential genes, and non-essential genes compared to other genes. The red line shows P-value = 0.05. The P-values have been calculated using Fisher's exact test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
+\caption{Word enrichment analysis for essential genes, non-essential genes, and beneficial losses compared to other genes. The red line shows P-value = 0.05. The P-values have been calculated using Fisher's exact test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
 \label{fig:essentiality-pval}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\begin{tabular}{c c}
+\includegraphics[scale=0.4]{essential-pathways.pdf}&
+\includegraphics[scale=0.4]{non-essential-pathways.pdf}\\
+\includegraphics[scale=0.4]{beneficialloss-pathways.pdf}&
+\end{tabular}
+\caption{Pathway enrichment analysis for beneficial losses, essential genes, and non-essential genes compared to other genes. The red line shows P-value = 0.05. The P-values have been calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
+\label{fig:essentiality-pathway}
 \end{figure*}
 
 \subsection{The evolution of essentiality}

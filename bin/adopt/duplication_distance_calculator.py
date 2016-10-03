@@ -39,13 +39,14 @@ makedir(deltaiidir)
 list_of_files = listdir(msadir)
 for filename in list_of_files:
     clust_size = 0
-    with open(iidir + '/' + filename[:-8] + '.txt') as iifile:
+    with open(iidir + '/' + filename[:-4] + '.txt') as iifile:
         for line in iifile:
             clust_size += 1
     if clust_size >= 23:
         if stat('{0}/{1}'.format(msadir, filename)).st_size:
             try:
-                system('fdnadist -sequence {0}/{1} -method F84 -outfile {2}/{3}.temp'.format(msadir, filename, distdir, path.splitext(filename)[0]))
+                # system('fdnadist -sequence {0}/{1} -method F84 -outfile {2}/{3}.temp'.format(msadir, filename, distdir, path.splitext(filename)[0]))
+                system('fprotdist -sequence {0}/{1} -outfile {2}/{3}.temp'.format(msadir, filename, distdir, path.splitext(filename)[0]))
             except:
                 raise SystemExit
             with open('{0}/{1}'.format(msadir, filename)) as msafile:
