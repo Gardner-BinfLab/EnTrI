@@ -72,7 +72,9 @@
 % title goes here:
 \begin{flushleft}
 {\Large
-\textbf\newline{Is essentiality of genes conserved in Enterobacteriaceae?}
+\textbf\newline{Is the essentiality of genes conserved in Enterobacteriaceae?}
+\newline{Is gene essentiality conserved?}
+\newline{Are essential genes conserved?}
 }
 \newline
 % authors go here:
@@ -112,6 +114,9 @@ Although the essentiality of genes has been studied in a variety of organisms, t
 \textcolor{red}{\{A summary of what we have done\}}
 
 \section{Transposon mutagenesis}
+
+{\bf overview paragraph.}
+
 We have studied 2 \textit{Klebsiella} strains, an \textit{Enterobacter} strain, a \textit{Citrobacter} strain, 6 \textit{Salmonella} strains, and 3 \textit{Escherichia} strains and compared the essentiality of genes in these strains and \textit{Escherichia coli} K-12 MG1655 from another study \cite{baba_construction_2006}. These strains are all selected from Enterobacteriaceae family. Enterobacteriaceae is a family that includes Gram-negative bacteria with different host ranges and pathogenecity found in soil, water, plants, animals and humans \cite{brenner_bergeys_2006}. In humans, various strains from this family can cause diarrhoea, septicaemia, urinary tract infection, meningitis, respiratory disease, and wound and burn infection \cite{brenner_bergeys_2006}. Besides, they can infect poultry and livestocks and cause financial losses for farmers \cite{brenner_bergeys_2006}. Here, we perform a transposon-directed insertion-site sequencing experiment to study the conservation of essentiality of genes in strains from 5 different species in this family.
 
 We have used Tn5 transposon to generate single inserted mutants and placed our mutants in a selective media for Tn5. We have picked the mutants and pooled them and used the splinkerette adapter and primers designed in \cite{barquist_tradis_2016} for PCR enrichment. Then we have sequenced the fragments and mapped them back to the genome to figure out the number of insertions that have been tolerated in each position of the genome. The number of insertions in a gene can imply the degree of essentiality for that gene.
@@ -142,8 +147,17 @@ We have divided the genes into three groups: essential genes, ambiguous, non-ess
 \label{fig:iidist-species}
 \end{figure*}
 
-\section{Are transposons biased towards certain positions?}
-Different articles have reported biases in transposon mutagenesis \cite{barquist_comparison_2013, rubin_essential_2015, kimura_nucleoid_2016}. We have performed a thorough study of these biases. To study the bias towards the position of the genes, we plotted the insertion index for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome. Fig.\@ \ref{fig:distance-bias} shows the results. The red line is a loess curve that has been fitted to the data when the smoothness parameter equals $0.2$. The figure indicates that the insertion indices decrease when the genes are located further from the origin of replication. A possible explanation for this phenomenon is that the bacteria were under replication while being infected with transposons. Therefore, the number of gene copies close to the origin of replication was greater and more insertions have occurred in these genes. To overcome this bias, we have normalised our insertion indices by dividing the value of the insertion index by the predicted value by loess for that position and then multiplying this value by the average insertion index.
+%\section{Are transposons biased towards certain positions?}
+\section{Are there biases in transposon mutagenesis data?}
+
+{\bf OVERVIEW PARAGRAPH:} 
+
+Different articles have reported biases in transposon mutagenesis \cite{barquist_comparison_2013, rubin_essential_2015, kimura_nucleoid_2016}. We have performed a detailed study of these biases. {\bf LIST TYPES OF BIAS HERE.} 
+
+
+{\bf ORIGIN OF REPLICATION BIAS:} To study the bias towards the position of the genes, we plotted the insertion index for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome. Fig.\@ \ref{fig:distance-bias} shows the results. The red line is a loess curve that has been fitted to the data when the smoothness parameter equals $0.2$. The figure indicates that the insertion indices decrease when the genes are located further from the origin of replication. A possible explanation for this phenomenon is that the bacteria were under replication while being infected with transposons. Therefore, the number of gene copies close to the origin of replication was greater and more insertions have occurred in these genes. To overcome this bias, we have normalised our insertion indices by dividing the value of the insertion index by the predicted value by loess for that position and then multiplying this value by the average insertion index.
+
+{\bf mention possible confounding factor for this study. Essential genes may (are???) non-uniformly distributed in the genome (I presume they are clustered near the origin). This would be expected to lower the insertion index near the origin, however, the number of non-essential genes is $\approx 10\times$ the number of essential genes, therefore the signature of biased numbers of insertions near the origin remains. }
 
 \begin{figure*}
 \centering
@@ -166,14 +180,20 @@ Different articles have reported biases in transposon mutagenesis \cite{barquist
 \label{fig:distance-bias}
 \end{figure*}
 
-We have tested whether our transposons are biased towards certain motifs. For this, we have generated a logo from 10 nucleotides flanking the 100 top most frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index Fig.\@  \ref{fig:GC-bias}. The red lines show the loess curve when the smoothness parameter is $0.2$. As the figure shows, when G-C content is less than $40\%$, the insertion index is low, however when it is higher than $50\%$, the insertion index is almost constant. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which causes a reduction in the insertions in A-T rich regions \cite{kimura_nucleoid_2016}. The other reason is that the genes with low G-C content are enriched in mobile genetic elements compared to the genes with average G-C content (\ref{fig:gc-pval}) and this has caused seeing a different pattern of essentiality in that region.
+{\bf PREFERRED INSERTION MOTIF BIAS:} We have tested whether our transposons are biased towards certain motifs. For this, we have generated a logo from 10 nucleotides flanking the 100 top most frequent insertion sites in each genome. The results are depicted in Fig.\@  \ref{fig:logos}. The results show a slight bias towards certain combinations of bases. In addition, we have investigated if the G-C content of genes can change the number of insertions by plotting the number of G-C bases in a gene normalised by the length of the gene versus insertion index Fig.\@  \ref{fig:GC-bias}. The red lines show the loess curve when the smoothness parameter is $0.2$. As the figure shows, when G-C content is less than $40\%$, the insertion index is low, however when it is higher than $50\%$, the insertion index is almost constant. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which causes a reduction in the insertions in A-T rich regions \cite{kimura_nucleoid_2016}. The other reason is that the genes with low G-C content are enriched in mobile genetic elements compared to the genes with average G-C content (\ref{fig:gc-pval}) and this has caused seeing a different pattern of essentiality in that region.
+
+\begin{itemize}
+\item model H-NS binding sites? CGWTWHWww Lang et al (2007)
+\item seems unlikely -- show bulk of genes are around 50\% G+C (add box-whisker plots to scatter diagrams?)
+\item check Freed, Silander paper -- the missing piece of genome, was this low G+C? 
+\end{itemize}
 
 \begin{figure*}
 \begin{tabular}{c c}
 \includegraphics[scale=0.55]{100logo-bits.pdf}&
 \includegraphics[scale=0.55]{100logo-prob.pdf}
 \end{tabular}
-\caption{We have generated the logos from 10 nucleotides flanking the 100 top most frequent insertion sites.}
+\caption{We have generated sequence logos plots using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. On the left the height of each character corresponds to a bit score for that character (i.e. $\log(\frac{f^{obs}_{i}}{f^{exp}_{i}}$, where espected frequencies ($f^{exp}_{i}$) are derived from ?????). On the right ... }
 \label{fig:logos}
 \end{figure*}
 
