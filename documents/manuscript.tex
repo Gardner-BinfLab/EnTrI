@@ -176,7 +176,7 @@ Different articles have reported biases in transposon mutagenesis \cite{barquist
 \includegraphics[page=35, scale=0.25]{biases.pdf}\\
 &\includegraphics[page=38, scale=0.25]{biases.pdf}&\\
 \end{tabular}
-\caption{The plots show the position of the genes within the genome (normalised by the lengths of the genomes) versus the insertion indices of the genes}
+\caption{The plots show the distance of the genes from DnaA gene normalised by the lengths of the genomes versus the insertion indices of the genes. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$.}
 \label{fig:distance-bias}
 \end{figure*}
 
@@ -193,7 +193,7 @@ Different articles have reported biases in transposon mutagenesis \cite{barquist
 \includegraphics[scale=0.55]{100logo-bits.pdf}&
 \includegraphics[scale=0.55]{100logo-prob.pdf}
 \end{tabular}
-\caption{We have generated sequence logos plots using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. On the left the height of each character corresponds to a bit score for that character (i.e. $\log(\frac{f^{obs}_{i}}{f^{exp}_{i}}$, where espected frequencies ($f^{exp}_{i}$) are derived from ?????). On the right ... }
+\caption{We have generated sequence logo plots using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. On the left the height of each character corresponds to a bit score for that character (i.e. $2-\sum f_a\times\log_2f_a-\frac{1}{\ln2}\times\frac{3}{2\times n}$, where $f_a$ is the relative frequency of base $a$ and $n$ is the number of sequences). To put it in simple words, the height of the set of characters shows how biased that position is and the height of each character shows the amount of bias towards that character. On the right the height of each character shows the relative frequency of that character.}
 \label{fig:logos}
 \end{figure*}
 
@@ -215,7 +215,7 @@ Different articles have reported biases in transposon mutagenesis \cite{barquist
 \includegraphics[page=37, scale=0.25]{biases.pdf}&&
 \includegraphics[page=40, scale=0.25]{biases.pdf}\\
 \end{tabular}
-\caption{The plots show the G-C contents of the genes (normalised by the lengths of the genes) against their insertion indices}
+\caption{The plots show the ratio of G-C bases in the genes normalised by the lengths of the genes against their insertion indices. The red curves show the loess curve when the smoothness parameter is $0.2$.}
 \label{fig:GC-bias}
 \end{figure*}
 
@@ -234,8 +234,8 @@ The other bias that we have considered is the bias towards certain locations in 
 \includegraphics[scale=0.4, page=3]{insertion-position-bias.pdf}&
 \includegraphics[scale=0.4, page=4]{insertion-position-bias.pdf}
 \end{tabular}
-\caption{We have divided the genes into 3 segments: 5\% of
-the genes on the 5' end, 20\% of the genes on the 3' end, and the rest in the middle.}
+\caption{The plots show the average insertion index in over the genes in all genes (top left), essential genes (top right), non-essential genes (bottom left), and beneficial losses (bottom right). Each bin shows the average insertion index for $1\%$ of the genes. The genes have been divided into 3 segments: 5\% of
+the genes on the 5' end, 20\% of the genes on the 3' end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.}
 \label{fig:insertion-position-bias}
 \end{figure*}
 
@@ -328,22 +328,22 @@ We have also conducted a pathway enrichment analysis for these three groups. For
 %\item Dollo law
 %\item Ancestral insertion index
 %\end{itemize}
-In order to test if the essentiality of genes follows a tree-like trend we have gathered all the genes that are copied once per genome and made a matrix with rows showing genomes and columns showing genes. If a gene is essential in a genome, its corresponding cell in the matrix has value 1 and 0 otherwise. Then we have used the Bray-Curtis distance to generate a distance matrix for the species under study. Finally, a tree has been generated using PHYLIP Neighbor. The resulting tree is not similar to the species tree.
+%In order to test if the essentiality of genes follows a tree-like trend we have gathered all the genes that are copied once per genome and made a matrix with rows showing genomes and columns showing genes. If a gene is essential in a genome, its corresponding cell in the matrix has value 1 and 0 otherwise. Then we have used the Bray-Curtis distance to generate a distance matrix for the species under study. Finally, a tree has been generated using PHYLIP Neighbor. The resulting tree is not similar to the species tree.
+%
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.2]{neighbor-joining-essentiality-tree.pdf}
+%\caption{The tree is generated from all the genes that are copied only once per genome. We have made a binary matrix from the essentiality of these genes. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree using PHYLIP Neighbor which uses a neighbour joining method.}
+%\label{fig:neighborjoining}
+%\end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.2]{neighbor-joining-essentiality-tree.pdf}
-\caption{The tree is generated from all the genes that are copied only once per genome. We have made a binary matrix from the essentiality of these genes. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree using PHYLIP Neighbor which uses a neighbour joining method.}
-\label{fig:neighborjoining}
-\end{figure}
-
-We have also compared the number of genes that are conserved in different strains in our study and the number of genes that are essential in these strains. For this, we have counted the number of genes that are core between every combination of our strains, and the number of genes that are core essential between those combinations. We have used UpSetR package \cite{conway_upsetr:_2016} in R to visualise the results in Fig.\@ \ref{fig:upsetr}. As shown in the figures, among 1908 genes that are core between all the strains under study, only 184 are core essential. The results propose that although conservation of genes follows a tree-like trend (800 genes are core in Klebsiellas, 273 genes are core in Salmonellas, 208 genes are core in Klebsiellas and Enterobacter, ...), the essentiality does not show a tree-like signal and most of the large sets of core essential genes belong to only one strain. We believe this happens due to the small number of essential genes.
+In order to test if the essentiality of genes follows a tree-like trend, we have compared the number of genes that are conserved in different strains in our study and the number of genes that are essential in these strains. For this, we have counted the number of genes that are core between every combination of our strains, and the number of genes that are core essential between those combinations. We have used UpSetR package \cite{conway_upsetr:_2016} in R to visualise the results in Fig.\@ \ref{fig:upsetr}. As shown in the figures, among 1908 genes that are core between all the strains under study, only 184 are core essential. The results propose that although conservation of genes follows a tree-like trend (800 genes are core in Klebsiellas, 273 genes are core in Salmonellas, 208 genes are core in Klebsiellas and Enterobacter, ...), the essentiality does not show a tree-like signal and most of the large sets of core essential genes belong to only one strain. We believe this happens due to the small number of essential genes.
 
 \begin{figure*}
 \centering
-\includegraphics[scale=0.6, page=1]{upsetr.pdf}\\
-\includegraphics[scale=0.6, page=2]{upsetr.pdf}
-\caption{The first figure shows the number of core genes between each group of species and the second figure shows the number of core essential genes.}
+\includegraphics[scale=0.6]{upsetr1-edited.pdf}\\
+\includegraphics[scale=0.6]{upsetr2-edited.pdf}
+\caption{The first figure shows the number of core genes between each group of species and the second figure shows the number of core essential genes. The bars show the number of genes that are core between the strains marked with black circles. The tick marks show phylogenetically informative columns and the cross marks show non-informative columns.}
 \label{fig:upsetr}
 \end{figure*}
 
