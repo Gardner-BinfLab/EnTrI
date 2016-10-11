@@ -69,7 +69,7 @@ insertion_index <- sapply(file_II, function(x){as.numeric(x[1])})
 size_index <- sapply(file_size, function(x){as.numeric(x[1])})
 group_index <- file_group
 
-pdf("../figures/cluster-essentiality.pdf")
+pdf("../figures/cluster-essentiality2.pdf")
 
 m <- rbind(c(0,1,0.5,1), c(0, 0.34, 0, 0.5), c(0.34, 0.67, 0, 0.5), c(0.67, 1, 0, 0.5))
 temp <- split.screen(m)

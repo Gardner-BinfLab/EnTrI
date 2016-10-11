@@ -8,18 +8,27 @@ list_of_files <- list.files(path=plots_dir, full.names=T, recursive=FALSE)
 plots = list()
 sampledplots = list(list())
 sumlength = list()
-numsamples = 2
+weights = list()
+numsamples = 100
+locusid = c()
 for (filename in list_of_files)
 {
   plotfile = as.matrix(read.table(filename, as.is=TRUE))
-  locusid = strsplit(basename(filename),"\\.")[[1]][1]
-  plots[[locusid]] = plotfile[,1] + plotfile[,2]
-  for (i in 1:numsamples)
-  {
-    sampledplots[[locusid]][[i]] = sample(plots[[locusid]])
-  }
-  sumlength[[locusid]] = c(sum(plots[[locusid]]), length(plots[[locusid]]))
+  lid = strsplit(basename(filename),"\\.")[[1]][1]
+  locusid = c(locusid,lid)
+  plots[[lid]] = plotfile[,1] + plotfile[,2]
+  # plot(plots[[lid]], pch = '.', ylim=c(0,10))
+  # lines(loess.smooth(1:length(plots[[lid]]), plots[[lid]], span=0.2, family = "gaussian"), col=2, lwd=5)
+  plotsdata = as.data.frame(cbind(1:length(plots[[lid]]), as.vector(plots[[lid]])))
+  names(plotsdata) <- c("position", "num_inserts")
+  mdl <- loess(num_inserts~position, plotsdata, span=0.2, family = "gaussian")
+  # lo <- loess(num_inserts ~ position, plotsdata)
+  weights[[lid]] = predict(mdl)
+  sumlength[[lid]] = c(sum(plots[[lid]]), length(plots[[lid]]))
 }
+sampledplots = lapply(locusid, function(filename) replicate(numsamples, sample(plots[[filename]]), simplify=FALSE))
+# sampledplots = lapply(locusid, function(filename) lapply( 1:numsamples, function(i) sample(plots[[filename]], prob=weights[[lid]])))
+names(sampledplots) <- locusid
 
 list_of_files <- list.files(path=fastas_dir, full.names=T, recursive=FALSE)
 list_of_files <- list_of_files[ !grepl("/home/fatemeh/EnTrI/data/fasta-protein/chromosome/U00096.fasta",list_of_files) ]

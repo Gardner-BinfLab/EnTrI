@@ -15,6 +15,7 @@ list_of_files <- list.files(path=biasespath, full.names=T, recursive=FALSE)
 iitotal = c()
 gctotal = c()
 dtotal = c()
+ltotal = c()
 ii_dnormalisedtotal = c()
 lengths=c()
 pdf("../figures/biases.pdf")
@@ -37,6 +38,8 @@ for (filename in list_of_files)
   gctotal <- c(gctotal , gc)
   d <- c(biasestable$dist)
   dtotal <- c(dtotal , d)
+  l <- c(biasestable$length)
+  ltotal <- c(ltotal , l)
   
   plot(gc, ii, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
        main = paste("GC bias -", strsplit(basename(filename), "\\.")[[1]][1]), cex.lab = 2, cex.axis = 2, cex.main =2)
@@ -73,6 +76,10 @@ plot(gctotal, iinormalisedtotal, pch='.', ylim=c(0,5), xlab = "GC content",
 lines(loess.smooth(gctotal,iinormalisedtotal, span=0.2), col=2, lwd=5)
 # fit <- loess(iinormalisedtotal~gctotal)
 # loessprediction <- predict(fit, gctotal)
+
+plot(ltotal, iitotal, pch = '.', xlab = "Length", xlim=c(0,3000),ylim=c(0,4), ylab = "insertion index", main = "Length bias", 
+     cex.lab = 2, cex.axis = 2, cex.main =2)
+lines(loess.smooth(ltotal,iitotal, span=0.2), col=2, lwd=5)
 
 dev.off()
 
