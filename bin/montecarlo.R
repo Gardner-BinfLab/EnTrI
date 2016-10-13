@@ -22,12 +22,11 @@ for (filename in list_of_files)
   plotsdata = as.data.frame(cbind(1:length(plots[[lid]]), as.vector(plots[[lid]])))
   names(plotsdata) <- c("position", "num_inserts")
   mdl <- loess(num_inserts~position, plotsdata, span=0.2, family = "gaussian")
-  # lo <- loess(num_inserts ~ position, plotsdata)
   weights[[lid]] = predict(mdl)
+  weights[[lid]] = weights[[lid]] / sum(weights[[lid]])
   sumlength[[lid]] = c(sum(plots[[lid]]), length(plots[[lid]]))
 }
-sampledplots = lapply(locusid, function(filename) replicate(numsamples, sample(plots[[filename]]), simplify=FALSE))
-# sampledplots = lapply(locusid, function(filename) lapply( 1:numsamples, function(i) sample(plots[[filename]], prob=weights[[lid]])))
+sampledplots = lapply(locusid, function(filename) lapply( 1:numsamples, function(i) sample(plots[[filename]], prob=weights[[lid]])))
 names(sampledplots) <- locusid
 
 list_of_files <- list.files(path=fastas_dir, full.names=T, recursive=FALSE)
