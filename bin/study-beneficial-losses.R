@@ -21,7 +21,7 @@ names(df) = c("word", "pvalue")
 pdf("../figures/beneficialloss-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
   geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ylim(c(0,max(df[1,2], -log10(0.05))))+ggtitle("Beneficial losses") +
-  theme(text = element_text(size=15))
+  theme(text = element_text(size=24)) +theme(axis.text=element_text(size=20), axis.title=element_text(size=24,face="bold"))
 dev.off()
 
 
@@ -47,7 +47,7 @@ names(df) = c("word", "pvalue")
 pdf("../figures/essential-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
   geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Essential genes") +
-  theme(text = element_text(size=15))
+  theme(text = element_text(size=24)) +theme(axis.text=element_text(size=20), axis.title=element_text(size=24,face="bold"))
 dev.off()
 
 
@@ -73,5 +73,5 @@ names(df) = c("word", "pvalue")
 pdf("../figures/non-essential-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
   geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ylim(c(0,max(df[1,2], -log10(0.05))))+ggtitle("Non-essential genes") +
-  theme(text = element_text(size=15))
+  theme(text = element_text(size=24)) +theme(axis.text=element_text(size=20), axis.title=element_text(size=24,face="bold"))
 dev.off()
