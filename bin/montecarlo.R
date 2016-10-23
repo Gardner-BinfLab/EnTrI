@@ -9,7 +9,7 @@ plots = list()
 sampledplots = list(list())
 sumlength = list()
 weights = list()
-numsamples = 100
+numsamples = 2
 locusid = c()
 for (filename in list_of_files)
 {
@@ -22,6 +22,7 @@ for (filename in list_of_files)
   plotsdata = as.data.frame(cbind(1:length(plots[[lid]]), as.vector(plots[[lid]])))
   names(plotsdata) <- c("position", "num_inserts")
   mdl <- loess(num_inserts~position, plotsdata, span=0.2, family = "gaussian")
+  # mdl <- loess.smooth(plotsdata$position, plotsdata$num_inserts, span=0.2)
   weights[[lid]] = predict(mdl)
   weights[[lid]] = weights[[lid]] / sum(weights[[lid]])
   sumlength[[lid]] = c(sum(plots[[lid]]), length(plots[[lid]]))
