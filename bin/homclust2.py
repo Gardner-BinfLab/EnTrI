@@ -15,23 +15,60 @@ exec python $0 ${1+"$@"}
 """
 
 from os import path, mkdir, system, listdir
-from shutil import rmtree
+from shutil import rmtree, copytree
 from Bio import SeqIO
 from argparse import ArgumentParser
 from math import sqrt
 from timeit import default_timer
+from dendropy import Tree
 
 
-def mergefiles(inpath, outpath):
-    list_of_files = listdir(inpath)
-    with open(outpath, 'w') as tofile:
+def parsetree(trepath):
+    tree = Tree.get(path=trepath, schema='newick')
+    distances = tree.phylogenetic_distance_matrix()  ##############https://pythonhosted.org/DendroPy/primer/phylogenetic_distances.html
+    distance_matrix = list(list())
+    for i, t1 in enumerate(tree.taxon_namespace):
+        row = [None] * len(tree.taxon_namespace)
+        for j, t2 in enumerate(tree.taxon_namespace):
+            if i >= j:
+                row[j] = float('inf')
+            else:
+                row[j] = distances(t1, t2)
+        distance_matrix.append(row)
+    nodes = tree.taxon_namespace.labels()
+    return nodes, distance_matrix
+
+
+def findclosest(matrix):
+    minimum = float('inf')
+    x, y = -1, -1
+    for i, e1 in enumerate(matrix):
+        for j, e2 in enumerate(e1):
+            if matrix[i][j] < minimum:
+                x = i
+                y = j
+                minimum = matrix[i][j]
+    # print(indices)
+    return x,y
+
+
+def editdistances(names, matrix, sp):
+    del matrix[sp]
+    for row in matrix:
+        del row[sp]
+    del names[sp]
+    return names, matrix
+
+
+def mergefiles(file1, file2, merged):
+    with open(merged, 'w') as tofile:
         write = tofile.write
-        for filename in list_of_files:
-            with open(inpath + '/' + filename, 'r') as fromfile:
-                for line in fromfile:
-                    write(line)
-    numspecies = len(list_of_files)
-    return numspecies
+        with open(file1, 'r') as fromfile:
+            for line in fromfile:
+                write(line)
+    with open(file2, 'r') as fromfile:
+        for line in fromfile:
+            write(line)
 
 
 def read_fasta_sequences(filepath):
@@ -122,7 +159,7 @@ def separatesequences(seqdb, clusters, outpath):
             selectedsequences = [sequences[x] for x in cells]
             address = outpath + '/seq' + str(counter) + '.txt'
             write(selectedsequences, address, 'fasta')
-            counter+= 1
+            counter += 1
 
 
 def makedir(dirname):
@@ -188,18 +225,27 @@ def runmcl(inpath, outpath):
 start = default_timer()
 et = 10**-10
 parser = ArgumentParser(description='Clusters orthologous proteins. Needs python 3 or higher and HMMER 3.')
-parser.add_argument('s', help='Directory containing all sequences in fasta format')
-# parser.add_argument('t', help='Tree file in Newick format')
+parser.add_argument('s', help='Directory containing all sequences in fasta format. The names of the files should be the'
+                              'same as the name of the nodes in the species tree + \'.fa\'')
+parser.add_argument('t', help='Rooted binary tree file in Newick format with non-zero branch lengths')
 parser.add_argument('o', help='Path to the output')
 parser.add_argument('-e', '--eva', help='E-value threshold for phmmer', default=et)
 args = parser.parse_args()
 seqpath = args.s
-# trepath = args.t
+trepath = args.t
 outpath = args.o
-eval = float(args.eva)
+evalue = float(args.eva)
 
-seqdb = outpath + '/seq.txt'
-numspecies = mergefiles(seqpath, seqdb)
+nodes, distancematrix = parsetree(trepath)
+while len(distancematrix) > 1:
+    sp1, sp2 = findclosest(distancematrix)
+    seqdb = outpath + '/seq.txt'
+    file1 = seqpath + nodes[sp1] + '.fa'
+    file2 = seqpath + nodes[sp1] + '.fa'
+    mergefiles(file1, file2, seqdb) #################correct the rest
+    nodes, distancematrix= editdistances(nodes, distancematrix, sp2)
+# seqdb = outpath + '/seq.txt'
+# numspecies = mergefiles(seqpath, seqdb)
 features = outpath + '/features.txt'
 extractfeatures(seqdb, features)
 distances = outpath + '/distances.txt'

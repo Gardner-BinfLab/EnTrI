@@ -1,33 +1,49 @@
 library(stringr)
 library("MASS")
 library("DESeq2")
-library("mclust")
+library(bigmemory)
+#library("mclust")
 fastas_dir <- "~/EnTrI/data/fasta-protein/chromosome"
 plots_dir <- "~/EnTrI/data/plot-files/chromosome"
-outdir <- "~/EnTrI/results/monte-carlo/"
 list_of_files <- list.files(path=plots_dir, full.names=T, recursive=FALSE)
-plots = list()
 sampledplots = list(list())
+plots = list()
 sumlength = list()
-numsamples = 10
+weights = list()
+windowsize = 50
+numsamples = 2
+locusid = c()
 for (filename in list_of_files)
 {
   plotfile = as.matrix(read.table(filename, as.is=TRUE))
-  locusid = strsplit(basename(filename),"\\.")[[1]][1]
-  plots[[locusid]] = plotfile[,1] + plotfile[,2]
-  plotsdata = as.data.frame(cbind(1:length(plots[[locusid]]), as.vector(plots[[locusid]])))
+  lastwindowsize = nrow(plotfile) %% windowsize
+  lid = strsplit(basename(filename),"\\.")[[1]][1]
+  locusid = c(locusid,lid)
+  # plots[[lid]] = plotfile[,1] + plotfile[,2]
+  for (i in seq(1, (nrow(plotfile)%/%windowsize)))
+  {
+    plots[[lid]][i] = sum(plotfile[((i-1)*windowsize+1):(i*windowsize),1] + plotfile[((i-1)*windowsize+1):(i*windowsize),2])
+  }
+  i =+ 1
+  plots[[lid]][i] = sum(plotfile[((i-1)*windowsize+1):((i-1)*windowsize+lastwindowsize),1] + plotfile[((i-1)*windowsize+1):((i-1)*windowsize+lastwindowsize),2])
+  # plot(plots[[lid]], pch = '.', ylim=c(0,10))
+  # lines(loess.smooth(1:length(plots[[lid]]), plots[[lid]], span=0.2, family = "gaussian"), col=2, lwd=5)
+  plotsdata = as.data.frame(cbind(1:length(plots[[lid]]), as.vector(plots[[lid]])))
   names(plotsdata) <- c("position", "num_inserts")
   mdl <- loess(num_inserts~position, plotsdata, span=0.2, family = "gaussian",
                control=loess.control(statistics=c("approximate"),trace.hat=c("approximate")))
+  # mdl <- loess.smooth(plotsdata$position, plotsdata$num_inserts, span=0.2)
   weights = predict(mdl)
-  weights = weights / median(weights)
-  plots[[locusid]] = round(plots[[locusid]] / weights)
-  for (i in 1:numsamples)
+  weights = weights / sum(weights)
+  # sumlength[[lid]] = c(sum(plots[[lid]]), length(plots[[lid]]))
+  # plots[[lid]] = round(plots[[lid]] / weights)
+  # sampledplots[[lid]] = big.matrix(numsamples, length(plots[[lid]]), type="double")
+  for (i in seq(1,numsamples))
   {
-    sampledplots[[locusid]][[i]] = sample(plots[[locusid]])
+    sampledplots[[lid]][[i]] = sample(plots[[lid]], prob = weights)
   }
-  sumlength[[locusid]] = c(sum(plots[[locusid]]), length(plots[[locusid]]))
 }
+# sampledplots = lapply(locusid, function(filename) lapply( 1:numsamples, function(i) sample(plots[[filename]])))
 
 list_of_files <- list.files(path=fastas_dir, full.names=T, recursive=FALSE)
 list_of_files <- list_of_files[ !grepl("/home/fatemeh/EnTrI/data/fasta-protein/chromosome/U00096.fasta",list_of_files) ]
@@ -38,7 +54,6 @@ for (filename in list_of_files)
   counttable <- data.frame()
   genenames = c()
   fastafile = readLines(filename)
-  iitable = list()
   for (line in fastafile)
   {
     if (startsWith(line, ">"))
@@ -81,12 +96,17 @@ for (filename in list_of_files)
           }
           newlen = newend - newstart + 1
           reads = sum(plots[[locusid]][newstart:newend])
+          # sampledreads = 0
+          # for (item in sampledplots[[locusid]])
+          # {
+          #   sampledreads =+ sum(item[newstart:newend])
+          # }
           samples = lapply(sampledplots[[locusid]], "[", newstart:newend)
           sampledreads = sapply(samples, sum)
           counttable = rbind(counttable,c(reads,sampledreads))
           genenames = c(genenames , locustag)
-          ii = sum(plots[[locusid]][start:end]>0) / (end-start+1)
-          iitable <- rbind(iitable, c(locustag, ii, genelength))
+          # ii = sum(plots[[locusid]][start:end]>0) / (end-start+1)
+          # iitable <- rbind(iitable, c(locustag, ii, genelength))
         }
       }
     }
@@ -102,30 +122,9 @@ for (filename in list_of_files)
   dds <- DESeqDataSetFromMatrix(counttable, DataFrame(condition), ~ condition)
   res <- DESeq(dds)
   result<-results(res)
-  mod = Mclust(result$log2FoldChange, G=1:2)
-  essentiality = c()
-  for (i in 1:length(result@rownames))
-  {
-    if (result$padj[i] < 0.001 & result$log2FoldChange[i] > 0)
-    #if (mod$classification[i] == 1 & result$log2FoldChange[i] < 0)
-    {
-      essentiality = c(essentiality, 'Essential')
-    }
-    else if (result$padj[i] < 0.001 & result$log2FoldChange[i] < 0)
-    {
-      essentiality = c(essentiality, 'Beneficial-loss')
-    }
-    else
-    {
-      essentiality = c(essentiality, 'Non-essential')
-    }
-  }
-  to_print = cbind(result@rownames, result$padj, result$log2FoldChange, essentiality)
-  outpath = paste(outdir, locusid, ".txt", sep="")
-  write.table(to_print, file=outpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
-  
-  #plot(mod, what = "classification")
-  #output_dir1 = '~/Desktop/tmc/'
-  #outputpath = paste(output_dir1, locusid, ".txt", sep="")
-  #write.table(iitable, file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
+  print(sum(result$padj < 0.001 & result$log2FoldChange < 0))
+  # mod = Mclust(result$log2FoldChange, G=2)
+  # plot(mod, what = "classification")
+  # outputpath = paste(output_dir1, locusid, ".txt", sep="")
+  # write.table(iitable, file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
 }
