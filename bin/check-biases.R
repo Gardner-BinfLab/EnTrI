@@ -9,7 +9,7 @@ dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherich
 names(dict) <- names
 
 biasespath <- "../results/insertion-indices/check-biases/"
-outdir <- "../results/insertion-indices/normalised-insertion-indices"
+outdir <- "../results/insertion-indices/normalised-insertion-indices-with-logodds"
 dir.create(outdir)
 list_of_files <- list.files(path=biasespath, full.names=T, recursive=FALSE)
 iitotal = c()
@@ -158,6 +158,7 @@ for (filename in list_of_files)
   mtext(paste(ambig, ":", "Ambiguous changepoint"), side=3, adj=1, padj=3.75)
   mtext(paste(noness, ":", "Non-essential changepoint"), side=3, adj=1, padj=5.5)
   
+  logodds = c()
   for (i in (1:length(ii)))
   {
     if (ii[i] < essen & 100 < biasestable$length[i])
@@ -172,9 +173,11 @@ for (filename in list_of_files)
     {
       biasestable$essentiality[i] = "beneficial-loss"
     }
+    logodds = c(logodds, log((pgamma(ii[i], d2$e[1],d2$e[2])*(1-pgamma(ii[i], 1,d1$e[2], lower.tail=FALSE)))/(pgamma(ii[i], 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(ii[i], d2$e[1],d2$e[2]))) , base=2))
   }
   
-  write.table(biasestable[1:3], file = paste(outdir, '/', basename(filename), sep=''), quote = FALSE, col.names = FALSE, row.names = FALSE, sep = '\t')
+  write.table(cbind(biasestable[1:3],logodds), file = paste(outdir, '/', basename(filename), sep=''), quote = FALSE, col.names = FALSE, row.names = FALSE, sep = '\t')
+  # write.table(biasestable[1:3], file = paste(outdir, '/', basename(filename), sep=''), quote = FALSE, col.names = FALSE, row.names = FALSE, sep = '\t')
   s = s + length(biasestable$ii)
 }
 

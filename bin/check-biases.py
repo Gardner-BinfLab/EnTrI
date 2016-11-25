@@ -45,7 +45,7 @@ for filename in list_of_files:
                     gc = 0
                     match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                     if match_result is None:
-                        match_result = match('>\s*(([a-zA-Z]+)\d+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
+                        match_result = match('>\s*(([a-zA-Z]+)\d+[a-zA-Z]?)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                     if match_result is not None:
                         gene_name = match_result.group(1)
                         strain_name = match_result.group(2)
