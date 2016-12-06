@@ -1,5 +1,7 @@
 library("ROCR")
 library(stringr)
+library("mclust")
+library(mixtools)
 
 locus = c('BN373','ENC','ETEC','ROD','SL1344','STMMW','t','CS17','ERS227112','NCTC13441','SEN','SL3261','STM')
 address = c('Klebsiella_pneumoniae_subsp_pneumoniae_Ecl8_HF536482_v1.fasta','Enterobacter_cloacae_subsp_cloacae_NCTC_9394_v1.fasta',
@@ -17,14 +19,14 @@ dimnames(contingency)[[1]]=c('Essential', 'Non-essential')
 names(dimnames(contingency))=c('Real', 'Predicted', 'Bacterium')
 
 outdir = '../results/montecarlo-maximiseMCC/'
-colors=c('blue', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray')
+colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
 for (i in seq(length(locus)))
 {
   real = read.table(paste('../results/ecogenecounterparts/',locus[i],'.txt',sep = ''), as.is=TRUE, header=FALSE, sep="\t")
   names(real) <- c('gene', 'essentiality')
   
   biotradis = read.table(paste('../results/insertion-indices/normalised-insertion-indices-with-logodds/', locus[i], '.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
-  biotradis = biotradis[,4]
+  biotradis = biotradis[,c(2,4)]
   biotradis = -biotradis
   
   montecarlo = read.table(paste('../results/monte-carlo/',locus[i],'.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
@@ -37,15 +39,27 @@ for (i in seq(length(locus)))
   
   pdf(paste('../figures/essential-call-comparison-', locus[i], '.pdf', sep=''))
   
-  predbiotradis <- prediction(biotradis, real$essentiality)
-  perfbiotradis <- performance(predbiotradis,"tpr","fpr")
-  aucbiotradis <- performance(predbiotradis,measure = "auc")@y.values[[1]]
-  plot(perfbiotradis,col=colors[1],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, main=locus[i])
-  
-  perfbiotradismcc <- performance(predbiotradis,'mat')
-  maxmcc = max(perfbiotradismcc@y.values[[1]][!is.na(perfbiotradismcc@y.values[[1]])])
-  cutoff = perfbiotradismcc@x.values[[1]][perfbiotradismcc@y.values[[1]]==maxmcc & !is.na(perfbiotradismcc@y.values[[1]])]
-  cutoffbiotradis = cutoff
+  aucbiotradis = c()
+  cutoffbiotradis = c()
+  for (j in seq(2))
+  {
+    predbiotradis <- prediction(biotradis[,j], real$essentiality)
+    perfbiotradis <- performance(predbiotradis,"tpr","fpr")
+    aucbiotradis <- c(aucbiotradis, performance(predbiotradis,measure = "auc")@y.values[[1]])
+    if (j==2)
+    {
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+    }
+    else
+    {
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, main=locus[i])
+    }
+    
+    perfbiotradismcc <- performance(predbiotradis,'mat')
+    maxmcc = max(perfbiotradismcc@y.values[[1]][!is.na(perfbiotradismcc@y.values[[1]])])
+    cutoff = perfbiotradismcc@x.values[[1]][perfbiotradismcc@y.values[[1]]==maxmcc & !is.na(perfbiotradismcc@y.values[[1]])]
+    cutoffbiotradis = c(cutoffbiotradis, cutoff)
+  }
   
   aucmontecarlo = c()
   cutoffmontecarlo = c()
@@ -54,7 +68,7 @@ for (i in seq(length(locus)))
     predmontecarlo <- prediction(montecarlo[,j], real$essentiality)
     perfmontecarlo <- performance(predmontecarlo,"tpr","fpr")
     aucmontecarlo <- c(aucmontecarlo, performance(predmontecarlo,measure = "auc")@y.values[[1]])
-    plot(perfmontecarlo,col=colors[j+1],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+    plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
     
     perfmontecarlomcc <- performance(predmontecarlo,'mat')
     maxmcc = max(perfmontecarlomcc@y.values[[1]][!is.na(perfmontecarlomcc@y.values[[1]])])
@@ -107,7 +121,7 @@ for (i in seq(length(locus)))
   predconz <- prediction(consecutivezeros, real$essentiality)
   perfconz <- performance(predconz,"tpr","fpr")
   aucconz <- performance(predconz,measure = "auc")@y.values[[1]]
-  plot(perfconz,col=colors[7],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  plot(perfconz,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
   
   perfconzmcc <- performance(predconz,'mat')
   maxmcc = max(perfconzmcc@y.values[[1]][!is.na(perfconzmcc@y.values[[1]])])
@@ -117,30 +131,74 @@ for (i in seq(length(locus)))
   predmeandist <- prediction(meandist, real$essentiality)
   perfmeandist <- performance(predmeandist,"tpr","fpr")
   aucmeandist <- performance(predmeandist,measure = "auc")@y.values[[1]]
-  plot(perfmeandist,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  plot(perfmeandist,col=colors[9],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
   
   perfmeandistmcc <- performance(predmeandist,'mat')
   maxmcc = max(perfmeandistmcc@y.values[[1]][!is.na(perfmeandistmcc@y.values[[1]])])
   cutoff = perfmeandistmcc@x.values[[1]][perfmeandistmcc@y.values[[1]]==maxmcc & !is.na(perfmeandistmcc@y.values[[1]])]
   cutoffmeandist = cutoff
   
-  labels <- c(paste("BioTraDIS, AUC = ", format(round(aucbiotradis, 4), nsmall = 4))
+  data = cbind(biotradis$V2, montecarlo$DESeqLFC, consecutivezeros)
+  for (j in seq(ncol(data)))
+  {
+    data[,j]=(data[,j]-mean(data[,j]))/sd(data[,j]-mean(data[,j]))
+  }
+  data.pca <- prcomp(data, center = TRUE, scale. = TRUE)
+  if (data.pca$rotation[1,1] < 0)
+  {
+    data.pca$x = -data.pca$x
+  }
+  
+  predpca <- prediction(data.pca$x[,1], real$essentiality)
+  perfpca <- performance(predpca,"tpr","fpr")
+  aucpca <- performance(predpca,measure = "auc")@y.values[[1]]
+  plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  
+  perfpcamcc <- performance(predpca,'mat')
+  maxmcc = max(perfpcamcc@y.values[[1]][!is.na(perfpcamcc@y.values[[1]])])
+  cutoff = perfpcamcc@x.values[[1]][perfpcamcc@y.values[[1]]==maxmcc & !is.na(perfpcamcc@y.values[[1]])]
+  cutoffpca = cutoff
+  
+  data.sum = rowSums(data)
+  
+  predsum <- prediction(data.sum, real$essentiality)
+  perfsum <- performance(predsum,"tpr","fpr")
+  aucsum <- performance(predsum,measure = "auc")@y.values[[1]]
+  plot(perfsum,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  
+  perfsummcc <- performance(predsum,'mat')
+  maxmcc = max(perfsummcc@y.values[[1]][!is.na(perfsummcc@y.values[[1]])])
+  cutoff = perfsummcc@x.values[[1]][perfsummcc@y.values[[1]]==maxmcc & !is.na(perfsummcc@y.values[[1]])]
+  cutoffsum = cutoff
+  
+  labels <- c(paste("BioTraDIS, AUC = ", format(round(aucbiotradis[1], 4), nsmall = 4))
+              , paste("BioTraDIS logodds, AUC = ", format(round(aucbiotradis[2], 4), nsmall = 4))
               , paste("Monte Carlo Pval, AUC = ", format(round(aucmontecarlo[1], 4), nsmall = 4))
               , paste("Monte Carlo DESeq LFC, AUC = ", format(round(aucmontecarlo[2], 4), nsmall = 4))
               , paste("Monte Carlo LFC, AUC = ", format(round(aucmontecarlo[3], 4), nsmall = 4))
               , paste("Monte Carlo DESeq LFC Distances, AUC = ", format(round(aucmontecarlo[4], 4), nsmall = 4))
               , paste("Monte Carlo LFC Distances, AUC = ", format(round(aucmontecarlo[5], 4), nsmall = 4))
               , paste("Largest uninterrupted fraction, AUC = ", format(round(aucconz, 4), nsmall = 4))
-              , paste("Mean distance between inserts, AUC = ", format(round(aucmeandist, 4), nsmall = 4)))
+              , paste("Mean distance between inserts, AUC = ", format(round(aucmeandist, 4), nsmall = 4))
+              , paste("PCA, AUC = ", format(round(aucpca, 4), nsmall = 4))
+              , paste("SUM, AUC = ", format(round(aucsum, 4), nsmall = 4)))
   legend("bottomright", inset=.05, labels, lwd=2, col=colors)
   
-  plot(-biotradis,montecarlo$DESeqLFC, pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
+  plot(-biotradis[,2],montecarlo$DESeqLFC, pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
   labels <- c("Essential","Non-essential")
   legend("topright", inset=.05, labels, pch=20, col=c("red","black"))
   
-  plot(-biotradis,log2(-montecarlo$`-DESeqPval`), pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "log2(Monte Carlo P-value)")
+  plot(-biotradis[,2],log2(-montecarlo$`-DESeqPval`), pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "log2(Monte Carlo P-value)")
   labels <- c("Essential","Non-essential")
   legend("bottomright", inset=.05, labels, pch=20, col=c("red","black"))
+  
+  plot(-montecarlo$DESeqLFC,-montecarlo$DESeqLFCDist, pch=20, col=real$essentiality+1, xlab = "Monte Carlo DESeq LFC", ylab = "Monte Carlo DESeq LFC Distances")
+  labels <- c("Essential","Non-essential")
+  legend("bottomright", inset=.05, labels, pch=20, col=c("red","black"))
+  
+  plot(2^(-montecarlo$DESeqLFC),2^(-montecarlo$DESeqLFCDist), pch=20, col=real$essentiality+1, xlab = "Monte Carlo DESeq FC", ylab = "Monte Carlo DESeq FC Distances")
+  labels <- c("Essential","Non-essential")
+  legend("topright", inset=.05, labels, pch=20, col=c("red","black"))
   
   hist(montecarlo$DESeqLFC, breaks=150, xlab = "Monte Carlo logFC", main = "Histogram of Monte Carlo logFC")
   hist(log2(-montecarlo$`-DESeqPval`), breaks=150, xlab = "log2(Monte Carlo P-value)", main = "Histogram of Monte Carlo P-value")
@@ -149,7 +207,11 @@ for (i in seq(length(locus)))
   
   dev.off()
   
-  essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', 'non-essential')
+  # essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$DESeqLFC <= 
+  #                                                                                         mean(montecarlo$DESeqLFC)-0.8*cutoffmontecarlo[2],
+  #                                                                                       'beneficial-loss', 'non-essential'))
+  essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$DESeqLFC > 0 & -montecarlo$`-DESeqPval`< 0.01,
+                                                                                        'beneficial-loss', 'non-essential'))
   to_print = cbind(real$gene, montecarlo$DESeqLFC, essentiality)
   outpath = paste(outdir, locusid, ".txt", sep="")
   write.table(to_print, file=outpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
@@ -165,8 +227,41 @@ for (i in seq(length(locus)))
   #   write.table(cs17fps, file='../results/cs17fps.txt
   #               ', quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
   # }
+  
+  # mod = Mclust(montecarlo$DESeqLFC, G=1:2)
+  # plot(mod, what = "classification")
+  
+  # normalmix <- normalmixEM(montecarlo$DESeqLFC, k=3)
+  # print(sum(apply(normalmix$posterior, 1, function(x) min(which(x == max(x, na.rm = TRUE))))==1))
+  # print(sum(apply(normalmix$posterior, 1, function(x) min(which(x == max(x, na.rm = TRUE))))==2))
+  # print(sum(apply(normalmix$posterior, 1, function(x) min(which(x == max(x, na.rm = TRUE))))==3))
+  # print(cutoffmontecarlo[4])
+  hist(data.pca$x[,1], breaks = 200)
+  print(locus[i])
+  print(sum(data.sum>4))
+  print(length((real$essentiality[data.sum>4]))-sum(real$essentiality[data.sum>4]))
+  print(sum(real$essentiality[data.sum<4]))
+  print(real$gene[data.sum< -4])
+  print(cutoffsum)
+  print(data.pca)
 }
 
 pdf('../figures/essentiality-call-accuracy.pdf')
 fourfoldplot(contingency, conf.level=0, std='i', space=0.2)
 dev.off()
+
+
+############### compare TnSeq:
+tnseqtest = read.csv('~/program-bank/TnSeq/example data&code/ROD-essentiality.csv')
+library(dplyr)
+tnseqtest$Gene=gsub(" ", "", tnseqtest$Gene)
+real2=semi_join(real,tnseqtest, by=c("gene"="Gene"))
+tnseqtest2=semi_join(tnseqtest, real2, by=c("Gene"="gene"))
+predtnseq <- prediction(-tnseqtest2[,1], real2$essentiality)
+perftnseq <- performance(predtnseq,"tpr","fpr")
+auctnseq <- performance(predtnseq,measure = "auc")@y.values[[1]]
+
+################# PCA
+
+plot(data.pca, type='l')
+summary(data.pca)

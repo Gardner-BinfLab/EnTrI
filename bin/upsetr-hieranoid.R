@@ -78,4 +78,11 @@ for (item in essentiality$`Escherichia coli ETEC CS17`)
     cs17ess = c(cs17ess,match_result)
   }
 }
-write.table(cs17ess, file='../results/cs17ess.txt', quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
+library(Biostrings)
+cs17fasta = readDNAStringSet('../data/fasta-dna//chromosome/CS17.fasta')
+cs17towrite = c()
+for (item in cs17ess)
+{
+  cs17towrite = c(cs17towrite,cs17fasta@ranges@NAMES[startsWith(cs17fasta@ranges@NAMES,item)])
+}
+write.table(cs17towrite, file='../results/cs17ess.txt', quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)

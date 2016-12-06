@@ -102,6 +102,7 @@ for (filename in list_of_files)
   dds <- DESeqDataSetFromMatrix(counttable, DataFrame(condition), ~ condition)
   res <- DESeq(dds)
   result<-results(res)
+  
   # mod = Mclust(result$log2FoldChange, G=1:2)
   essentiality = c()
   for (i in 1:length(result@rownames))
