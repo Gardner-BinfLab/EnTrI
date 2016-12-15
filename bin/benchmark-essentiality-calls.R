@@ -205,7 +205,6 @@ for (i in seq(length(locus)))
   hist(log2(consecutivezeros+1e-5), breaks = 150, xlab = "log2(Largest uninterrupted fraction+1e-5)", main = "Histogram of largest uninterrupted fraction")
   hist(log2(meandist+1e-5), breaks = 150, xlab = "log2(Mean distance between inserts+1e-5)", main = "Histogram of mean distance between inserts")
   
-  dev.off()
   
   # essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$DESeqLFC <= 
   #                                                                                         mean(montecarlo$DESeqLFC)-0.8*cutoffmontecarlo[2],
@@ -236,14 +235,38 @@ for (i in seq(length(locus)))
   # print(sum(apply(normalmix$posterior, 1, function(x) min(which(x == max(x, na.rm = TRUE))))==2))
   # print(sum(apply(normalmix$posterior, 1, function(x) min(which(x == max(x, na.rm = TRUE))))==3))
   # print(cutoffmontecarlo[4])
-  hist(data.pca$x[,1], breaks = 200)
+  ############################# plot
+  #hist(data.pca$x[,1], breaks = 200)
   print(locus[i])
-  print(sum(data.sum>4))
-  print(length((real$essentiality[data.sum>4]))-sum(real$essentiality[data.sum>4]))
-  print(sum(real$essentiality[data.sum<4]))
-  print(real$gene[data.sum< -4])
-  print(cutoffsum)
-  print(data.pca)
+  ################# Stoufer's method
+  # zscores=(data[,1]*abs(data.pca$rotation[1,1])+data[,2]*abs(data.pca$rotation[2,1])+data[,3]*abs(data.pca$rotation[3,1]))/
+  #   sqrt(sum(data.pca$rotation[1,1]^2+data.pca$rotation[2,1]^2+data.pca$rotation[3,1]^2)) #It is actually equal to data.pca$x[,1]
+  normalisedpca = (data.pca$x[,1]- mean(data.pca$x[,1]))/sd(data.pca$x[,1]- mean(data.pca$x[,1]))
+  hist(normalisedpca, breaks = 200)
+  pvalue2sided=2*pnorm(-abs(normalisedpca))
+  #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]>0]))
+  #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]<0]))
+  print((cutoffpca- mean(data.pca$x[,1]))/sd(data.pca$x[,1]- mean(data.pca$x[,1])))
+  print(length(real$gene[normalisedpca>1.644854])) #pnorm(1.644854) = 0.5 #The average of all pcacutoffs defined by maximising MCC is 1.609207
+  print(length(real$gene[normalisedpca< -1.644854]))
+  #intercept=normalisedpca[normalisedpca>0 & pvalue2sided==max(pvalue2sided[normalisedpca>0 & pvalue2sided<0.05])]
+  intercept=1.644854
+  abline(v=intercept,col='red')
+  #intercept=normalisedpca[normalisedpca<0 & pvalue2sided==max(pvalue2sided[normalisedpca<0 & pvalue2sided<0.05])]
+  intercept=-1.644854
+  abline(v=intercept,col='red')
+  ############ qq plot
+  #qq=qqnorm(data.pca$x[,1])
+  #qqline(data.pca$x[,1], col = 2)
+  #dist = qq$x-qq$y
+  #print(sum(dist>0.5))
+  #print(sum(dist< -0.5))
+  # nnn=(data.pca$x[,1]-mean(data.pca$x[,1]))/sd(data.pca$x[,1]-mean(data.pca$x[,1]))
+  # hist(nnn,breaks=200)
+  # print(sum(nnn>1.5))
+  # print(sum(nnn < -1.5))
+  
+  dev.off()
 }
 
 pdf('../figures/essentiality-call-accuracy.pdf')
@@ -261,7 +284,3 @@ predtnseq <- prediction(-tnseqtest2[,1], real2$essentiality)
 perftnseq <- performance(predtnseq,"tpr","fpr")
 auctnseq <- performance(predtnseq,measure = "auc")@y.values[[1]]
 
-################# PCA
-
-plot(data.pca, type='l')
-summary(data.pca)
