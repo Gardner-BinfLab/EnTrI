@@ -1,3 +1,4 @@
+library(ggplot2)
 codons <- "../results/low-gc-info.txt"
 codon_table <- read.table(codons, header = TRUE)
 fishertable =data.frame()
@@ -12,10 +13,10 @@ fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
 write.table(fishertable, file = "../results/low-gc-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
-df = fishertable[-seq(25,nrow(fishertable),1),]
+df = fishertable[-seq(30,nrow(fishertable),1),]
 df[,3] = -log10(df[,3])
 df = df[,-2]
-df = df[c(-2,-3,-8,-9),]
+#df = df[c(-2,-3,-8,-9),]
 names(df) = c("word", "pvalue")
 pdf("../figures/lowgc-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +

@@ -1,7 +1,7 @@
 library(stringr)
 list_of_files <- list.files(path="../results/homclust/EFam-clusters", pattern="*.txt", full.names=T, recursive=FALSE)
-names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261")
-genuses = c(1, 2, 3, 2, 2, 4, 4, 5, 5, 5, 5, 5, 5)
+names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "EC958", "BW25113")
+genuses = c(1, 2, 3, 2, 2, 4, 4, 5, 5, 5, 5, 5, 5, 2, 2)
 names(genuses) <- names
 numspecies = length(names)
 clusters = matrix(nrow=length(list_of_files), ncol=5)
@@ -70,8 +70,8 @@ n= 30
 cols = c("green1","orange", "gray35")
 midpoints <- barplot(rbind(table(factor(orfan, levels=1:100)),table(factor(singcopy, levels=1:100)),
                            table(factor(multicopy, levels=1:100))), col = cols, xlim=c(0,n), xaxt="n", border = NA,
-                     xlab="Cluster size",ylab="Frequency", main ="Cluster size distribution", , cex.lab = 2, cex.axis = 1.5, cex.main = 2)
+                     xlab="Cluster size",ylab="Frequency", main ="Cluster size distribution", cex.lab = 2, cex.axis = 1.5, cex.main = 2)
 axis(1, at=midpoints[seq(2,n,2)], labels=c(rbind(seq(2,n,4),NA))[1:(n/2)], cex.axis=1.5)
-legend(7,2300, c("Genus Specific","Single copy", "Multiple copy"), lty=c(1,1,1),cex=1.5, bty="n", lwd=c(4,4, 4),col=cols)
+legend(7,2000, c("Genus Specific","Single copy", "Multiple copy"), lty=c(1,1,1),cex=1.5, bty="n", lwd=c(4,4, 4),col=cols)
 
 dev.off()

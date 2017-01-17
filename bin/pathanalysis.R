@@ -1,7 +1,7 @@
 library(ggplot2)
 library(stringr)
 dbs <- "~/EnTrI/results/KEGG/"
-essentiality <- "~/EnTrI/results/insertion-indices/normalised-insertion-indices/"
+essentiality <- "~/EnTrI/results/biases/normalised-pca/"
 list_of_files <- list.files(path=dbs, full.names=T, recursive=FALSE)
 db=matrix(,nrow=0,ncol=3)
 for (filename in list_of_files)
@@ -14,7 +14,8 @@ for (filename in list_of_files)
                             [[ Salmonella enterica subsp. enterica serovar Enteritidis P125109]]|
                             [[ Salmonella enterica subsp. enterica serovar Typhimurium D23580]]|
                             [[ Salmonella enterica subsp. enterica serovar Typhimurium SL1344]]|
-                            [[ Salmonella enterica subsp. enterica serovar Typhi Ty2]]')[2]
+                            [[ Salmonella enterica subsp. enterica serovar Typhi Ty2]]|
+                            [[ Escherichia coli O25b:K100:H4-ST131 EC958 (UPEC)]]')[2]
     
   }
   db = rbind(db,dbfile)
@@ -26,7 +27,7 @@ for (filename in list_of_files)
   essentialityfile = as.matrix(read.table(filename, as.is=TRUE, header=TRUE))
   for (i in seq(1,nrow(essentialityfile)))
   {
-    if (essentialityfile[i,3] == "non-essential")
+    if (essentialityfile[i,3] == "essential")
     {
       genes=c(genes,essentialityfile[i,1])
     }
@@ -92,8 +93,8 @@ while(enrichment[i,4] < 0.05)
 }
 colnames(pathways) = c('word', 'pvalue')
 
-pdf("../figures/non-essential-pathways.pdf")
+pdf("../figures/essential-pathways.pdf")
 ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
-  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Non-essential genes") +
+  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Essential genes") +
   theme(text = element_text(size=15))
 dev.off()

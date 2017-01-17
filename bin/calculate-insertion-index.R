@@ -77,10 +77,11 @@ for (filename in list_of_files)
   write.table(iitable, file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
 }
 
-names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261")
+names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "S", "EC958", "BW25113")
 dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
          "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
-         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261")
+         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
+         "Shigella flexneri", "Escherichia coli ST131", "Escherichia coli BW25113")
 names(dict) <- names
 
 pdf("../figures/essentiality.pdf")
@@ -93,12 +94,12 @@ for (filename in list_of_files)
   ii= as.numeric(iifile[,2])
   
   nG = length(ii)
-
+  
   #identify second maxima
   h <- hist(ii, breaks=0:(max(ii)*50+1)/50,plot=FALSE)
   maxindex <- which.max(h$density[3:length(h$density)])
   maxval <- h$mids[maxindex+2]
-
+  
   #find inter-mode minima with loess
   r <- floor(maxval *1000)
   I = ii < r / 1000
@@ -110,10 +111,10 @@ for (filename in list_of_files)
   m2 = h$mids[max(which(h$counts>5))]
   I1 = ((ii < m1)&(ii > 0))
   I2 = ((ii >= m1)&(ii < m2))
-
+  
   f1 = (sum(I1) + sum(ii == 0))/nG
   f2 = (sum(I2))/nG
-
+  
   d1 = fitdistr(ii[I1], "gamma", lower=min(ii[I1]))
   d2 = fitdistr(ii[I2], "gamma", lower=min(ii[I2])) #fit curves
   
@@ -121,7 +122,7 @@ for (filename in list_of_files)
   # eps = 1e-3
   # iinonzero = ii+eps
   # mixmdl = gammamixEM(iinonzero, alpha = c(1,d2$estimate[1]), beta = c(1/d1$estimate[2],1/d2$estimate[2]), k=2)
-
+  
   #plots
   hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
   lines(0:2000/500, f1*dgamma(0:2000/500, 1, d1$estimate[2])) # was [2]
@@ -130,11 +131,11 @@ for (filename in list_of_files)
   # lines(0:2000/500, f1*dgamma(0:2000/500, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"]))
   # lines(0:2000/500, f2*dgamma(0:2000/500, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"]))
   # print changepoint
-
+  
   #calculate log-odds ratios to choose thresholds
   lower <- max(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) < -2))
   upper <- min(which(log((pgamma(1:20000/10000, d2$e[1],d2$e[2])*(1-pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)))/(pgamma(1:20000/10000, 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(1:20000/10000, d2$e[1],d2$e[2]))) , base=2) > 2))
-
+  
   # lower <- max(which(log((pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"])
   #                         *(1-pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)))
   #                        /(pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)
@@ -143,20 +144,21 @@ for (filename in list_of_files)
   #                         *(1-pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)))
   #                        /(pgamma(1:20000/10000, shape=1, scale=mixmdl$gamma.pars["beta","comp.1"], lower.tail=FALSE)*
   #                            (1-pgamma(1:20000/10000, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"]))) , base=2) > 2))
-
+  
   essen <- lower/10000
   ambig <- upper/10000
   # noness <- min(iinonzero[pgamma(iinonzero, shape=mixmdl$gamma.pars["alpha","comp.2"], scale=mixmdl$gamma.pars["beta","comp.2"])>=0.99])
   noness <- min(ii[pgamma(ii, d2$e[1],d2$e[2])>=0.99])
-
+  
   lines(c(essen, essen), c(0,20), col="red")
   lines(c(ambig, ambig), c(0,20), col="red")
   lines(c(noness, noness), c(0,20), col="red")
-
+  
   mtext(paste(essen, ":", "Essential changepoint"), side=3, adj=1, padj=2)
   mtext(paste(ambig, ":", "Ambiguous changepoint"), side=3, adj=1, padj=3.75)
   mtext(paste(noness, ":", "Non-essential changepoint"), side=3, adj=1, padj=5.5)
   ###https://cran.r-project.org/web/views/Cluster.html
+  logodds = c()
   for (i in (1:length(iifile[,1])))
   {
     if (ii[i] < essen & iifile[i,3] == "long")
@@ -171,10 +173,11 @@ for (filename in list_of_files)
     {
       iifile[i,3] = "beneficial-loss"
     }
+    logodds = c(logodds, log((pgamma(ii[i], d2$e[1],d2$e[2])*(1-pgamma(ii[i], 1,d1$e[2], lower.tail=FALSE)))/(pgamma(ii[i], 1,d1$e[2], lower.tail=FALSE)*(1-pgamma(ii[i], d2$e[1],d2$e[2]))) , base=2))
   }
   outputpath = filename
   outputpath = gsub("insfree", "gamma", filename)
-  write.table(iifile, file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
+  write.table(cbind(iifile,logodds), file=outputpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
 }
 dev.off()
 unlink(output_dir1, recursive = TRUE)

@@ -16,15 +16,16 @@ def makedir(dirname):
     mkdir(dirname)
 
 seqdb = '../data/fasta-dna/chromosome/seqdb.fasta'
-iis = '../results/insertion-indices/gamma'
-results = '../results/insertion-indices/check-biases'
+iis = '../results/maximise_MCC/pca'
+results = '../results/biases/check-biases'
 makedir(results)
-genome_length = {"SL1344":4878012, "STMMW":4879400, "SEN":4685848, "t":4791961, "STM":4895639, "ETEC":5153435,
-                 "b":4641652, "CS17":4994793, "NCTC13441":5174631, "ROD":5346659, "BN373":5324709, "ERS227112":5869288,
-                 "ENC":4908759, "SL3261":4878012}
+genome_length = {"SL1344": 4878012, "STMMW": 4879400, "SEN": 4685848, "t": 4791961, "STM": 4895639, "ETEC": 5153435,
+                 "b": 4641652, "CS17": 4994793, "NCTC13441": 5174631, "ROD": 5346659, "BN373": 5324709,
+                 "ERS227112": 5869288, "ENC": 4908759, "SL3261": 4878012, "EC958": 5109767,
+                 "BW25113": 4631469}
 dnaa ={"ROD":4262871, "CS17":4234263, "ENC":414484, "ETEC":4305897, "NCTC13441":4952702, "ERS227112":453004,
        "BN373": 5024509, "SEN":3919680, "STM":4019091, "SL1344":4066338, "STMMW":4067900, "t":3790618,
-       "SL3261":4066338, "b":3883729}
+       "SL3261":4066338, "b":3883729, "BW25113":3875686, "EC958":4240812}
 
 list_of_files = listdir(iis)
 for filename in list_of_files:

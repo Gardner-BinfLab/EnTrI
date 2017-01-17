@@ -16,6 +16,17 @@
 7. Run homclust to cluster homologous proteins
 	cd EnTrI/bin
 	homclust.py ../data/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../data/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 14 -s 4
+8. Convert embl files to DNA fasta files
+	cd EnTrI/bin
+	mkdir ../data/fasta-dna
+	mkdir ../data/fasta-dna/chromosome
+	for filename in ../data/embl/chromosome/*.embl; do embl2dna.py $filename ../data/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+9. Make a fasta file with all sequences in it.
+	cd EnTrI/data/fasta-dna/chromosome
+	cat * > seqdb.fasta
+10. Run homclust to cluster homologous proteins
+	cd EnTrI/bin
+	homclust.py ../data/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../data/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 16 -s 4
 
 ============ RUN PHYLOSIFT & RAXML
 1. cd EnTrI/results/phylosift
@@ -33,27 +44,38 @@
 3. Edit program-bank/hieranoid/Configurations/Configuration.pm
 4. cd program-bank/hieranoid/
 5. perl hieranoid.pl
+6. Copy n14.OGTree.txt to results/hieranoid and rename it to hieranoid-result.txt
+7. python edit-hieranoid.py
 
 ============ FIND ESSENTIAL GENES
 1. cd EnTrI/bin
 2. Rscript calculate-insertion-index.R
-3. Make logos for top 100 most frequent insertion sites:
+
+============ BENCHMARK DIFFERENT METHODS
+1. python find-k12-counterparts.py and put the results in results/ecogenecounterparts
+2. Make monte-carlo directory in results and run Rscript montecarlo.R
+3. Rscript benchmark-essentiality-calls.R
+
+============ STUDY BIASES
+1. Make logos for top 100 most frequent insertion sites:
 	mkdir ../results/logos
 	python3 make-logos-top-100.py
-4. Generate a logo for the sequences resulted from the last step.
+2. Generate a logo for the sequences resulted from the last step.
 	cd EnTrI/results/logos
 	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-prob.pdf -s large -U probability
 	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-bits.pdf -s large
-5. python3 insertion-position-bias.py
-6. Rscript insertion-position-bias.R
-7. python3 check-biases.py
-8. Rscript check-biases.R
+3. python3 insertion-position-bias.py
+4. Rscript insertion-position-bias.R
+5. python3 check-biases.py
+6. Rscript check-biases.R
 
 ============ EVOLUTION OF ESSENTIALITY
 1. Download the list of E.coli K-12 essential genes from ecogenes and save it as ecogene-k12.txt in results directory.
 2. python3 define-core-accessory-hieranoid.py
-3. python3 define-core-accessory-hieranoid-fdollop.py
-4. python3 define-core-accessory-hieranoid-ancestralii.py
+3. Make phylogenetic trees for the subsets of species (in code) and place them in bin/speciestrees, and bin/speciestrees-no-k12
+4. python3 define-core-accessory-hieranoid-fdollop.py
+5. python3 define-core-accessory-hieranoid-ancestralii.py
+6. Rscript upsetr-hieranoid.R
 
 ============ STUDY CLUSTERS
 1. Plot cluster size distribution (This is not a general script and can only be used for this case)
@@ -61,9 +83,9 @@
 	Rscript orfan-single-multiple.R
 2. Run merge-clust-plot to add insertion indices to genes in clusters
 	cd EnTrI/bin
-	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/insertion-indices/normalised-insertion-indices/ ../results/ecogene-k12.txt ../results/merge-clust-plot
+	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/biases/normalised-pca/ ../results/ecogene-k12.txt ../results/merge-clust-plot
 3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
-	cd EnTrI/codes  
+	cd EnTrI/bin  
 	Rscript clust2plot.R
 
 ============ ENRICHMENT
@@ -81,21 +103,10 @@
 	Rscript essential5prime.R
 4. KEGG analysis
 	cd EnTrI/bin
-	buildpathwayDB.R -o KEGG_organism_code -d path_to_save_database
+	Rscript buildpathwayDB.R -o KEGG_organism_code -d path_to_save_database
 	Set pathanalysis.R parameters: essentiality class, pdf file name, plot main.
 	Rscript pathanalysis.R
 5. Difference between ancestralii, fdollop, and intersection
 	cd EnTrI/bin
 	python3 core-definition-method-difference.py
 	Rscript core-definition-method-difference.R
-
-============ Can we recover phylogenetic information from the essential genes?
-1. Run make-essentiality-tree
-	cd EnTrI/bin
-	mkdir ../results/make-essentiality-tree
-	make-essentiality-tree.py ../results/merge-clust-plot/ ../results/make-essentiality-tree/distance-matrix.out
-2. Run Phylip on the resulted distance matrix
-	cd EnTrI/results/make-essentiality-tree
-	phylip neighbor
-	> distance-matrix.out
-	> Y

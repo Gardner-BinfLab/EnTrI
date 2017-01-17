@@ -13,10 +13,10 @@ fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
 write.table(fishertable, file = "../results/word-enrichment/beneficialloss-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
-df = fishertable[-seq(33,nrow(fishertable),1),]
+df = fishertable[-seq(30,nrow(fishertable),1),]
 df[,3] = -log10(df[,3])
 df = df[,-2]
-df = df[c(-3,-9, -10,-11,-12,-14,-15,-18, -24,-25,-26,-29),]
+#df = df[c(-3,-9, -10,-11,-12,-14,-15,-18, -24,-25,-26,-29),]
 names(df) = c("word", "pvalue")
 pdf("../figures/beneficialloss-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
@@ -39,10 +39,10 @@ fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
 write.table(fishertable, file = "../results/word-enrichment/essential-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
-df = fishertable[-seq(25,nrow(fishertable),1),]
+df = fishertable[-seq(30,nrow(fishertable),1),]
 df[,3] = -log10(df[,3])
 df = df[,-2]
-df = df[c(-4,-7,-20,-21),]
+#df = df[c(-4,-7,-20,-21),]
 names(df) = c("word", "pvalue")
 pdf("../figures/essential-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
@@ -65,10 +65,10 @@ fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
 write.table(fishertable, file = "../results/word-enrichment/non-essential-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
-df = fishertable[-seq(22,nrow(fishertable),1),]
+df = fishertable[-seq(30,nrow(fishertable),1),]
 df[,3] = -log10(df[,3])
 df = df[,-2]
-df = df[c(-4),]
+#df = df[c(-4),]
 names(df) = c("word", "pvalue")
 pdf("../figures/non-essential-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +

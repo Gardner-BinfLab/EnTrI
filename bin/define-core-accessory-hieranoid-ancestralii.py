@@ -8,6 +8,7 @@ from Bio import SeqIO
 from shutil import rmtree
 from re import match, findall
 from collections import defaultdict
+from numpy import mean, std
 
 
 class Stack:
@@ -61,7 +62,7 @@ def read_gene_essentiality(indir):
 
 seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
 clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
-insertion_indices = '/home/fatemeh/EnTrI/results/insertion-indices/normalised-insertion-indices'
+insertion_indices = '/home/fatemeh/EnTrI/results/biases/normalised-pca'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-ancestralii'
 makedir(outdir)
 Rcode = '/home/fatemeh/EnTrI/bin/define-core-accessory-hieranoid-ancestralii.R'
@@ -74,13 +75,13 @@ sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 species_names = defaultdict()
 species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
-    "STMMW", "t", "SL3261"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
-    "ecoli":["CS17", "ETEC", "NCTC13441"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
+    "STMMW", "t", "SL3261","BW25113", "EC958"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
+    "ecoli":["CS17", "ETEC", "NCTC13441","BW25113", "EC958"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
     ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
-    "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "ROD"],
+    "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "ROD","BW25113", "EC958"],
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
-    "ecolics17":["CS17"], "ecolih10407":["ETEC"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"]}
+    "ecolics17":["CS17"], "ecolih10407":["ETEC"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"]}
 
 with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-ancestralii/info.txt', 'w') as infofile:
     infofile.write('speciesname\tcoreessential\tcore\n')
@@ -159,18 +160,21 @@ for item in species_names.keys():
                     ii.append(stack_of_species.pop())
             elif sum(gene_dict.values()) == num_species and num_species == 1:
                 ii.append(list(essentiality_dict.values())[0])
-    with open(Rin, 'w') as tofile:
-        for inin in ii:
-            tofile.write(str(inin)+'\n')
-    system('Rscript '+Rcode)
-    with open(Rout, 'r') as fromfile:
-        essen = float(fromfile.readline())
+    # with open(Rin, 'w') as tofile:
+    #     for inin in ii:
+    #         tofile.write(str(inin)+'\n')
+    # system('Rscript '+Rcode)
+    # with open(Rout, 'r') as fromfile:
+    #     essen = float(fromfile.readline())
+    essen = 1.644854
+
+    ii = (ii - mean(ii))/std(ii - mean(ii))
 
 
     gene_dict = {species_names[item][i]: 0 for i in range(num_species)}
     essentiality_dict = {species_names[item][i]: 0 for i in range(num_species)}
-    ii = 0
     with open(clusters) as from_file:
+        index = 0
         for line in from_file:
             for key in gene_dict.keys():
                 gene_dict[key] = 0
@@ -215,17 +219,17 @@ for item in species_names.keys():
                             sp_name += char
                             i += 1
                             char = treeline[i]
-                    ii = stack_of_species.pop()
-                    if ii < essen:
-                        esscoregenes += list_of_genes
-                    else:
+                    if ii[index] < essen:
                         nesscoregenes += list_of_genes
+                    else:
+                        esscoregenes += list_of_genes
+                index += 1
             elif sum(gene_dict.values()) == num_species and num_species == 1:
-                ii = list(essentiality_dict.values())[0]
-                if ii < essen:
-                    esscoregenes += list_of_genes
-                else:
+                if ii[index] < essen:
                     nesscoregenes += list_of_genes
+                else:
+                    esscoregenes += list_of_genes
+                index += 1
             else:
                 accessorygenes += list_of_genes
 

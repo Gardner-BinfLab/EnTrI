@@ -3,14 +3,15 @@ library(stringr)
 library("mclust")
 library(mixtools)
 
-locus = c('BN373','ENC','ETEC','ROD','SL1344','STMMW','t','CS17','ERS227112','NCTC13441','SEN','SL3261','STM')
+locus = c('BN373','ENC','ETEC','ROD','SL1344','STMMW','t','CS17','ERS227112','NCTC13441','SEN','SL3261','STM', "EC958", "BW25113")
 address = c('Klebsiella_pneumoniae_subsp_pneumoniae_Ecl8_HF536482_v1.fasta','Enterobacter_cloacae_subsp_cloacae_NCTC_9394_v1.fasta',
             'Escherichia_coli_ETEC_H10407_v2.fasta','Citrobacter_rodentium_ICC168_FN543502_v1.fasta',
             'Salmonella_enterica_subsp_enterica_serovar_Typhimurium_SL1344_FQ312003_v4.fasta',
             'Salmonella_enterica_subsp_enterica_serovar_Typhimurium_str_D23580_v1.fasta',
             'Salmonella_enterica_subsp_enterica_serovar_Typhi_Ty2_v1.fasta','CS17.fasta','Klebsiella_pneumoniae_RH201207_v0.fasta',
             'Escherichia_coli_UPEC_ST131_chromosome_v0.fasta','P125109.fasta',
-            'SL3261.fasta','Salmonella_enterica_subsp_enterica_serovar_Typhimurium_A130_v0.fasta')
+            'SL3261.fasta','Salmonella_enterica_subsp_enterica_serovar_Typhimurium_A130_v0.fasta', 'HG941718.fasta',
+            'CP009273.fasta')
 
 contingency <- array(0, dim=c(2,2,length(locus)))
 dimnames(contingency)[[3]]=locus
@@ -18,14 +19,19 @@ dimnames(contingency)[[2]]=c('Essential', 'Non-essential')
 dimnames(contingency)[[1]]=c('Essential', 'Non-essential')
 names(dimnames(contingency))=c('Real', 'Predicted', 'Bacterium')
 
-outdir = '../results/montecarlo-maximiseMCC/'
+outdir = '../results/maximise_MCC/'
+dir.create(outdir)
+outdir_montecarlo = paste(outdir, 'monte-carlo/', sep='')
+dir.create(outdir_montecarlo)
+outdir_pca = paste(outdir, 'pca/', sep='')
+dir.create(outdir_pca)
 colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
 for (i in seq(length(locus)))
 {
   real = read.table(paste('../results/ecogenecounterparts/',locus[i],'.txt',sep = ''), as.is=TRUE, header=FALSE, sep="\t")
   names(real) <- c('gene', 'essentiality')
   
-  biotradis = read.table(paste('../results/insertion-indices/normalised-insertion-indices-with-logodds/', locus[i], '.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
+  biotradis = read.table(paste('../results/insertion-indices/gamma/', locus[i], '.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
   biotradis = biotradis[,c(2,4)]
   biotradis = -biotradis
   
@@ -212,7 +218,7 @@ for (i in seq(length(locus)))
   essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$DESeqLFC > 0 & -montecarlo$`-DESeqPval`< 0.01,
                                                                                         'beneficial-loss', 'non-essential'))
   to_print = cbind(real$gene, montecarlo$DESeqLFC, essentiality)
-  outpath = paste(outdir, locusid, ".txt", sep="")
+  outpath = paste(outdir_montecarlo, locusid, ".txt", sep="")
   write.table(to_print, file=outpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
   
   tt = length(real$gene[montecarlo$DESeqLFC >= cutoffmontecarlo[2] & real$essentiality == "1"])
@@ -247,13 +253,19 @@ for (i in seq(length(locus)))
   #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]>0]))
   #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]<0]))
   print((cutoffpca- mean(data.pca$x[,1]))/sd(data.pca$x[,1]- mean(data.pca$x[,1])))
-  print(length(real$gene[normalisedpca>1.644854])) #pnorm(1.644854) = 0.5 #The average of all pcacutoffs defined by maximising MCC is 1.609207
-  print(length(real$gene[normalisedpca< -1.644854]))
+  pcacutoff = 1.644854 #pnorm(1.644854) = 0.5 #The average of all pcacutoffs defined by maximising MCC is 1.650449
+  print(length(real$gene[normalisedpca>pcacutoff]))
+  print(length(real$gene[normalisedpca< -pcacutoff]))
+  pca_essentiality = ifelse(normalisedpca >= pcacutoff, 'essential', ifelse(normalisedpca < -pcacutoff,
+                                                                                        'beneficial-loss', 'non-essential'))
+  pca_print = cbind(real$gene, data.pca$x[,1], pca_essentiality)
+  pcapath = paste(outdir_pca, locusid, ".txt", sep="")
+  write.table(pca_print, file=pcapath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
   #intercept=normalisedpca[normalisedpca>0 & pvalue2sided==max(pvalue2sided[normalisedpca>0 & pvalue2sided<0.05])]
-  intercept=1.644854
+  intercept=1.5
   abline(v=intercept,col='red')
   #intercept=normalisedpca[normalisedpca<0 & pvalue2sided==max(pvalue2sided[normalisedpca<0 & pvalue2sided<0.05])]
-  intercept=-1.644854
+  intercept=-1.5
   abline(v=intercept,col='red')
   ############ qq plot
   #qq=qqnorm(data.pca$x[,1])
@@ -275,12 +287,12 @@ dev.off()
 
 
 ############### compare TnSeq:
-tnseqtest = read.csv('~/program-bank/TnSeq/example data&code/ROD-essentiality.csv')
-library(dplyr)
-tnseqtest$Gene=gsub(" ", "", tnseqtest$Gene)
-real2=semi_join(real,tnseqtest, by=c("gene"="Gene"))
-tnseqtest2=semi_join(tnseqtest, real2, by=c("Gene"="gene"))
-predtnseq <- prediction(-tnseqtest2[,1], real2$essentiality)
-perftnseq <- performance(predtnseq,"tpr","fpr")
-auctnseq <- performance(predtnseq,measure = "auc")@y.values[[1]]
+# tnseqtest = read.csv('~/program-bank/TnSeq/example data&code/ROD-essentiality.csv')
+# library(dplyr)
+# tnseqtest$Gene=gsub(" ", "", tnseqtest$Gene)
+# real2=semi_join(real,tnseqtest, by=c("gene"="Gene"))
+# tnseqtest2=semi_join(tnseqtest, real2, by=c("Gene"="gene"))
+# predtnseq <- prediction(-tnseqtest2[,1], real2$essentiality)
+# perftnseq <- performance(predtnseq,"tpr","fpr")
+# auctnseq <- performance(predtnseq,measure = "auc")@y.values[[1]]
 

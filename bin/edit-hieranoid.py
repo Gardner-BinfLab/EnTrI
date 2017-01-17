@@ -36,7 +36,6 @@ with open(hieranoid) as from_file:
         species = [s.strip('_') for s in findall('\'([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+\'', str(genes))]
         unique_species = list(set(species))
         while len(unique_species) < len(species):
-            print(species)
             uniques_index = []
             newgenes = []
             newspecies = []

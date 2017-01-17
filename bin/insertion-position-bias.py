@@ -8,7 +8,7 @@ plots = '../data/plot-files/chromosome'
 result = '../results/insertion-indices/insertion-position-bias.out'
 genome_length = {"SL1344":4878012, "STMMW":4879400, "SEN":4685848, "t":4791961, "STM":4895639, "ETEC":5153435,
                  "b":4641652, "CS17":4994793, "NCTC13441":5174631, "ROD":5346659, "BN373":5324709, "ERS227112":5869288,
-                 "ENC":4908759, "SL3261":4878012}
+                 "ENC":4908759, "SL3261":4878012, "EC958":5109767, "BW25113":4631469}
 list_of_files = listdir(plots)
 plots_dict = defaultdict(list)
 for filename in list_of_files:

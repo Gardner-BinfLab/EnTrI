@@ -2,7 +2,9 @@ library(stringr)
 library("MASS")
 library("DESeq2")
 library("mclust")
+#library(Biostrings)
 fastas_dir <- "~/EnTrI/data/fasta-protein/chromosome"
+#genome_dir <- "~/EnTrI/data/fasta-genome/chromosome/"
 plots_dir <- "~/EnTrI/data/plot-files/chromosome"
 outdir <- "~/EnTrI/results/monte-carlo/"
 list_of_files <- list.files(path=plots_dir, full.names=T, recursive=FALSE)
@@ -14,14 +16,25 @@ for (filename in list_of_files)
 {
   plotfile = as.matrix(read.table(filename, as.is=TRUE))
   locusid = strsplit(basename(filename),"\\.")[[1]][1]
+  #genomefile = paste(genome_dir,locusid,'.fa', sep = '')
+  #g=readDNAStringSet(genomefile)[1][[1]]
+  #genome=strsplit(as.character(g),"")
+  #genomedata=(genome[[1]]=='G' | genome[[1]]=='C' | genome[[1]]=='g' | genome[[1]]=='c')+0
   plots[[locusid]] = plotfile[,1] + plotfile[,2]
-  plotsdata = as.data.frame(cbind(1:length(plots[[locusid]]), as.vector(plots[[locusid]])))
-  names(plotsdata) <- c("position", "num_inserts")
-  mdl <- loess(num_inserts~position, plotsdata, span=0.2, family = "gaussian",
-               control=loess.control(statistics=c("approximate"),trace.hat=c("approximate")))
-  weights = predict(mdl)
-  weights = weights / median(weights)
-  plots[[locusid]] = round(plots[[locusid]] / weights)
+  # plotsdata = as.data.frame(cbind(1:length(plots[[locusid]]), as.vector(plots[[locusid]])))
+  # names(plotsdata) <- c("position", "num_inserts")
+  # mdl <- loess(num_inserts~position, plotsdata, span=0.2, family = "gaussian",
+  #              control=loess.control(statistics=c("approximate"),trace.hat=c("approximate")))
+  # weights = predict(mdl)
+  # weights = weights / median(weights)
+  #plots[[locusid]] = plots[[locusid]] / weights
+  
+  #mdl <- loess(plotsdata$num_inserts~genomedata, span=1, family = "gaussian",
+  #             control=loess.control(statistics=c("approximate"),trace.hat=c("approximate")))
+  #weights = predict(mdl)
+  #weights = weights / median(weights)
+  
+  # plots[[locusid]] = round(plots[[locusid]] / weights)
   for (i in 1:numsamples)
   {
     sampledplots[[locusid]][[i]] = sample(plots[[locusid]])

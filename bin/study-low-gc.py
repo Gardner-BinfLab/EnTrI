@@ -12,7 +12,7 @@ def read_fasta_sequences(filepath):
 
 seqdb = '../data/fasta-protein/chromosome/seqdb.fasta'
 seqdict = read_fasta_sequences(seqdb)
-biases = '../results/insertion-indices/check-biases'
+biases = '../results/biases/check-biases'
 lowgc = '../results/low-gc.txt'
 highgc = '../results/high-gc.txt'
 lowgcdesc = '../results/low-gc-with-description.txt'
