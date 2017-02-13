@@ -43,29 +43,36 @@ for (filename in list_of_files)
   l <- c(biasestable$length)
   ltotal <- c(ltotal , l)
   
-  plot(gc, ii, pch = '.', xlab = "GC content", ylab = "insertion index",
-       main = paste("GC bias -", strsplit(basename(filename), "\\.")[[1]][1]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  reg1 <- lm(ii~gc)
+  plot(gc, ii, pch = '.', xlab = "GC content", ylab = "NPEQ",
+       main = paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  abline(0,0,col='green', lwd=5)
+  #abline(reg1,col="blue", lwd=5)
   lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
   
-  plot(d, ii, pch = '.', xlab = "Gene position", ylab = "insertion index",
-       main = paste("Distance bias -", strsplit(basename(filename), "\\.")[[1]][1]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  plot(d, ii, pch = '.', xlab = "Distance from Origin", ylab = "NPEQ",
+       main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  abline(0,0,col='green', lwd=5)
   lines(loess.smooth(d,ii, span=sp), col=2, lwd=5)
   
   fit <- loess(ii~d, span=sp)
   loessprediction <- predict(fit, d)
   # ii_dnormalised = ii/(loessprediction/mean(ii))
-  ii_dnormalised = ii-(loessprediction-mean(loessprediction))
+  ii_dnormalised = ii-(loessprediction)
   
   fit <- loess(ii_dnormalised~gc, span=sp)
   loessprediction <- predict(fit, gc)
   # ii_dgcnormalised = ii_dnormalised/(loessprediction/mean(ii_dnormalised))
-  ii_dgcnormalised = ii_dnormalised-(loessprediction-mean(loessprediction))
+  ii_dgcnormalised = ii_dnormalised-(loessprediction)
   
   ii_dnormalisedtotal <- c(ii_dnormalisedtotal, ii_dnormalised)
   ii_dgcnormalisedtotal <- c(ii_dgcnormalisedtotal, ii_dgcnormalised)
-  plot(d, ii_dnormalised, pch='.', xlab = "Gene position", ylab = "insertion index",
+  plot(d, ii_dnormalised, pch='.', xlab = "Distance from Origin", ylab = "NPEQ",
        main = paste(strsplit(basename(filename), "\\.")[[1]][1], '- normalised distance'), cex.lab = 2, cex.axis = 2, cex.main =2)
   lines(loess.smooth(d,ii_dnormalised, span=sp), col=2, lwd=5)
+  plot(d, ii_dgcnormalised, pch='.', xlab = "GC content", ylab = "NPEQ",
+       main = paste(strsplit(basename(filename), "\\.")[[1]][1], '- normalised GC bias'), cex.lab = 2, cex.axis = 2, cex.main =2)
+  lines(loess.smooth(d,ii_dgcnormalised, span=sp), col=2, lwd=5)
   # fit <- loess(ii_dnormalised~d)
   # loessprediction <- predict(fit, d)
   biasestable$ii = (ii_dgcnormalised- mean(ii_dgcnormalised))/sd(ii_dgcnormalised- mean(ii_dgcnormalised))
@@ -89,8 +96,11 @@ for (filename in list_of_files)
               row.names = FALSE, sep = '\t')
 }
 
-plot(gctotal, iitotal, pch = '.', xlab = "GC content", ylab = "insertion index", main = "GC bias", 
+reg1 <- lm(iitotal~gctotal)
+plot(gctotal, iitotal, pch = '.', xlab = "GC content", ylab = "NPEQ", main = "GC bias", 
      cex.lab = 2, cex.axis = 2, cex.main =2)
+abline(0,0,col='green', lwd=5)
+# abline(reg1,col="blue", lwd=5)
 lines(loess.smooth(gctotal,iitotal, span=sp), col=2, lwd=5)
 # fit <- loess(iitotal~gctotal)
 # loessprediction <- predict(fit, gctotal)
@@ -100,12 +110,12 @@ fit <- loess(ii_dnormalisedtotal~gctotal)
 loessprediction <- predict(fit, gctotal)
 iinormalisedtotal = ii_dnormalisedtotal-(loessprediction-mean(loessprediction))
 plot(gctotal, iinormalisedtotal, pch='.', xlab = "GC content",
-     ylab = "insertion index", main = "GC bias - normalised", cex.lab = 2, cex.axis = 2, cex.main =2)
+     ylab = "NPEQ", main = "GC bias - normalised", cex.lab = 2, cex.axis = 2, cex.main =2)
 lines(loess.smooth(gctotal,iinormalisedtotal, span=sp), col=2, lwd=5)
 # fit <- loess(iinormalisedtotal~gctotal)
 # loessprediction <- predict(fit, gctotal)
 
-plot(ltotal, iitotal, pch = '.', xlab = "Length", xlim=c(0,3000), ylab = "insertion index", main = "Length bias", 
+plot(ltotal, iitotal, pch = '.', xlab = "Length", xlim=c(0,3000), ylab = "NPEQ", main = "Length bias", 
      cex.lab = 2, cex.axis = 2, cex.main =2)
 lines(loess.smooth(ltotal,iitotal, span=sp), col=2, lwd=5)
 

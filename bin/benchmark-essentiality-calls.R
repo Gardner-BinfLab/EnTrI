@@ -12,6 +12,12 @@ address = c('Klebsiella_pneumoniae_subsp_pneumoniae_Ecl8_HF536482_v1.fasta','Ent
             'Escherichia_coli_UPEC_ST131_chromosome_v0.fasta','P125109.fasta',
             'SL3261.fasta','Salmonella_enterica_subsp_enterica_serovar_Typhimurium_A130_v0.fasta', 'HG941718.fasta',
             'CP009273.fasta')
+names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
+dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
+         "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
+         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
+         "Escherichia coli BW25113", "Escherichia coli ST131 EC958")
+names(dict) <- names
 
 contingency <- array(0, dim=c(2,2,length(locus)))
 dimnames(contingency)[[3]]=locus
@@ -25,7 +31,13 @@ outdir_montecarlo = paste(outdir, 'monte-carlo/', sep='')
 dir.create(outdir_montecarlo)
 outdir_pca = paste(outdir, 'pca/', sep='')
 dir.create(outdir_pca)
-colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
+# colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
+colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'purple', 'gray', 'cyan')
+avgaucii=c(0,0)
+avgaucmc=c(0,0)
+avgaucconz=0
+avgaucmeandist=0
+avgaucpca=0
 for (i in seq(length(locus)))
 {
   real = read.table(paste('../results/ecogenecounterparts/',locus[i],'.txt',sep = ''), as.is=TRUE, header=FALSE, sep="\t")
@@ -54,32 +66,35 @@ for (i in seq(length(locus)))
     aucbiotradis <- c(aucbiotradis, performance(predbiotradis,measure = "auc")@y.values[[1]])
     if (j==2)
     {
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
     }
     else
     {
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, main=locus[i])
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, main=dict[locus[i]], cex.main=2)
     }
     
     perfbiotradismcc <- performance(predbiotradis,'mat')
     maxmcc = max(perfbiotradismcc@y.values[[1]][!is.na(perfbiotradismcc@y.values[[1]])])
     cutoff = perfbiotradismcc@x.values[[1]][perfbiotradismcc@y.values[[1]]==maxmcc & !is.na(perfbiotradismcc@y.values[[1]])]
     cutoffbiotradis = c(cutoffbiotradis, cutoff)
+    avgaucii[j] = avgaucii[j] + aucbiotradis[j]
   }
   
   aucmontecarlo = c()
   cutoffmontecarlo = c()
-  for (j in seq(5))
+  # for (j in seq(5))
+  for (j in seq(2))
   {
     predmontecarlo <- prediction(montecarlo[,j], real$essentiality)
     perfmontecarlo <- performance(predmontecarlo,"tpr","fpr")
     aucmontecarlo <- c(aucmontecarlo, performance(predmontecarlo,measure = "auc")@y.values[[1]])
-    plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+    plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
     
     perfmontecarlomcc <- performance(predmontecarlo,'mat')
     maxmcc = max(perfmontecarlomcc@y.values[[1]][!is.na(perfmontecarlomcc@y.values[[1]])])
     cutoff = perfmontecarlomcc@x.values[[1]][perfmontecarlomcc@y.values[[1]]==maxmcc & !is.na(perfmontecarlomcc@y.values[[1]])]
     cutoffmontecarlo = c(cutoffmontecarlo,cutoff)
+    avgaucmc[j] = avgaucmc[j] + aucmontecarlo[j]
   }
   
   fastas_dir <- paste("~/EnTrI/data/fasta-protein/chromosome",address[i],sep='/')
@@ -100,7 +115,7 @@ for (i in seq(length(locus)))
   {
     if (startsWith(line, ">"))
     {
-      matchresult = str_match(line, ">([[:graph:]]+)[[:blank:]]\\[[[:graph:]]+\\/([[:digit:]]+)\\-([[:digit:]]+)[[:blank:]]\\(([[:alpha:]]+)\\)")
+      matchresult = str_match(line, ">([[:graph:]]+)[[:blank:]]\\[[[:graph:]]+\\/([[:digit:]]+)\\-([[:digit:]]+)[[:print:]]+\\(([[:alpha:]]+)\\)")
       if (!(is.na(matchresult[5])))
       {
         locustag = matchresult[2]
@@ -127,22 +142,26 @@ for (i in seq(length(locus)))
   predconz <- prediction(consecutivezeros, real$essentiality)
   perfconz <- performance(predconz,"tpr","fpr")
   aucconz <- performance(predconz,measure = "auc")@y.values[[1]]
-  plot(perfconz,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  # plot(perfconz,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  plot(perfconz,col=colors[5],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5,cex.main=2, add=TRUE)
   
   perfconzmcc <- performance(predconz,'mat')
   maxmcc = max(perfconzmcc@y.values[[1]][!is.na(perfconzmcc@y.values[[1]])])
   cutoff = perfconzmcc@x.values[[1]][perfconzmcc@y.values[[1]]==maxmcc & !is.na(perfconzmcc@y.values[[1]])]
   cutoffconz = cutoff
+  avgaucconz = avgaucconz + aucconz
   
   predmeandist <- prediction(meandist, real$essentiality)
   perfmeandist <- performance(predmeandist,"tpr","fpr")
   aucmeandist <- performance(predmeandist,measure = "auc")@y.values[[1]]
-  plot(perfmeandist,col=colors[9],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  # plot(perfmeandist,col=colors[9],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  plot(perfmeandist,col=colors[6],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
   
   perfmeandistmcc <- performance(predmeandist,'mat')
   maxmcc = max(perfmeandistmcc@y.values[[1]][!is.na(perfmeandistmcc@y.values[[1]])])
   cutoff = perfmeandistmcc@x.values[[1]][perfmeandistmcc@y.values[[1]]==maxmcc & !is.na(perfmeandistmcc@y.values[[1]])]
   cutoffmeandist = cutoff
+  avgaucmeandist = avgaucmeandist + aucmeandist
   
   data = cbind(biotradis$V2, montecarlo$DESeqLFC, consecutivezeros)
   for (j in seq(ncol(data)))
@@ -158,36 +177,39 @@ for (i in seq(length(locus)))
   predpca <- prediction(data.pca$x[,1], real$essentiality)
   perfpca <- performance(predpca,"tpr","fpr")
   aucpca <- performance(predpca,measure = "auc")@y.values[[1]]
-  plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  # plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  plot(perfpca,col=colors[7],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
   
   perfpcamcc <- performance(predpca,'mat')
   maxmcc = max(perfpcamcc@y.values[[1]][!is.na(perfpcamcc@y.values[[1]])])
   cutoff = perfpcamcc@x.values[[1]][perfpcamcc@y.values[[1]]==maxmcc & !is.na(perfpcamcc@y.values[[1]])]
   cutoffpca = cutoff
+  avgaucpca = avgaucpca + aucpca
   
-  data.sum = rowSums(data)
-  
-  predsum <- prediction(data.sum, real$essentiality)
-  perfsum <- performance(predsum,"tpr","fpr")
-  aucsum <- performance(predsum,measure = "auc")@y.values[[1]]
-  plot(perfsum,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  
-  perfsummcc <- performance(predsum,'mat')
-  maxmcc = max(perfsummcc@y.values[[1]][!is.na(perfsummcc@y.values[[1]])])
-  cutoff = perfsummcc@x.values[[1]][perfsummcc@y.values[[1]]==maxmcc & !is.na(perfsummcc@y.values[[1]])]
-  cutoffsum = cutoff
+  # data.sum = rowSums(data)
+  # 
+  # predsum <- prediction(data.sum, real$essentiality)
+  # perfsum <- performance(predsum,"tpr","fpr")
+  # aucsum <- performance(predsum,measure = "auc")@y.values[[1]]
+  # plot(perfsum,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  # 
+  # perfsummcc <- performance(predsum,'mat')
+  # maxmcc = max(perfsummcc@y.values[[1]][!is.na(perfsummcc@y.values[[1]])])
+  # cutoff = perfsummcc@x.values[[1]][perfsummcc@y.values[[1]]==maxmcc & !is.na(perfsummcc@y.values[[1]])]
+  # cutoffsum = cutoff
   
   labels <- c(paste("BioTraDIS, AUC = ", format(round(aucbiotradis[1], 4), nsmall = 4))
               , paste("BioTraDIS logodds, AUC = ", format(round(aucbiotradis[2], 4), nsmall = 4))
               , paste("Monte Carlo Pval, AUC = ", format(round(aucmontecarlo[1], 4), nsmall = 4))
               , paste("Monte Carlo DESeq LFC, AUC = ", format(round(aucmontecarlo[2], 4), nsmall = 4))
-              , paste("Monte Carlo LFC, AUC = ", format(round(aucmontecarlo[3], 4), nsmall = 4))
-              , paste("Monte Carlo DESeq LFC Distances, AUC = ", format(round(aucmontecarlo[4], 4), nsmall = 4))
-              , paste("Monte Carlo LFC Distances, AUC = ", format(round(aucmontecarlo[5], 4), nsmall = 4))
+              # , paste("Monte Carlo LFC, AUC = ", format(round(aucmontecarlo[3], 4), nsmall = 4))
+              # , paste("Monte Carlo DESeq LFC Distances, AUC = ", format(round(aucmontecarlo[4], 4), nsmall = 4))
+              # , paste("Monte Carlo LFC Distances, AUC = ", format(round(aucmontecarlo[5], 4), nsmall = 4))
               , paste("Largest uninterrupted fraction, AUC = ", format(round(aucconz, 4), nsmall = 4))
               , paste("Mean distance between inserts, AUC = ", format(round(aucmeandist, 4), nsmall = 4))
               , paste("PCA, AUC = ", format(round(aucpca, 4), nsmall = 4))
-              , paste("SUM, AUC = ", format(round(aucsum, 4), nsmall = 4)))
+              # , paste("SUM, AUC = ", format(round(aucsum, 4), nsmall = 4))
+              )
   legend("bottomright", inset=.05, labels, lwd=2, col=colors)
   
   plot(-biotradis[,2],montecarlo$DESeqLFC, pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
@@ -248,7 +270,7 @@ for (i in seq(length(locus)))
   # zscores=(data[,1]*abs(data.pca$rotation[1,1])+data[,2]*abs(data.pca$rotation[2,1])+data[,3]*abs(data.pca$rotation[3,1]))/
   #   sqrt(sum(data.pca$rotation[1,1]^2+data.pca$rotation[2,1]^2+data.pca$rotation[3,1]^2)) #It is actually equal to data.pca$x[,1]
   normalisedpca = (data.pca$x[,1]- mean(data.pca$x[,1]))/sd(data.pca$x[,1]- mean(data.pca$x[,1]))
-  hist(normalisedpca, breaks = 200)
+  # hist(normalisedpca, breaks = 200)
   pvalue2sided=2*pnorm(-abs(normalisedpca))
   #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]>0]))
   #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]<0]))
@@ -261,12 +283,20 @@ for (i in seq(length(locus)))
   pca_print = cbind(real$gene, data.pca$x[,1], pca_essentiality)
   pcapath = paste(outdir_pca, locusid, ".txt", sep="")
   write.table(pca_print, file=pcapath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
-  #intercept=normalisedpca[normalisedpca>0 & pvalue2sided==max(pvalue2sided[normalisedpca>0 & pvalue2sided<0.05])]
-  intercept=1.5
-  abline(v=intercept,col='red')
-  #intercept=normalisedpca[normalisedpca<0 & pvalue2sided==max(pvalue2sided[normalisedpca<0 & pvalue2sided<0.05])]
-  intercept=-1.5
-  abline(v=intercept,col='red')
+  # #intercept=normalisedpca[normalisedpca>0 & pvalue2sided==max(pvalue2sided[normalisedpca>0 & pvalue2sided<0.05])]
+  # intercept=1.5
+  # abline(v=intercept,col='red')
+  # #intercept=normalisedpca[normalisedpca<0 & pvalue2sided==max(pvalue2sided[normalisedpca<0 & pvalue2sided<0.05])]
+  # intercept=-1.5
+  # abline(v=intercept,col='red')
+  
+  h <- hist(normalisedpca, breaks = 200, plot=FALSE)
+  cuts <- cut(h$breaks, c(-Inf,-pcacutoff, pcacutoff, Inf))
+  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "NPEQ", main =dict[locus[i]], cex.lab = 1.5,
+       cex.axis = 1.5, cex.main = 2, lty= "blank")
+  legend(1,180, c("Essential","Non-essential", "Beneficial loss"), lty=c(1,1,1), lwd=c(4,4,4),cex=1.15,
+         col=c("darkmagenta","turquoise4", "darkgoldenrod4"), bty="n")
+  
   ############ qq plot
   #qq=qqnorm(data.pca$x[,1])
   #qqline(data.pca$x[,1], col = 2)
@@ -284,6 +314,16 @@ for (i in seq(length(locus)))
 pdf('../figures/essentiality-call-accuracy.pdf')
 fourfoldplot(contingency, conf.level=0, std='i', space=0.2)
 dev.off()
+
+avgaucii = avgaucii / length(locus)
+avgaucmc = avgaucmc / length(locus)
+avgaucconz = avgaucconz / length(locus)
+avgaucmeandist = avgaucmeandist / length(locus)
+avgaucpca = avgaucpca / length(locus)
+barplot(c(avgaucii,avgaucmc,avgaucconz,avgaucmeandist,avgaucpca),ylim=c(0.92,0.96),names.arg = c('insertion index', 'insertion index log-odds',
+                                                                                                 'sampling p-val', 'sampling LFC',
+                                                                                                 'largest uninterrupted', 'mean distance',
+                                                                                                 'PCA'))
 
 
 ############### compare TnSeq:

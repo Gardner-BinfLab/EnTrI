@@ -56,7 +56,7 @@ for (filename in list_of_files)
   {
     if (startsWith(line, ">"))
     {
-      matchresult = str_match(line, ">([[:graph:]]+)[[:blank:]]\\[[[:graph:]]+\\/([[:digit:]]+)\\-([[:digit:]]+)[[:blank:]]\\(([[:alpha:]]+)\\)")
+      matchresult = str_match(line, ">([[:graph:]]+)[[:blank:]]\\[[[:graph:]]+\\/([[:digit:]]+)\\-([[:digit:]]+)[[:print:]]+\\(([[:alpha:]]+)\\)")
       if (!(is.na(matchresult[5])))
       {
         locustag = matchresult[2]

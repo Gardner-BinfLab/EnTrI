@@ -85,7 +85,7 @@ for (cpitem in clusters_path)
   h <- hist(insertion_index, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot=FALSE)
   cuts <- cut(h$breaks, c(-Inf,-cutoff, cutoff, Inf))
   screen(1)
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion Index", main ="All clusters", cex.lab = 2,
+  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "NPEQ", main ="All gene classes", cex.lab = 2,
        cex.axis = 1.5, cex.main = 2, xlim=c(-3,3), ylim=c(0,200), lty= "blank", axes=FALSE)
   axis(1, at=seq(-3,3,1), cex.axis=1.5)
   axis(2, at=seq(0,200,50), labels=c(0,NA,NA,NA,200), cex.axis=1.5)

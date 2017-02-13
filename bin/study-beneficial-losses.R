@@ -16,12 +16,12 @@ write.table(fishertable, file = "../results/word-enrichment/beneficialloss-pval.
 df = fishertable[-seq(30,nrow(fishertable),1),]
 df[,3] = -log10(df[,3])
 df = df[,-2]
-#df = df[c(-3,-9, -10,-11,-12,-14,-15,-18, -24,-25,-26,-29),]
+df = df[c(-3,-4,-12,-14,-25,-26,-27,-28,-29),]
 names(df) = c("word", "pvalue")
 pdf("../figures/beneficialloss-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +
   geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ylim(c(0,max(df[1,2], -log10(0.05))))+ggtitle("Beneficial losses") +
-  theme(text = element_text(size=24)) +theme(axis.text=element_text(size=20), axis.title=element_text(size=24,face="bold"))
+  theme(text = element_text(size=15))
 dev.off()
 
 

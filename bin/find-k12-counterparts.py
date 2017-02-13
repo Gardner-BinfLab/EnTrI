@@ -2,7 +2,7 @@ from os import listdir
 
 k12 = '../results/ecogene-k12.txt'
 clusters = '../results/hieranoid/clusters.txt'
-genes = '../results/insertion-indices/normalised-insertion-indices-with-logodds/'
+genes = '../results/insertion-indices/gamma/'
 output = '../results/ecogenecounterparts/'
 list_of_files = listdir(genes)
 genenames = []

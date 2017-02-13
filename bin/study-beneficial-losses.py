@@ -32,10 +32,11 @@ with open(nloss, 'w') as nfile:
                 for line in fromfile:
                     cells = line.split()
                     match_result = match("\S+\s+\[\S+\s+\([a-zA-Z]+\)\]\s+\[([^\]]+)\]", seqdict[cells[0]].description)
-                    if cells[2] == 'beneficial-loss':
-                        yfile.write(cells[0]+'\t'+match_result.group(1)+'\n')
-                    else:
-                        nfile.write(cells[0] + '\t' + match_result.group(1) + '\n')
+                    if match_result:
+                        if cells[2] == 'beneficial-loss':
+                            yfile.write(cells[0]+'\t'+match_result.group(1)+'\n')
+                        else:
+                            nfile.write(cells[0] + '\t' + match_result.group(1) + '\n')
 
 worddict = defaultdict(list)
 
@@ -110,10 +111,11 @@ with open(nessen, 'w') as nfile:
                 for line in fromfile:
                     cells = line.split()
                     match_result = match("\S+\s+\[\S+\s+\([a-zA-Z]+\)\]\s+\[([^\]]+)\]", seqdict[cells[0]].description)
-                    if cells[2] == 'essential':
-                        yfile.write(cells[0]+'\t'+match_result.group(1)+'\n')
-                    else:
-                        nfile.write(cells[0] + '\t' + match_result.group(1) + '\n')
+                    if match_result:
+                        if cells[2] == 'essential':
+                            yfile.write(cells[0]+'\t'+match_result.group(1)+'\n')
+                        else:
+                            nfile.write(cells[0] + '\t' + match_result.group(1) + '\n')
 
 worddict = defaultdict(list)
 
@@ -189,10 +191,11 @@ with open(nnone, 'w') as nfile:
                 for line in fromfile:
                     cells = line.split()
                     match_result = match("\S+\s+\[\S+\s+\([a-zA-Z]+\)\]\s+\[([^\]]+)\]", seqdict[cells[0]].description)
-                    if cells[2] == 'non-essential':
-                        yfile.write(cells[0]+'\t'+match_result.group(1)+'\n')
-                    else:
-                        nfile.write(cells[0] + '\t' + match_result.group(1) + '\n')
+                    if match_result:
+                        if cells[2] == 'non-essential':
+                            yfile.write(cells[0]+'\t'+match_result.group(1)+'\n')
+                        else:
+                            nfile.write(cells[0] + '\t' + match_result.group(1) + '\n')
 
 worddict = defaultdict(list)
 

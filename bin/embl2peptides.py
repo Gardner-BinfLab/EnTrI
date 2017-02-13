@@ -105,7 +105,7 @@ with open(source, 'r') as from_file:
                     if not t:
                         t = ID[:3] + 'LocTag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
-                    to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
+                    to_file.write('>{0} [{1}/{2} ({3})] [{4}] [{5}] [{6}] [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
                     to_file.write('\n')
                 s, e = [], []
@@ -126,7 +126,7 @@ with open(source, 'r') as from_file:
                     if not t:
                         t = ID[:3] + 'LocTag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
-                    to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
+                    to_file.write('>{0} [{1}/{2} ({3})] [{4}] [{5}] [{6}] [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
                     to_file.write('\n')
                 s, e = [], []
@@ -147,7 +147,7 @@ with open(source, 'r') as from_file:
                     if not t:
                         t = ID[:3] + 'LocTag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
-                    to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
+                    to_file.write('>{0} [{1}/{2} ({3})] [{4}] [{5}] [{6}] [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
                     to_file.write('\n')
                 find_result = findall('>?<?\d+\.\.>?<?\d+', line)
@@ -174,7 +174,7 @@ with open(source, 'r') as from_file:
                     if not t:
                         t = ID[:3] + 'LocTag_' + str(locus_tag_counter)
                         locus_tag_counter += 1
-                    to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
+                    to_file.write('>{0} [{1}/{2} ({3})] [{4}] [{5}] [{6}] [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
                     to_file.write(tr)
                     to_file.write('\n')
                 find_result = findall('>?<?\d+\.\.>?<?\d+', line)
@@ -201,20 +201,20 @@ with open(source, 'r') as from_file:
                 continue
             elif match('FT\s+/gene=\"(\S+)\"', line):
                 match_result = match('FT\s+/gene=\"(\S+)\"', line)
-                g = '[{}]'.format(match_result.group(1))
+                g = '{}'.format(match_result.group(1))
             elif match('FT\s+/product=\"(.*)\"', line):
                 match_result = match('FT\s+/product=\"(.*)\"', line)
-                p = '[{}]'.format(match_result.group(1))
+                p = '{}'.format(match_result.group(1))
             elif match('FT\s+/product=\"(.*)', line):
                 match_result = match('FT\s+/product=\"(.*)', line)
-                p = '[{}'.format(match_result.group(1))
+                p = '{}'.format(match_result.group(1))
                 line = from_file.readline()
                 while not match('FT\s+(.*)\"', line):
                     match_result = match('FT\s+(.*)', line)
                     p += ' {}'.format(match_result.group(1))
                     line = from_file.readline()
                 match_result = match('FT\s+(.*)\"', line)
-                p += ' {}]'.format(match_result.group(1))
+                p += ' {}'.format(match_result.group(1))
             elif match('FT\s+/locus_tag=\"(\S+)\"', line):
                 match_result = match('FT\s+/locus_tag=\"(\S+)\"', line)
                 t = match_result.group(1)
@@ -230,17 +230,17 @@ with open(source, 'r') as from_file:
                 ec += match_result.group(1)
             elif match('FT\s+/note=\"(.*)\"', line):
                 match_result = match('FT\s+/note=\"(.*)\"', line)
-                nt = '[{}]'.format(match_result.group(1))
+                nt = '{}'.format(match_result.group(1))
             elif match('FT\s+/note=\"(.*)', line):
                 match_result = match('FT\s+/note=\"(.*)', line)
-                nt = '[{}'.format(match_result.group(1))
+                nt = '{}'.format(match_result.group(1))
                 line = from_file.readline()
                 while not match('FT\s+(.*)\"', line):
                     match_result = match('FT\s+(.*)', line)
                     nt += ' {}'.format(match_result.group(1))
                     line = from_file.readline()
                 match_result = match('FT\s+(.*)\"', line)
-                nt += ' {}]'.format(match_result.group(1))
+                nt += ' {}'.format(match_result.group(1))
             elif not notranslation and match('FT\s+/translation=\"([A-Z]*)\"', line):
                 match_result = match('FT\s+/translation=\"([A-Z]*)\"', line)
                 trtemp = match_result.group(1)
@@ -275,6 +275,6 @@ with open(source, 'r') as from_file:
                 tr = translate(seq_to_translate, comment, stop_codon, unknown_codon)
             if not t:
                 t = ID[:3] + 'LocTag_' + str(locus_tag_counter)
-            to_file.write('>{0} [{1}/{2} ({3})] {4} {5} {6} [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
+            to_file.write('>{0} [{1}/{2} ({3})] [{4}] [{5}] [{6}] [EC_number={7}]'.format(t, ID, se, comment, p, nt, g, ec))
             to_file.write(tr)
             to_file.write('\n')
