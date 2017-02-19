@@ -47,23 +47,18 @@ for (clusterindex in (1:numclusters))
   }
 }
 
-names(presence) <- c("Enterobacter cloacae NCTC 9394", "Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
+names(presence) <- rev(c("Enterobacter cloacae NCTC 9394", "Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
                      "Citrobacter rodentium ICC168", "Salmonella typhimurium SL1344", "Salmonella typhimurium SL3261",
                      "Salmonella typhimurium D23580", "Salmonella typhimurium A130", "Salmonella enteritidis P125109",
                      "Salmonella typhi Ty2", "Escherichia coli ST131 EC958", "Escherichia coli UPEC ST131", "Escherichia coli ETEC CS17",
-                     "Escherichia coli ETEC H10407", "Escherichia coli BW25113", "Escherichia coli K-12 MG1655")
-names(essentiality) <- c("Enterobacter cloacae NCTC 9394", "Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
+                     "Escherichia coli ETEC H10407", "Escherichia coli BW25113", "Escherichia coli K-12 MG1655"))
+names(essentiality) <- rev(c("Enterobacter cloacae NCTC 9394", "Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
                      "Citrobacter rodentium ICC168", "Salmonella typhimurium SL1344", "Salmonella typhimurium SL3261",
                      "Salmonella typhimurium D23580", "Salmonella typhimurium A130", "Salmonella enteritidis P125109",
                      "Salmonella typhi Ty2", "Escherichia coli ST131 EC958", "Escherichia coli UPEC ST131", "Escherichia coli ETEC CS17",
-                     "Escherichia coli ETEC H10407", "Escherichia coli BW25113", "Escherichia coli K-12 MG1655")
+                     "Escherichia coli ETEC H10407", "Escherichia coli BW25113", "Escherichia coli K-12 MG1655"))
 
-names(presence) <- c("Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207", "Enterobacter cloacae NCTC 9394",
-                     "Citrobacter rodentium ICC168", "Salmonella Typhimurium SL1344", "Salmonella Typhimurium SL3261",
-                     "Salmonella Typhimurium A130", "Salmonella Typhimurium D23580", "Salmonella Enteritidis P125109",
-                     "Salmonella Typhi Ty2", "Escherichia coli UPEC ST131", "Escherichia coli ETEC CS17", "Escherichia coli ETEC H10407",
-                     "Escherichia coli K-12 MG1655","Escherichia coli ST131" , "Escherichia coli BW25113")
-pdf("../figures/upsetr-maximiseMCC.pdf")
+pdf("../figures/upsetr.pdf")
 upset(fromList(presence), nsets = 14, order.by="freq", nintersects=25, keep.order = T, sets=names(presence))
       #, show.numbers = "no")
 upset(fromList(essentiality), nsets = 14, order.by="freq", nintersects=25, keep.order = T, sets=names(essentiality))

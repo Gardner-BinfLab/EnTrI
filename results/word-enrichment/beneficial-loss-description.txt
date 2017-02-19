@@ -27,6 +27,7 @@ CS17_01122	Transcriptional regulator,hypothetical protein,DNA-binding transcript
 CS17_01123	operon control protein,hypothetical protein,right oriC-binding transcriptional activator,DNA gyrase inhibitor,YSIRK-targeted surface antigen transcriptional regulator,Helix-turn-helix domain
 CS17_01139	hypothetical protein
 CS17_01198	biofilm formation regulatory protein BssS,biofilm formation regulatory protein BssS
+CS17_01425	hypothetical protein
 CS17_01427	oligopeptide ABC transporter,Oligopeptide transport system permease protein oppB,oligopeptide transporter permease,nickel ABC transporter, permease subunit NikB,Binding-protein-dependent transport system inner membrane component
 CS17_01459	protein, C-ter fragment, truncated protein
 CS17_01468	osmotically inducible lipoprotein B,lipoprotein,Glycine zipper 2TM domain
@@ -36,7 +37,6 @@ CS17_01620	hypothetical protein
 CS17_01716	Qin prophage DNA-binding transcriptional regulator
 CS17_01741	GnsA/GnsB family transcriptional regulator,GnsA/GnsB family
 CS17_01762	spermidine N1-acetyltransferase,Spermidine N(1)-acetyltransferase,spermidine N1-acetyltransferase,Predicted acetyltransferase,pseudaminic acid biosynthesis N-acetyl transferase,Acetyltransferase (GNAT) family
-CS17_01778	multidrug resistance protein,Spermidine export protein MdtJ,multidrug efflux system protein MdtJ,Membrane transporters of cations and cationic drugs,Small Multidrug Resistance protein
 CS17_01914	protein
 CS17_02092	ferritin,Ferritin-1,ferritin,Ferritin-like protein,Ferritin-like domain
 CS17_02098	putative transmembrane protein,flagella biosynthesis regulator
@@ -68,6 +68,7 @@ CS17_03726	regulator,Alternative ribosome-rescue factor A,Domain of unknown func
 CS17_03760	protein chain elongation factor EF-Tu,Elongation factor Tu 1,elongation factor Tu,GTPases - translation elongation factors,translation elongation factor Tu,Elongation factor Tu GTP binding domain
 CS17_03770	FKBP-type peptidyl-prolyl cis-trans isomerase SlyD,FKBP-type peptidyl-prolyl cis-trans isomerase slyD,FKBP-type peptidyl-prolyl cis-trans isomerase,FKBP-type peptidyl-prolyl cis-trans isomerase
 CS17_03930	universal stress protein A,Universal stress protein A,universal stress global response regulator UspA,Universal stress protein family
+CS17_03944	acid-resistance protein,10K-L protein,acid-resistance protein
 CS17_03945	putative periplasmic acid stress chaperone,10K-S protein,acid-resistance protein,hns-dependent expression protein A (HdeA)
 CS17_03946	putative acid resistance protein,hypothetical protein,acid-resistance membrane protein,Uncharacterized conserved protein
 CS17_03954	AraC family transcriptional regulator,HTH-type transcriptional regulator gadX,DNA-binding transcriptional regulator GadX,Adenosine deaminase,YSIRK-targeted surface antigen transcriptional regulator,Bacterial regulatory helix-turn-helix proteins, AraC family
@@ -79,6 +80,7 @@ CS17_04378	conserved protein, UPF0381 family,hypothetical protein,hypothetical p
 CS17_04379	universal stress protein D,Universal stress protein A,universal stress protein UspD,Universal stress protein family
 CS17_04426	inner membrane protein,Inner membrane protein yijD,hypothetical protein,Protein of unknown function (DUF1422)
 CS17_04441	protein chain elongation factor EF-Tu,P-43,elongation factor Tu,GTPases - translation elongation factors,translation elongation factor Tu,Elongation factor Tu GTP binding domain
+CS17_04606	putative inner membrane protein,Protein of unknown function (DUF2566)
 CS17_04710	AIG2 family protein,Gamma-glutamylcyclotransferase family protein ytfP,AIG2-like family
 STM_MW00841	probable secreted protein
 STM_MW00861	putative membrane protein (pseudogene)
@@ -90,16 +92,15 @@ STM_MW02011	major fimbrial subunit stfa (putative fimbrial subunit)
 STM_MW03041	hypothetical protein
 STM_MW04291	hypothetical protein
 STM_MW06111	type-1 fimbrial protein, a chain precursor
-STM_MW11521	major curlin subunit precursor
 STM_MW20691	putative propanediol utilization protein
 STM_MW23121	conserved hypothetical protein
-STM_MW23661	putative sugar phosphotransferase component II A
 STM_MW23811	putative amino acid transporter
 STM_MW23971	hypothetical protein
 STM_MW23981	putative lipoprotein
 STM_MW25891	putative oxidoreductase
 STM_MW26021	putative prophage protein
 STM_MW26031	putative prophage protein
+STM_MW28571	secretory protein (associated with virulence)
 STM_MW28631	putative product
 STM_MW29871	hypothetical protein
 STM_MW29931	outer membrane protein (associated with virulence)
@@ -108,12 +109,13 @@ STM_MW12381	putative transposase
 STM_MW33521	tartrate dehydratase
 STM_MW33911	possible lipoprotein
 STM_MW34491	glutathione-regulated potassium-efflux system protein (K(+)/H(+)antiporter)
-STM_MW34501	putative oxidoreductase
+STM_MW34611	cell filamentation protein Fic
 STM_MW34691	putative surface-exposed virulence protein BigA
 STM_MW35211	putative dihydrodipicolinate synthetase
 STM_MW35221	putative IclR-family transcriptional regulator
 STM_MW35371	conserved hypothetical protein
 STM_MW35881	anaerobic C4 dicarboxylate membrane transport protein
+STM_MW36431	putative acetyltransferase
 STM_MW37501	putative hydrolase
 STM_MW37511	putative inner membrane protein
 STM_MW37531	Mg(2+) transport ATPase protein C
@@ -166,7 +168,6 @@ BN373_13501	conserved hypothetical protein
 BN373_15241	putative membrane protein
 BN373_17831	conserved hypothetical protein
 BN373_19051	osmotically-inducible lipoprotein B
-BN373_22191	conserved hypothetical protein
 BN373_23831	IS150 putative transposase
 BN373_27671	conserved hypothetical protein
 BN373_27831	YciL domain protein
@@ -177,6 +178,7 @@ BN373_29881	ferritin-1
 BN373_30051	conserved hypothetical protein
 BN373_30561	conserved hypothetical protein
 BN373_30931	putative glycosyltransferase
+BN373_30941	UDP-galactopyranose mutase
 BN373_30961	lipopolysaccharide O-antigen ABC transport system ATP-binding component
 BN373_33751	conserved hypothetical protein
 BN373_36251	gram-negative pili assembly chaperone protein
@@ -188,30 +190,30 @@ BN373_37401	4-hydroxybenzoate decarboxylase, subunit D
 BN373_38331	propanediol utilization protein PduA
 BN373_39161	conserved hypothetical protein
 BN373_39401	conserved hypothetical protein
-BN373_39961	transcriptional regulator, RpiR family
+BN373_39461	conserved hypothetical protein
 BN373_40361	transcriptional regulator, LuxR family
 BN373_41371	conserved hypothetical protein
 BN373_42321	conserved hypothetical protein
-BN373_42341	conserved domain protein
 BN373_43271	large conductance mechanosensitive channel protein
-BN373_43711	FKBP-type peptidyl-prolyl cis-trans isomerase SlyD
+BN373_44171	ferrous iron transport protein A
 BN373_44961	universal stress protein A
 BN373_45591	conserved hypothetical protein flags: fragment
+BN373_45641	putative IS3 family transposase orfA
 BN373_46081	O-antigen polymerase
 BN373_46091	glycosyl transferase
+BN373_47821	methyltransferase GidB
 BN373_48301	PTS system, IIA component
+BN373_49061	amidohydrolase family protein
 ROD_00481	ISCro4 transposase
 ROD_00822	leu operon leader peptide
-ROD_00831	LysR-family transcriptional regulator
-ROD_01921	ISCro1 transposase C
 ROD_03691	putative membrane protein
 ROD_04261	conserved hypothetical protein
-ROD_05221	IS102 transposase
 ROD_06371	putative antimicrobial peptide resistance and lipid A acylation protein
 ROD_06431	ISCro1 transposase C
 ROD_06821	ISCro1 transposase C
 ROD_08851	aquaporin Z
 ROD_09001	ISCro1 transposase B
+ROD_10351	ISCro1 transposase C
 ROD_10522	IS200 family transposase (fragment)
 ROD_11331	ISCro4 transposase
 ROD_12161	ISCro4 transposase
@@ -236,10 +238,10 @@ ROD_28241	ISCro1 transposase B
 ROD_28321	ISCro1 transposase C
 ROD_28391	ISCro4 transposase
 ROD_28451	IS102 transposase
+ROD_28851	putative pectin degradation protein
 ROD_29411	hypothetical protein
 ROD_30291	ISCro4 transposase
 ROD_31311	glycine betaine/L-proline ABC transporter, ATP-binding protein
-ROD_31421	putative membrane protein
 ROD_31531	hypothetical protein
 ROD_32201	putative permease
 ROD_35041	hypothetical protein
@@ -255,7 +257,6 @@ ROD_44401	putative exported protein
 ROD_45471	putative lipoprotein
 ROD_45512	predicted membrane protein yhdu
 ROD_46071	Major Facilitator Superfamily transporter
-ROD_47041	hypothetical prophage protein
 ROD_49991	hypothetical protein
 NCTC13441_00012	IS1 transposase
 NCTC13441_00013	Alpha-xylosidase,putative alpha-glucosidase,Glycosyl hydrolases family 31
@@ -265,6 +266,7 @@ NCTC13441_00023	EIIBCA-Man,putative PTS system fructose-like transporter subunit
 NCTC13441_00104	Neu5Ac permease,L-dehydroascorbate transporter large permease subunit,TRAP-type C4-dicarboxylate transport system, small permease component,TRAP transporter, DctM subunit,DctM-like transporters
 NCTC13441_00116	Xylose import ATP-binding protein XylG,xylose transporter ATP-binding subunit,Predicted periplasmic lipoprotein,D-xylose ABC transporter, ATP-binding protein,ABC transporter
 NCTC13441_00122	Inner membrane protein YiaH,Uncharacterized protein conserved in bacteria,Acyltransferase family
+NCTC13441_00148	hypothetical protein
 NCTC13441_00171	Cytochrome c551 peroxidase precursor,Cytochrome c, mono- and diheme variants,di-heme enzyme, MXAN_0977 family,Di-haem cytochrome c peroxidase
 NCTC13441_00182	10K-S protein,acid-resistance protein,hns-dependent expression protein A (HdeA)
 NCTC13441_00184	hypothetical protein,putative Mg(2+) transport ATPase,MgtC family
@@ -286,6 +288,7 @@ NCTC13441_00738	Glycolate permease glcA,glycolate transporter,transporter, lacta
 NCTC13441_00756	Transposase and inactivated derivatives,InsA C-terminal domain
 NCTC13441_00757	IS1 transposase
 NCTC13441_00765	Predicted membrane protein,Protein of unknown function, DUF417
+NCTC13441_00774	Transposase and inactivated derivatives,InsA C-terminal domain
 NCTC13441_00775	IS1 transposase
 NCTC13441_00777	IS1 transposase
 NCTC13441_00813	hypothetical protein
@@ -297,6 +300,7 @@ NCTC13441_01604	IS1 transposase
 NCTC13441_01606	Nickel/cobalt homeostasis protein RcnB precursor,Predicted integral membrane protein,Domain of unknown function (DUF3315)
 NCTC13441_01751	hypothetical protein
 NCTC13441_01818	Domain of unknown function (DUF1737)
+NCTC13441_02077	Enamine/imine deaminase,putative endoribonuclease L-PSP,putative endoribonuclease L-PSP,Endoribonuclease L-PSP
 NCTC13441_02480	lipoprotein,Glycine zipper 2TM domain
 NCTC13441_02552	Enhancing lycopene biosynthesis protein 1,anti-adapter protein IraM
 NCTC13441_02664	hypothetical protein
@@ -316,6 +320,7 @@ NCTC13441_04077	Outer membrane usher protein fimD precursor,outer membrane usher
 NCTC13441_04079	Type-1A pilin,fimbrial protein FimI,P pilus assembly protein, pilin FimA,Fimbrial protein
 NCTC13441_04087	Domain of unknown function (DUF303)
 NCTC13441_04108	L-fuculose phosphate aldolase,L-fuculose phosphate aldolase,Ribulose-5-phosphate 4-epimerase and related epimerases and aldolases,L-fuculose phosphate aldolase,Class II Aldolase and Adducin N-terminal domain
+NCTC13441_04133	hypothetical protein
 NCTC13441_04134	hypothetical protein
 NCTC13441_04170	Transposase
 NCTC13441_04192	Predicted acetyltransferase,ribosomal-protein-alanine acetyltransferase,Acetyltransferase (GNAT) family
@@ -387,6 +392,7 @@ ETEC_1009	putative transposase
 ETEC_1009A	putative IS66 family element
 ETEC_1010	putative transposase
 ETEC_1122	transposase
+ETEC_1122A	putative insertion element IS1 1/2/3/4/5/6 protein InsA (IS1a/IS1b/IS1c/IS1d)
 ETEC_1226	putative transposase
 ETEC_1227	putative ISsfl4 orf2-like protein
 ETEC_1228	putative transposase
@@ -395,10 +401,8 @@ ETEC_1387	osmotically inducible lipoprotein B
 ETEC_1606	putative InsB transposition protein
 ETEC_1841A	putative insertion element IS1
 ETEC_1939	putative transposase
-ETEC_1940	putative transposase
 ETEC_1987	putative insertion element protein
 ETEC_1988	putative insertion element IS1 2/3 protein InsB
-ETEC_2023	conserved hypothetical protein
 ETEC_2030	putative InsB transposase
 ETEC_2093	putative transposition protein
 ETEC_2136	transposase
@@ -416,7 +420,6 @@ ETEC_2440	putative transposase IS1
 ETEC_2616	putative transposase
 ETEC_2616A	putative transposase
 ETEC_2617	putative transposase
-ETEC_2622	putative transmembrane anchored protein
 ETEC_2720	hypothetical protein
 ETEC_2725	tail fiber assembly protein homolog from lambdoid prophage
 ETEC_2731	hypothetical protein
@@ -437,19 +440,19 @@ ETEC_3316	putative InsB, IS1 transposase component
 ETEC_3480	IS1 transposase insB
 ETEC_3526	possible lipoprotein
 ETEC_3535	putative DNA topoisomerase
-ETEC_3543	conserved hypothetical protein
+ETEC_3575	general secretory pathway component, GspA
 ETEC_3752	outer membrane lipoprotein
 ETEC_3756	putative periplasmic acid stress chaperone
 ETEC_3808	putative InsB IS1 transposase component
 ETEC_3828	transposase
 ETEC_3866	glucosyltransferase
 ETEC_3867	UDP-D-glucose:(galactosyl)lipopolysaccharide glucosyltransferase
+ETEC_3870	UDP-D-galactose:(glucosyl)lipopolysaccharide-alph a-1,3-D-galactosyltransferase
 ETEC_3914	conserved hypothetical protein
 ETEC_3917	hypothetical protein
 ETEC_3920	putative transmembrane HD family hydrolase
 ETEC_3921	putative phage integrase, pseudogene
 ETEC_3938	conserved hypothetical protein
-ETEC_3998	tryptophanase leader peptide
 ETEC_4191	conserved hypothetical protein
 ETEC_4192	universal stress protein D
 ETEC_4305	hypothetical phage protein
@@ -485,7 +488,7 @@ SEN2146	conserved hypothetical protein
 SEN2270	conserved hypothetical protein
 SEN2357	hypothetical protein
 SEN2358	putative lipoprotein
-SEN2450	putative ethanolamine utilization protein EutS
+SEN2654	glycine betaine/l-proline transport ATP-binding protein
 SEN2794	major fimbrial subunit
 SEN2869	hypothetical protein
 SEN2875	outer membrane protein (associated with virulence)
@@ -506,12 +509,8 @@ SEN3866	putative ABC transporter, membrane component
 SEN3868	putative aldolase
 SEN3974	hypothetical protein
 SEN4033	putative membrane protein
-SEN4091	putative exported protein
 SEN4105	entericidin A precursor
-SEN4137	conserved hypothetical protein
 SEN4226	putative acetyltransferase
-SEN4351	putative fimbrial protein
-SL1344_0001	thr operon leader peptide
 SL1344_0083A	hypothetical membrane protein (pseudogene)
 SL1344_0114	leu operon leader peptide
 SL1344_0286A	conserved hypothetical protein (SPI-6 associated)
@@ -532,6 +531,7 @@ SL1344_2257	conserved hypothetical protein
 SL1344_2434	transposase
 SL1344_2585	predicted bacteriophage protein
 SL1344_2794	glycine betaine/l-proline transport ATP-binding protein
+SL1344_3267	transposase
 SL1344_3326	tartrate dehydratase
 SL1344_3422	FKBP-type peptidyl-prolyl cis-trans isomerase
 SL1344_3424	glutathione-regulated potassium-efflux system protein (K(+)/H(+)antiporter)
@@ -543,6 +543,7 @@ SL1344_3673A	hypothetical inner membrane protein (fragment)
 SL1344_3863	branched-chain amino-acid aminotransferase
 SL1344_3864	dihydroxyacid dehydratase
 SL1344_4248	predicted bacteriophage protein
+SL1344_4273	entericidin B precursor
 SL1344_4454	endoribonuclease
 EC958_0215	leu operon leader peptide
 EC958_5206	hypothetical protein
@@ -554,7 +555,6 @@ EC958_0431	hypothetical protein
 EC958_4850	hypothetical protein
 EC958_4851	hypothetical protein
 EC958_0530	hypothetical protein
-EC958_0620	hypothetical protein
 EC958_0764	hypothetical protein
 EC958_0833	putative C4-dicarboxylate transporter, large permease protein (DctM-like)
 EC958_4872	hypothetical protein
@@ -577,7 +577,7 @@ EC958_3802	ferrous iron transport protein A
 EC958_3881	putative phosphocarrier protein
 EC958_3911	hypothetical protein
 EC958_3913	protein HdeA
-EC958_3973	D-xylose transport ATP-binding protein XylG
+EC958_4098	DraP
 EC958_4102	Afa fimbriae transcription regulator
 EC958_4117	hypothetical protein
 EC958_4134	lipoprotein-28
@@ -596,6 +596,7 @@ EC958_5135	hypothetical protein
 EC958_0015	methyl-thioribulose-1-phosphate dehydratase
 EC958_0058	hypothetical protein
 BW25113_0022	IS1 repressor TnpA
+BW25113_0034	cai operon transcriptional activator
 BW25113_0050	protein associated with Co2+ and Mg2+ efflux
 BW25113_0075	leu operon leader peptide
 BW25113_0076	global transcription factor
@@ -605,7 +606,7 @@ BW25113_0288	UPF0153 cysteine cluster protein
 BW25113_0360	IS2 repressor TnpA
 BW25113_0461	Hha toxicity attenuator; conjugation-related protein
 BW25113_0554	DLP12 prophage; putative phage lysis protein
-BW25113_0656	IS5 transposase and trans-activator
+BW25113_0573	periplasmic copper-and silver-binding protein
 BW25113_1172	UPF0757 family protein
 BW25113_1283	lipoprotein
 BW25113_1319	outer membrane porin G
@@ -615,7 +616,6 @@ BW25113_1365	Rac prophage; conserved protein
 BW25113_1403	IS2 repressor TnpA
 BW25113_1625	nucleoid-associated oriC-binding protein; H-NS and StpA stabilizing factor
 BW25113_1997	IS2 repressor TnpA
-BW25113_2030	IS5 transposase and trans-activator
 BW25113_2107	periplasmic modulator of Ni and Co efflux
 BW25113_2112	DUF2574 family protein
 BW25113_2192	IS5 transposase and trans-activator
@@ -629,11 +629,12 @@ BW25113_4684	uncharacterized protein
 BW25113_3044	IS2 repressor TnpA
 BW25113_3214	periplasmic protein
 BW25113_3267	putative outer membrane protein
+BW25113_3323	general secretory pathway component, cryptic
+BW25113_3358	putative transporter, FUSC superfamily inner membrane protein, tandem domains
 BW25113_3369	small lipoprotein
 BW25113_3400	ribosome-associated heat shock protein Hsp15
 BW25113_3408	ferrous iron transporter, protein A
 BW25113_3491	acid resistance protein, inner membrane
-BW25113_3506	outer membrane lipoprotein
 BW25113_3508	putative Mg(2+) transport ATPase, inner membrane protein
 BW25113_3510	stress response protein acid-resistance protein
 BW25113_3511	acid-resistance membrane protein
@@ -647,44 +648,52 @@ BW25113_4256	putative acetyltransferase
 BW25113_4272	IS2 repressor TnpA
 BW25113_4317	fimbrial usher outer membrane porin protein; FimCD chaperone-usher
 BW25113_4347	toxic peptide regulated by antisense sRNA symR
-ENC_02440	hypothetical protein
-ENC_03180	hypothetical protein
-ENC_04140	P pilus assembly protein, pilin FimA
-ENC_04570	Exopolysaccharide production protein YjbE.
-ENC_05440	2-keto-3-deoxygluconate permease (TC 2.A.10.1.1)
-ENC_07260	type VI secretion system effector, Hcp1 family
-ENC_09960	Putative biofilm-dependent modulation protein.
-ENC_22850	hypothetical protein
-ENC_23780	Sigma-S stabilisation anti-adaptor protein.
-ENC_25050	large conductance mechanosensitive channel protein
-ENC_25360	type 4 prepilin peptidase 2. Aspartic peptidase. MEROPS family A24A
-ENC_25370	bacterioferritin
-ENC_26080	Fe2+ transport system protein A
-ENC_27160	Response regulator containing a CheY-like receiver domain and an HTH DNA-binding domain
-ENC_28000	hypothetical protein
-ENC_28640	flagellar motor switch protein FliM
-ENC_29260	glycine betaine/L-proline transport ATP binding subunit
-ENC_32630	oligosaccharide:H+ symporter
-ENC_32840	P pilus assembly protein, pilin FimA
-ENC_33160	hypothetical protein
-ENC_33690	Transcriptional regulator
-ENC_35170	Prokaryotic membrane lipoprotein lipid attachment site.
-ENC_35600	hypothetical protein
-ENC_35640	hypothetical protein
-ENC_36420	hypothetical protein
-ENC_43640	Oligogalacturonate-specific porin protein (KdgM).
-ENC_44060	DNA sulfur modification protein DndE
-ENC_44130	HSP20-like domain of unknown function (DUF1813).
-ENC_44140	Protein of unknown function (DUF1493).
-ENC_47320	Uncharacterized protein conserved in bacteria
-ENC_47350	xylose-binding protein
-ENC_47460	hypothetical protein
-ENC_47690	P pilus assembly protein, chaperone PapD
-ENC_47700	P pilus assembly protein, pilin FimA
+ENC_00107	hypothetical protein
+ENC_00239	O-antigen ligase
+ENC_00285	Poxvirus D5 protein-like protein
+ENC_00313	hypothetical protein
+ENC_00342	N,N'-diacetylchitobiose-specific phosphotransferase enzyme IIA component
+ENC_00447	Exopolysaccharide production protein YjbE
+ENC_00533	2-keto-3-deoxygluconate permease
+ENC_00708	hypothetical protein
+ENC_00976	biofilm-dependent modulation protein
+ENC_02023	Cation efflux system protein CusA
+ENC_02148	Type-1 fimbrial protein, A chain precursor
+ENC_02213	hypothetical protein
+ENC_02302	Anti-adapter protein IraP
+ENC_02425	Large-conductance mechanosensitive channel
+ENC_02456	Type 4 prepilin-like proteins leader peptide-processing enzyme
+ENC_02525	Ferrous iron transport protein A
+ENC_02625	Transcriptional regulatory protein LiaR
+ENC_02643	hypothetical protein
+ENC_02702	hypothetical protein
+ENC_02751	hypothetical protein
+ENC_02763	Flagellar motor switch protein FliM
+ENC_02829	Glycine betaine/L-proline transport ATP-binding protein ProV
+ENC_03171	Lactose permease
+ENC_03193	Fimbria A protein precursor
+ENC_03223	hypothetical protein
+ENC_03275	HTH-type transcriptional regulator BenM
+ENC_03419	hypothetical protein
+ENC_03451	Silver-binding protein SilE precursor
+ENC_03455	hypothetical protein
+ENC_03458	hypothetical protein
+ENC_03529	hypothetical protein
+ENC_04256	hypothetical protein
+ENC_04258	hypothetical protein
+ENC_04264	Endoribonuclease SymE
+ENC_04265	hypothetical protein
+ENC_04586	Inner membrane protein YiaH
+ENC_04589	D-xylose-binding periplasmic protein precursor
+ENC_04600	hypothetical protein
+ENC_04606	HTH-type transcriptional activator RhaR
+ENC_04621	Chaperone protein FimC precursor
+ENC_04622	S-fimbrial protein subunit SfaG precursor
 SL3261_0001	thr operon leader peptide
 SL3261_0083A	hypothetical membrane protein (pseudogene)
 SL3261_0099A	hypothetical inner membrane protein (pseudogene)
 SL3261_0114	leu operon leader peptide
+SL3261_0178	fimbrial subunit
 SL3261_0467	conserved hypothetical protein
 SL3261_0885	transposase for the IS1541 insertion element
 SL3261_1166	hypothetical transposase
@@ -712,7 +721,7 @@ SL3261_3434	conserved membrane protein
 SL3261_3436	para-aminobenzoate synthase, glutamine amidotransferase component II
 SL3261_3440	hypothetical membrane protein
 SL3261_3673A	hypothetical inner membrane protein (fragment)
-SL3261_3684	lipopolysaccharide 1,3-galactosyltransferase
+SL3261_4273	entericidin B precursor
 ERS227112_00555A	hypothetical protein
 ERS227112_01923A	conserved hypothetical protein
 ERS227112_02504A	pullulanase secretion protein PulS
@@ -724,7 +733,7 @@ t0190	putative fimbrial protein
 t0247	rcsF protein
 t0284	putative oxidoreductase
 t0298	probable cadaverine/lysine antiporter
-t0389	putative ethanolamine utilization protein EutS
+t0459	phosphoglycerate transporter protein
 t0488	putative lipoprotein
 t0489	hypothetical protein
 t0490	putative DNA-binding protein
@@ -735,17 +744,13 @@ t0703	conserved hypothetical protein
 t0718	putative membrane protein
 t0836	putative propanediol utilization protein PduA
 t1037	putative exported protein
-t1125	hypothetical protein
 t1388	hypothetical protein
-t1479	conserved hypothetical protein
 t1604	hypothetical protein
 t1618	osmotically inducible lipoprotein B precursor
 t1776	major curlin subunit precursor
 t2149	hypothetical protein
 t2296	putative membrane protein
-t2319	hypothetical protein
 t2320	Type-1 fimbrial protein, a chain precursor
-t2425	conserved hypothetical protein
 t2505	hypothetical protein
 t2521	probable fimbrial protein
 t2524	putative fimbrial protein
@@ -768,7 +773,6 @@ t3434	hypothetical protein
 t3554	putative membrane protein
 t3659	probable fimbrial subunit protein
 t3734	hypothetical protein
-t3753	putative membrane protein
 t3754	conserved hyopthetical protein
 t4045	hypothetical protein
 t4118	hypothetical protein

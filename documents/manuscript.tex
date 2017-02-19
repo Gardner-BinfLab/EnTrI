@@ -119,17 +119,17 @@ Canals et al.\@ \cite{canals_high-throughput_2012} have compared the essentialit
 %THIS IS IMPORTANT:
 These genomes share 228 essential genes which are mostly involved in cell division, transcription, translation, and fatty acid and peptidoglycan biosynthesis. Additionally, many of the serovar-specific essential genes in \textit{Salmonella}s are phage repressors. Another key difference between these two serovars is that a set of genes that are putatively involved in cell wall biosynthesis are essential in \textit{Salmonella} Typhimurium and not essential in \textit{salmonella} Typhi which gives an indication of the adaptation of these two \textit{Salmonella} serovars to their niches.
 
-Although there are some studies on differentiation of essentiality in different organisms, these studies usually include a few genomes. We are going to extend these studies to a larger scale in Enterobacteriaceae family. Our aim is to study the essentiality of genes in in 16 different organisms. These include \textit{Enterobacter cloacae} NCTC 9394, \textit{Klebsiella pneumoniae} Ecl8, \textit{Klebsiella pneumoniae} RH201207, \textit{Citrobacter rodentium} ICC168, \textit{Salmonella} Typhimurium SL1344, \textit{Salmonella} Typhimurium SL3261, \textit{Salmonella} Typhimurium D23580, \textit{Salmonella} Typhimurium A130, \textit{Salmonella} Enteritidis P125109, \textit{Salmonella} Typhi Ty2, \textit{Escherichia coli} ST131 EC958, \textit{Escherichia coli} UPEC ST131, \textit{Escherichia coli} ETEC CS17, \textit{Escherichia coli} ETEC H10407, \textit{Escherichia coli} BW25113, and \textit{Escherichia coli} K-12 MG1655. The phylogenetic tree containing all these species is depicted in Fig.\@ \ref{fig:species-tree}.
+Although there are some studies on differentiation of essentiality in different organisms, these studies usually include a few genomes. We are going to extend these studies to a larger scale in Enterobacteriaceae family. Our aim is to study the essentiality of genes in in 16 different organisms. These include \textit{Enterobacter cloacae} NCTC 9394, \textit{Klebsiella pneumoniae} Ecl8, \textit{Klebsiella pneumoniae} RH201207, \textit{Citrobacter rodentium} ICC168, \textit{Salmonella} Typhimurium SL1344, \textit{Salmonella} Typhimurium SL3261, \textit{Salmonella} Typhimurium D23580, \textit{Salmonella} Typhimurium A130, \textit{Salmonella} Enteritidis P125109, \textit{Salmonella} Typhi Ty2, \textit{Escherichia coli} ST131 EC958, \textit{Escherichia coli} UPEC ST131, \textit{Escherichia coli} ETEC CS17, \textit{Escherichia coli} ETEC H10407, \textit{Escherichia coli} BW25113, and \textit{Escherichia coli} K-12 MG1655.
 
 %WHAT FATEMEH DID....
 
 %Enterobacteriaceae is a well characterised family of Gram-negative bacteria with a variety of host ranges and pathogenecity \cite{brenner_bergeys_2006}. In addition, we added the essential genes of \textit{Escherichia coli} K-12 MG1655 from EcoGene database \cite{zhou_ecogene_2013} to our study. In EcoGene the essentiality of genes suggested as essential by Baba et al.\@ \cite{baba_construction_2006} has been further studied and only 299 out of 303 genes are marked as essential. We first performed a detailed study of biases than can influence the inference of essentiality. Then, we normalised our data for the biases and investigated the essentiality of genes in three classes of genes: genus specific (genes that are present only in one genus), single copy genes (genes with about one instance per genome in all of the genomes that we are studying), and multi-copy genes(genes that are copied multiple times per genome). We have also investigated how essentiality changes in the phylogenetic tree for these organisms.
 
-\begin{figure}
-\includegraphics[scale=0.2]{phylosift-aa-raxmlbootstrap.pdf}
-\caption{The species tree containing the 16 genomes used in this study. We have generated the tree by running RAxML \cite{stamatakis_raxml_2014} on Phylosift \cite{darling_phylosift:_2014} amino acid markers.}
-\label{fig:species-tree}
-\end{figure}
+%\begin{figure}
+%\includegraphics[scale=0.2]{phylosift-aa-raxmlbootstrap.pdf}
+%\caption{The species tree containing the 16 genomes used in this study. We have generated the tree by running RAxML \cite{stamatakis_raxml_2014} on Phylosift \cite{darling_phylosift:_2014} amino acid markers.}
+%\label{fig:species-tree}
+%\end{figure}
 
 \section{Results and Discussion}
 \subsection{Incorporating multiple measures of gene essentiality improves prediction}
@@ -149,13 +149,13 @@ We selected four of the predictors in previous section: insertion index, log fol
 \captionsetup[subfigure]{justification=centering}
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[page=1, scale=0.4]{essential-call-comparison-ETEC.pdf}
+  \includegraphics[page=1, scale=0.4]{essential-call-comparison-BW25113.pdf}
   \caption{}
   \label{fig:benchmark}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[page=10, scale=0.4]{essential-call-comparison-ETEC.pdf}
+  \includegraphics[page=10, scale=0.4]{essential-call-comparison-BW25113.pdf}
   \caption{}
   \label{fig:pca}
 \end{subfigure}
@@ -218,13 +218,13 @@ While a study has reported Tn5 insertion bias near the origin of replication \ci
 \captionsetup[subfigure]{justification=centering}
 \begin{subfigure}{.49\textwidth}
   \centering
-  \includegraphics[page=26, scale=0.25]{biases.pdf}
+  \includegraphics[page=6, scale=0.25]{biases.pdf}
   \caption{}
   \label{fig:distance-bias}
 \end{subfigure}
 \begin{subfigure}{.49\textwidth}
   \centering
-  \includegraphics[page=25, scale=0.25]{biases.pdf}
+  \includegraphics[page=5, scale=0.25]{biases.pdf}
   \caption{}
   \label{fig:GC-bias}
 \end{subfigure}
@@ -387,7 +387,38 @@ As most of beneficial losses do not have homologs in other genomes, most of them
 %\label{fig:essentiality-pathway}
 %\end{figure*}
 
-\subsection{phylogenetic analysis of gene essentiality identifies ...}
+\subsection{phylogenetic analysis of gene essentiality identifies that essential genes are more likely to be conserved}
+
+\begin{figure}
+\captionsetup[subfigure]{justification=centering}
+\begin{subfigure}{.6\textwidth}
+  \centering
+  \includegraphics[scale=0.12]{phylosift-aa-raxmlbootstrap-annotated.pdf}
+  \caption{}
+  \label{fig:tree}
+\end{subfigure}
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[scale=0.4]{fitch.pdf}
+  \caption{}
+  \label{fig:fitch}
+\end{subfigure}
+
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[page=2, scale=0.45]{upsetr.pdf}
+%  \caption{}
+%  \label{fig:upsetr1}
+%\end{subfigure}
+%\begin{subfigure}{1\textwidth}
+%  \centering
+%  \includegraphics[page=3, scale=0.65]{upsetr.pdf}
+%  \caption{}
+%  \label{fig:upsetr2}
+%\end{subfigure}
+\caption{(a) The species tree for all genomes in this study. Numbers in red show the number of core essential genes at each level and numbers in blue show the number of core genes at each level. (b) The ratio between core essential genes and core genes at each level in the species tree. The line connects the medians in each level.}
+\label{fig:essentiality-phylogeny}
+\end{figure}
 %\section{Discussion}
 \section{Materials and Methods}
 %\subsection{Transposon insertion}

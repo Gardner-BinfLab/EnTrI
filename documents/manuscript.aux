@@ -41,12 +41,7 @@
 \citation{freed_combining_2016}
 \citation{canals_high-throughput_2012}
 \citation{barquist_comparison_2013}
-\citation{stamatakis_raxml_2014}
-\citation{darling_phylosift:_2014}
 \citation{freed_combining_2016}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The species tree containing the 16 genomes used in this study. We have generated the tree by running RAxML \cite  {stamatakis_raxml_2014} on Phylosift \cite  {darling_phylosift:_2014} amino acid markers.\relax }}{4}{figure.caption.2}}
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:species-tree}{{1}{4}{The species tree containing the 16 genomes used in this study. We have generated the tree by running RAxML \cite {stamatakis_raxml_2014} on Phylosift \cite {darling_phylosift:_2014} amino acid markers.\relax }{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Results and Discussion}{4}{section.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Incorporating multiple measures of gene essentiality improves prediction}{4}{subsection.2.1}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Comparison of old methods}{4}{subsubsection.2.1.1}}
@@ -54,9 +49,16 @@
 \citation{turner_essential_2015}
 \citation{anders_differential_2010}
 \citation{zhou_ecogene_2013}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}PCA based method}{5}{subsubsection.2.1.2}}
+\newlabel{sec:essentiality-call}{{2.1.2}{5}{PCA based method}{subsubsection.2.1.2}{}}
 \citation{barquist_comparison_2013,green_insertion_2012,rubin_essential_2015,canals_high-throughput_2012,langridge_simultaneous_2009}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}PCA based method}{6}{subsubsection.2.1.2}}
-\newlabel{sec:essentiality-call}{{2.1.2}{6}{PCA based method}{subsubsection.2.1.2}{}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:benchmark}{{1a}{6}{\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:benchmark}{{a}{6}{\relax }{figure.caption.2}{}}
+\newlabel{fig:pca}{{1b}{6}{\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:pca}{{b}{6}{\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) The accuracy of 7 different prediction methods for quantifying the essentiality of genes. The higher the area under the curve, the more accurate the method is. (b) The distribution for our proposed method (NPEQ)\relax }}{6}{figure.caption.2}}
+\newlabel{fig:essentiality-call}{{1}{6}{(a) The accuracy of 7 different prediction methods for quantifying the essentiality of genes. The higher the area under the curve, the more accurate the method is. (b) The distribution for our proposed method (NPEQ)\relax }{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}TraDIS data is biased}{6}{subsection.2.2}}
 \citation{barquist_comparison_2013}
 \citation{rubin_essential_2015}
@@ -66,26 +68,20 @@
 \citation{green_insertion_2012,rubin_essential_2015}
 \citation{crooks_weblogo:_2004}
 \citation{green_insertion_2012}
-\newlabel{fig:benchmark}{{2a}{7}{\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:benchmark}{{a}{7}{\relax }{figure.caption.3}{}}
-\newlabel{fig:pca}{{2b}{7}{\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:pca}{{b}{7}{\relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces (a) The accuracy of 7 different prediction methods for quantifying the essentiality of genes. The higher the area under the curve, the more accurate the method is. (b) The distribution for our proposed method (NPEQ)\relax }}{7}{figure.caption.3}}
-\newlabel{fig:essentiality-call}{{2}{7}{(a) The accuracy of 7 different prediction methods for quantifying the essentiality of genes. The higher the area under the curve, the more accurate the method is. (b) The distribution for our proposed method (NPEQ)\relax }{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Distance from the origin of replication bias}{7}{subsubsection.2.2.1}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Preferred nucleotide composition bias}{7}{subsubsection.2.2.2}}
-\newlabel{fig:distance-bias}{{3a}{8}{\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:distance-bias}{{a}{8}{\relax }{figure.caption.4}{}}
-\newlabel{fig:GC-bias}{{3b}{8}{\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:GC-bias}{{b}{8}{\relax }{figure.caption.4}{}}
-\newlabel{fig:logos}{{3c}{8}{\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:logos}{{c}{8}{\relax }{figure.caption.4}{}}
-\newlabel{fig:insertion-position-bias-ess}{{3d}{8}{\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:insertion-position-bias-ess}{{d}{8}{\relax }{figure.caption.4}{}}
-\newlabel{fig:insertion-position-bias-ben}{{3e}{8}{\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:insertion-position-bias-ben}{{e}{8}{\relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces (a)The distance of the genes from DnaA gene normalised by the lengths of the genomes versus NPEQ. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (b) G-C content of genes against their NPEQ values. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (c) Sequence logo plots generated using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The height of each character shows the relative frequency of that character. (d) and (e) The plots show the average insertion index in percentiles of all essential genes (d) and beneficial losses (e). The genes are divided into 3 segments: 5\% of the genes on the $5^\prime $ end, 20\% of the genes on the $3^\prime $ end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.\relax }}{8}{figure.caption.4}}
-\newlabel{fig:biases}{{3}{8}{(a)The distance of the genes from DnaA gene normalised by the lengths of the genomes versus NPEQ. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (b) G-C content of genes against their NPEQ values. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (c) Sequence logo plots generated using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The height of each character shows the relative frequency of that character. (d) and (e) The plots show the average insertion index in percentiles of all essential genes (d) and beneficial losses (e). The genes are divided into 3 segments: 5\% of the genes on the $5^\prime $ end, 20\% of the genes on the $3^\prime $ end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.\relax }{figure.caption.4}{}}
+\newlabel{fig:distance-bias}{{2a}{8}{\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:distance-bias}{{a}{8}{\relax }{figure.caption.3}{}}
+\newlabel{fig:GC-bias}{{2b}{8}{\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:GC-bias}{{b}{8}{\relax }{figure.caption.3}{}}
+\newlabel{fig:logos}{{2c}{8}{\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:logos}{{c}{8}{\relax }{figure.caption.3}{}}
+\newlabel{fig:insertion-position-bias-ess}{{2d}{8}{\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:insertion-position-bias-ess}{{d}{8}{\relax }{figure.caption.3}{}}
+\newlabel{fig:insertion-position-bias-ben}{{2e}{8}{\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:insertion-position-bias-ben}{{e}{8}{\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces (a)The distance of the genes from DnaA gene normalised by the lengths of the genomes versus NPEQ. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (b) G-C content of genes against their NPEQ values. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (c) Sequence logo plots generated using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The height of each character shows the relative frequency of that character. (d) and (e) The plots show the average insertion index in percentiles of all essential genes (d) and beneficial losses (e). The genes are divided into 3 segments: 5\% of the genes on the $5^\prime $ end, 20\% of the genes on the $3^\prime $ end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.\relax }}{8}{figure.caption.3}}
+\newlabel{fig:biases}{{2}{8}{(a)The distance of the genes from DnaA gene normalised by the lengths of the genomes versus NPEQ. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (b) G-C content of genes against their NPEQ values. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (c) Sequence logo plots generated using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The height of each character shows the relative frequency of that character. (d) and (e) The plots show the average insertion index in percentiles of all essential genes (d) and beneficial losses (e). The genes are divided into 3 segments: 5\% of the genes on the $5^\prime $ end, 20\% of the genes on the $3^\prime $ end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.\relax }{figure.caption.3}{}}
 \citation{rubin_essential_2015}
 \citation{green_insertion_2012}
 \citation{langridge_simultaneous_2009}
@@ -98,29 +94,35 @@
 \citation{freed_combining_2016,canals_high-throughput_2012,barquist_comparison_2013}
 \citation{barquist_comparison_2013}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Positional bias within genes}{10}{subsubsection.2.2.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Most essential genes are ubiquitously essential in Enterobacteriaceae}{10}{subsection.2.3}}
 \citation{dean_pervasive_2008}
 \citation{eddy_accelerated_2011}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Most essential genes are ubiquitously essential in Enterobacteriaceae}{11}{subsection.2.3}}
 \citation{dean_pervasive_2008}
 \citation{kanehisa_kegg:_2000}
-\newlabel{fig:iidist}{{4a}{13}{\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:iidist}{{a}{13}{\relax }{figure.caption.5}{}}
-\newlabel{fig:essentiality-pathway-ess}{{4b}{13}{\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:essentiality-pathway-ess}{{b}{13}{\relax }{figure.caption.5}{}}
-\newlabel{fig:essentiality-pathway-nes}{{4c}{13}{\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:essentiality-pathway-nes}{{c}{13}{\relax }{figure.caption.5}{}}
-\newlabel{fig:essentiality-pathway-ben}{{4d}{13}{\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:essentiality-pathway-ben}{{d}{13}{\relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces (a) The genes have been clustered into homologous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific. (b) and (c) KEGG Pathways enriched in essential genes (b) and non-essential genes (c). (d) The words enriched in the description of beneficial losses in their embl files compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.\relax }}{13}{figure.caption.5}}
-\newlabel{fig:gene-classes}{{4}{13}{(a) The genes have been clustered into homologous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific. (b) and (c) KEGG Pathways enriched in essential genes (b) and non-essential genes (c). (d) The words enriched in the description of beneficial losses in their embl files compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.\relax }{figure.caption.5}{}}
+\newlabel{fig:iidist}{{3a}{13}{\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:iidist}{{a}{13}{\relax }{figure.caption.4}{}}
+\newlabel{fig:essentiality-pathway-ess}{{3b}{13}{\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:essentiality-pathway-ess}{{b}{13}{\relax }{figure.caption.4}{}}
+\newlabel{fig:essentiality-pathway-nes}{{3c}{13}{\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:essentiality-pathway-nes}{{c}{13}{\relax }{figure.caption.4}{}}
+\newlabel{fig:essentiality-pathway-ben}{{3d}{13}{\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:essentiality-pathway-ben}{{d}{13}{\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces (a) The genes have been clustered into homologous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific. (b) and (c) KEGG Pathways enriched in essential genes (b) and non-essential genes (c). (d) The words enriched in the description of beneficial losses in their embl files compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.\relax }}{13}{figure.caption.4}}
+\newlabel{fig:gene-classes}{{3}{13}{(a) The genes have been clustered into homologous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific. (b) and (c) KEGG Pathways enriched in essential genes (b) and non-essential genes (c). (d) The words enriched in the description of beneficial losses in their embl files compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.\relax }{figure.caption.4}{}}
 \bibdata{references}
 \bibcite{anders_differential_2010}{Anders and Huber, 2010}
 \bibcite{baba_construction_2006}{Baba et\nobreakspace  {}al., 2006}
 \bibcite{barquist_approaches_2013}{Barquist et\nobreakspace  {}al., 2013a}
+\newlabel{fig:tree}{{4a}{14}{\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:tree}{{a}{14}{\relax }{figure.caption.5}{}}
+\newlabel{fig:fitch}{{4b}{14}{\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:fitch}{{b}{14}{\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces (a) The species tree for all genomes in this study. Numbers in red show the number of core essential genes at each level and numbers in blue show the number of core genes at each level. (b) The ratio between core essential genes and core genes at each level in the species tree. The line connects the medians in each level.\relax }}{14}{figure.caption.5}}
+\newlabel{fig:essentiality-phylogeny}{{4}{14}{(a) The species tree for all genomes in this study. Numbers in red show the number of core essential genes at each level and numbers in blue show the number of core genes at each level. (b) The ratio between core essential genes and core genes at each level in the species tree. The line connects the medians in each level.\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}phylogenetic analysis of gene essentiality identifies that essential genes are more likely to be conserved}{14}{subsection.2.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Materials and Methods}{14}{section.3}}
 \bibcite{barquist_comparison_2013}{Barquist et\nobreakspace  {}al., 2013b}
 \bibcite{barquist_tradis_2016}{Barquist et\nobreakspace  {}al., 2016}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}phylogenetic analysis of gene essentiality identifies ...}{14}{subsection.2.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Materials and Methods}{14}{section.3}}
 \bibcite{brodersen_structural_2000}{Brodersen et\nobreakspace  {}al., 2000}
 \bibcite{canals_high-throughput_2012}{Canals et\nobreakspace  {}al., 2012}
 \bibcite{chao_design_2016}{Chao et\nobreakspace  {}al., 2016}

@@ -70,7 +70,7 @@ for (i in seq(length(locus)))
     }
     else
     {
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, main=dict[locus[i]], cex.main=2)
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, main=dict[locus[i]], cex.main=2, ylim=c(0.6,1))
     }
     
     perfbiotradismcc <- performance(predbiotradis,'mat')

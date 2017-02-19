@@ -27,7 +27,7 @@ for (filename in list_of_files)
   essentialityfile = as.matrix(read.table(filename, as.is=TRUE, header=TRUE))
   for (i in seq(1,nrow(essentialityfile)))
   {
-    if (essentialityfile[i,3] == "non-essential")
+    if (essentialityfile[i,3] == "essential")
     {
       genes=c(genes,essentialityfile[i,1])
     }
@@ -94,8 +94,8 @@ while(enrichment[i,4] < 0.05)
 colnames(pathways) = c('word', 'pvalue')
 pathways = pathways[1:20,]
 
-pdf("../figures/non-essential-pathways.pdf")
+pdf("../figures/essential-pathways.pdf")
 ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
-  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Non-essential genes") +
+  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Essential pathways") +
   theme(text = element_text(size=15))
 dev.off()

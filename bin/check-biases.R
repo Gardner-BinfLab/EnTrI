@@ -51,7 +51,7 @@ for (filename in list_of_files)
   lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
   
   plot(d, ii, pch = '.', xlab = "Distance from Origin", ylab = "NPEQ",
-       main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
+       main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =1.8)
   abline(0,0,col='green', lwd=5)
   lines(loess.smooth(d,ii, span=sp), col=2, lwd=5)
   

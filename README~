@@ -1,0 +1,118 @@
+============ CLUSTER PROTEINS
+0. Annotate Enterobacter using prokka
+	prokka --outdir ~/Desktop/prokka --locustag ENC --genus Enterobacter --species cloacae --kingdom Bacteria --gram neg ~/EnTrI/data/fasta-genome/chromosome/ENC.fa
+	Convert the gbf file to embl using seqret:
+	seqret
+	Read and write (return) sequences
+	Input (gapped) sequence(s): ~/Desktop/prokka/ENC_02162017.gbf 
+	output sequence(s) [fp929040.fasta]: embl::ENC_02162017.embl
+1. Convert gff + fasta files to embl using seqret tool from EMBOSS package (If the fasta and gff files contain chromosome and plasmid sequences, separate them)
+	seqret -sequence CS17p1.fna -feature -fformat gff -fopenfile CS17p1.gff -osformat embl -auto
+2. If the CDS IDs are not standard (like in CS17p1-4 in our case):
+	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
+3. Remove locus tag "ERS227112_02466:gene" from "Klebsiella_pneumoniae_RH201207_v0.3.embl" embl file. This gene has two locus tags: "ERS227112_02466" and "ERS227112_02466:gene", which probably is a mistake in annotation, and the ":gene" at the end of this tag causes jackhmmer name this gene "gene" which is impossible to track.
+4. Convert embl files to protein fasta files
+	cd EnTrI/bin
+	mkdir ../data/fasta-protein
+	mkdir ../data/fasta-protein/chromosome
+	for filename in ../data/embl/chromosome/*.embl; do embl2peptides.py $filename ../data/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+5. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
+6. Make a fasta file with all sequences in it.
+	cd EnTrI/data/fasta-protein/chromosome
+	cat * > seqdb.fasta
+7. Run homclust to cluster homologous proteins
+	cd EnTrI/bin
+	homclust.py ../data/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../data/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 16 -s 5
+8. Convert embl files to DNA fasta files
+	cd EnTrI/bin
+	mkdir ../data/fasta-dna
+	mkdir ../data/fasta-dna/chromosome
+	for filename in ../data/embl/chromosome/*.embl; do embl2dna.py $filename ../data/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
+9. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
+10. Make a fasta file with all sequences in it.
+	cd EnTrI/data/fasta-dna/chromosome
+	cat * > seqdb.fasta
+
+============ RUN PHYLOSIFT & RAXML
+1. cd EnTrI/results/phylosift
+2. find ../../data/fasta-genome/chromosome/ -maxdepth 1 -name "*.fa" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
+3. find ../../data/fasta-genome/chromosome/ -maxdepth 1 -name "*.fa" -exec ~/program-bank/phylosift_v1.0.1/phylosift align --isolate --besthit {} \;
+4.a. for f in PS_temp/*/alignDir/concat.codon.updated.1.fasta; do cat "$f" >> codon_alignment.fa; done
+4.b. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
+5. Run RaXML
+	a. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
+	b. raxmlHPC -s codon_alignment.fa -n phylosift-n.raxmlbootstrap -m GTRCAT -p 1234 -f a -x 1234 -# 100
+
+============ RUN HIERANOID
+1. Copy all the protein fasta sequences to program-bank/hieranoid/data/sequences.
+2. Copy the species tree to program-bank/hieranoid/data/tree, root it, and add node names to it.
+3. Edit program-bank/hieranoid/Configurations/Configuration.pm
+4. cd program-bank/hieranoid/
+5. perl hieranoid.pl
+6. Copy n14.OGTree.txt to results/hieranoid and rename it to hieranoid-result.txt
+7. python edit-hieranoid.py
+
+============ FIND ESSENTIAL GENES
+1. cd EnTrI/bin
+2. Rscript calculate-insertion-index.R
+
+============ BENCHMARK DIFFERENT METHODS
+1. Download the list of E.coli K-12 essential genes from ecogenes and save it as ecogene-k12.txt in results directory.
+2. python find-k12-counterparts.py and put the results in results/ecogenecounterparts
+3. Make monte-carlo directory in results and run Rscript montecarlo.R
+4. Rscript benchmark-essentiality-calls.R
+
+============ STUDY BIASES
+1. Make logos for top 100 most frequent insertion sites:
+	mkdir ../results/logos
+	python3 make-logos-top-100.py
+2. Generate a logo for the sequences resulted from the last step.
+	cd EnTrI/results/logos
+	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-prob.pdf -s large -U probability
+	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-bits.pdf -s large
+3. python3 insertion-position-bias.py
+4. Rscript insertion-position-bias.R
+5. python3 check-biases.py
+6. Rscript check-biases.R
+
+============ EVOLUTION OF ESSENTIALITY
+1. python3 define-core-accessory-hieranoid.py
+2. Make phylogenetic trees for the subsets of species (in code) and place them in bin/speciestrees, and bin/speciestrees-no-k12
+# 3. python3 define-core-accessory-hieranoid-fdollop.py
+# 4. python3 define-core-accessory-hieranoid-ancestralii.py
+5. python3 define-core-accessory-hieranoid-fitch.py
+6. Rscript upsetr-hieranoid.R
+
+============ STUDY CLUSTERS
+1. Plot cluster size distribution (This is not a general script and can only be used for this case)
+	cd EnTrI/bin
+	Rscript orfan-single-multiple.R
+2. Run merge-clust-plot to add insertion indices to genes in clusters
+	cd EnTrI/bin
+	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/biases/normalised-pca/ ../results/ecogene-k12.txt ../results/merge-clust-plot
+3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
+	cd EnTrI/bin  
+	Rscript clust2plot.R
+
+============ ENRICHMENT
+# 1. Word enrichment in beneficial losses
+	cd EnTrI/bin
+	python study-beneficial-losses.py
+	Rscript study-beneficial-losses.R
+# 2. Word enrichment in low GC genes:
+	cd EnTrI/bin
+	python study-low-gc.py
+	Rscript study-low-gc.R
+# 3. Codon enrichment in 5' end of essential genes:
+	cd EnTrI/bin
+	python essential5prime.py
+	Rscript essential5prime.R
+4. KEGG analysis
+	cd EnTrI/bin
+	Rscript buildpathwayDB.R -o KEGG_organism_code -d path_to_save_database
+	Set pathanalysis.R parameters: essentiality class, pdf file name, plot main.
+	Rscript pathanalysis.R
+5. Difference between ancestralii, fdollop, and intersection
+	cd EnTrI/bin
+	python3 core-definition-method-difference.py
+	Rscript core-definition-method-difference.R
