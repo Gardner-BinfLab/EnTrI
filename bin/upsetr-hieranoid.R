@@ -16,10 +16,10 @@ for (filename in list_of_files)
 }
 iis = as.matrix(read.table(k12_path))
 list_of_essential_genes["b"] <- list(iis[,1])
-presence = list("ENC"=c(), "BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
-                "t"=c(), "EC958"=c(), "NCTC13441"=c(), "CS17"=c(), "ETEC"=c(), "BW25113"=c(), "b"=c())
-essentiality = list("ENC"=c(), "BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
-                "t"=c(), "EC958"=c(), "NCTC13441"=c(), "CS17"=c(), "ETEC"=c(), "BW25113"=c(), "b"=c())
+presence = rev(list("ENC"=c(), "BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
+                "t"=c(), "EC958"=c(), "NCTC13441"=c(), "CS17"=c(), "ETEC"=c(), "BW25113"=c(), "b"=c()))
+essentiality = rev(list("ENC"=c(), "BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
+                "t"=c(), "EC958"=c(), "NCTC13441"=c(), "CS17"=c(), "ETEC"=c(), "BW25113"=c(), "b"=c()))
 cluster <- readLines(clusters_path)
 numclusters = length(cluster)
 for (clusterindex in (1:numclusters))

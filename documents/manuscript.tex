@@ -55,6 +55,7 @@
 % this is required to include graphics
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{pdflscape}
 \graphicspath{{../figures/}}
 
 % use if you want to put caption to the side of the figure - see example in text
@@ -326,9 +327,9 @@ Some research has indicated that himar1 transposons are more probable to get ins
 \subsection{Most essential genes are ubiquitously essential in Enterobacteriaceae}
 Previous studies of gene essentiality in Enterobacteriaceae family have compared essential genes in different genomes in this family and studied the sets of core essential genes and accessory essential genes \cite{freed_combining_2016, canals_high-throughput_2012, barquist_comparison_2013}. Core essential genes are responsible for essential processes such as cell division, DNA replication, transcription and translation and some important pathways like peptidoglycan and fatty acid biosynthesis \cite{barquist_comparison_2013}. Accessory essential genes differ in genomes due to different reasons such as niche adaptation, gene duplication and the existence of alternative pathways \cite{freed_combining_2016, canals_high-throughput_2012, barquist_comparison_2013}. Another group of accessory essential genes are phage repressors \cite{barquist_comparison_2013}. Even though these genes are not essential for the growth of a cell, once phages are introduced to a cell, they become essential as long as the phage remains in the cell.
 
-In this study, we have compared the genes in 16 bacteria from Enterobacteriaceae family. For this we needed to study core and accessory sets of genes. Moreover, in the presence of two redundant variations of one gene, if we knock out one copy using TraDIS, the other copy compensates and the organism can still survive \cite{dean_pervasive_2008}. This leads to a different essentiality inference using TraDIS. Therefore, in addition to core and accessory genes, we have studied duplicate genes. To study whether each gene in the 16 organisms is core we used Jackhmmer from HMMER package~\cite{eddy_accelerated_2011} to iteratively search for homologous proteins in our dataset and cluster them. We divided the clusters of homologous genes into three groups based on their conservation. Genus specific class contain genes that are present only in one genus, the genes in single copy class are present in more than one genus and more than 70\% of them are not duplicated (core genes), and  the genes in multi-copy class are present in more than one genus and more than 30\% of them are duplicated (duplicate genes).
+In this study, we have compared the genes in 16 bacteria from Enterobacteriaceae family. For this we needed to study core and accessory sets of genes. Moreover, in the presence of two redundant variations of one gene, if we knock out one copy using TraDIS, the other copy compensates and the organism can still survive \cite{dean_pervasive_2008}. This leads to a different essentiality inference using TraDIS. Therefore, in addition to core and accessory genes, we have studied duplicate genes. To study whether each gene in the 16 organisms is core, we used Jackhmmer from HMMER package~\cite{eddy_accelerated_2011} to iteratively search for homologous proteins in our dataset and cluster them. We divided the clusters of homologous genes into three groups based on their conservation. Genus specific class contains genes that are present only in one genus, the genes in single copy class are present in more than one genus and more than 70\% of them are not duplicated (core genes), and  the genes in multi-copy class are present in more than one genus and more than 30\% of them are duplicated (duplicate genes).
 
-We also evaluated the essentiality of genes and divided the genes into different levels of essentiality using NPEQ values. If NPEQ is less than -1.644854, it means that the gene has tolerated many insertions, so it is beneficial for the organism to lose this gene in the rich medium that we used. However, if NPEQ is greater that 1.644854, the gene can tolerate very few or no insertions indicating that the gene is essential for cell viability in our test medium. Any other NPEQ value shows an intermediate number of insertions in genes meaning that it is not beneficial for the organism to lose these genes, but they are not essential, too. We have called this group of genes non-essential.
+We also evaluated the essentiality of genes and divided the genes into different levels of essentiality using NPEQ values. If NPEQ is less than -1.644854, it means that the gene has tolerated many insertions, so it is beneficial for the organism to lose this gene in the rich medium that we used. However, if NPEQ is greater than 1.644854, the gene can tolerate very few or no insertions indicating that the gene is essential for cell viability in our test medium. Any other NPEQ value shows an intermediate number of insertions in genes meaning that it is not beneficial for the organism to lose these genes, but they are not essential, too. We have called this group of genes non-essential.
 
 The results for comparing three levels of essentiality and three classes of conservation are depicted in Fig.\@ \ref{fig:iidist}. The high number of single copy clusters in essential level, indicates that there is a set of essential genes in Enterobacteriaceae that are conserved and inclined to keep their essentiality. However, there are also many essential genus specific genes. The figure also shows that beneficial losses are over represented in genus specific class. Therefore, beneficial losses are mostly recent genes that the organism tends to lose in the long run. Besides, most of the multi-copy clusters are non-essential and there are only a few multi-copy clusters that are essential. This can be explained by the redundancy that duplicate genes can keep even after $\sim100$ million years \cite{dean_pervasive_2008}. 
 
@@ -369,7 +370,7 @@ The results for comparing three levels of essentiality and three classes of cons
 %\label{fig:iidist}
 %\end{figure}
 
-To study which functions are enriched in each class of essentiality, we used KEGG pathway enrichment analysis \cite{kanehisa_kegg:_2000} and compared the genes in each class with the databases that were available for the genomes in this study. The results show that essential genes are enriched in pathways related to genetic information processing such as replication (DNA replication, homologous recombination and mismatch repair), transcription (RNA polymerase), translation (ribosome), and protein export. These are the essential functions that every cell needs for its viability. Other enriched pathways are mostly metabolism related. These include fatty acid biosynthesis that produce cell membrane, peptidoglycan and lipopolysaccharide biosynthesis that are essential components of cell wall, terpenoid backbone biosynthesis which feeds peptidoglycan biosynthesis, nucleotide and amino acid metabolism, and the metabolism of important cofactors and vitamins like riboflavin, biotin,porphyrin and chlorophyll (Figure~\ref{fig:essentiality-pathway-ess}).
+To study which functions are enriched in each class of essentiality, we used KEGG pathway enrichment analysis \cite{kanehisa_kegg:_2000} and compared the genes in each class with the databases that were available for the genomes in this study. The results show that essential genes are enriched in pathways related to genetic information processing such as replication (DNA replication, homologous recombination and mismatch repair), transcription (RNA polymerase), translation (ribosome), and protein export. These are the essential functions that every cell needs for its viability. Other enriched pathways are mostly metabolism related. These include fatty acid biosynthesis that produces cell membrane, peptidoglycan and lipopolysaccharide biosynthesis that are essential components of cell wall, terpenoid backbone biosynthesis which feeds peptidoglycan biosynthesis, nucleotide and amino acid metabolism, and the metabolism of important cofactors and vitamins like riboflavin, biotin,porphyrin and chlorophyll (Figure~\ref{fig:essentiality-pathway-ess}).
 {\color{red} CAN WE HAVE SOMETHING LIKE THIS? http://www.nature.com/articles/srep00125}
 
 Non-essential genes are mostly involved in carbohydrate, energy, and lipid metabolism, membrane transport, cell motility and cellular community. Even though these functions are important, they are not essential in a rich medium in lab.
@@ -387,7 +388,10 @@ As most of beneficial losses do not have homologs in other genomes, most of them
 %\label{fig:essentiality-pathway}
 %\end{figure*}
 
-\subsection{phylogenetic analysis of gene essentiality identifies that essential genes are more likely to be conserved}
+\subsection{Phylogenetic analysis of gene essentiality identifies that essential genes are more likely to be conserved}
+When a mutation is introduced to a gene, the fixation rate depends on how tolerable this mutation is \cite{wilson_biochemical_1977}. As mutations in essential genes are less likely to be tolerable, less mutations should be fixed in these genes, and therefore essential genes should evolve more slowly than non-essential genes. This is known as knockout rate hypothesis \cite{krylov_gene_2003}. Different studies have verified this hypothesis in prokaryotes \cite{jordan_essential_2002, gerdes_experimental_2003, rocha_analysis_2004, silander_constancy_2009}.
+
+Here, we have tested this hypothesis by comparing the number of core essential genes and core genes in the phylogenetic tree as we go up to the root. We have used Fitch's algorithm \cite{fitch_toward_1971} with a binary alphabet on both essentiality (0 for non-essential and 1 for essential) and conservation (1 for the presence and 0 for the absence of genes) to define if a gene is core essential or core at each level in the phylogenetic tree. If we get 1 at the top of the tree while studying essentiality of a gene using Fitch algorithm, it means that the gene is core essential and otherwise, the gene is non-essential. The same applies to the study of core genes. The phylogenetic tree has been annotated with the number of core essential genes (red) and the number of core genes (blue) at each level in Figure~\ref{fig:tree}. We then plotted the ratios at each level in the phylogenetic tree in Figure~\ref{fig:fitch} and connected the medians in each level. The connecting line shows that the ratio between core essential genes and core genes rises as we go higher in the phylogenetic tree which means essential genes are more likely to be conserved in genomes compared to non-essential genes.
 
 \begin{figure}
 \captionsetup[subfigure]{justification=centering}
@@ -403,22 +407,60 @@ As most of beneficial losses do not have homologs in other genomes, most of them
   \caption{}
   \label{fig:fitch}
 \end{subfigure}
-
-%\begin{subfigure}{.5\textwidth}
-%  \centering
-%  \includegraphics[page=2, scale=0.45]{upsetr.pdf}
-%  \caption{}
-%  \label{fig:upsetr1}
-%\end{subfigure}
-%\begin{subfigure}{1\textwidth}
-%  \centering
-%  \includegraphics[page=3, scale=0.65]{upsetr.pdf}
-%  \caption{}
-%  \label{fig:upsetr2}
-%\end{subfigure}
-\caption{(a) The species tree for all genomes in this study. Numbers in red show the number of core essential genes at each level and numbers in blue show the number of core genes at each level. (b) The ratio between core essential genes and core genes at each level in the species tree. The line connects the medians in each level.}
+\caption{(a) The species tree for all genomes in this study. Numbers in red show the number of core essential genes at each level and numbers in blue show the number of core genes at each level. (b) The ratio between core essential genes and core genes at each level in the species tree. The dots in the strain level show the ratios for all 16 bacteria; the dots in the species level show the ratios for Enterobacter, Klebsiella, Citrobacter, Salmonella, and Escherichia; the subfam. level shows the ratios for the common ancestor of Enterobacter and klebsiella, the common ancestor of Citrobacter and Salmonella, and the common ancestor of Citrobacter, Salmonella, and Escherichia; and finally the dot in the family level shows the ratio for the root. The line connects the medians in each level.}
 \label{fig:essentiality-phylogeny}
 \end{figure}
+
+We have studied the essentiality status of genes involved in important biological processes in Table~\ref{tab:biological-processes}. These processes include cell division, DNA replication, transcription, translation, and important metabolic pathways such as peptidoglycan and fatty acid biosynthesis. If a gene was not core essential using Fitch algorithm, we looked at its essentiality in every genome: if it was essential in some of the genomes we classified it as accessory essential and if it was not essential in any genome we classified it as non-essential. FtsA and zipA genes are essential for cell division. FtsA is essential in all the genomes in our study, however zipA is essential everywhere except for Salmonella typhimurium A130 in which this gene is near essential. We investigated if this gene has a homolog in Salmonella typhimurium A130 and found no homologs. It has been shown that 21 mutations in ftsA gene can make it independent of zipA gene so that the zipA gene is no longer essential \cite{geissler_gain--function_2003, pichoff_ftsa_2012}. However, ftsA gene does not have any of these mutations in Salmonella typhimurium A130, so there might be another factor that is causing zipA not to be essential. \textcolor{red}{ADD MORE EXAMPLES HERE}
+
+So far we have shown that essential genes are less likely to be lost during evolution. The other question is if essential genes tend to keep their essentiality in different genomes. Bergmiller et al. \cite{bergmiller_patterns_2012} have shown that only essential genes whose functions cannot be taken over by other genes keep their essentiality and others are possible to be lost or non-essential in other genomes. The genes that can replace other genes are not necessarily homologous to them, but they have similar functions.
+
+We have compared the number of genes that are shared between our bacterial genomes (\ref{fig:upsetr-conservation}) and the number of genes essential in them (\ref{fig:upsetr-essentiality}) and used UpSetR package \cite{conway_upsetr:_2016} to visualise the results in Fig.\@ \ref{fig:upsetr}. As shown in the figures, among 2162 genes that are shared between all the bacteria under study, only 135 are essential everywhere. We looked at subsets of the genes that were shared in every combination of our bacterial strains to see whether they show a trend similar to the phylogenetic tree. The results propose that although conservation of genes follows a tree-like trend, the essentiality does not show such a trend. The reason is that many of the essential genes that are not shared in all genomes are probably compensable by other genes and so the essentiality does not look tree-like.
+
+\begin{landscape}
+\begin{table}
+\small
+\caption{The essentiality status of genes involved in important biological processes}
+\label{tab:biological-processes}
+\begin{tabular}[t]{l l l l l}
+\hline
+\textbf{Biological process} & \textbf{Subprocess} & \textbf{Core essential} & \textbf{Accessory essential} & \textbf{Non-essential}\\
+\hline
+Cell Division & & \begin{tabular}[t]{@{}l@{}}ftsAHLQWYZ, minE,\\ mukB, zipA \end{tabular}& ftsKNX, minD & \begin{tabular}[t]{@{}l@{}}CedA, ftsJ, minC,\\ sdiA, sulA\end{tabular}\\
+DNA replication & Polymerases I, II, III & dnaENQX, holABD, polA & holC & holE, polB\\	
+& Supercoiling & gyrAB, parCE & & \\
+& Primosome-associated & dnaBCGT, priA, ssb & priB, rep & priC\\
+Transcription & RNA polymerase & rpoABC &  & \\
+& \begin{tabular}[t]{@{}l@{}}Sigma, elongation, anti- \\ and termination factors\end{tabular} & nusABG, rho, rpoDH & rpoEN & rpoS\\	
+Translation & tRNA-synthetases & \begin{tabular}[t]{@{}l@{}}alaS, argS, asnS, aspS, cysS, \\ glnS, gltX, glyQS, hisS, ileS, \\ leuS, lysS, metG, pheST, \\ proS, serS, thrS, tyrS, valS \end{tabular} & trpS	 & \\	
+& Ribosome components & \begin{tabular}[t]{@{}l@{}}rplBCDEFJKLMNOPQRSTUV,\\ rplWXY, rpmABCD,\\ rpsABCDEFGHJKLMNPQRSTU\end{tabular} & rplA, rpmEGHI, rpsIO & rplI, rpmF\\
+& \begin{tabular}[t]{@{}l@{}}Initiation, elongation \\ and peptide chain \\ release factors\end{tabular} & fusA, infABC, prfAB, tsf & efp & prfC, selB, tufAB \\
+Biosynthetic pathways & & & & \\
+Peptidoglycan & & MraY, murABCDEFGI & & ddlAB\\	
+Fatty acids & & accABCD, fabABDGHIZ & & \\
+\hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\begin{figure}
+\captionsetup[subfigure]{justification=centering}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[scale=0.45,page=2]{upsetr.pdf}
+  \caption{}
+  \label{fig:upsetr-conservation}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[scale=0.45,page=3]{upsetr.pdf}
+  \caption{}
+  \label{fig:upsetr-essentiality}
+\end{subfigure}
+\caption{(a) The number of genes and (b) essential genes shared between different groups of bacteria. The bars show the number of genes and the filled circles show which bacteria are sharing those genes.}
+\label{fig:upsetr}
+\end{figure}
+
 %\section{Discussion}
 \section{Materials and Methods}
 %\subsection{Transposon insertion}
