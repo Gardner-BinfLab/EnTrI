@@ -182,3 +182,8 @@ for (cpitem in clusters_path)
   
   dev.off()
 }
+
+print("Essential Orfans:")
+names(file_group)[file_group=="ORFan" & file_II > cutoff & file_size > 1]
+print("Essential Multi-copies:")
+names(file_group)[file_group=="Multiple-copy" & file_II > cutoff]
