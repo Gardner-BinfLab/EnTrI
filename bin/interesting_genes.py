@@ -59,12 +59,14 @@ species_names = {"salmonella": ["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
 interesting_genes = outdir + 'universally-conserved_always-essential.tsv'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
-        tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-                     'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-                     'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-                     'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-                     '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-                     '\tb locus tag\n')
+        tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+                     'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+                     'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+                     'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+                     'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+                     'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+                     'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t'+
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -113,12 +115,14 @@ with open(clustersfile, 'r') as fromfile:
 interesting_genes = outdir + 'universally-conserved_sometimes-essential.tsv'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
-        tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-                     'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-                     'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-                     'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-                     '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-                     '\tb locus tag\n')
+        tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+                     'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+                     'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+                     'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+                     'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+                     'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+                     'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t' +
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -167,12 +171,14 @@ with open(clustersfile, 'r') as fromfile:
 # interesting_genes = outdir + 'universally-conserved_universally-non-essential.tsv'
 # with open(clustersfile, 'r') as fromfile:
 #     with open(interesting_genes, 'w') as tofile:
-#         tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-#                      'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-#                      'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-#                      'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-#                      '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-#                      '\tb locus tag\n')
+#         tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+#                      'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+#                      'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+#                      'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+#                      'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+#                      'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+#                      'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t'+
+#                      'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
 #         for line in fromfile:
 #             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
 #                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -221,12 +227,14 @@ with open(clustersfile, 'r') as fromfile:
 interesting_genes = outdir + 'universally-unconserved_always-essential.tsv'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
-        tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-                     'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-                     'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-                     'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-                     '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-                     '\tb locus tag\n')
+        tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+                     'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+                     'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+                     'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+                     'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+                     'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+                     'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t' +
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -275,12 +283,14 @@ with open(clustersfile, 'r') as fromfile:
 interesting_genes = outdir + 'universally-unconserved_sometimes-essential.tsv'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
-        tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-                     'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-                     'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-                     'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-                     '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-                     '\tb locus tag\n')
+        tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+                     'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+                     'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+                     'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+                     'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+                     'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+                     'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t' +
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -329,12 +339,14 @@ with open(clustersfile, 'r') as fromfile:
 interesting_genes = outdir + 'essential-in-some-species.tsv'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
-        tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-                     'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-                     'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-                     'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-                     '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-                     '\tb locus tag\n')
+        tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+                     'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+                     'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+                     'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+                     'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+                     'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+                     'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t' +
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -402,12 +414,14 @@ with open(clustersfile, 'r') as fromfile:
 interesting_genes = outdir + 'sometimes-essential.tsv'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
-        tofile.write('Gene\tProduct\tENC NPEQ\tBN373 NPEQ\tERS227112 NPEQ\tROD NPEQ\tSL1344 NPEQ\tSL3261 NPEQ\t' +
-                     'STMMW NPEQ\tSTM NPEQ\tSEN NPEQ\tt NPEQ\tEC958 NPEQ\tNCTC13441 NPEQ\tCS17 NPEQ\tETEC NPEQ\t' +
-                     'BW25113 NPEQ\tb NPEQ\tENC locus tag\tBN373 locus tag\tERS227112 locus tag\tROD locus tag\t' +
-                     'SL1344 locus tag\tSL3261 locus tag\tSTMMW locus tag\tSTM locus tag\tSEN locus tag\tt locus tag' +
-                     '\tEC958 locus tag\tNCTC13441 locus tag\tCS17 locus tag\tETEC locus tag\tBW25113 locus tag' +
-                     '\tb locus tag\n')
+        tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
+                     'SaTySL1344 NPEQ\tSaTySL3261 NPEQ\tSaTyD23580 NPEQ\tSaTyA130 NPEQ\tSaEnP125109 NPEQ\t' +
+                     'SaTyTy2 NPEQ\tEsCoEC958 NPEQ\tEsCoST131 NPEQ\tEsCoCS17 NPEQ\tEsCoH10407 NPEQ\t' +
+                     'EsCoBW25113 NPEQ\tEsCoMG1655 NPEQ\tEnClNCTC9394 locus tag\tKlPnEcl8 locus tag\t' +
+                     'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
+                     'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
+                     'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t' +
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),

@@ -27,7 +27,7 @@ for (filename in list_of_files)
   essentialityfile = as.matrix(read.table(filename, as.is=TRUE, header=TRUE))
   for (i in seq(1,nrow(essentialityfile)))
   {
-    if (essentialityfile[i,3] == "essential")
+    if (essentialityfile[i,3] == "beneficial-loss")
     {
       genes=c(genes,essentialityfile[i,1])
     }
@@ -94,8 +94,8 @@ while(enrichment[i,4] < 0.05)
 colnames(pathways) = c('word', 'pvalue')
 pathways = pathways[1:20,]
 
-pdf("../figures/essential-pathways.pdf")
+pdf("../figures/beneficial-loss-pathways.pdf")
 ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
-  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Essential pathways") +
+  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Beneficial loss pathways") +
   theme(text = element_text(size=15))
 dev.off()

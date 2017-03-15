@@ -16,7 +16,7 @@ write.table(fishertable, file = "../results/word-enrichment/beneficialloss-pval.
 df = fishertable[-seq(25,nrow(fishertable),1),]
 df[,3] = -log10(df[,3])
 df = df[,-2]
-df = df[c(-2,-5,-9,-13),]
+# df = df[c(-2,-5,-9,-13),]
 names(df) = c("word", "pvalue")
 pdf("../figures/beneficialloss-pval.pdf")
 ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Word',y='-log10(P-value)') +

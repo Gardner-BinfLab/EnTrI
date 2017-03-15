@@ -7,6 +7,7 @@ from timeit import default_timer
 from itertools import combinations, product, chain
 from scipy.spatial.distance import pdist, cdist
 import pandas as pd
+from gc import collect
 # from numpy import average, std
 # import matplotlib.pyplot as plt
 import random
@@ -82,6 +83,7 @@ def calculate_distances(storepath, lenfeatures, chunksize, thresh, outpath):
                 tupledist.columns=['g1', 'g2', 'dist']
                 tuplesmalldist = tupledist.loc[tupledist['dist'] < thresh]
                 tuplesmalldist.to_csv(outpath, sep='\t', header=False, index=False, mode='a')
+                collect()  # Added to avoid memory leak and consequently freezing of system
 
 
 def run_mcl(inpath, outpath):
@@ -173,6 +175,7 @@ def pairwise_orthology_call(seq, outpath, chunksize, thresh, evalue, temp):
     distances = temp + '/distances.txt'
     lenfeatures = len(list(sequences.keys()))
     calculate_distances(storepath, lenfeatures, chunksize, thresh, distances)
+    print('Calculated distances')
     initclusters = temp + '/' + 'initial_clusters.txt'
     run_mcl(distances, initclusters)
     seqs = temp + '/sequences'
@@ -185,7 +188,8 @@ def pairwise_orthology_call(seq, outpath, chunksize, thresh, evalue, temp):
     parse_tblouts(phmmers, edges)
     clust_no_sings = temp + '/no-singletons.txt'
     run_mcl(edges, clust_no_sings)
-    add_singletons(sequences, clust_no_sings, outpath)
+    finalresult = outpath + '/results.txt'
+    add_singletons(sequences, clust_no_sings, finalresult)
 
 
 def main():
