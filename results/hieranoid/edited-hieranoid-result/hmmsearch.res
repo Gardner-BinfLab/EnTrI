@@ -17,5 +17,5 @@ STM_MW43631          -            479 mafft                -            491   1.
 # Target file:     /home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result/others.fasta
 # Option settings: hmmsearch -o /dev/null --domtblout /home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result/hmmsearch.res --noali /home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result/hmmbuild.res /home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result/others.fasta 
 # Current dir:     /home/fatemeh/EnTrI/bin
-# Date:            Fri Mar 10 08:59:53 2017
+# Date:            Sun Mar 19 10:59:44 2017
 # [ok]

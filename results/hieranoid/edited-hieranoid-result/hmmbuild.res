@@ -7,7 +7,7 @@ MM    no
 CONS  yes
 CS    no
 MAP   yes
-DATE  Fri Mar 10 08:59:52 2017
+DATE  Sun Mar 19 10:59:43 2017
 NSEQ  5
 EFFN  0.385742
 CKSUM 2410991078

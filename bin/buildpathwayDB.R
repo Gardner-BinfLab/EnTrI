@@ -26,7 +26,8 @@ getPathwayInfo <- function(pathlist){
 	return(cbind(pathlist, pathnames))
 }
 
-paths <- keggLink("pathway", org)
+# paths <- keggLink("pathway", org)
+paths <- keggLink("module", org)
 
 id2name <- getPathwayInfo(unique(paths))
 pathtable <- cbind(sub(paste(org,":",sep=""), "", names(paths)), sub("path:","",paths), sapply(paths, function(x) id2name[id2name[,1] == x,2]))
