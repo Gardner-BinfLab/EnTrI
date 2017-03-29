@@ -1,7 +1,8 @@
 from os import listdir
 from re import match
+
 interesting_genes = '../results/interesting_genes/sometimes-essential.tsv'
-no_duplications = '../results/interesting_genes/sometimes-essential-no-dup.tsv'
+no_duplications = '../results/interesting_genes/sometimes-essential-marked-dup.tsv'
 names = ['ENC', 'BN373', 'ERS227112', 'ROD', 'SL1344', 'SL3261', 'STMMW', 'STM', 'SEN', 't', 'EC958', 'NCTC13441',
          'CS17', 'ETEC', 'BW25113', 'b']
 clusters = '../results/homclust/EFam-clusters/'
@@ -47,5 +48,8 @@ with open(interesting_genes, 'r') as fromfile:
                     item = names[i]
                 else:
                     break
-            if i != len(names):
-                tofile.write(line)
+            # if i != len(names):
+            #     tofile.write(line)
+            if i == len(names):
+                line = str.replace(line, cells[0], cells[0]+'_dup', 1)
+            tofile.write(line)

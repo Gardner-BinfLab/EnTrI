@@ -2,8 +2,8 @@ library(pheatmap)
 library(RColorBrewer)
 library(stringr)
 dbpath <- "~/EnTrI/results/KEGG/escherichia_coli_K-12_MG1655.dat"
-datapath <- "~/EnTrI/results/interesting_genes/sometimes-essential-no-dup.tsv"
-writepath <- "~/EnTrI/results/interesting_genes/sometimes-essential-no-dup-with-modules.tsv"
+datapath <- "~/EnTrI/results/interesting_genes/sometimes-essential-marked-dup.tsv"
+writepath <- "~/EnTrI/results/interesting_genes/sometimes-essential-marked-dup-with-modules.tsv"
 db <- read.csv(dbpath, sep='\t', stringsAsFactors = FALSE)
 for (i in seq(1,nrow(db)))
 {
