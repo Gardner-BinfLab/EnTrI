@@ -10,7 +10,8 @@ list_of_files = listdir(clusters)
 with open(interesting_genes, 'r') as fromfile:
     with open(no_duplications, 'w') as tofile:
         lines = fromfile.readlines()
-        tofile.write(lines[0])
+        tofile.write(lines[0].rstrip('\n') + '\tENC_no\tBN373_no\tERS227112_no\tROD_no\tSL1344_no\tSL3261_no\tSTMMW_no\tSTM_no\t'
+                                + 'SEN_no\tt_no\tEC958_no\tNCTC13441_no\tCS17_no\tETEC_no\tBW25113_no\tb_no\n')
         for line in lines[1:len(lines)]:
             cells = line.split('\t')
             genes = cells[18:34]
@@ -40,16 +41,22 @@ with open(interesting_genes, 'r') as fromfile:
                         items = row.split()
                         genome = match('([a-zA-Z0-9]+_+|[a-zA-Z]+)[a-zA-Z0-9]+', items[1]).group(1).strip('_')
                         genomes[genome] += 1
-            i = 0
-            item = names[i]
-            while genomes[item] > 1 or (essentialities[item] and genomes[item]):
-                i += 1
-                if i < len(names):
-                    item = names[i]
-                else:
-                    break
-            # if i != len(names):
-            #     tofile.write(line)
-            if i == len(names):
-                line = str.replace(line, cells[0], cells[0]+'_dup', 1)
+            # i = 0
+            # item = names[i]
+            # while genomes[item] > 1 or (essentialities[item] and genomes[item]):
+            #     i += 1
+            #     if i < len(names):
+            #         item = names[i]
+            #     else:
+            #         break
+            # # if i != len(names):
+            # #     tofile.write(line)
+            # if i == len(names):
+            #     line = str.replace(line, cells[0], cells[0]+'_dup', 1)
+            line = line.rstrip('\n') + '\t' + str(genomes['ENC']) + '\t' + str(genomes['BN373']) + '\t' + str(genomes['ERS227112'])\
+                   + '\t' + str(genomes['ROD']) + '\t' + str(genomes['SL1344']) + '\t' + str(genomes['SL3261']) + '\t'\
+                   + str(genomes['STMMW']) + '\t' + str(genomes['STM']) + '\t' + str(genomes['SEN']) + '\t' +\
+                   str(genomes['t']) + '\t' + str(genomes['EC958']) + '\t' + str(genomes['NCTC13441']) + '\t' +\
+                   str(genomes['CS17']) + '\t' + str(genomes['ETEC']) + '\t' + str(genomes['BW25113']) + '\t' +\
+                   str(genomes['b']) + '\n'
             tofile.write(line)

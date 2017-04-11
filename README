@@ -11,25 +11,26 @@
 2. If the CDS IDs are not standard (like in CS17p1-4 in our case):
 	sed -i -e 's/CS17p1|SC|contig000001://g' CS17p1.embl
 3. Remove locus tag "ERS227112_02466:gene" from "Klebsiella_pneumoniae_RH201207_v0.3.embl" embl file. This gene has two locus tags: "ERS227112_02466" and "ERS227112_02466:gene", which probably is a mistake in annotation, and the ":gene" at the end of this tag causes jackhmmer name this gene "gene" which is impossible to track.
-4. Convert embl files to protein fasta files
+4. python correct-annotations.py and manually correct the added genes.
+5. Convert embl files to protein fasta files
 	cd EnTrI/bin
 	mkdir ../data/fasta-protein
 	mkdir ../data/fasta-protein/chromosome
 	for filename in ../data/embl/chromosome/*.embl; do embl2peptides.py $filename ../data/fasta-protein/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
-5. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
-6. Make a fasta file with all sequences in it.
+6. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
+7. Make a fasta file with all sequences in it.
 	cd EnTrI/data/fasta-protein/chromosome
 	cat * > seqdb.fasta
-7. Run homclust to cluster homologous proteins
+8. Run homclust to cluster homologous proteins
 	cd EnTrI/bin
 	homclust.py ../data/fasta-protein/chromosome/Citrobacter_rodentium_ICC168_FN543502_v1.fasta ../data/fasta-protein/chromosome/seqdb.fasta ../results/homclust -ns 16 -s 5
-8. Convert embl files to DNA fasta files
+9. Convert embl files to DNA fasta files
 	cd EnTrI/bin
 	mkdir ../data/fasta-dna
 	mkdir ../data/fasta-dna/chromosome
 	for filename in ../data/embl/chromosome/*.embl; do embl2dna.py $filename ../data/fasta-dna/chromosome/"$(basename $filename | cut -d. -f1).fasta"; done
-9. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
-10. Make a fasta file with all sequences in it.
+10. Add SL3261 to the sequences by copying SL1344 and removing aroA, ycaL and cmk genes from it (Lars' NAR paper) and renaming sequences.
+11. Make a fasta file with all sequences in it.
 	cd EnTrI/data/fasta-dna/chromosome
 	cat * > seqdb.fasta
 
@@ -44,7 +45,7 @@
 	b. raxmlHPC -s codon_alignment.fa -n phylosift-n.raxmlbootstrap -m GTRCAT -p 1234 -f a -x 1234 -# 100
 
 ============ RUN HIERANOID
-1. Copy all the protein fasta sequences to program-bank/hieranoid/data/sequences.
+1. Copy all the protein fasta sequences to program-bank/hieranoid/data/sequences and replace all '<>s with _prime().
 2. Copy the species tree to program-bank/hieranoid/data/tree, root it, and add node names to it.
 3. Edit program-bank/hieranoid/Configurations/Configuration.pm
 4. cd program-bank/hieranoid/
@@ -82,6 +83,8 @@
 # 4. python3 define-core-accessory-hieranoid-ancestralii.py
 5. python3 define-core-accessory-hieranoid-fitch.py
 6. Rscript upsetr-hieranoid.R
+7. Annotate the phylogenetic tree
+8. Correct tree-data.R and run it
 
 ============ STUDY CLUSTERS
 1. Plot cluster size distribution (This is not a general script and can only be used for this case)
@@ -116,3 +119,10 @@
 	cd EnTrI/bin
 	python3 core-definition-method-difference.py
 	Rscript core-definition-method-difference.R
+
+============ STUDY INTERESTING GENES
+1. python interesting_genes.py
+2. python mark-duplications.py
+3. Rscript interestinggenes_heatmap.R
+4. change the first bit of interestinggenes_heatmap (up to write.table) to add pathways to genes.
+

@@ -19,7 +19,7 @@ list_of_files = listdir(essentialities)
 for filename in list_of_files:
     with open(essentialities + filename, 'r') as fromfile:
         with open(newannot + filename, 'w') as tofile:
-            tofile.write('ID\tname\tfunction\tcoord\tNPEQ\tessentiality\n')
+            tofile.write('ID\tname\tfunction\tcoord\tlength\tNPEQ\tessentiality\n')
             for line in fromfile:
                 cells = line.split()
                 if cells[0].endswith('added'):
@@ -28,7 +28,11 @@ for filename in list_of_files:
                     match_result = match(
                         '[^_]+_\d+added\s+\[[^/]+/(\S+)[^\]]+\]+\s+\[(.*)\]\s+\[.*\]\s+\[(.*)\]\s+\[.*\]', desc)
                     coord = match_result.group(1)
+                    start_end = match('(\d+)\-(\d+)', coord)
+                    start = int(start_end.group(1))
+                    end = int(start_end.group(2))
+                    length = str(end - start + 1)
                     func = match_result.group(2)
                     name = match_result.group(3)
-                    tofile.write(cells[0] + '\t' + name + '\t' + func + '\t' + coord + '\t' + cells[1] + '\t' +
-                                 cells[2] + '\n')
+                    tofile.write(cells[0] + '\t' + name + '\t' + func + '\t' + coord + '\t' + length + '\t' + cells[1]
+                                 + '\t' + cells[2] + '\n')

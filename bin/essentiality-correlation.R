@@ -1,4 +1,4 @@
-datapath <- '~/EnTrI/results/interesting_genes/sometimes-essential-no-dup-with-modules.tsv'
+datapath <- '~/EnTrI/results/interesting_genes/sometimes-essential-marked-dup-with-modules.tsv'
 corr.list <- list()
 data <- read.csv(datapath, sep='\t', stringsAsFactors = FALSE)
 data <- data[ order(data$path_name, data$Gene), ]
