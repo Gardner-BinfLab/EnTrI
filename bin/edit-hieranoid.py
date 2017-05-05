@@ -97,6 +97,10 @@ with open(hieranoid) as from_file:
             species = [s.strip('_') for s in findall('\'([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+\'', str(genes))]
             unique_species = list(set(species))
         clusters.append(genes)
+list_of_genes = [item for sublist in clusters for item in sublist]
+for item in sequences.keys():
+    if item not in list_of_genes:
+        clusters.append([item])
 with open(clusterspath, 'w') as clustersfile:
     for item in clusters:
         for ii in item:

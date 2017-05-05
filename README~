@@ -92,7 +92,7 @@
 	Rscript orfan-single-multiple.R
 2. Run merge-clust-plot to add insertion indices to genes in clusters
 	cd EnTrI/bin
-	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/biases/normalised-pca/ ../results/ecogene-k12.txt ../results/merge-clust-plot
+	merge-clust-plot.py ../results/homclust/EFam-clusters/ ../results/biases/dbscan/ ../results/ecogene-k12.txt ../results/merge-clust-plot
 3. Plot the insertion index distribution in different clusters (This is not a general script and can only be used for this case)
 	cd EnTrI/bin  
 	Rscript clust2plot.R
@@ -125,3 +125,4 @@
 2. python mark-duplications.py
 3. Rscript interestinggenes_heatmap.R
 4. change the first bit of interestinggenes_heatmap (up to write.table) to add pathways to genes.
+

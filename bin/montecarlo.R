@@ -11,7 +11,7 @@ list_of_files <- list.files(path=plots_dir, full.names=T, recursive=FALSE)
 plots = list()
 sampledplots = list(list())
 sumlength = list()
-numsamples = 10
+numsamples = 30
 for (filename in list_of_files)
 {
   plotfile = as.matrix(read.table(filename, as.is=TRUE))

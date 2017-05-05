@@ -59,6 +59,10 @@ for (filename in list_of_files)
   loessprediction <- predict(fit, d)
   # ii_dnormalised = ii/(loessprediction/mean(ii))
   ii_dnormalised = ii-(loessprediction)
+  if (filename == "../results/biases/check-biases//t.txt")
+  {
+    print(ii_dnormalised[which(biasestable$name == 't4064')])
+  }
   
   fit <- loess(ii_dnormalised~gc, span=sp)
   loessprediction <- predict(fit, gc)

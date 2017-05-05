@@ -48,7 +48,7 @@ def read_k12(inpath, iidict):
 
 seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
 clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
-insertion_indices = '/home/fatemeh/EnTrI/results/biases/normalised-pca'
+insertion_indices = '/home/fatemeh/EnTrI/results/biases/dbscan'
 k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid'
 makedir(outdir)

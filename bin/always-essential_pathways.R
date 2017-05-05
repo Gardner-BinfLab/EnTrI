@@ -1,13 +1,13 @@
 library(stringr)
-dbpath <- "~/EnTrI/results/KEGG/escherichia_coli_K-12_MG1655.dat"
+dbpath <- "~/EnTrI/results/KEGG_modules//escherichia_coli_K-12_MG1655.dat"
 datapath <- "~/EnTrI/results/interesting_genes/universally-conserved_always-essential.tsv"
 writepath <- "~/EnTrI/results/interesting_genes/universally-conserved_always-essential-with-modules.tsv"
 db <- read.csv(dbpath, sep='\t', stringsAsFactors = FALSE)
-for (i in seq(1,nrow(db)))
-{
-  db$path_name[i] = str_match(db$path_name[i], '([[:print:]]+)- Escherichia coli K\\-12 MG1655')[2]
-  
-}
+# for (i in seq(1,nrow(db)))
+# {
+#   db$path_name[i] = str_match(db$path_name[i], '([[:print:]]+)- Escherichia coli K\\-12 MG1655')[2]
+#   
+# }
 data <- read.csv(datapath, sep='\t', stringsAsFactors = FALSE)
 merged <- merge(x=data, y=db, by.x="EsCoMG1655.locus.tag", by.y="gene_id")
 merged <- merged[,c(seq(2,34),1,35,36)]
@@ -31,6 +31,6 @@ percentage$percent <- as.numeric(levels(percentage$percent))[percentage$percent]
 # percentage <- percentage[ order(percentage$percent), ]
 library(ggplot2)
 pdf('~/EnTrI/figures/pathways-alwaysessential.pdf')
-ggplot(data=percentage, aes(x= reorder(pathway, percent), y = percent)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Pathways") +
-  ylab("Percentage") + labs(title="Pathways in always essential genes")
+ggplot(data=percentage, aes(x= reorder(pathway, percent), y = percent)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Modules") +
+  ylab("Percentage") + labs(title="Always essential")
 dev.off()

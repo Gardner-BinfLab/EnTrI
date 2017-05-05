@@ -26,8 +26,8 @@ for (i in seq(1,nrow(db)))
 }
 data <- read.csv(datapath, sep='\t', stringsAsFactors = FALSE)
 merged <- merge(x=data, y=db, by.x="EsCoMG1655.locus.tag", by.y="gene_id")
-# merged <- merged[,c(seq(2,34),1,35,36)]
-merged <- merged[,c(seq(2,34),1,seq(35,50),51,52)]
+merged <- merged[,c(seq(2,34),1,35,36)]
+# merged <- merged[,c(seq(2,34),1,seq(35,50),51,52)]
 write.table(merged, file=writepath, quote=FALSE, sep = '\t', row.names = FALSE)
 sorted <- merged[ order(merged$path_name, merged$Gene), ]
 toplot <- sorted[,seq(3,18)]
@@ -66,9 +66,9 @@ rampbreaks <- c(rb1, rb2)
 col_fun = circlize::colorRamp2(rampbreaks, ramps)
 # ha = HeatmapAnnotation(levels = rampbreaks[c(1,25,50,75,100)], col = list(NPEQ = ramps[c(1,25,50,75,100)]))
 
-dups = sorted[,35:50]
-rownames(dups) <- rownames(toplot)
-colnames(dups) <- colnames(toplot)
+# dups = sorted[,35:50]
+# rownames(dups) <- rownames(toplot)
+# colnames(dups) <- colnames(toplot)
 
 pdf("~/EnTrI/figures/UCSE_heatmap.pdf", height = 120)
 Heatmap(toplot, col = col_fun, name = 'NPEQ', cluster_rows = FALSE, cluster_columns = FALSE, split = annotation, gap = unit(5, "mm"),
@@ -77,13 +77,13 @@ Heatmap(toplot, col = col_fun, name = 'NPEQ', cluster_rows = FALSE, cluster_colu
         # {
         #   grid.text(x,rot=90)
         # },
-        cell_fun = function(j, i, x, y, width, height, fill) 
-        {
-          if(dups[i, j] > 1 & !is.na(toplot[i, j])) 
-          {
-            grid.text("D", x = x, y = y)
-          }
-        } # https://bioconductor.statistik.tu-dortmund.de/packages/3.1/bioc/vignettes/ComplexHeatmap/inst/doc/ComplexHeatmap.htm
+#         cell_fun = function(j, i, x, y, width, height, fill) 
+#         {
+#           if(dups[i, j] > 1 & !is.na(toplot[i, j])) 
+#           {
+#             grid.text("D", x = x, y = y)
+#           }
+#         } # https://bioconductor.statistik.tu-dortmund.de/packages/3.1/bioc/vignettes/ComplexHeatmap/inst/doc/ComplexHeatmap.htm
 )
 dev.off()
 

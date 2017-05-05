@@ -16,7 +16,8 @@ def makedir(dirname):
     mkdir(dirname)
 
 seqdb = '../data/fasta-dna/chromosome/seqdb.fasta'
-iis = '../results/maximise_MCC/pca'
+# iis = '../results/maximise_MCC/pca'
+iis = '../results/insertion-indices/gamma'
 results = '../results/biases/check-biases'
 makedir(results)
 genome_length = {"SL1344": 4878012, "STMMW": 4879400, "SEN": 4685848, "t": 4791961, "STM": 4895639, "ETEC": 5153435,

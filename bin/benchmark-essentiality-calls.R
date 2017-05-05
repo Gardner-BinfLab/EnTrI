@@ -164,10 +164,11 @@ for (i in seq(length(locus)))
   avgaucmeandist = avgaucmeandist + aucmeandist
   
   data = cbind(biotradis$V2, montecarlo$DESeqLFC, consecutivezeros)
-  for (j in seq(ncol(data)))
-  {
-    data[,j]=(data[,j]-mean(data[,j]))/sd(data[,j]-mean(data[,j]))
-  }
+  data = apply(data, 2, function(x){(x-mean(x))/sd(x-mean(x))})
+  # for (j in seq(ncol(data)))
+  # {
+  #   data[,j]=(data[,j]-mean(data[,j]))/sd(data[,j]-mean(data[,j]))
+  # }
   data.pca <- prcomp(data, center = TRUE, scale. = TRUE)
   if (data.pca$rotation[1,1] < 0)
   {
@@ -281,6 +282,7 @@ for (i in seq(length(locus)))
   pca_essentiality = ifelse(normalisedpca >= pcacutoff, 'essential', ifelse(normalisedpca < -pcacutoff,
                                                                                         'beneficial-loss', 'non-essential'))
   pca_print = cbind(real$gene, data.pca$x[,1], pca_essentiality)
+  # pca_print = cbind(real$gene, normalisedpca, pca_essentiality)
   pcapath = paste(outdir_pca, locusid, ".txt", sep="")
   write.table(pca_print, file=pcapath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
   # #intercept=normalisedpca[normalisedpca>0 & pvalue2sided==max(pvalue2sided[normalisedpca>0 & pvalue2sided<0.05])]

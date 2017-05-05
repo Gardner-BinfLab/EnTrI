@@ -5,7 +5,7 @@ library(stringr)
 
 clusters_path <- "../results/hieranoid/clusters.txt"
 # essentiality_path <- "../results/insertion-indices/normalised-insertion-indices/"
-essentiality_path <- "../results/biases/normalised-pca/"
+essentiality_path <- "../results/biases/dbscan/"
 k12_path <- "../results/ecogene-k12.txt"
 list_of_files <- list.files(path=essentiality_path, full.names=T, recursive=FALSE)
 list_of_essential_genes = list()
