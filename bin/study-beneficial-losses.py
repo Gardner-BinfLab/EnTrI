@@ -11,7 +11,7 @@ def read_fasta_sequences(filepath):
 
 seqdb = '../data/fasta-protein/chromosome/seqdb.fasta'
 seqdict = read_fasta_sequences(seqdb)
-essentiality = '../results/biases/normalised-pca'
+essentiality = '../results/biases/dbscan'
 loss = '../results/word-enrichment/beneficial-loss-description.txt'
 nloss = '../results/word-enrichment/not-beneficial-loss-description.txt'
 lossinfo = '../results/word-enrichment/beneficialloss-info.txt'

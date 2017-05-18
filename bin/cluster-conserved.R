@@ -5,6 +5,7 @@ data <- read.table(datapath, header = TRUE, sep = '\t', stringsAsFactors = FALSE
 data <- data[-c(143,1316,1360),]
 names(data) <- gsub("NPEQ", "II", names(data))
 iis <- data.matrix(data[,3:18])
+start <- data[,34]
 
 data2path <- "~/EnTrI/results/interesting_genes/universally-conserved-log-ii-thresh.tsv"
 data2 <- read.table(data2path, header = TRUE, sep = '\t', stringsAsFactors = FALSE, quote = "", comment.char = "")
@@ -27,7 +28,7 @@ plot(iis, col=clusterCut, pch=20)
 # dev.off()
 
 datatoplot <- cbind(data2[,c(1,seq(3,18))], res$cluster)
-datatoplot <- datatoplot[ order(datatoplot$`res$cluster`, datatoplot$Gene), ]
+datatoplot <- datatoplot[ order(datatoplot$`res$cluster`, start), ]
 annotation <- data.frame(row.names = make.names(datatoplot$Gene, unique=TRUE), category = c('Not always essential', 'Core essential')[datatoplot$`res$cluster`+1])
 toplot <- data.matrix(datatoplot[,seq(2,17)])
 rownames(toplot) <- datatoplot$Gene
@@ -47,5 +48,13 @@ col_fun = circlize::colorRamp2(rampbreaks, ramps)
 
 pdf("~/EnTrI/figures/conserved-genes-clustered.pdf", height = 300)
 Heatmap(toplot, col = col_fun, name = 'log(ii/essentiality_threshold)', cluster_rows = FALSE, cluster_columns = FALSE, split = annotation, gap = unit(5, "mm"),
+        na_col = 'black', heatmap_legend_param = list(color_bar = "continuous"))
+dev.off()
+
+datatoplot <- datatoplot[order(start), ]
+toplot <- data.matrix(datatoplot[,seq(2,17)])
+rownames(toplot) <- datatoplot$Gene
+pdf("~/EnTrI/figures/conserved-genes-sorted-by-position.pdf", height = 300)
+Heatmap(toplot, col = col_fun, name = 'log(ii/essentiality_threshold)', cluster_rows = FALSE, cluster_columns = FALSE, gap = unit(5, "mm"),
         na_col = 'black', heatmap_legend_param = list(color_bar = "continuous"))
 dev.off()

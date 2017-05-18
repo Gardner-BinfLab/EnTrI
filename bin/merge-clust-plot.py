@@ -41,13 +41,13 @@ def add_insertion_index(in_clusters, in_iis, k12essentials, output):
                         to_file.write(item+'\t')
                     if cells[1] in iis_dict.keys():
                         to_file.write(iis_dict[cells[1]]+'\n')
-                    # elif match_result is not None:
-                    #     if cells[1] in k12essentials:
-                    #         to_file.write('0\n')
-                    #     else:
-                    #         to_file.write('7\n')
+                    elif match_result is not None:
+                        if cells[1] in k12essentials:
+                            to_file.write('0\n')
+                        else:
+                            to_file.write('7\n')
                     else:
-                        to_file.write('-1\n')
+                        to_file.write('7\n')
 
 indir = str(argv[1])
 iifile = str(argv[2])

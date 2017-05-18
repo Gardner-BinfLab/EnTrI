@@ -70,11 +70,13 @@ for (filename in list_of_files)
   pred <- prediction(ii, 1-real$essentiality)
   perf <- performance(pred,"tpr","fpr")
   auc <- performance(pred,measure = "auc")@y.values[[1]]
-  plot(perf,col="red",lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5,cex.main=2, print.cutoffs.at = c(dbthr, gammathr),
+  mar.default <- c(5,4,4,2) + 0.1
+  par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
+  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 1.5, cex.main =2, print.cutoffs.at = c(dbthr, gammathr),
        cutoff.label.function=function(x) {c('                  DBSCAN','                Gamma')}, ylim=c(0.92,1), main=dict[locus])
-  
   perf <- performance(pred,'mat')
-  plot(perf,col="red",lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5,cex.main=2, main=dict[locus])
+  par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
+  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 1.5, cex.main =2, main=dict[locus])
   points(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)])
   text(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], '                  DBSCAN')
   points(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)])

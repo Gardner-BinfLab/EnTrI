@@ -172,6 +172,7 @@ with open(clustersfile, 'r') as fromfile:
                 tofile.write('\n')
 
 interesting_genes = outdir + 'universally-conserved.tsv'
+start = '0'
 with open(clustersfile, 'r') as fromfile:
     with open(interesting_genes, 'w') as tofile:
         tofile.write('Gene\tProduct\tEnClNCTC9394 NPEQ\tKlPnEcl8 NPEQ\tKlPnRH201207 NPEQ\tCiRoICC168 NPEQ\t' +
@@ -181,7 +182,7 @@ with open(clustersfile, 'r') as fromfile:
                      'KlPnRH201207 locus tag\tCiRoICC168 locus tag\tSaTySL1344 locus tag\tSaTySL3261 locus tag\t' +
                      'SaTyD23580 locus tag\tSaTyA130 locus tag\tSaEnP125109 locus tag\tSaTyTy2 locus tag\t' +
                      'EsCoEC958 locus tag\tEsCoST131 locus tag\tEsCoCS17 locus tag\tEsCoH10407 locus tag\t'+
-                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\n')
+                     'EsCoBW25113 locus tag\tEsCoMG1655 locus tag\tEsCoMG1655 position\n')
         for line in fromfile:
             essentiality_strains = {"SEN": ('X', 'X'), "SL1344": ('X', 'X'), "STM": ('X', 'X'), "STMMW": ('X', 'X'),
                                     "t": ('X', 'X'), "SL3261": ('X', 'X'), "CS17": ('X', 'X'), "ETEC": ('X', 'X'),
@@ -194,6 +195,8 @@ with open(clustersfile, 'r') as fromfile:
                     match_result = match('(\S+)_\S+', item)
                     if not match_result:
                         match_result = match('([a-zA-Z]+)\S+', item)
+                        if match_result.group(1) == 'b':
+                            start = match('[a-zA-Z]+\S+\s+\[[^/]+/(\d+)', seqdb[item].description).group(1)
                     strain = match_result.group(1)
                     essentiality_strains[strain] = (ii[item], item)
                 product = ''
@@ -225,6 +228,7 @@ with open(clustersfile, 'r') as fromfile:
                              essentiality_strains['EC958'][1] + '\t' + essentiality_strains['NCTC13441'][1] + '\t' +
                              essentiality_strains['CS17'][1] + '\t' + essentiality_strains['ETEC'][1] + '\t' +
                              essentiality_strains['BW25113'][1] + '\t' + essentiality_strains['b'][1])
+                tofile.write('\t' + start)
                 tofile.write('\n')
 
 interesting_genes = outdir + 'universally-conserved-log-ii-thresh.tsv'

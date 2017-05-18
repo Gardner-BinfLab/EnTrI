@@ -1,14 +1,20 @@
 library(stringr)
+library(dbscan)
 # args <- commandArgs(trailingOnly = TRUE)
 # clusters <- args[1]
 clusters_path <- "../results/merge-clust-plot"
 #clusters_path <- c("../results/merge-clust-plot", "../results/merge-clust-plot-without-ends/")
-cutoff = 1.644854
+#cutoff = 1.644854
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
 for (cpitem in clusters_path)
 {
   list_of_files <- list.files(path=cpitem, full.names=T, recursive=FALSE)
-  names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "b", "BW25113", "EC958")
-  genuses = c(1, 2, 3, 2, 2, 3, 3, 4, 4, 4, 4, 4, 2, 2, 2)
+  names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "SL3261", "STMMW", "t", "b", "BW25113", "EC958")
+  genuses = c(1, 2, 3, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 2, 2, 2)
   names(genuses) <- names
   numspecies = length(names)
   file_II = list()
@@ -68,7 +74,13 @@ for (cpitem in clusters_path)
   size_index <- sapply(file_size, function(x){as.numeric(x[1])})
   group_index <- file_group
   
-  insertion_index=(insertion_index-mean(insertion_index))/sd(insertion_index-mean(insertion_index))
+  res <- dbscan(as.matrix(insertion_index), minPts = 200, eps = 0.05)
+  ess <- res$cluster[which.min(insertion_index)]
+  nes <- getmode(res$cluster)
+  belthr <- max(insertion_index[res$cluster==nes])
+  essthr <- max(insertion_index[res$cluster==ess])
+  nesthr <- min(insertion_index[res$cluster==nes])
+  #insertion_index=(insertion_index-mean(insertion_index))/sd(insertion_index-mean(insertion_index))
   
   # if (cpitem == clusters_path[1])
   #   pdf("../results/cluster-essentiality.pdf")
@@ -83,15 +95,15 @@ for (cpitem in clusters_path)
   par(mar = mar.default + c(0, 1, 0, 0))
   
   h <- hist(insertion_index, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot=FALSE)
-  cuts <- cut(h$breaks, c(-Inf,-cutoff, cutoff, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
   screen(1)
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "NPEQ", main ="All gene classes", cex.lab = 2,
-       cex.axis = 1.5, cex.main = 2, xlim=c(-3,3), ylim=c(0,200), lty= "blank", axes=FALSE)
-  axis(1, at=seq(-3,3,1), cex.axis=1.5)
-  axis(2, at=seq(0,200,50), labels=c(0,NA,NA,NA,200), cex.axis=1.5)
-  text(1,190, paste("n =", length(insertion_index)), lty=1, lwd=4, cex=1.15, bty="n")
-  legend(1,180, c("Essential","Non-essential", "Beneficial loss"), lty=c(1,1,1), lwd=c(4,4,4),cex=1.15,
-         col=c("darkmagenta","turquoise4", "darkgoldenrod4"), bty="n")
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion index", main ="All gene classes", cex.lab = 2,
+       cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,300), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,4,1), cex.axis=1.5)
+  axis(2, at=seq(0,300,100), labels=c(0,NA,NA,300), cex.axis=1.5)
+  text(1.5,280, paste("n =", length(insertion_index)), lty=1, lwd=4, cex=1.15, bty="n")
+  legend(2,280, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.15,
+         col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta"), bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
   
@@ -112,69 +124,69 @@ for (cpitem in clusters_path)
     if (group_index[item] == 'ORFan')
     {
       orfans = c(orfans, insertion_index[item])
-      if (insertion_index[item] < -cutoff)
+      if (insertion_index[item] > belthr)
         orfans_ben = c(orfans_ben, insertion_index[item])
-      else if (insertion_index[item] < cutoff)
-        orfans_non = c(orfans_non, insertion_index[item])
-      else
-        orfans_es = c(orfans_es, insertion_index[item])
+      else if (insertion_index[item] < essthr)
+        orfans_es = c(orfans_non, insertion_index[item])
+      else if (insertion_index[item] > nesthr)
+        orfans_non = c(orfans_es, insertion_index[item])
     } 
     else if (group_index[item] == 'Single-copy')
     {
       single_occurrence = c(single_occurrence, insertion_index[item])
-      if (insertion_index[item] < -cutoff)
+      if (insertion_index[item] > belthr)
         single_ben = c(single_ben, insertion_index[item])
-      else if (insertion_index[item] < cutoff)
-        single_non = c(single_non, insertion_index[item])
-      else
-        single_es = c(single_es, insertion_index[item])
+      else if (insertion_index[item] < essthr)
+        single_es = c(single_non, insertion_index[item])
+      else if (insertion_index[item] > nesthr)
+        single_non = c(single_es, insertion_index[item])
     }
     else
     {
       multiple_copies = c(multiple_copies, insertion_index[item])
-      if (insertion_index[item] < -cutoff)
+      if (insertion_index[item] > belthr)
         multiple_ben = c(multiple_ben, insertion_index[item])
-      else if (insertion_index[item] < cutoff)
-        multiple_non = c(multiple_non, insertion_index[item])
-      else
-        multiple_es = c(multiple_es, insertion_index[item])
+      else if (insertion_index[item] < essthr)
+        multiple_es = c(multiple_non, insertion_index[item])
+      else if (insertion_index[item] > nesthr)
+        multiple_non = c(multiple_es, insertion_index[item])
     }
   }
   
   h <- hist(orfans, breaks =seq(min(insertion_index),(max(insertion_index)+1),0.02), plot = FALSE)
-  cuts <- cut(h$breaks, c(-Inf,-cutoff, cutoff, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
   screen(2)
   par(mar=c(5.1,2.5,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Genus specific", cex.axis=1.5, cex.main = 1.5,
-       xlim=c(-3,3), ylim=c(0,100), lty= "blank", axes=FALSE)
-  axis(1, at=seq(-2,2,2), cex.axis=1.5)
-  axis(2, at=seq(0,100,50), labels=c(0,NA,100), cex.axis=1.5)
-  text(1,80, paste("n =", length(orfans)), lty=1, lwd=4, cex=1.15, bty="n")
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Genus specific", cex.axis=1.5, cex.main = 1.5,
+       xlim=c(0,3), ylim=c(0,150), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,3,1), cex.axis=1.5)
+  axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
+  text(1.5,130, paste("n =", length(orfans)), lty=1, lwd=4, cex=1.15, bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
   
   h <- hist(single_occurrence, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot = FALSE)
-  cuts <- cut(h$breaks, c(-Inf,-cutoff, cutoff, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
   screen(3)
   par(mar=c(5.1,1,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Single copy", cex.axis=1.5, cex.main = 1.5,
-       xlim=c(-3,3), ylim=c(0,100), lty= "blank", axes=FALSE)
-  axis(1, at=seq(-2,2,2), cex.axis=1.5)
-  axis(2, at=seq(0,100,50), labels=c(NA,NA,NA), cex.axis=1.5)
-  text(1,80, paste("n =", length(single_occurrence)), lty=1, lwd=4, cex=1.15, bty="n")
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Single copy", cex.axis=1.5, cex.main = 1.5,
+       xlim=c(0,3), ylim=c(0,150), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,3,1), cex.axis=1.5)
+  axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
+  text(1.5,130, paste("n =", length(single_occurrence)), lty=1, lwd=4, cex=1.15, bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
   
   h <- hist(multiple_copies, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot = FALSE)
-  cuts <- cut(h$breaks, c(-Inf,-cutoff, cutoff, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
   screen(4)
   #par(mar=c(2,1,2,1))
   par(mar=c(5.1,1,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = NA, ylab=NA, main ="Multi-copy", cex.axis = 1.5, cex.main = 1.5,
-       xlim=c(-3,3), ylim=c(0,100), lty= "blank", axes=FALSE)
-  axis(1, at=seq(-2,2,2), cex.axis=1.5)
-  axis(2, at=seq(0,100,50), labels=c(NA,NA,NA), cex.axis=1.5)
-  text(1,80, paste("n =", length(multiple_copies)), lty=1, lwd=4, cex=1.15, bty="n")
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = NA, ylab=NA, main ="Multi-copy", cex.axis = 1.5, cex.main = 1.5,
+       xlim=c(0,3), ylim=c(0,150), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,3,1), cex.axis=1.5)
+  axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
+  text(1.5,130, paste("n =", length(multiple_copies)), lty=1, lwd=4, cex=1.15, bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
   
@@ -184,6 +196,6 @@ for (cpitem in clusters_path)
 }
 
 print("Essential Orfans:")
-names(file_group)[file_group=="ORFan" & file_II > cutoff & file_size > 1]
+names(file_group)[file_group=="ORFan" & file_II < essthr & file_size > 1]
 print("Essential Multi-copies:")
-names(file_group)[file_group=="Multiple-copy" & file_II > cutoff]
+names(file_group)[file_group=="Multiple-copy" & file_II < essthr]

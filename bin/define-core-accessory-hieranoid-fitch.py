@@ -50,7 +50,7 @@ def read_gene_essentiality(indir):
         with open(indir+'/'+filename) as from_file:
             for line in from_file:
                 cells = line.split()
-                if float(cells[1]) > essen:
+                if cells[2] == 'essential':
                         iidict[cells[0]] = {1}
                 else:
                     iidict[cells[0]] = {0}

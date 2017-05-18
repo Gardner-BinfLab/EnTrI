@@ -1,7 +1,7 @@
 library(ggplot2)
 library(stringr)
 dbs <- "~/EnTrI/results/KEGG/"
-essentiality <- "~/EnTrI/results/biases/normalised-pca/"
+essentiality <- "~/EnTrI/results/biases/dbscan/"
 list_of_files <- list.files(path=dbs, full.names=T, recursive=FALSE)
 db=matrix(,nrow=0,ncol=3)
 for (filename in list_of_files)

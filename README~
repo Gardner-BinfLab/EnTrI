@@ -60,7 +60,7 @@
 ============ BENCHMARK DIFFERENT METHODS
 1. Download the list of E.coli K-12 essential genes from ecogenes and save it as ecogene-k12.txt in results directory.
 2. python find-k12-counterparts.py and put the results in results/ecogenecounterparts
-3. Make monte-carlo directory in results and run Rscript montecarlo.R
+#3. Make monte-carlo directory in results and run Rscript montecarlo.R
 4. Rscript benchmark-essentiality-calls.R
 
 ============ STUDY BIASES
@@ -74,7 +74,8 @@
 3. python3 insertion-position-bias.py
 4. Rscript insertion-position-bias.R
 5. python3 check-biases.py
-6. Rscript check-biases.R
+6. Rscript check-biases-ii.R
+7. Rscript compare-dbscan-gamma.R
 
 ============ EVOLUTION OF ESSENTIALITY
 1. python3 define-core-accessory-hieranoid.py
@@ -122,7 +123,7 @@
 
 ============ STUDY INTERESTING GENES
 1. python interesting_genes.py
-2. python mark-duplications.py
+2. python mark-duplications.py run for both universally-conserved_always-essential.tsv and sometimes-essential.tsv
 3. Rscript interestinggenes_heatmap.R
 4. change the first bit of interestinggenes_heatmap (up to write.table) to add pathways to genes.
 

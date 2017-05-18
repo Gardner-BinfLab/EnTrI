@@ -13,6 +13,7 @@ names(dict) <- names
 sp = 0.2
 biasespath <- "../results/biases/check-biases/"
 outdir <- "../results/biases/dbscan"
+dir.create(outdir)
 list_of_files <- list.files(path=biasespath, full.names=T, recursive=FALSE)
 iitotal = c()
 gctotal = c()
@@ -68,7 +69,7 @@ lines(loess.smooth(gctotal,iitotal, span=sp), col=2, lwd=5)
 
 dev.off()
 
-pdf("~/EnTrI/results/insertion-indices/results-normalised.pdf")
+pdf("~/EnTrI/figures/insertion-indices-normalised.pdf")
 s = 1
 for (filename in list_of_files)
 {
@@ -154,7 +155,8 @@ for (filename in list_of_files)
   res <- dbscan(as.matrix(ii), minPts = 200, eps = 0.05)
   # res <- optics(as.matrix(ii), minPts = 200, eps = 0.05)
   # res <- extractDBSCAN(res, 0.05)
-  plot(ii,col=res$cluster+1)
+  par(mar = mar.default + c(0, 1, 0, 0))
+  plot(ii,col=res$cluster+1, xlab='Genes', ylab='Insertion index', cex.axis = 1.5, cex.main = 2, cex.lab = 2, main=dict[locusid])
   ess <- res$cluster[which.min(ii)]
   print(sum(res$cluster == ess))
   nes <- getmode(res$cluster)
@@ -180,13 +182,24 @@ for (filename in list_of_files)
     }
   }
   
-  hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
-  lines(c(essthr, essthr), c(0,20), col="red")
-  lines(c(nesthr, nesthr), c(0,20), col="red")
-  lines(c(belthr, belthr), c(0,20), col="red")
-  mtext(paste(round(essthr,digits = 3), ":", "Essential changepoint"), side=3, adj=1, padj=2)
-  mtext(paste(round(nesthr,digits = 3), ":", "Ambiguous changepoint"), side=3, adj=1, padj=3.75)
-  mtext(paste(round(belthr,digits = 3), ":", "Non-essential changepoint"), side=3, adj=1, padj=5.5)
+  h <- hist(ii, breaks =seq(min(ii),max(ii)+1,0.02), plot=FALSE)
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
+  par(mar = mar.default + c(0, 1, 0, 0))
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+       cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,300), lty= "blank")
+  # axis(1, at=seq(0,4,1), cex.axis=1.5)
+  # axis(2, at=seq(0,300,100), labels=c(0,NA,NA,300), cex.axis=1.5)
+  text(1.5,280, paste("n =", length(ii)), lty=1, lwd=4, cex=1.15, bty="n")
+  legend(2,280, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.15,
+         col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta"), bty="n")
+  
+  # hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
+  # lines(c(essthr, essthr), c(0,20), col="red")
+  # lines(c(nesthr, nesthr), c(0,20), col="red")
+  # lines(c(belthr, belthr), c(0,20), col="red")
+  # mtext(paste(round(essthr,digits = 3), ":", "Essential changepoint"), side=3, adj=1, padj=2)
+  # mtext(paste(round(nesthr,digits = 3), ":", "Ambiguous changepoint"), side=3, adj=1, padj=3.75)
+  # mtext(paste(round(belthr,digits = 3), ":", "Non-essential changepoint"), side=3, adj=1, padj=5.5)
   
   esslevel <- ifelse(ii > 0, log(ii/essthr), -4.5)
   
