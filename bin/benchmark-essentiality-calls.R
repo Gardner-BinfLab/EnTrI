@@ -2,18 +2,19 @@ library("ROCR")
 library(stringr)
 library("mclust")
 library(mixtools)
+library("plotrix")
 
-locus = c('BN373','ENC','ETEC','ROD','SL1344','STMMW','t','CS17','ERS227112','NCTC13441','SEN','SL3261','STM', "EC958", "BW25113")
+locus = c('BN373','ENC','ROD','SL1344','STMMW','t','ERS227112','NCTC13441','SEN','SL3261','STM', "EC958", "BW25113")
 address = c('Klebsiella_pneumoniae_subsp_pneumoniae_Ecl8_HF536482_v1.fasta','Enterobacter_cloacae_subsp_cloacae_NCTC_9394_v1.fasta',
-            'Escherichia_coli_ETEC_H10407_v2.fasta','Citrobacter_rodentium_ICC168_FN543502_v1.fasta',
+            'Citrobacter_rodentium_ICC168_FN543502_v1.fasta',
             'Salmonella_enterica_subsp_enterica_serovar_Typhimurium_SL1344_FQ312003_v4.fasta',
             'Salmonella_enterica_subsp_enterica_serovar_Typhimurium_str_D23580_v1.fasta',
-            'Salmonella_enterica_subsp_enterica_serovar_Typhi_Ty2_v1.fasta','CS17.fasta','Klebsiella_pneumoniae_RH201207_v0.fasta',
+            'Salmonella_enterica_subsp_enterica_serovar_Typhi_Ty2_v1.fasta', 'Klebsiella_pneumoniae_RH201207_v0.fasta',
             'Escherichia_coli_UPEC_ST131_chromosome_v0.fasta','P125109.fasta',
             'SL3261.fasta','Salmonella_enterica_subsp_enterica_serovar_Typhimurium_A130_v0.fasta', 'HG941718.fasta',
             'CP009273.fasta')
-names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
-dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
+names = c("ROD", "ENC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
+dict = c("Citrobacter", "Enterobacter", "Escherichia coli UPEC",
          "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
          "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
          "Escherichia coli BW25113", "Escherichia coli ST131 EC958")

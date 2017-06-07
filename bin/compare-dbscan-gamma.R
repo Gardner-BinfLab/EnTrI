@@ -72,14 +72,14 @@ for (filename in list_of_files)
   auc <- performance(pred,measure = "auc")@y.values[[1]]
   mar.default <- c(5,4,4,2) + 0.1
   par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
-  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 1.5, cex.main =2, print.cutoffs.at = c(dbthr, gammathr),
-       cutoff.label.function=function(x) {c('                  DBSCAN','                Gamma')}, ylim=c(0.92,1), main=dict[locus])
+  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, print.cutoffs.at = c(dbthr, gammathr),
+       cutoff.label.function=function(x) {c('                  DBSCAN','                Gamma')}, ylim=c(0.92,1), main=dict[locus], cex=1.5)
   perf <- performance(pred,'mat')
   par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
-  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 1.5, cex.main =2, main=dict[locus])
-  points(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)])
-  text(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], '                  DBSCAN')
-  points(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)])
-  text(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], '                Gamma')
+  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, main=dict[locus])
+  points(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], cex=1.5)
+  text(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], '                  DBSCAN',cex = 1.5)
+  points(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], cex=1.5)
+  text(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], '                Gamma', cex=1.5)
 }
 dev.off()

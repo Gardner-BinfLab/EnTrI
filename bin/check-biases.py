@@ -43,7 +43,12 @@ for filename in list_of_files:
                 if line.startswith('>'):
                     if gene_name != '':
                         dist = min(abs(start[0]-dnaa[strain_name]), genome_length[strain_name]-abs(start[0]-dnaa[strain_name])) + 1
-                        tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n'.format(gene_name, iis_dict[gene_name][0], iis_dict[gene_name][1], float(dist)/genome_length[strain_name], float(gc)/gene_length, float(gene_length)))
+                        tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n'.format(gene_name, iis_dict[gene_name][0],
+                                                                             iis_dict[gene_name][1],
+                                                                             float(dist) / genome_length[strain_name],
+                                                                             float(gc) / gene_length,
+                                                                             float(gene_length), float(start[0])))
+                        # tofile.write('{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n'.format(gene_name, iis_dict[gene_name][0], iis_dict[gene_name][1], float(dist)/genome_length[strain_name], float(gc)/gene_length, float(gene_length)))
                     gc = 0
                     match_result = match('>\s*((\S+?)_+\S+)\s+\[\S+/((\d+\-\d+\s)+)\(', line)
                     if match_result is None:

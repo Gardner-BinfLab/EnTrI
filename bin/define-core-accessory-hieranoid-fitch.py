@@ -8,8 +8,6 @@ from Bio import SeqIO
 from shutil import rmtree
 from re import match
 
-essen = 1.644854
-
 
 class Stack:
     def __init__(self):
@@ -73,14 +71,14 @@ speciestreedir = '/home/fatemeh/EnTrI/bin/speciestrees-no-k12'
 sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 gene_essentiality = read_k12(k12path, gene_essentiality)
-species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
+species_names = {"all":["BN373", "ENC", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
     "STMMW", "t", "SL3261","BW25113", "EC958", "b"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
-    "ecoli":["CS17", "ETEC", "NCTC13441","BW25113", "EC958", "b"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
+    "ecoli":["NCTC13441","BW25113", "EC958", "b"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
     ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
-    "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "ROD","BW25113", "EC958", "b"],
+    "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "NCTC13441", "ROD","BW25113", "EC958", "b"],
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
-    "ecolics17":["CS17"], "ecolih10407":["ETEC"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"],
+    "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"],
     "ecolik12":["b"]}
 
 with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/info.txt', 'w') as infofile:

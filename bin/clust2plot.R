@@ -196,6 +196,46 @@ for (cpitem in clusters_path)
 }
 
 print("Essential Orfans:")
-names(file_group)[file_group=="ORFan" & file_II < essthr & file_size > 1]
+essorf <- names(file_group)[file_group=="ORFan" & file_II < essthr]
 print("Essential Multi-copies:")
-names(file_group)[file_group=="Multiple-copy" & file_II < essthr]
+essmul <- names(file_group)[file_group=="Multiple-copy" & file_II < essthr]
+
+essorf_lt <- c()
+essmul_lt <- c()
+for (filename in list_of_files)
+{
+  if (basename(filename) %in% essorf)
+  {
+    cluster <- as.matrix(read.table(filename))
+    essorf_lt <- c(essorf_lt, cluster[,2])
+  }
+  else if (basename(filename) %in% essmul)
+  {
+    cluster <- as.matrix(read.table(filename))
+    essmul_lt <- c(essmul_lt, cluster[,2])
+  }
+  names(essorf_lt) <- NULL
+  names(essmul_lt) <- NULL
+}
+
+dbs <- "~/EnTrI/results/KEGG/"
+list_of_files <- list.files(path=dbs, full.names=T, recursive=FALSE)
+db=matrix(,nrow=0,ncol=3)
+for (filename in list_of_files)
+{
+  dbfile = as.matrix(read.table(filename, as.is=TRUE, header=TRUE, sep="\t"))
+  for (i in seq(1,nrow(dbfile)))
+  {
+    dbfile[i,3] = str_match(dbfile[i,3], '([[:print:]]+)-[[ Citrobacter rodentium]]|[[ Enterobacter cloacae subsp. cloacae NCTC 9394]]|
+                            [[ Escherichia coli O78:H11:K80 H10407 (ETEC)]]|[[ Escherichia coli K\\-12 MG1655]]|
+                            [[ Salmonella enterica subsp. enterica serovar Enteritidis P125109]]|
+                            [[ Salmonella enterica subsp. enterica serovar Typhimurium D23580]]|
+                            [[ Salmonella enterica subsp. enterica serovar Typhimurium SL1344]]|
+                            [[ Salmonella enterica subsp. enterica serovar Typhi Ty2]]|
+                            [[ Escherichia coli O25b:K100:H4-ST131 EC958 (UPEC)]]')[2]
+    
+  }
+  db = rbind(db,dbfile)
+}
+db[db[,1] %in% essorf_lt,3]
+db[db[,1] %in% essmul_lt,3]

@@ -56,14 +56,14 @@ sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 gene_essentiality = read_k12(k12path, gene_essentiality)
 species_names = defaultdict()
-species_names = {"all":["BN373", "CS17", "ENC", "ERS227112", "ETEC", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
+species_names = {"all":["BN373", "ENC", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
     "STMMW", "t", "b", "SL3261","BW25113", "EC958"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
-    "ecoli":["CS17", "ETEC", "NCTC13441", "b","BW25113", "EC958"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
+    "ecoli":["NCTC13441", "b","BW25113", "EC958"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
     ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
-    "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "CS17", "ETEC", "NCTC13441", "b", "ROD","BW25113", "EC958"],
+    "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "NCTC13441", "b", "ROD","BW25113", "EC958"],
     "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
-    "ecolics17":["CS17"], "ecolih10407":["ETEC"], "ecolik12":["b"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"]}
+    "ecolik12":["b"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"]}
 
 with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/info.txt', 'w') as infofile:
     infofile.write('speciesname\tcoreessential\tcore\n')

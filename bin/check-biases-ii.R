@@ -4,12 +4,15 @@ library(gdata)
 library(mgcv)
 library("dbscan")
 library("ROCR")
+# library("plotrix")
 names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
 dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
          "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
          "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
          "Escherichia coli BW25113", "Escherichia coli ST131 EC958")
 names(dict) <- names
+genome_length = c(5346659, 4994793, 4908759, 5153435, 5174631, 5869288, 5324709, 4685848, 4895639, 4878012, 4879400, 4791961, 4878012, 4631469, 5109767)
+names(genome_length) <- names
 sp = 0.2
 biasespath <- "../results/biases/check-biases/"
 outdir <- "../results/biases/dbscan"
@@ -18,13 +21,14 @@ list_of_files <- list.files(path=biasespath, full.names=T, recursive=FALSE)
 iitotal = c()
 gctotal = c()
 dtotal = c()
+postotal = c()
 ii_dnormalisedtotal = c()
 ii_dgcnormalisedtotal = c()
 pdf("../figures/biases.pdf")
 for (filename in list_of_files)
 {
   biasestable = read.table(filename, header = FALSE, stringsAsFactors = FALSE)
-  colnames(biasestable) <- c("name", "ii", "essentiality", "dist", "gc", "length")
+  colnames(biasestable) <- c("name", "ii", "essentiality", "dist", "gc", "length", "pos")
   mar.default <- c(5,4,4,2) + 0.1
   par(mar = mar.default + c(0, 1, 0, 0))
   ii <- c(biasestable$ii)
@@ -33,8 +37,24 @@ for (filename in list_of_files)
   gctotal <- c(gctotal , gc)
   d <- c(biasestable$dist)
   dtotal <- c(dtotal , d)
+  pos <- c(biasestable$pos)
   
-  plot(d, ii, pch = '.', ylim=c(0,5), xlab = "Gene position", ylab = "insertion index",
+  pos <- sort(pos)
+  sortedd <- d[order(pos)]
+  mind = which.min(sortedd)
+  maxd = which.max(sortedd)
+  lfdist = genome_length[strsplit(basename(filename), "\\.")[[1]][1]][[1]] - pos[mind]
+  pos[mind:length(pos)] = pos[mind:length(pos)] - pos[mind] + 1
+  pos[1:mind-1] = lfdist + pos[1:mind-1]
+  postotal <- c(postotal, pos)
+  plot(pos, ii, pch = '.', ylim=c(0,2), xlab = "Gene position", ylab = "insertion index",
+       main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2, xaxt='n')
+  axis(1,at=c(1, pos[maxd], pos[mind-1]),labels = c('Origin', 'Terminus', 'Origin'), cex.axis=2)
+  # abline(mean(ii),0,col='green', lwd=5)
+  lines(loess.smooth(pos,ii, span=sp), col=2, lwd=5)
+
+  
+  plot(d, ii, pch = '.', ylim=c(0,2), xlab = "Gene position", ylab = "insertion index",
        main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
   # abline(mean(ii),0,col='green', lwd=5)
   lines(loess.smooth(d,ii, span=sp), col=2, lwd=5)
@@ -43,6 +63,10 @@ for (filename in list_of_files)
        main = paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
   # abline(mean(ii),0,col='green', lwd=5)
   lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
+  
+  plot(gc[biasestable$essentiality != 'essential' & ii>0.1], ii[biasestable$essentiality != 'essential'&ii>0.1], pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
+       main = paste("GC bias without essential genes -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  lines(loess.smooth(gc[biasestable$essentiality != 'essential' & ii>0.1],ii[biasestable$essentiality != 'essential'&ii>0.1], span=sp), col=2, lwd=5)
   
   fit <- loess(ii~d, span = sp)
   loessprediction <- predict(fit, d)
@@ -185,12 +209,12 @@ for (filename in list_of_files)
   h <- hist(ii, breaks =seq(min(ii),max(ii)+1,0.02), plot=FALSE)
   cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
   par(mar = mar.default + c(0, 1, 0, 0))
+  max1 = max(h$counts)
+  max2 = sort(h$counts,partial=length(h$counts)-1)[length(h$counts)-1]
   plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
-       cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,300), lty= "blank")
-  # axis(1, at=seq(0,4,1), cex.axis=1.5)
-  # axis(2, at=seq(0,300,100), labels=c(0,NA,NA,300), cex.axis=1.5)
-  text(1.5,280, paste("n =", length(ii)), lty=1, lwd=4, cex=1.15, bty="n")
-  legend(2,280, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.15,
+       cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
+  text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
+  legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
          col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta"), bty="n")
   
   # hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
