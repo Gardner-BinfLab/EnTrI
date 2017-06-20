@@ -188,6 +188,10 @@ for (filename in list_of_files)
   essthr <- max(ii[res$cluster==ess])
   nesthr <- min(ii[res$cluster==nes])
   
+  bel <- ii[ii>belthr]
+  res2 <- dbscan(as.matrix(bel), minPts = 100, eps = 0.1)
+  ambig <- res2$cluster[which.min(bel)]
+  belam <- max(bel[res2$cluster==ambig])
   
   for (i in (1:length(ii)))
   {
@@ -199,19 +203,26 @@ for (filename in list_of_files)
       biasestable$essentiality[i] = "non-essential"
     } else if(ii[i] > belthr)
     {
-      biasestable$essentiality[i] = "beneficial-loss"
+      if (ii[i] < belam)
+      {
+        biasestable$essentiality[i] = "benloss-ambiguous"
+      }
+      else
+      {
+        biasestable$essentiality[i] = "beneficial-loss"
+      }
     } else
     {
-      biasestable$essentiality[i] = "ambiguous"
+      biasestable$essentiality[i] = "essential-ambiguous"
     }
   }
   
   h <- hist(ii, breaks =seq(min(ii),max(ii)+1,0.02), plot=FALSE)
-  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   par(mar = mar.default + c(0, 1, 0, 0))
   max1 = max(h$counts)
   max2 = sort(h$counts,partial=length(h$counts)-1)[length(h$counts)-1]
-  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "black", "darkmagenta")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
        cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
   text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
   legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,

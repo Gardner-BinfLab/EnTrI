@@ -1,4 +1,15 @@
 insertion_positions <- read.table("../results/insertion-indices/insertion-position-bias.out", row.names=1)
+essentialitydir = '../results/biases/dbscan/'
+list_of_files = list.files(path=essentialitydir, full.names=T, recursive=FALSE)
+nms = c()
+essentialitydict = c()
+for (filename in list_of_files)
+{
+  essfile = read.table(filename, as.is=TRUE, header=FALSE, sep="\t")
+  nms = c(nms,essfile$V1)
+  essentialitydict = c(essentialitydict, essfile$V3)
+}
+names(essentialitydict) <- nms
 pdf("../figures/insertion-position-bias.pdf")
 mar.default <- c(5,4,4,2) + 0.1
 par(mar = mar.default + c(0, 1, 0, 0))
@@ -10,19 +21,23 @@ legend(41,0.7, c("First 5%","internal", "Last 20%"), lty=c(1,1,1),cex=2, lwd=c(4
 essential = c()
 nonessential = c()
 beneficialloss = c()
-for (i in seq(1,nrow(insertion_positions)))
+# for (i in seq(1,nrow(insertion_positions)))
+for (item in row.names(insertion_positions))
 {
-  if (insertion_positions[i,ncol(insertion_positions)] < 0.2)
+  # if (insertion_positions[i,ncol(insertion_positions)] < 0.2)
+  if (item %in% names(essentialitydict) & essentialitydict[item]=='essential')
   {
-    essential = rbind(essential, insertion_positions[i,1:ncol(insertion_positions)-1]) 
+    essential = rbind(essential, insertion_positions[item,1:ncol(insertion_positions)-1]) 
   }
-  else if (insertion_positions[i,ncol(insertion_positions)] < 2)
+  # else if (insertion_positions[i,ncol(insertion_positions)] < 2)
+  else if (item %in% names(essentialitydict) & essentialitydict[item]=='non-essential')
   {
-    nonessential = rbind(nonessential, insertion_positions[i,1:ncol(insertion_positions)-1])
+    nonessential = rbind(nonessential, insertion_positions[item,1:ncol(insertion_positions)-1])
   }
-  else
+  # else
+  else if (item %in% names(essentialitydict) & essentialitydict[item]=='beneficial-loss')
   {
-    beneficialloss = rbind(beneficialloss, insertion_positions[i,1:ncol(insertion_positions)-1]) 
+    beneficialloss = rbind(beneficialloss, insertion_positions[item,1:ncol(insertion_positions)-1]) 
   }
 }
 toplot <- colMeans(essential)

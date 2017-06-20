@@ -71,6 +71,7 @@
 2. Generate a logo for the sequences resulted from the last step.
 	cd EnTrI/results/logos
 	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-prob.pdf -s large -U probability
+	Get nucleotide compositions from count-nucleotides.py
 	weblogo -F pdf -A dna -f 100logos.txt -o ../../figures/100logo-bits.pdf -s large --composition "{'A':23, 'C':27, 'G':27, 'T':23}"
 3. python3 insertion-position-bias.py
 4. Rscript insertion-position-bias.R
@@ -87,6 +88,8 @@
 6. Rscript upsetr-hieranoid.R
 7. Annotate the phylogenetic tree
 8. Correct tree-data.R and run it
+9. Generate a table for core essential and ancestrally essential genes
+	python3 table-core-genes.py
 
 ============ STUDY CLUSTERS
 1. Plot cluster size distribution (This is not a general script and can only be used for this case)
@@ -117,6 +120,7 @@
 	Rscript buildpathwayDB.R -o KEGG_organism_code -d path_to_save_database
 	Set pathanalysis.R parameters: essentiality class, pdf file name, plot main.
 	Rscript pathanalysis.R
+	Rscript pathanalysis-coregenes.R -> change between core genes and ancestral genes.
 # 5. Difference between ancestralii, fdollop, and intersection
 	cd EnTrI/bin
 	python3 core-definition-method-difference.py

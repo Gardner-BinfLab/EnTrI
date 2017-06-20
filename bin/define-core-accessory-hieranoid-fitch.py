@@ -208,26 +208,26 @@ for item in species_names.keys():
                 if ii[index] == {1}:
                     esscoregenes += list_of_genes
                     lenesscoregenes += 1
-                    if item == 'all' and gene_name:
+                    if item == 'all':
                         with open(
                                 '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/always-ess.txt',
                                 'a') as efile:
-                            efile.write(gene_name + '\n')
+                            efile.write(l + '\n')
                 else:
                     lennescoregenes += 1
                     if union != {0}:
                         aesscoregenes += list_of_genes
-                        if item == 'all' and gene_name:
+                        if item == 'all':
                             with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/sometimes-ess.txt',
                                       'a') as sefile:
-                                sefile.write(gene_name + '\n')
+                                sefile.write(l + '\n')
                     else:
                         nesscoregenes += list_of_genes
-                        if item == 'all' and gene_name:
+                        if item == 'all':
                             with open(
                                     '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/never-ess.txt',
                                     'a') as nefile:
-                                nefile.write(gene_name + '\n')
+                                nefile.write(l + '\n')
 
                 index += 1
 

@@ -80,6 +80,11 @@ for (cpitem in clusters_path)
   belthr <- max(insertion_index[res$cluster==nes])
   essthr <- max(insertion_index[res$cluster==ess])
   nesthr <- min(insertion_index[res$cluster==nes])
+  
+  bel <- insertion_index[insertion_index>belthr]
+  res2 <- dbscan(as.matrix(bel), minPts = 100, eps = 0.1)
+  ambig <- res2$cluster[which.min(bel)]
+  belam <- max(bel[res2$cluster==ambig])
   #insertion_index=(insertion_index-mean(insertion_index))/sd(insertion_index-mean(insertion_index))
   
   # if (cpitem == clusters_path[1])
@@ -95,9 +100,9 @@ for (cpitem in clusters_path)
   par(mar = mar.default + c(0, 1, 0, 0))
   
   h <- hist(insertion_index, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot=FALSE)
-  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   screen(1)
-  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion index", main ="All gene classes", cex.lab = 2,
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "black", "darkmagenta")[cuts], xlab = "Insertion index", main ="All gene classes", cex.lab = 2,
        cex.axis = 1.5, cex.main = 2, xlim=c(0,4), ylim=c(0,300), lty= "blank", axes=FALSE)
   axis(1, at=seq(0,4,1), cex.axis=1.5)
   axis(2, at=seq(0,300,100), labels=c(0,NA,NA,300), cex.axis=1.5)
@@ -154,38 +159,38 @@ for (cpitem in clusters_path)
   }
   
   h <- hist(orfans, breaks =seq(min(insertion_index),(max(insertion_index)+1),0.02), plot = FALSE)
-  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   screen(2)
   par(mar=c(5.1,2.5,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Genus specific", cex.axis=1.5, cex.main = 1.5,
-       xlim=c(0,3), ylim=c(0,150), lty= "blank", axes=FALSE)
-  axis(1, at=seq(0,3,1), cex.axis=1.5)
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "black", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Genus specific", cex.axis=1.5, cex.main = 1.5,
+       xlim=c(0,4), ylim=c(0,150), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,4,1), cex.axis=1.5)
   axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
   text(1.5,130, paste("n =", length(orfans)), lty=1, lwd=4, cex=1.15, bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
   
   h <- hist(single_occurrence, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot = FALSE)
-  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   screen(3)
   par(mar=c(5.1,1,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Single copy", cex.axis=1.5, cex.main = 1.5,
-       xlim=c(0,3), ylim=c(0,150), lty= "blank", axes=FALSE)
-  axis(1, at=seq(0,3,1), cex.axis=1.5)
-  axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "black", "darkmagenta")[cuts], xlab=NA, ylab=NA, main ="Single copy", cex.axis=1.5, cex.main = 1.5,
+       xlim=c(0,4), ylim=c(0,150), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,4,1), cex.axis=1.5)
+  axis(2, at=seq(0,150,50), labels=c(NA,NA,NA,NA), cex.axis=1.5)
   text(1.5,130, paste("n =", length(single_occurrence)), lty=1, lwd=4, cex=1.15, bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
   
   h <- hist(multiple_copies, breaks =seq(min(insertion_index),max(insertion_index)+1,0.02), plot = FALSE)
-  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, Inf))
+  cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   screen(4)
   #par(mar=c(2,1,2,1))
   par(mar=c(5.1,1,4.1,1))
-  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = NA, ylab=NA, main ="Multi-copy", cex.axis = 1.5, cex.main = 1.5,
-       xlim=c(0,3), ylim=c(0,150), lty= "blank", axes=FALSE)
-  axis(1, at=seq(0,3,1), cex.axis=1.5)
-  axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
+  plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "black", "darkmagenta")[cuts], xlab = NA, ylab=NA, main ="Multi-copy", cex.axis = 1.5, cex.main = 1.5,
+       xlim=c(0,4), ylim=c(0,150), lty= "blank", axes=FALSE)
+  axis(1, at=seq(0,4,1), cex.axis=1.5)
+  axis(2, at=seq(0,150,50), labels=c(NA,NA,NA,NA), cex.axis=1.5)
   text(1.5,130, paste("n =", length(multiple_copies)), lty=1, lwd=4, cex=1.15, bty="n")
   #lines(c(0.2, 0.2), c(-100,300), col = "red", lwd=3, lty = 2)
   #lines(c(2, 2), c(-100,300), col = "red", lwd=3, lty = 2)
