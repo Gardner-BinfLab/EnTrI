@@ -33,7 +33,10 @@ clusters = list()
 with open(hieranoid) as from_file:
     for line in from_file:
         genes = findall('[\(,]([a-zA-Z0-9_]+):', line)
-        species = [s.strip('_') for s in findall('\'([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+\'', str(genes))]
+        if genes[0].startswith('DEG'):
+            species = [gene[0:7] for gene in genes]
+        else:
+            species = [s.strip('_') for s in findall('\'([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+\'', str(genes))]
         unique_species = list(set(species))
         while len(unique_species) < len(species):
             uniques_index = []

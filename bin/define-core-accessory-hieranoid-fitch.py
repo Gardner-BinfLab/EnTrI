@@ -66,7 +66,11 @@ clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
 insertion_indices = '/home/fatemeh/EnTrI/results/biases/dbscan'
 k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
 outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch'
+coredir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch-cores'
+coreessdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch-core-essentials'
 makedir(outdir)
+makedir(coredir)
+makedir(coreessdir)
 speciestreedir = '/home/fatemeh/EnTrI/bin/speciestrees-no-k12'
 sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
@@ -80,6 +84,7 @@ species_names = {"all":["BN373", "ENC", "ERS227112", "NCTC13441", "ROD", "SEN", 
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
     "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"],
     "ecolik12":["b"]}
+counter = 0
 
 with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/info.txt', 'w') as infofile:
     infofile.write('speciesname\tcoreessential\tcore\n')
@@ -205,6 +210,13 @@ for item in species_names.keys():
                 # if ii[index] == {0}:
                 #     nesscoregenes += list_of_genes
                 #     lennescoregenes += 1
+                if item =='all': # this if statement makes clusters of core genes
+                    counter += 1
+                    with open (coredir + '/clust'+ str(counter), 'w') as corefile:
+                        for clustitem in list_of_genes:
+                            corefile.write('>'+clustitem+'\n')
+                            corefile.write(str(sequences[clustitem].seq)+'\n')
+
                 if ii[index] == {1}:
                     esscoregenes += list_of_genes
                     lenesscoregenes += 1
@@ -213,6 +225,10 @@ for item in species_names.keys():
                                 '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/always-ess.txt',
                                 'a') as efile:
                             efile.write(l + '\n')
+                        with open(coreessdir+ '/clust'+ str(counter), 'w') as coreessfile:
+                            for clustitem in list_of_genes:
+                                coreessfile.write('>'+clustitem+'\n')
+                                coreessfile.write(str(sequences[clustitem].seq)+'\n')
                 else:
                     lennescoregenes += 1
                     if union != {0}:

@@ -1,5 +1,6 @@
 library(stringr)
 library("dbscan")
+library("ggplot2")
 fasta_dir <- "~/EnTrI/data/fasta-protein/chromosome/Salmonella_enterica_subsp_enterica_serovar_Typhimurium_SL1344_FQ312003_v4.fasta"
 plots_dir <- "~/EnTrI/data/plot-files/density/"
 output_dir1 <- "~/EnTrI/results/density/"
@@ -354,22 +355,37 @@ noninsfrees <- append(noninsfrees, noninsfree$SL1344_1, after=14)
 insfrees <- length(iitable$locus.tag) - noninsfrees
 
 pdf('~/EnTrI/figures/false-positive-rate_density.pdf')
-par(mar=c(6.1,5.1,4.1,6.1))
+
+par(mar=c(6.1,5.1,4.1,2.1))
 plx<-predict(loess(fprs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,fprs, type = 'p', #ylim=c(0,0.1),
      col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
      xlab = 'Insertion density', ylab = 'False positive rate', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
 )
 lines(1/dens,plx$fit, lwd=2)
-lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
-lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
-
-par(new = T)
-plot(1/dens,fps, type = 'n', xlab=NA, ylab=NA, cex.lab = 2, cex.axis = 2, cex=1.5, axes=F)
-axis(side = 4, cex.axis = 2)
-mtext(side = 4, line = 3, '# false positives', cex = 2)
+# lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+x <- c(1/dens, rev(1/dens))
+y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
+color <- adjustcolor("gray20",alpha.f=0.5)
+polygon(x,y,col=color, border = NA)
+axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
+mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # axis(side = 3, cex.axis = 2, labels = seq(5e5,0,-1e5), at=seq(-5e5,0,1e5))
 # mtext(side = 3, line = 3, '# insertion sites', cex = 2)
+
+# dat <- data.frame(1/dens, fprs)
+# colnames(dat) <- c('dns', 'fprs')
+# print(ggplot(dat,aes(dns,fprs))+
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
+#         xlab("Insertion density") +ylab("False positive rate")+ theme_bw()+
+#         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+#         theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) +
+#         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#               panel.background = element_blank(), axis.line = element_line(colour = "black"))
+#       )
+
 
 par(mar=c(6.1,5.1,4.1,2.1))
 plx<-predict(loess(tprs ~ 1/dens, span = 0.2), se=T)
@@ -378,8 +394,25 @@ plot(1/dens,tprs, type = 'p', #ylim=c(0,0.1),
      xlab = 'Insertion density', ylab = 'True positive rate', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
 )
 lines(1/dens,plx$fit, lwd=2)
-lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
-lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+x <- c(1/dens, rev(1/dens))
+y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
+color <- adjustcolor("gray20",alpha.f=0.5)
+polygon(x,y,col=color, border = NA)
+axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
+mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
+
+# dat <- data.frame(1/dens, tprs)
+# colnames(dat) <- c('dns', 'tprs')
+# print(ggplot(dat,aes(dns,tprs))+
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
+#         xlab("Insertion density") +ylab("True positive rate")+ theme_bw()+
+#         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+#         theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) + 
+#         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#               panel.background = element_blank(), axis.line = element_line(colour = "black")))
 
 # plx<-predict(loess(fprsunif ~ ins, span = 0.2), se=T)
 # points(ins, fprsunif)
@@ -391,8 +424,25 @@ plot(1/dens,essens, type = 'p', #ylim=c(0,0.1),
      xlab = 'Insertion density', ylab = '# predicted essential genes', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
-lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
-lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+x <- c(1/dens, rev(1/dens))
+y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
+color <- adjustcolor("gray20",alpha.f=0.5)
+polygon(x,y,col=color, border = NA)
+axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
+mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
+
+# dat <- data.frame(1/dens, essens)
+# colnames(dat) <- c('dns', 'essens')
+# print(ggplot(dat,aes(dns,essens))+
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
+#         xlab("Insertion density") +ylab("# predicted essential genes")+ theme_bw()+
+#         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+#         theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) + 
+#         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#               panel.background = element_blank(), axis.line = element_line(colour = "black")))
 
 plx<-predict(loess(mccs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,mccs, type = 'p', #ylim=c(0,0.1),
@@ -400,11 +450,29 @@ plot(1/dens,mccs, type = 'p', #ylim=c(0,0.1),
      xlab = 'Insertion density', ylab = 'MCC', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
-lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
-lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+x <- c(1/dens, rev(1/dens))
+y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
+color <- adjustcolor("gray20",alpha.f=0.5)
+polygon(x,y,col=color, border = NA)
+axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
+mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
+
 # plx<-predict(loess(essensunif ~ ins, span = 0.2), se=T)
 # points(ins,essensunif)
 # lines(ins,plx$fit, col=3)
+
+# dat <- data.frame(1/dens, mccs)
+# colnames(dat) <- c('dns', 'mccs')
+# print(ggplot(dat,aes(dns,fprs))+
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
+#         xlab("Insertion density") +ylab("Matthews correlation coefficient")+ theme_bw()+
+#         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+#         theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) +
+#         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#               panel.background = element_blank(), axis.line = element_line(colour = "black")))
 
 plx<-predict(loess(insfrees ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,insfrees, type = 'p', #ylim=c(0,0.1),
@@ -412,8 +480,25 @@ plot(1/dens,insfrees, type = 'p', #ylim=c(0,0.1),
      xlab = 'Insertion density', ylab = '# insertion free genes', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
-lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
-lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+x <- c(1/dens, rev(1/dens))
+y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
+color <- adjustcolor("gray20",alpha.f=0.5)
+polygon(x,y,col=color, border = NA)
+axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
+mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
+
+# dat <- data.frame(1/dens, insfrees)
+# colnames(dat) <- c('dns', 'insfrees')
+# print(ggplot(dat,aes(dns,insfrees))+
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
+#         xlab("Insertion density") +ylab("# insertion free genes")+ theme_bw()+
+#         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+#         theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) +
+#         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#               panel.background = element_blank(), axis.line = element_line(colour = "black")))
 
 plx<-predict(loess(noninsfrees*100/length(iitable$locus.tag) ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,noninsfrees*100/length(iitable$locus.tag), type = 'p', #ylim=c(0,0.1),
@@ -421,7 +506,24 @@ plot(1/dens,noninsfrees*100/length(iitable$locus.tag), type = 'p', #ylim=c(0,0.1
      xlab = 'Insertion density', ylab = '% genes with insertion(s)', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
-lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
-lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
+# lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
+x <- c(1/dens, rev(1/dens))
+y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
+color <- adjustcolor("gray20",alpha.f=0.5)
+polygon(x,y,col=color, border = NA)
+axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
+mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
+
+# dat <- data.frame(1/dens, noninsfrees*100/length(iitable$locus.tag))
+# colnames(dat) <- c('dns', 'noninsfree')
+# print(ggplot(dat,aes(dns,noninsfree))+
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
+#         xlab("Insertion density") +ylab("% genes with insertion(s)")+ theme_bw()+
+#         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+#         theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) +
+#         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+#               panel.background = element_blank(), axis.line = element_line(colour = "black")))
 
 dev.off()

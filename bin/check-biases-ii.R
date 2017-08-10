@@ -4,6 +4,7 @@ library(gdata)
 library(mgcv)
 library("dbscan")
 library("ROCR")
+library("ggplot2")
 # library("plotrix")
 names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
 dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
@@ -47,32 +48,56 @@ for (filename in list_of_files)
   pos[mind:length(pos)] = pos[mind:length(pos)] - pos[mind] + 1
   pos[1:mind-1] = lfdist + pos[1:mind-1]
   postotal <- c(postotal, pos)
-  plot(pos, ii, pch = '.', ylim=c(0,2), xlab = "Gene position", ylab = "insertion index",
-       main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2, xaxt='n')
-  axis(1,at=c(1, pos[maxd], pos[mind-1]),labels = c('Origin', 'Terminus', 'Origin'), cex.axis=2)
-  # abline(mean(ii),0,col='green', lwd=5)
-  lines(loess.smooth(pos,ii, span=sp), col=2, lwd=5)
+  # plot(pos, ii, pch = '.', ylim=c(0,2), xlab = "Gene position", ylab = "insertion index",
+  #      main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2, xaxt='n')
+  # axis(1,at=c(1, pos[maxd], pos[mind-1]),labels = c('Origin', 'Terminus', 'Origin'), cex.axis=2)
+  # # abline(mean(ii),0,col='green', lwd=5)
+  # lines(loess.smooth(pos,ii, span=sp), col=2, lwd=5)
+  dat <- data.frame(pos,ii)
+  print(ggplot(dat,aes(pos,ii))+geom_point(color='dodgerblue2', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+          xlab("Gene position") +ylab("Insertion index") + ggtitle(paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+
+          theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+          theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) +
+          scale_x_continuous(breaks=c(1, pos[maxd], pos[mind-1]), labels=c('Origin', 'Terminus', 'Origin')) + 
+          theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          panel.background = element_blank(), axis.line = element_line(colour = "black")))
 
   
-  plot(d, ii, pch = '.', ylim=c(0,2), xlab = "Gene position", ylab = "insertion index",
+  plot(d, ii, pch = '.', ylim=c(0,2), xlab = "Gene position", ylab = "Insertion index",
        main = paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
   # abline(mean(ii),0,col='green', lwd=5)
   lines(loess.smooth(d,ii, span=sp), col=2, lwd=5)
   
-  plot(gc, ii, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
-       main = paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  # plot(gc, ii, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
+  #      main = paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
   # abline(mean(ii),0,col='green', lwd=5)
-  lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
+  # lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
+  dat <- data.frame(gc,ii)
+  print(ggplot(dat,aes(gc,ii))+geom_point(color='dodgerblue2', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+    xlab("GC content") +ylab("Insertion index") + ggtitle(paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+ theme_bw()+
+      theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+      theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) + 
+      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+            panel.background = element_blank(), axis.line = element_line(colour = "black")))
   
-  plot(gc[biasestable$essentiality != 'essential' & ii>0.1], ii[biasestable$essentiality != 'essential'&ii>0.1], pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
-       main = paste("GC bias without essential genes -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
-  lines(loess.smooth(gc[biasestable$essentiality != 'essential' & ii>0.1],ii[biasestable$essentiality != 'essential'&ii>0.1], span=sp), col=2, lwd=5)
+  newgc = gc[biasestable$essentiality != 'essential' & ii>0.1]
+  newii = ii[biasestable$essentiality != 'essential'&ii>0.1]
+  # plot(newgc, newii, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index",
+  #      main = paste("GC bias without essential genes -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
+  # lines(loess.smooth(newgc,newii, span=sp), col=2, lwd=5)
+  dat <- data.frame(newgc,newii)
+  print(ggplot(dat,aes(newgc,newii))+geom_point(color='dodgerblue2', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+          xlab("GC content") +ylab("Insertion index") + ggtitle(paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+ theme_bw()+
+          theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
+          theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) + 
+          theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                panel.background = element_blank(), axis.line = element_line(colour = "black")))
   
   fit <- loess(ii~d, span = sp)
   loessprediction <- predict(fit, d)
   ii_dnormalised = ii/(loessprediction/mean(ii))
   ii_dnormalisedtotal <- c(ii_dnormalisedtotal, ii_dnormalised)
-  plot(d, ii_dnormalised, pch='.', xlab = "Gene position", ylab = "insertion index",
+  plot(d, ii_dnormalised, pch='.', xlab = "Gene position", ylab = "Insertion index",
        main = paste(dict[strsplit(basename(filename), "\\.")[[1]][1]], '- normalised distance'), cex.lab = 2, cex.axis = 2, cex.main =2,
        ylim=c(0,5))
   lines(loess.smooth(d,ii_dnormalised, span=sp), col=2, lwd=5)
@@ -81,13 +106,13 @@ for (filename in list_of_files)
   loessprediction <- predict(fit, gc)
   ii_dgcnormalised = ii_dnormalised/(loessprediction/mean(ii_dnormalised))
   ii_dgcnormalisedtotal <- c(ii_dgcnormalisedtotal, ii_dnormalised)
-  plot(gc, ii_dgcnormalised, pch='.', xlab = "GC content", ylab = "insertion index",
+  plot(gc, ii_dgcnormalised, pch='.', xlab = "GC content", ylab = "Insertion index",
        main = paste(dict[strsplit(basename(filename), "\\.")[[1]][1]], '- normalised GC'), cex.lab = 2, cex.axis = 2, cex.main =2,
        ylim=c(0,5))
   lines(loess.smooth(gc,ii_dgcnormalised, span=sp), col=2, lwd=5)
 }
 
-plot(gctotal, iitotal, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "insertion index", main = "GC bias", 
+plot(gctotal, iitotal, pch = '.', ylim=c(0,5), xlab = "GC content", ylab = "Insertion index", main = "GC bias", 
      cex.lab = 2, cex.axis = 2, cex.main =2)
 lines(loess.smooth(gctotal,iitotal, span=sp), col=2, lwd=5)
 
@@ -227,6 +252,16 @@ for (filename in list_of_files)
   text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
   legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
          col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta"), bty="n")
+  
+  if (dict[locusid]=='Escherichia coli BW25113')
+  {
+    max1 = 100
+    plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "black", "darkmagenta")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+         cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
+    text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
+    legend(2,max1-30, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
+           col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta"), bty="n")
+  }
   
   # hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])
   # lines(c(essthr, essthr), c(0,20), col="red")

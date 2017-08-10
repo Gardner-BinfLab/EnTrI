@@ -85,6 +85,20 @@
 # 3. python3 define-core-accessory-hieranoid-fdollop.py
 # 4. python3 define-core-accessory-hieranoid-ancestralii.py
 5. python3 define-core-accessory-hieranoid-fitch.py
+	cd EnTrI/results/define-core-accessory-hieranoid-fitch-cores/
+	mkdir alignments
+	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
+	mkdir profiles
+	cd alignments
+	for filename in *.msa; do hmmbuild -o /dev/null ../profiles/$filename $filename; done
+	cd ../profiles/
+	cat * > corefam.hmm
+	hmmpress corefam.hmm
+	Go to homology folder on cluster
+	qsub embl2peptide.sh
+	qsub run_hmmsearch.sh
+	qsub run_con-ess.sh
+	scp fas31@abacus:/data/people/fas31/homology/homologs.count /home/fatemeh/EnTrI/results/homologs.count
 6. Rscript upsetr-hieranoid.R
 7. Annotate the phylogenetic tree
 8. Correct tree-data.R and run it
@@ -132,12 +146,53 @@
 3. Rscript interestinggenes_heatmap.R
 4. change the first bit of interestinggenes_heatmap (up to write.table) to add pathways to genes.
 
-============ ARE CONSERVED GENES ESSENTIAL?
-1. Download bacterial and archaeal core genes from:
-	https://figshare.com/articles/Systematically_identify_phylogenetic_markers_at_different_taxonomic_levels_for_bacteria_and_archaea/722713	
-	paper:
-	http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077033
-2. cd results/core-bacteria_and_archaea-genes
-	for filename in *.hmm; do hmmpress $filename; done
-3. for filename in *.hmm; do hmmscan --domtblout $filename.domtblout $filename ~/EnTrI/data/fasta-protein/chromosome/U00096.fasta; done
-4. make a file containing all genes.
+# ============ ARE CONSERVED GENES ESSENTIAL?
+# 1. Download bacterial and archaeal core genes from:
+# 	https://figshare.com/articles/Systematically_identify_phylogenetic_markers_at_different_taxonomic_levels_for_bacteria_and_archaea/722713	
+# 	paper:
+# 	http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077033
+# 2. cd results/core-bacteria_and_archaea-genes
+# 	for filename in *.hmm; do hmmpress $filename; done
+# 3. for filename in *.hmm; do hmmscan --domtblout $filename.domtblout $filename ~/EnTrI/data/fasta-protein/chromosome/U00096.fasta; done
+# 4. make a file containing all genes.
+
+============ Ideal insertion density?
+Run density-SL1344.R
+
+============ ARE CONSERVED GENES MORE LIKELY TO BE ESSENTIAL?
+1. Make HMM profiles for core genes and core essential genes
+	cd EnTrI/results/define-core-accessory-hieranoid-fitch-cores
+	mkdir alignments && mkdir profiles
+	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
+	cd alignments
+	for filename in *.msa; do hmmbuild -o /dev/null ../profiles/$filename $filename; done
+	cd ../profiles
+	cat * > corefam.hmm
+	hmmpress corefam.hmm
+	Do the same for EnTrI/results/define-core-accessory-hieranoid-fitch-core-essentials
+2. Write cluster name, gene name, and pathways in the same file for ancestrally essential genes.
+	python which-genes.py
+3. Follow what we did on cluster: /data/people/fas31/homology/readme.txt
+4. 
+	mkdir EnTrI/results/walking-hypergeometric-test
+	Make essentiality.txt
+	cd EnTrI/bin
+	Rscript gsea.R -d essentiality.txt -l conservation.out -o ~/EnTrI/results/walking-hypergeometric-test
+5. Do the same for endosymbionts and DEG.
+============ COMPARISON OF ANCESTRALLY ESSENTIAL GENES AND ENDOSYMBIONTS
+1. Download Buchnera, Sodalis, Wigglesworthia, Baumannia Cicadellinicola, Blochmania fasta and embl files.
+2. for filename in ~/EnTrI/results/endosymbionts/embl/*.txt; do embl2peptides.py $filename ~/EnTrI/results/endosymbionts/fasta-protein/"$(basename $filename | cut -d. -f1).fasta"; done
+3. find /home/fatemeh/EnTrI/results/endosymbionts/fasta-genome/ -maxdepth 1 -name "*.fasta" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
+4. find /home/fatemeh/EnTrI/results/endosymbionts/fasta-genome/ -maxdepth 1 -name "*.fasta" -exec ~/program-bank/phylosift_v1.0.1/phylosift align --isolate --besthit {} \;
+5. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
+6. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
+7. Get essential genes from DEG and divide the file into different species and then run Hieranoid after rooting and editing the species tree. Follow the steps for running hieranoid and editing output from above.
+8. python3 define-core-accessory-hieranoid-fitch-endo-deg.py
+============ COMPARISON OF ANCESTRALLY ESSENTIAL GENES AND DEG
+1. Download DEG embl files and genomes (-enterobacteriaceae) and concat chromosomes.
+2. find /home/fatemeh/EnTrI/results/deg/fasta-genome/ -maxdepth 1 -name "*.fasta" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
+3. find /home/fatemeh/EnTrI/results/deg/fasta-genome/ -maxdepth 1 -name "*.fasta" -exec ~/program-bank/phylosift_v1.0.1/phylosift align --isolate --besthit {} \;
+4. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
+5. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
+6. Get essential genes from DEG and divide the file into different species and then run Hieranoid after rooting (for rooting separate gram negatives from gram positives in DEG) and editing the species tree. Follow the steps for running hieranoid and editing output from above.
+7. python define-core-accessory-hieranoid-fitch-endo-deg.py

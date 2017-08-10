@@ -12,6 +12,7 @@ from gc import collect
 # import matplotlib.pyplot as plt
 import random
 import string
+from warnings import warn
 
 
 def read_fasta_sequences(seqdir):
@@ -20,6 +21,10 @@ def read_fasta_sequences(seqdir):
     for filename in list_of_files:
         with open(seqdir + '/' + filename, 'rU') as fasta_file:
             sequences.update(SeqIO.to_dict(SeqIO.parse(fasta_file, 'fasta')))
+    for key in list(sequences.keys()):
+        if len(sequences[key]) > 10000:
+            del sequences[key]
+            warn('WARNING: Sequence ' + key + ' is too long (>10000). It will be ignored in the analysis.')
     return sequences
 
 
@@ -30,7 +35,8 @@ def extract_features(sequences, chunksize, storepath):
     maxlength = 30
     if len(keys) not in cutoffs:
         cutoffs.append(len(keys))
-    with pd.get_store(storepath) as store:
+    # with pd.get_store(storepath) as store:
+    with pd.HDFStore(storepath) as store:
         for i, s in enumerate(cutoffs[:-1]):
             e = cutoffs[i + 1]
             features = pd.DataFrame(0, index=keys[s:e], columns=AAs)
@@ -62,7 +68,8 @@ def calculate_distances(storepath, lenfeatures, chunksize, thresh, outpath):
     cutoffs = list(range(0, lenfeatures, chunksize))
     if lenfeatures not in cutoffs:
         cutoffs.append(lenfeatures)
-    with pd.get_store(storepath) as store:
+    # with pd.get_store(storepath) as store:
+    with pd.HDFStore(storepath) as store:
         for i, s1 in enumerate(cutoffs[:-1]):
             e1 = cutoffs[i + 1]
             for j, s2 in enumerate(cutoffs[i:-1]):
@@ -118,11 +125,11 @@ def run_phmmer(evalue, seqs, phmmers):
 
 
 def parse_tblouts(inpath, outpath):
-    edgelist = list()
-    append = edgelist.append
     with open(outpath, 'w') as tofile:
         list_of_files = listdir(inpath)
+        write = tofile.write
         for filename in list_of_files:
+            edgelist = list()
             address = inpath + '/' + filename
             with open(address, 'r') as fromfile:
                 for line in fromfile:
@@ -131,25 +138,24 @@ def parse_tblouts(inpath, outpath):
                         seq1 = min(cells[0], cells[2])
                         seq2 = max(cells[0], cells[2])
                         score = float(cells[5])
-                        append([seq1, seq2, score])
-        edgelist.sort()
-        i = 0
-        write = tofile.write
-        while i < len(edgelist):
-            seq1 = edgelist[i][0]
-            seq2 = edgelist[i][1]
-            if seq1 == seq2:
-                i += 1
-                continue
-            score = float(edgelist[i][2])
-            j = i + 1
-            while j < len(edgelist) and edgelist[i][0:2] == edgelist[j][0:2]:
-                score += float(edgelist[j][2])
-                j += 1
-            steps = j - i
-            score /= steps
-            i += steps
-            write(seq1 + '\t' + seq2 + '\t' + str(score) + '\n')
+                        edgelist.append([seq1, seq2, score])
+            edgelist.sort()
+            i = 0
+            while i < len(edgelist):
+                seq1 = edgelist[i][0]
+                seq2 = edgelist[i][1]
+                if seq1 == seq2:
+                    i += 1
+                    continue
+                score = float(edgelist[i][2])
+                j = i + 1
+                while j < len(edgelist) and edgelist[i][0:2] == edgelist[j][0:2]:
+                    score += float(edgelist[j][2])
+                    j += 1
+                steps = j - i
+                score /= steps
+                i += steps
+                write(seq1 + '\t' + seq2 + '\t' + str(score) + '\n')
 
 
 def add_singletons(sequences, clust_no_sings, outpath):
@@ -188,15 +194,15 @@ def pairwise_orthology_call(seq, outpath, chunksize, thresh, evalue, temp):
     parse_tblouts(phmmers, edges)
     clust_no_sings = temp + '/no-singletons.txt'
     run_mcl(edges, clust_no_sings)
-    finalresult = outpath + '/results.txt'
-    add_singletons(sequences, clust_no_sings, finalresult)
+    # finalresult = outpath + '/results.txt'
+    add_singletons(sequences, clust_no_sings, outpath)
 
 
 def main():
     start = default_timer()
     parser = ArgumentParser(description='Clusters orthologous proteins. Needs Python 2.7 or higher, MCL, and HMMER 3')
     parser.add_argument('p', help='Directory containing all proteomes in fasta format')
-    parser.add_argument('o', help='Path to the output')
+    parser.add_argument('o', help='Path to the output file')
     parser.add_argument('-e', '--eva', help='E-value threshold for phmmer', default=1e-10)
     parser.add_argument('-s', '--thr', help='Similarity threshold', default=0.05)
     parser.add_argument('-c', '--chnk', help='Chunk size', default=5000)
@@ -217,3 +223,5 @@ def main():
 
 if __name__ == '__main__':
     main()###http://pandas-docs.github.io/pandas-docs-travis/io.html#io-hdf5
+
+# Submit to cluster with memory requirements: qsub -l h_vmem=32g -l h_rt=480:00:00 run.sh
