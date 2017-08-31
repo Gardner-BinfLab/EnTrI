@@ -169,6 +169,9 @@ Run density-SL1344.R
 	cd ../profiles
 	cat * > corefam.hmm
 	hmmpress corefam.hmm
+	cd ..
+	mkdir hhmake
+	for filename in alignments/*; do hhmake -i $filename -a hhmake/hhmake.out -M 50; done
 	Do the same for EnTrI/results/define-core-accessory-hieranoid-fitch-core-essentials
 2. Write cluster name, gene name, and pathways in the same file for ancestrally essential genes.
 	python which-genes.py
@@ -187,6 +190,19 @@ Run density-SL1344.R
 5. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
 6. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
 7. Get essential genes from DEG and divide the file into different species and then run Hieranoid after rooting and editing the species tree. Follow the steps for running hieranoid and editing output from above.
+8. python3 define-core-accessory-hieranoid-fitch-endosymbionts.py
+9. 
+	cd EnTrI/results/endosymbionts/define-core-accessory-hieranoid-fitch/core-essential-genomes/
+	mkdir alignments && mkdir profiles
+	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
+	cd alignments
+	for filename in *.msa; do hmmbuild -o /dev/null ../profiles/$filename $filename; done
+	cd ../profiles
+	cat * > corefam.hmm
+	cd ..
+	mkdir hhmake
+	for filename in alignments/*; do hhmake -i $filename -o hhmake/"endo-$(basename $filename | cut -d. -f1).hmm" -M 50; done
+	
 ============ COMPARISON OF ANCESTRALLY ESSENTIAL GENES AND DEG
 1. Download DEG embl files and genomes (-enterobacteriaceae) and concat chromosomes.
 2. find /home/fatemeh/EnTrI/results/deg/fasta-genome/ -maxdepth 1 -name "*.fasta" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
@@ -194,3 +210,18 @@ Run density-SL1344.R
 4. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
 5. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
 6. Get essential genes from DEG and divide the file into different species and then run Hieranoid after rooting (for rooting separate gram negatives from gram positives in DEG) and editing the species tree. Follow the steps for running hieranoid and editing output from above.
+7. python define-core-accessory-hieranoid-fitch-deg.py
+8. 
+	cd EnTrI/results/deg/define-core-accessory-hieranoid-fitch/core-essential-genomes/
+	mkdir alignments && mkdir profiles
+	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
+	cd alignments
+	for filename in *.msa; do hmmbuild -o /dev/null ../profiles/$filename $filename; done
+	cd ../profiles
+	cat * > corefam.hmm
+	cd ..
+	mkdir hhmake
+	for filename in alignments/*; do hhmake -i $filename -o hhmake/"deg-$(basename $filename | cut -d. -f1).hmm" -M 50; done
+9. python venn-entero-deg-endo.py
+10. python pathways-for-clusts.py
+11. 
