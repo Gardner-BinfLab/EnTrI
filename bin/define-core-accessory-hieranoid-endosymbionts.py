@@ -61,7 +61,8 @@ with open(clusters) as from_file:
             if s in gene_dict.keys():
                 list_of_genes.append(g)
                 gene_dict[s] = 1
-        if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
+        # if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
+        if sum(gene_dict.values()) >= len(gene_dict.keys()) * 80 / 100:
             # esscoregenes += list_of_genes
             with open(esscoredir + 'clust' + str(counter), 'w') as tofile:
                 for gene in list_of_genes:

@@ -2,11 +2,11 @@ from os import listdir, remove, system, makedirs
 from shutil import copyfile
 from itertools import combinations
 
-address = {'deg': '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid-fitch/all/core-essential-genomes/hhmake/',
-           'prot': '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid-fitch/proteobacteria/core-essential-genomes/hhmake/',
-           'gamma': '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid-fitch/gammaproteobacteria/core-essential-genomes/hhmake/',
+address = {'deg': '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/',
+           'prot': '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/proteobacteria/core-essential-genomes/hhmake/',
+           'gamma': '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/gammaproteobacteria/core-essential-genomes/hhmake/',
            'endo': '/home/fatemeh/EnTrI/results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/',
-           'entero': '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch-core-essentials/hhmake/'}
+           'entero': '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/'}
 outdir = '/home/fatemeh/EnTrI/results/venn-entero-deg-endo/'
 
 list_of_degs = listdir(address['deg'])
@@ -33,8 +33,8 @@ for key in dict_of_lists.keys():
     system('cat ' + address[key] + '* > ' + address[key] + key + 'fam.hmm')
 
 combs = list(combinations(dict_of_lists.keys(), 2))
-# combs = [('deg','endo'), ('deg', 'gamma'), ('endo', 'gamma'), ('entero','deg'), ('entero', 'endo'), ('entero', 'gamma'),
-#          ('prot','deg'), ('prot', 'endo'), ('prot','entero'),('prot','gamma')]
+# combs = [('deg','entero'), ('deg', 'gamma'), ('endo', 'deg'), ('endo','entero'), ('endo', 'gamma'), ('endo', 'prot'),
+#          ('gamma','entero'), ('prot', 'deg'), ('prot','entero'),('prot','gamma')]
 
 for subset in combs:
     combpath = outdir + subset[0] + subset[1] + '/'
@@ -52,7 +52,7 @@ for subset in combs:
             firstclust = filename.split('.')[0]
             for line in fromfile:
                 cells = line.split()
-                if len(cells) > 1 and cells[1].startswith(subset[1] + '-clust'):
+                if len(cells) > 3 and cells[1].startswith(subset[1] + '-clust'):
                     secondclust = cells[1]
                     prob = float(cells[2])
                     if prob == 100:
@@ -61,6 +61,7 @@ for subset in combs:
                         elif prob > dict_of_pairs[pair][secondclust][1]:
                             dict_of_pairs[pair][secondclust] = (firstclust, prob)
                     break
+print(dict_of_pairs)
 
 clusts = []
 for pair in dict_of_pairs.keys():
@@ -103,14 +104,14 @@ with open(outdir + 'final-clusters.txt', 'w') as tofile:
         tofile.write('\n')
 
 
-maxlen = 0
-minlen = 6
-for key in clust_dict.keys():
-    length = len(list(set(clust_dict[key])))
-    maxlen = max(maxlen, length)
-    minlen = min(minlen, length)
-    if length > 5:
-        print(clust_dict[key])
-
-print(maxlen)
-print(minlen)
+# maxlen = 0
+# minlen = 6
+# for key in clust_dict.keys():
+#     length = len(list(set(clust_dict[key])))
+#     maxlen = max(maxlen, length)
+#     minlen = min(minlen, length)
+#     if length > 5:
+#         print(clust_dict[key])
+#
+# print(maxlen)
+# print(minlen)

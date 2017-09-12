@@ -81,6 +81,7 @@
 
 ============ EVOLUTION OF ESSENTIALITY
 1. python3 define-core-accessory-hieranoid.py
+	python3 define-core-accessory-hieranoid-fasta.py
 2. Make phylogenetic trees for the subsets of species (in code) and place them in bin/speciestrees, and bin/speciestrees-no-k12
 # 3. python3 define-core-accessory-hieranoid-fdollop.py
 # 4. python3 define-core-accessory-hieranoid-ancestralii.py
@@ -190,7 +191,7 @@ Run density-SL1344.R
 5. for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
 6. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
 7. Get essential genes from DEG and divide the file into different species and then run Hieranoid after rooting and editing the species tree. Follow the steps for running hieranoid and editing output from above.
-8. python3 define-core-accessory-hieranoid-fitch-endosymbionts.py
+8. python3 define-core-accessory-hieranoid-endosymbionts.py
 9. 
 	cd EnTrI/results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/
 	mkdir alignments && mkdir profiles
@@ -211,6 +212,7 @@ Run density-SL1344.R
 5. raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
 6. Get essential genes from DEG and divide the file into different species and then run Hieranoid after rooting (for rooting separate gram negatives from gram positives in DEG) and editing the species tree. Follow the steps for running hieranoid and editing output from above.
 7. python define-core-accessory-hieranoid-fitch-deg.py
+	python3 define-core-accessory-hieranoid-deg.py
 8. 
 	cd EnTrI/results/deg/define-core-accessory-hieranoid-fitch/core-essential-genomes/
 	mkdir alignments && mkdir profiles

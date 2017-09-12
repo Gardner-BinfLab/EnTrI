@@ -41,20 +41,28 @@ avgaucmeandist=0
 avgaucpca=0
 for (i in seq(length(locus)))
 {
-  real = read.table(paste('../results/ecogenecounterparts/',locus[i],'.txt',sep = ''), as.is=TRUE, header=FALSE, sep="\t")
-  names(real) <- c('gene', 'essentiality')
+  real_old = read.table(paste('../results/ecogenecounterparts/',locus[i],'.txt',sep = ''), as.is=TRUE, header=FALSE, sep="\t")
+  names(real_old) <- c('gene', 'essentiality')
+  
+  # montecarlo = read.table(paste('../results/monte-carlo/',locus[i],'.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
+  # montecarlo = montecarlo[,c(2,3,4,5,6)]
+  # montecarlo[,1] = -montecarlo[,1]
+  # montecarlo[,3] = -montecarlo[,3]
+  # montecarlo[,5] = -montecarlo[,5]
+  # names(montecarlo) <- c('-DESeqPval','DESeqLFC','-LFC','DESeqLFCDist', '-LFCDist')
+  montecarlo = read.table(paste('../results/Tn-seq/',locus[i],'.out.DESeq.tsv',sep=''), as.is=TRUE, header=TRUE, sep="\t")
+  montecarlo = montecarlo[,c(7,6,2)]
+  montecarlo[,2] = -montecarlo[,2]
+  montecarlo[,3] = -montecarlo[,3]
+  montecarlo = montecarlo[montecarlo$id %in% real_old$gene,]
+  real_new = real_old[real_old$gene %in% montecarlo$id,]
+  montecarlo = montecarlo[,c(2,3)]
+  ## montecarlo$logfoldchange = -montecarlo$logfoldchange
   
   biotradis = read.table(paste('../results/insertion-indices/gamma/', locus[i], '.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
   biotradis = biotradis[,c(2,4)]
   biotradis = -biotradis
-  
-  montecarlo = read.table(paste('../results/monte-carlo/',locus[i],'.txt',sep=''), as.is=TRUE, header=FALSE, sep="\t")
-  montecarlo = montecarlo[,c(2,3,4,5,6)]
-  montecarlo[,1] = -montecarlo[,1]
-  montecarlo[,3] = -montecarlo[,3]
-  montecarlo[,5] = -montecarlo[,5]
-  names(montecarlo) <- c('-DESeqPval','DESeqLFC','-LFC','DESeqLFCDist', '-LFCDist')
-  # montecarlo$logfoldchange = -montecarlo$logfoldchange
+  biotradis = biotradis[real_old$gene %in% real_new$gene,]
   
   pdf(paste('../figures/essential-call-comparison-', locus[i], '.pdf', sep=''))
   
@@ -62,7 +70,7 @@ for (i in seq(length(locus)))
   cutoffbiotradis = c()
   for (j in seq(2))
   {
-    predbiotradis <- prediction(biotradis[,j], real$essentiality)
+    predbiotradis <- prediction(biotradis[,j], real_new$essentiality)
     perfbiotradis <- performance(predbiotradis,"tpr","fpr")
     aucbiotradis <- c(aucbiotradis, performance(predbiotradis,measure = "auc")@y.values[[1]])
     if (j==2)
@@ -86,7 +94,7 @@ for (i in seq(length(locus)))
   # for (j in seq(5))
   for (j in seq(2))
   {
-    predmontecarlo <- prediction(montecarlo[,j], real$essentiality)
+    predmontecarlo <- prediction(montecarlo[,j], real_new$essentiality)
     perfmontecarlo <- performance(predmontecarlo,"tpr","fpr")
     aucmontecarlo <- c(aucmontecarlo, performance(predmontecarlo,measure = "auc")@y.values[[1]])
     plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
@@ -132,15 +140,17 @@ for (i in seq(length(locus)))
         {
           len = end - start + 1
           consecutives = rle(plots[[locusid]][start:end])
-          meanconsecutives = mean(consecutives$lengths[consecutives$values==0])
-          maxconsecutivezeros = max(consecutives$lengths[consecutives$values==0])
+          # meanconsecutives = mean(consecutives$lengths[consecutives$values==0])
+          meanconsecutives = len / (sum(plots[[locusid]][start:end]>0)+1)
+          maxconsecutivezeros = max(consecutives$lengths[consecutives$values==0]) / len
           meandist = c(meandist, meanconsecutives)
           consecutivezeros = c(consecutivezeros, maxconsecutivezeros)
         }
       }
     }
   }
-  predconz <- prediction(consecutivezeros, real$essentiality)
+  consecutivezeros = consecutivezeros[real_old$gene %in% real_new$gene]
+  predconz <- prediction(consecutivezeros, real_new$essentiality)
   perfconz <- performance(predconz,"tpr","fpr")
   aucconz <- performance(predconz,measure = "auc")@y.values[[1]]
   # plot(perfconz,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
@@ -152,7 +162,8 @@ for (i in seq(length(locus)))
   cutoffconz = cutoff
   avgaucconz = avgaucconz + aucconz
   
-  predmeandist <- prediction(meandist, real$essentiality)
+  meandist = meandist[real_old$gene %in% real_new$gene]
+  predmeandist <- prediction(meandist, real_new$essentiality)
   perfmeandist <- performance(predmeandist,"tpr","fpr")
   aucmeandist <- performance(predmeandist,measure = "auc")@y.values[[1]]
   # plot(perfmeandist,col=colors[9],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
@@ -164,7 +175,7 @@ for (i in seq(length(locus)))
   cutoffmeandist = cutoff
   avgaucmeandist = avgaucmeandist + aucmeandist
   
-  data = cbind(biotradis$V2, montecarlo$DESeqLFC, consecutivezeros)
+  data = cbind(biotradis$V2, montecarlo$log2FoldChange, consecutivezeros, meandist)
   data = apply(data, 2, function(x){(x-mean(x))/sd(x-mean(x))})
   # for (j in seq(ncol(data)))
   # {
@@ -176,7 +187,7 @@ for (i in seq(length(locus)))
     data.pca$x = -data.pca$x
   }
   
-  predpca <- prediction(data.pca$x[,1], real$essentiality)
+  predpca <- prediction(data.pca$x[,1], real_new$essentiality)
   perfpca <- performance(predpca,"tpr","fpr")
   aucpca <- performance(predpca,measure = "auc")@y.values[[1]]
   # plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
@@ -200,7 +211,7 @@ for (i in seq(length(locus)))
   # cutoff = perfsummcc@x.values[[1]][perfsummcc@y.values[[1]]==maxmcc & !is.na(perfsummcc@y.values[[1]])]
   # cutoffsum = cutoff
   
-  labels <- c(paste("BioTraDIS, AUC = ", format(round(aucbiotradis[1], 4), nsmall = 4))
+  labels <- c(paste("Insertion index, AUC = ", format(round(aucbiotradis[1], 4), nsmall = 4))
               , paste("BioTraDIS logodds, AUC = ", format(round(aucbiotradis[2], 4), nsmall = 4))
               , paste("Monte Carlo Pval, AUC = ", format(round(aucmontecarlo[1], 4), nsmall = 4))
               , paste("Monte Carlo DESeq LFC, AUC = ", format(round(aucmontecarlo[2], 4), nsmall = 4))
@@ -214,24 +225,24 @@ for (i in seq(length(locus)))
               )
   legend("bottomright", inset=.05, labels, lwd=2, col=colors)
   
-  plot(-biotradis[,2],montecarlo$DESeqLFC, pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
+  plot(-biotradis[,2],montecarlo$log2FoldChange, pch=20, col=real_new$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
   labels <- c("Essential","Non-essential")
   legend("topright", inset=.05, labels, pch=20, col=c("red","black"))
   
-  plot(-biotradis[,2],log2(-montecarlo$`-DESeqPval`), pch=20, col=real$essentiality+1, xlab = "BioTraDIS logodds", ylab = "log2(Monte Carlo P-value)")
+  plot(-biotradis[,2],log2(-montecarlo$padj), pch=20, col=real_new$essentiality+1, xlab = "BioTraDIS logodds", ylab = "log2(Monte Carlo P-value)")
   labels <- c("Essential","Non-essential")
   legend("bottomright", inset=.05, labels, pch=20, col=c("red","black"))
   
-  plot(-montecarlo$DESeqLFC,-montecarlo$DESeqLFCDist, pch=20, col=real$essentiality+1, xlab = "Monte Carlo DESeq LFC", ylab = "Monte Carlo DESeq LFC Distances")
-  labels <- c("Essential","Non-essential")
-  legend("bottomright", inset=.05, labels, pch=20, col=c("red","black"))
+  # plot(-montecarlo$DESeqLFC,-montecarlo$DESeqLFCDist, pch=20, col=real$essentiality+1, xlab = "Monte Carlo DESeq LFC", ylab = "Monte Carlo DESeq LFC Distances")
+  # labels <- c("Essential","Non-essential")
+  # legend("bottomright", inset=.05, labels, pch=20, col=c("red","black"))
   
-  plot(2^(-montecarlo$DESeqLFC),2^(-montecarlo$DESeqLFCDist), pch=20, col=real$essentiality+1, xlab = "Monte Carlo DESeq FC", ylab = "Monte Carlo DESeq FC Distances")
-  labels <- c("Essential","Non-essential")
-  legend("topright", inset=.05, labels, pch=20, col=c("red","black"))
+  # plot(2^(-montecarlo$DESeqLFC),2^(-montecarlo$DESeqLFCDist), pch=20, col=real$essentiality+1, xlab = "Monte Carlo DESeq FC", ylab = "Monte Carlo DESeq FC Distances")
+  # labels <- c("Essential","Non-essential")
+  # legend("topright", inset=.05, labels, pch=20, col=c("red","black"))
   
-  hist(montecarlo$DESeqLFC, breaks=150, xlab = "Monte Carlo logFC", main = "Histogram of Monte Carlo logFC")
-  hist(log2(-montecarlo$`-DESeqPval`), breaks=150, xlab = "log2(Monte Carlo P-value)", main = "Histogram of Monte Carlo P-value")
+  hist(montecarlo$log2FoldChange, breaks=150, xlab = "Monte Carlo logFC", main = "Histogram of Monte Carlo logFC")
+  hist(log2(-montecarlo$padj), breaks=150, xlab = "log2(Monte Carlo P-value)", main = "Histogram of Monte Carlo P-value")
   hist(log2(consecutivezeros+1e-5), breaks = 150, xlab = "log2(Largest uninterrupted fraction+1e-5)", main = "Histogram of largest uninterrupted fraction")
   hist(log2(meandist+1e-5), breaks = 150, xlab = "log2(Mean distance between inserts+1e-5)", main = "Histogram of mean distance between inserts")
   
@@ -239,16 +250,16 @@ for (i in seq(length(locus)))
   # essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$DESeqLFC <= 
   #                                                                                         mean(montecarlo$DESeqLFC)-0.8*cutoffmontecarlo[2],
   #                                                                                       'beneficial-loss', 'non-essential'))
-  essentiality = ifelse(montecarlo$DESeqLFC >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$DESeqLFC > 0 & -montecarlo$`-DESeqPval`< 0.01,
+  essentiality = ifelse(montecarlo$log2FoldChange >= cutoffmontecarlo[2], 'essential', ifelse(montecarlo$log2FoldChange > 0 & -montecarlo$padj< 0.01,
                                                                                         'beneficial-loss', 'non-essential'))
-  to_print = cbind(real$gene, montecarlo$DESeqLFC, essentiality)
+  to_print = cbind(real_new$gene, montecarlo$log2FoldChange, essentiality)
   outpath = paste(outdir_montecarlo, locusid, ".txt", sep="")
   write.table(to_print, file=outpath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
   
-  tt = length(real$gene[montecarlo$DESeqLFC >= cutoffmontecarlo[2] & real$essentiality == "1"])
-  ft = length(real$gene[montecarlo$DESeqLFC >= cutoffmontecarlo[2] & real$essentiality == "0"])
-  ff = length(real$gene[montecarlo$DESeqLFC <= cutoffmontecarlo[2] & real$essentiality == "0"])
-  tf = length(real$gene[montecarlo$DESeqLFC <= cutoffmontecarlo[2] & real$essentiality == "1"])
+  tt = length(real_new$gene[montecarlo$log2FoldChange >= cutoffmontecarlo[2] & real_new$essentiality == "1"])
+  ft = length(real_new$gene[montecarlo$log2FoldChange >= cutoffmontecarlo[2] & real_new$essentiality == "0"])
+  ff = length(real_new$gene[montecarlo$log2FoldChange <= cutoffmontecarlo[2] & real_new$essentiality == "0"])
+  tf = length(real_new$gene[montecarlo$log2FoldChange <= cutoffmontecarlo[2] & real_new$essentiality == "1"])
   contingency[,,locus[i]]=rbind(c(tt,tf),c(ft,ff))
   # if (locus[i] == 'CS17')
   # {
@@ -278,11 +289,11 @@ for (i in seq(length(locus)))
   #print(length(real$gene[pvalue2sided<=0.05 & data.pca$x[,1]<0]))
   print((cutoffpca- mean(data.pca$x[,1]))/sd(data.pca$x[,1]- mean(data.pca$x[,1])))
   pcacutoff = 1.644854 #pnorm(1.644854) = 0.5 #The average of all pcacutoffs defined by maximising MCC is 1.650449
-  print(length(real$gene[normalisedpca>pcacutoff]))
-  print(length(real$gene[normalisedpca< -pcacutoff]))
+  print(length(real_new$gene[normalisedpca>pcacutoff]))
+  print(length(real_new$gene[normalisedpca< -pcacutoff]))
   pca_essentiality = ifelse(normalisedpca >= pcacutoff, 'essential', ifelse(normalisedpca < -pcacutoff,
                                                                                         'beneficial-loss', 'non-essential'))
-  pca_print = cbind(real$gene, data.pca$x[,1], pca_essentiality)
+  pca_print = cbind(real_new$gene, data.pca$x[,1], pca_essentiality)
   # pca_print = cbind(real$gene, normalisedpca, pca_essentiality)
   pcapath = paste(outdir_pca, locusid, ".txt", sep="")
   write.table(pca_print, file=pcapath, quote = FALSE, sep = "\t", col.names = FALSE, row.names = FALSE)
