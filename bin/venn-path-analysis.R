@@ -1,7 +1,7 @@
 library(ggplot2)
 library(stringr)
 dbpath <- "~/EnTrI/results/homologs.path"
-essentiality <- "~/EnTrI/results/venn-entero-deg-endo/entero1deg0endo1.txt"
+essentiality <- "~/EnTrI/results/venn-entero-deg-endo-del/entero1deg0endo1.txt"
 db = as.matrix(read.table(dbpath, as.is=TRUE, header=TRUE, sep="\t"))
 for (i in seq(1,nrow(db)))
 {

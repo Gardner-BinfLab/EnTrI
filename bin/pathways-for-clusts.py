@@ -1,13 +1,14 @@
 from os import listdir
 # from Bio import SeqIO
 
-def read_fasta_sequences(filepath):
-    fasta_dict = {}
-    with open(filepath, 'r') as fasta_file:
-        for line in fasta_file:
-            cells = line.split('\t')
-            fasta_dict[cells[0]] = cells[4]+'\t'+cells[-1]
-    return fasta_dict
+
+# def read_fasta_sequences(filepath):
+#     fasta_dict = {}
+#     with open(filepath, 'r') as fasta_file:
+#         for line in fasta_file:
+#             cells = line.split('\t')
+#             fasta_dict[cells[0]] = cells[4]+'\t'+cells[-1]
+#     return fasta_dict
 
 genes = {}
 coreclusts = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch-cores/'
@@ -34,6 +35,16 @@ with open(keggpath, 'r') as fromfile:
                 tofile.write(line)
             elif gene in genes.keys():
                 tofile.write('"'+genes[gene]+'"\t'+cells[1]+'\t'+' '.join(cells[2:])+'\n')
+
+writepath = '/home/fatemeh/EnTrI/results/homologs.eggnog'
+eggnogpath = '/home/fatemeh/EnTrI/results/eggnog-mapper/U00096.fasta.emapper.annotations'
+with open(eggnogpath, 'r') as fromfile:
+    with open(writepath, 'w') as tofile:
+        for line in fromfile:
+            cells = line.split('\t')
+            gene = cells[0]
+            if gene in genes.keys():
+                tofile.write('"'+genes[gene]+'"\t"'+cells[4]+'"\t"'+cells[-1].strip()+'"\n')
 
 # writepath = '/home/fatemeh/endosymbionts/essential-not-in-endosymbionts.txt'
 # with open(writepath, 'w') as tofile:
