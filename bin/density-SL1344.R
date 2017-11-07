@@ -295,12 +295,12 @@ for (num in ins)
     par(mar = mar.default + c(0, 1, 0, 0))
     max1 = max(h$counts)
     max2 = sort(h$counts,partial=length(h$counts)-1)[length(h$counts)-1]
-    plot(h, col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta")[cuts], xlab = "Insertion index",
+    plot(h, col=c("darkgoldenrod4", "black", "dodgerblue2", "red")[cuts], xlab = "Insertion index",
          main =paste("density:", as.character(format(num/len, digits = 3))),
          cex.lab = 2, cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
     # text(2.5,max1-20, paste("n =", length(iis)), lty=1, lwd=4, cex=1.5, bty="n")
     legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
-           col=c("darkgoldenrod4", "black", "turquoise4", "darkmagenta"), bty="n")
+           col=c("darkgoldenrod4", "black", "dodgerblue2", "red"), bty="n")
   }
 }
 dev.off()
@@ -447,7 +447,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 plx<-predict(loess(mccs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,mccs, type = 'p', #ylim=c(0,0.1),
      col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
-     xlab = 'Insertion density', ylab = 'MCC', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
+     xlab = 'Insertion density', ylab = 'Matthews correlation coefficient', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)

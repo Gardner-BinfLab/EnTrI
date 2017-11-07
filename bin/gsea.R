@@ -111,11 +111,16 @@ plot_enrich <- function(pathway,direction,stats, rugseq){
   minim = -maxim/20
   dir.create(path, recursive=TRUE)
   pdf(paste(path,"/plot.",direction,".pdf", sep=""))
-  plot(1:length(stats),stats, type='l', xlab="gene index", ylab="-log10 p-value", lwd=5, col='red4', ylim = c(minim,maxim))
-  lines(c(which(stats == max(stats)),which(stats == max(stats))),c(0,maxim-minim), col="khaki4", lwd=2) 
+  mar.default <- c(5,4,4,2) + 0.1
+  par(mar = mar.default + c(0, 1, 0, 0))
+  plot(1:length(stats),stats, type='l', xlab="Gene index", ylab="-log10(p-value)", lwd=5, col='red', ylim = c(minim,maxim), cex.lab = 2,
+       cex.axis = 2, cex.main =2, main = 'Essentiality of conserved genes')
+  lines(c(which(stats == max(stats)),which(stats == max(stats))),c(0,maxim-minim), col="darkgoldenrod4", lwd=2)
   # x = max(which(genelist[2] > 0))
   x = nrow(genelist) / 2
-  lines(c(x,x),c(0,maxim-minim), col="dodgerblue4", lwd=2) 
+  lines(c(x,x),c(0,maxim-minim), col="dodgerblue2", lwd=2) 
+  legend(1300,48, c("Median conservation", "Max P-value"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
+         col=c("dodgerblue2", "darkgoldenrod4"), bty="n")
   rug(rugseq, ticksize = 0.08)
   dev.off()
 }

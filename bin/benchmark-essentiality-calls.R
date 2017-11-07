@@ -75,11 +75,13 @@ for (i in seq(length(locus)))
     aucbiotradis <- c(aucbiotradis, performance(predbiotradis,measure = "auc")@y.values[[1]])
     if (j==2)
     {
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
     }
     else
     {
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, main=dict[locus[i]], cex.main=2, ylim=c(0.6,1))
+      mar.default <- c(5,4,4,2) + 0.1
+      par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
+      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=2, main=dict[locus[i]], cex.main=2, ylim=c(0.6,1))
     }
     
     perfbiotradismcc <- performance(predbiotradis,'mat')
@@ -97,7 +99,10 @@ for (i in seq(length(locus)))
     predmontecarlo <- prediction(montecarlo[,j], real_new$essentiality)
     perfmontecarlo <- performance(predmontecarlo,"tpr","fpr")
     aucmontecarlo <- c(aucmontecarlo, performance(predmontecarlo,measure = "auc")@y.values[[1]])
-    plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
+    if (j==2)
+    {
+      plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+    }
     
     perfmontecarlomcc <- performance(predmontecarlo,'mat')
     maxmcc = max(perfmontecarlomcc@y.values[[1]][!is.na(perfmontecarlomcc@y.values[[1]])])
@@ -154,7 +159,7 @@ for (i in seq(length(locus)))
   perfconz <- performance(predconz,"tpr","fpr")
   aucconz <- performance(predconz,measure = "auc")@y.values[[1]]
   # plot(perfconz,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfconz,col=colors[5],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5,cex.main=2, add=TRUE)
+  plot(perfconz,col=colors[5],lty=1,lwd=4,cex.lab=2,cex.axis=2,cex.main=2, add=TRUE)
   
   perfconzmcc <- performance(predconz,'mat')
   maxmcc = max(perfconzmcc@y.values[[1]][!is.na(perfconzmcc@y.values[[1]])])
@@ -167,7 +172,7 @@ for (i in seq(length(locus)))
   perfmeandist <- performance(predmeandist,"tpr","fpr")
   aucmeandist <- performance(predmeandist,measure = "auc")@y.values[[1]]
   # plot(perfmeandist,col=colors[9],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfmeandist,col=colors[6],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
+  plot(perfmeandist,col=colors[6],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
   
   perfmeandistmcc <- performance(predmeandist,'mat')
   maxmcc = max(perfmeandistmcc@y.values[[1]][!is.na(perfmeandistmcc@y.values[[1]])])
@@ -191,7 +196,7 @@ for (i in seq(length(locus)))
   perfpca <- performance(predpca,"tpr","fpr")
   aucpca <- performance(predpca,measure = "auc")@y.values[[1]]
   # plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfpca,col=colors[7],lty=1,lwd=4,cex.lab=1.5,cex.axis=1.5, cex.main=2, add=TRUE)
+  plot(perfpca,col=colors[7],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
   
   perfpcamcc <- performance(predpca,'mat')
   maxmcc = max(perfpcamcc@y.values[[1]][!is.na(perfpcamcc@y.values[[1]])])
@@ -213,7 +218,7 @@ for (i in seq(length(locus)))
   
   labels <- c(paste("Insertion index, AUC = ", format(round(aucbiotradis[1], 4), nsmall = 4))
               , paste("BioTraDIS logodds, AUC = ", format(round(aucbiotradis[2], 4), nsmall = 4))
-              , paste("Monte Carlo Pval, AUC = ", format(round(aucmontecarlo[1], 4), nsmall = 4))
+              # , paste("Monte Carlo Pval, AUC = ", format(round(aucmontecarlo[1], 4), nsmall = 4))
               , paste("Monte Carlo DESeq LFC, AUC = ", format(round(aucmontecarlo[2], 4), nsmall = 4))
               # , paste("Monte Carlo LFC, AUC = ", format(round(aucmontecarlo[3], 4), nsmall = 4))
               # , paste("Monte Carlo DESeq LFC Distances, AUC = ", format(round(aucmontecarlo[4], 4), nsmall = 4))
@@ -223,7 +228,7 @@ for (i in seq(length(locus)))
               , paste("PCA, AUC = ", format(round(aucpca, 4), nsmall = 4))
               # , paste("SUM, AUC = ", format(round(aucsum, 4), nsmall = 4))
               )
-  legend("bottomright", inset=.05, labels, lwd=2, col=colors)
+  legend("bottomright", inset=.05, labels, lwd=2, col=colors[c(-3)])
   
   plot(-biotradis[,2],montecarlo$log2FoldChange, pch=20, col=real_new$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
   labels <- c("Essential","Non-essential")
@@ -306,8 +311,8 @@ for (i in seq(length(locus)))
   
   h <- hist(normalisedpca, breaks = 200, plot=FALSE)
   cuts <- cut(h$breaks, c(-Inf,-pcacutoff, pcacutoff, Inf))
-  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "NPEQ", main =dict[locus[i]], cex.lab = 1.5,
-       cex.axis = 1.5, cex.main = 2, lty= "blank")
+  plot(h, col=c("darkgoldenrod4", "turquoise4", "darkmagenta")[cuts], xlab = "NPEQ", main =dict[locus[i]], cex.lab = 2,
+       cex.axis = 2, cex.main = 2, lty= "blank")
   legend(1,180, c("Essential","Non-essential", "Beneficial loss"), lty=c(1,1,1), lwd=c(4,4,4),cex=1.15,
          col=c("darkmagenta","turquoise4", "darkgoldenrod4"), bty="n")
   
