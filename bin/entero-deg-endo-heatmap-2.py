@@ -14,7 +14,9 @@ with open(heatmap, 'w') as tofile:
                     clades[i] = clades[i].split('-')[0]
                 eggnogline = eggnogfile.readline()
                 cells = eggnogline.split('\t')
-                gene = cells[4]
+                first = cells[4][0:3]
+                last = cells[4][3:]
+                gene = first.lower() + last
                 if gene == '':
                     gene = cells[9]. split('@')[0]
                 # tofile.write(gene + '\t' + str(int('entero' in clades)) + '\t' + str(int('endo' in clades)) + '\t' +

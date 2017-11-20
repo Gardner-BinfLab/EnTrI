@@ -22,10 +22,15 @@ def makedir(dirname):
     mkdir(dirname)
 
 
-seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
-hieranoid = '/home/fatemeh/EnTrI/results/hieranoid/hieranoid-result.txt'
-outdir = '/home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result'
-clusterspath = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
+# seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
+# hieranoid = '/home/fatemeh/EnTrI/results/hieranoid/hieranoid-result.txt'
+# outdir = '/home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result'
+# clusterspath = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
+
+seqdb = '/home/fatemeh/EnTrI/results/deg/fasta-proteins/seqdb.fasta'
+hieranoid = '/home/fatemeh/EnTrI/results/deg/hieranoid-result.txt'
+outdir = '/home/fatemeh/EnTrI/results/deg/edited-hieranoid-result'
+clusterspath = '/home/fatemeh/EnTrI/results/deg/clusters.txt'
 
 makedir(outdir)
 sequences = read_fasta_sequences(seqdb)

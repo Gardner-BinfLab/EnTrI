@@ -1,0 +1,141 @@
+Query         endo-clust510
+Match_columns 149
+No_of_seqs    18 out of 31
+Neff          2.3 
+Searched_HMMs 67
+Date          Tue Nov 14 21:40:41 2017
+Command       hhsearch -i /home/fatemeh/EnTrI/results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endo-clust510.hmm -d /home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/proteobacteria/core-essential-genomes/hhmake/protfam.hmm -o /home/fatemeh/EnTrI/results/venn-entero-deg-endo/endoprot/endo-clust510.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 prot-clust295                    2.9       1   0.016   20.5   0.0   15  115-129    17-31  (156)
+  2 prot-clust58                     1.5     2.2   0.033   23.4   0.0   14   37-50    471-484 (940)
+  3 prot-clust446                    1.4     2.5   0.037   20.0   0.0   19  114-132   241-262 (287)
+  4 prot-clust27                     1.2     2.9   0.044   20.6   0.0   15  105-119   454-468 (470)
+  5 prot-clust336                    1.2       3   0.045   18.3   0.0   34   90-134   117-150 (187)
+  6 prot-clust299                    1.1     3.4   0.051   20.4   0.0   16  100-118   388-403 (471)
+  7 prot-clust402                    1.0     3.7   0.056   18.2   0.0   15  104-118    75-89  (221)
+  8 prot-clust1194                   1.0     3.8   0.057   19.8   0.0   16  105-120    66-81  (418)
+  9 prot-clust388                    1.0     3.8   0.057   16.8   0.0   21   11-31     92-112 (129)
+ 10 prot-clust6                      0.7     5.6   0.083   21.5   0.0   27   30-56    359-385 (1413)
+
+No 1  
+>prot-clust295
+Probab=2.88  E-value=1  Score=20.49  Aligned_cols=15  Identities=33%  Similarity=0.727  Sum_probs=12.3
+
+Q BUsg_447        115 LFGSEDSHKFINGVL  129 (138)
+Q Consensus       115 ~FGae~ShKFINGVL  129 (149)
+                      -||++.--||+|-|.
+T Consensus        17 k~~~~~vaKFmN~vM   31 (156)
+T DEG10080219      16 VYGNKVVTKFINKMM   30 (155)
+Confidence            488999999999764
+
+
+No 2  
+>prot-clust58
+Probab=1.52  E-value=2.2  Score=23.44  Aligned_cols=14  Identities=14%  Similarity=0.394  Sum_probs=6.0
+
+Q BUsg_447         37 LKEKNKKNIDIIYF   50 (138)
+Q Consensus        37 l~eq~~~~idi~YF   50 (149)
+                      ++.|..=++-|..|
+T Consensus       471 ISRQR~WGvPia~F  484 (940)
+T DEG10310141     468 ISRQRDWGTPIAFF  481 (917)
+Confidence            33444444444444
+
+
+No 3  
+>prot-clust446
+Probab=1.39  E-value=2.5  Score=20.03  Aligned_cols=19  Identities=42%  Similarity=0.634  Sum_probs=13.9
+
+Q BUsg_447        114 KLFGSEDSHKFIN---GVLDKA  132 (138)
+Q Consensus       114 K~FGae~ShKFIN---GVLDKi  132 (149)
+                      +.+|-.||-+-|-   ||||.+
+T Consensus       241 RraGVKDSg~llPGHGGvLDRI  262 (287)
+T DEG10310180     206 REAGVKDSGDLIPGHGGVLDRI  227 (241)
+Confidence            4578888888775   588875
+
+
+No 4  
+>prot-clust27
+Probab=1.20  E-value=2.9  Score=20.58  Aligned_cols=15  Identities=40%  Similarity=0.350  Sum_probs=11.8
+
+Q BUsg_447        105 SINEGIELAKLFGSE  119 (138)
+Q Consensus       105 ~INEaIELAK~FGae  119 (149)
+                      .|.||||-||-..+|
+T Consensus       454 ~i~eavekakkl~~~  468 (470)
+T DEG10080206     455 SIQEVLEKAKNMKNS  469 (469)
+Confidence            688888888877665
+
+
+No 5  
+>prot-clust336
+Probab=1.17  E-value=3  Score=18.32  Aligned_cols=34  Identities=32%  Similarity=0.414  Sum_probs=24.5
+
+Q BUsg_447         90 SFYELYKRKDIPYKVSINEGIELAKLFGSEDSHKFINGVLDKAAL  134 (138)
+Q Consensus        90 alfEl~kr~DiPYKV~INEaIELAK~FGae~ShKFINGVLDKia~  134 (149)
+                      |.||..--+||           |||.+||...+..+..-+|-.+.
+T Consensus       117 aV~E~~GV~nV-----------laKs~GStNP~N~VrATfdaL~~  150 (187)
+T DEG10080254     117 PIVELAGIKDI-----------LTKSLGSNNPYNVVRATFDALAK  150 (153)
+Confidence            34555555554           78999999998888887776643
+
+
+No 6  
+>prot-clust299
+Probab=1.06  E-value=3.4  Score=20.44  Aligned_cols=16  Identities=50%  Similarity=0.615  Sum_probs=9.9
+
+Q BUsg_447        100 IPYKVSINEGI.ELAKLFGS  118 (138)
+Q Consensus       100 iPYKV~INEaI.ELAK~FGa  118 (149)
+                      .++++.+-    +||.++|-
+T Consensus       388 ~~~~~~L~---.~la~iLG~  403 (471)
+T DEG10310105     375 KILKQNIKealsELAKIFGF  394 (462)
+Confidence            44444444    78888874
+
+
+No 7  
+>prot-clust402
+Probab=0.97  E-value=3.7  Score=18.24  Aligned_cols=15  Identities=13%  Similarity=0.135  Sum_probs=9.8
+
+Q BUsg_447        104 VSINEGIELAKLFGS  118 (138)
+Q Consensus       104 V~INEaIELAK~FGa  118 (149)
+                      |.=||=+|-|+.||-
+T Consensus        75 i~~~~FlEwAeVfgN   89 (221)
+T DEG10080056      65 IEKGQFLEWAIVHNH   79 (206)
+Confidence            344666777777763
+
+
+No 8  
+>prot-clust1194
+Probab=0.96  E-value=3.8  Score=19.78  Aligned_cols=16  Identities=25%  Similarity=0.416  Sum_probs=12.5
+
+Q BUsg_447        105 SINEGIELAKLFGSED  120 (138)
+Q Consensus       105 ~INEaIELAK~FGae~  120 (149)
+                      +|++|+|.|+...-+.
+T Consensus        66 sI~~Av~~AE~mA~~~   81 (418)
+T DEG10310087      54 SIEEAVRSAEMMSGVH   69 (462)
+Confidence            6889999998876554
+
+
+No 9  
+>prot-clust388
+Probab=0.95  E-value=3.8  Score=16.75  Aligned_cols=21  Identities=24%  Similarity=0.216  Sum_probs=11.3
+
+Q BUsg_447         11 ARACALQMLYS.WEISQNNIKD   31 (138)
+Q Consensus        11 ARecAlQ~LYS.WQiS~Ndi~~   31 (149)
+                      -||-|+.+|-+ --+--..|+|
+T Consensus        92 GResavral~a.~g~~it~i~D  112 (129)
+T DEG10310204      92 GRETAVKSVGAmEGIKVTFLKD  113 (130)
+Confidence            46667766655 4443344444
+
+
+No 10 
+>prot-clust6
+Probab=0.68  E-value=5.6  Score=21.50  Aligned_cols=27  Identities=15%  Similarity=0.073  Sum_probs=17.1
+
+Q BUsg_447         30 KDSAIEFLKEKNKKNIDIIYFYELIIG   56 (138)
+Q Consensus        30 ~~i~~~fl~eq~~~~idi~YF~eL~~G   56 (149)
+                      ++-.-.-|+|+....|+.-|+..+=.|
+T Consensus       359 ~~~~l~~l~e~g~~~i~~l~~n~vd~g  385 (1413)
+T DEG10310056     321 DESKLAKIKEQKSFDIANDLANGVDAA  347 (1378)
+Confidence            333445567777777777777665554
+
+
+Done!

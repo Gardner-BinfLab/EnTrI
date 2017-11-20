@@ -1,0 +1,149 @@
+Query         entero-clust3789
+Match_columns 98
+No_of_seqs    1 out of 14
+Neff          1.0 
+Searched_HMMs 37
+Date          Tue Nov 14 21:48:27 2017
+Command       hhsearch -i /home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/entero-clust3789.hmm -d /home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o /home/fatemeh/EnTrI/results/venn-entero-deg-endo/enterodeg/entero-clust3789.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust409                     4.0    0.38    0.01   21.1   0.0   26   42-67    155-183 (247)
+  2 deg-clust141                     2.9    0.58   0.016   22.7   0.0   69   24-97    616-685 (691)
+  3 deg-clust6                       1.1     1.7   0.046   21.4   0.0   17   80-96    409-425 (1341)
+  4 deg-clust21                      1.0     1.9   0.052   19.7   0.0   67   17-91    432-510 (761)
+  5 deg-clust135                     0.9     2.2    0.06   17.2   0.0   17   54-70    106-122 (287)
+  6 deg-clust58                      0.8     2.4   0.066   19.6   0.0   40   34-73    280-327 (981)
+  7 deg-clust419                     0.7     3.2   0.086   15.3   0.0   14   74-87     81-94  (213)
+  8 deg-clust190                     0.6     3.4   0.092   17.2   0.0   27   67-95    180-206 (513)
+  9 deg-clust186                     0.6     3.4   0.093   17.2   0.0   24   47-70    167-190 (518)
+ 10 deg-clust258                     0.6     3.6   0.097   16.8   0.0    9   80-88    147-155 (431)
+
+No 1  
+>deg-clust409
+Probab=4.03  E-value=0.38  Score=21.12  Aligned_cols=26  Identities=27%  Similarity=0.445  Sum_probs=19.9
+
+Q ENC_42390        42 AVGKGRILENGTVQ---PLDVKVGDIVIF   67 (97)
+Q Consensus        42 avgkgrilengtvq---pldvkvgdivif   67 (98)
+                      -|-.|.|+-||.+-   ...||+||.|-.
+T Consensus       155 lVnHghI~VNG~~VnIPSy~Vk~GdvI~V  183 (247)
+T DEG10210213     156 FVNHGHILVDGKRVDIPSYRVTPGQVISV  184 (245)
+Confidence            46788999999754   457999998743
+
+
+No 2  
+>deg-clust141
+Probab=2.86  E-value=0.58  Score=22.69  Aligned_cols=69  Identities=22%  Similarity=0.293  Sum_probs=48.1
+
+Q ENC_42390        24 GIVLTGSAAAKSTRGEIIAVGKGRILENGT-VQPLDVKVGDIVIFNDGYGVKSEKIDNEEVLIMSESDILAIVEA   97 (97)
+Q Consensus        24 givltgsaaakstrgeiiavgkgrilengt-vqpldvkvgdivifndgygvksekidneevlimsesdilaivea   97 (98)
+                      -+||||+-- +-+|-|.-+    ++-.+|- |.----|.=|.||.-++-|-|-+|-..=-+-||+|...+++++.
+T Consensus       616 TvVlTGtle-~~sRdeaK~----~le~lGakVsgSVSkKTd~VvAG~~aGSKL~KA~eLgI~v~~E~~~l~l~~~  685 (691)
+T DEG10070167     586 TVVLTGKLE-RLKRSEAKS----KLESLGAKVTGSVSKKTDLVVVGADAGSKLQKAQELGIQVRDEAWLESL---  652 (652)
+Confidence            478999864 445666432    2333332 22222356699999999999999988888999999999988753
+
+
+No 3  
+>deg-clust6
+Probab=1.15  E-value=1.7  Score=21.40  Aligned_cols=17  Identities=35%  Similarity=0.548  Sum_probs=12.7
+
+Q ENC_42390        80 NEEVLIMSESDILAIVE   96 (97)
+Q Consensus        80 neevlimsesdilaive   96 (98)
+                      ++++-+++.+||+|++.
+T Consensus       409 ~~~~~~Lt~eDIiavik  425 (1341)
+T DEG10210032     313 SDKVRIVTPADILAEMS  329 (1127)
+Confidence            45677888888888764
+
+
+No 4  
+>deg-clust21
+Probab=1.03  E-value=1.9  Score=19.74  Aligned_cols=67  Identities=33%  Similarity=0.506  Sum_probs=42.5
+
+Q ENC_42390        17 VETKSAGGIVLTGS----AAAKSTRGEIIAVGKGR---ILENGTVQPLDVKVGDIVIFNDGYGVK-----SEKIDNEEVL   84 (97)
+Q Consensus        17 vetksaggivltgs----aaakstrgeiiavgkgr---ilengtvqpldvkvgdivifndgygvk-----sekidneevl   84 (98)
+                      ||-.||||--=.|-    .|--..||.|+-|-|-|   +|.|-.++.|--        -=|-|+.     .+|.--..++
+T Consensus       432 VEGDSAGGSAKqGRdR~~QAILPLrGKILNVEkArfdKmlss~EI~tLit--------ALG~GIg~d~~n~~KlRYHkIi  503 (761)
+T DEG10070042     432 VEGDSAGGSAKSGRNREFQAILPIRGKILNVEKASMDKILANEEIRSLFT--------AMGTGFGAEFD-VSKARYQKLV  502 (648)
+Confidence            67788887433332    13334678999888865   688877776532        2334443     3455556789
+
+
+Q ENC_42390        85 IMSESDI   91 (97)
+Q Consensus        85 imsesdi   91 (98)
+                      ||...|.
+T Consensus       504 iMTDADV  510 (761)
+T DEG10070042     503 LMTDADV  509 (648)
+Confidence            9998875
+
+
+No 5  
+>deg-clust135
+Probab=0.92  E-value=2.2  Score=17.17  Aligned_cols=17  Identities=18%  Similarity=0.438  Sum_probs=12.3
+
+Q ENC_42390        54 VQPLDVKVGDIVIFNDG   70 (97)
+Q Consensus        54 vqpldvkvgdivifndg   70 (98)
+                      +.|--+++||.|+.-+.
+T Consensus       106 iAP~gl~vG~~v~sg~~  122 (287)
+T DEG10210013     105 IAPKGLEVGQRIVSGPE  121 (277)
+Confidence            35777899998876543
+
+
+No 6  
+>deg-clust58
+Probab=0.84  E-value=2.4  Score=19.61  Aligned_cols=40  Identities=23%  Similarity=0.316  Sum_probs=27.8
+
+Q ENC_42390        34 KSTRGEIIAVGKGRILENGTV-QP-------LDVKVGDIVIFNDGYGV   73 (97)
+Q Consensus        34 kstrgeiiavgkgrilengtv-qp-------ldvkvgdivifndgygv   73 (98)
+                      +-...++++-=||.-|++=.. .|       .-|=-||-|.-++|-|+
+T Consensus       280 ~~~~~~vl~~~kG~~L~~i~~~hP~~~~~~~~pvi~GdhVTtD~GTGi  327 (981)
+T DEG10070203     278 GWADVQVLETYRGQELNHIVTEHPW-DTAVEELVILGDHVTTDSGTGI  324 (930)
+Confidence            344567788888888887332 23       24556999999998875
+
+
+No 7  
+>deg-clust419
+Probab=0.66  E-value=3.2  Score=15.33  Aligned_cols=14  Identities=21%  Similarity=0.356  Sum_probs=10.2
+
+Q ENC_42390        74 KSEKIDNEEVLIMS   87 (97)
+Q Consensus        74 ksekidneevlims   87 (98)
+                      +-.+|+.|++||.-
+T Consensus        81 ~fy~I~~~~ilVih   94 (213)
+T DEG10070002      79 TYYGLDIDDLLIIY   92 (189)
+Confidence            34688888888764
+
+
+No 8  
+>deg-clust190
+Probab=0.63  E-value=3.4  Score=17.24  Aligned_cols=27  Identities=15%  Similarity=0.396  Sum_probs=13.8
+
+Q ENC_42390        67 FNDGYGVKSEKIDNEEVLIMSESDILAIV   95 (97)
+Q Consensus        67 fndgygvksekidneevlimsesdilaiv   95 (98)
+                      .|++|.  ++.-|-++++=--|.-+.+|-
+T Consensus       180 ~~~ay~--~~~~~~~~~id~AE~~l~~ia  206 (513)
+T DEG10070109     126 VNQAYE---ASQPADEIIAQAEKGLIDVS  151 (450)
+Confidence            366666  444455555544444444443
+
+
+No 9  
+>deg-clust186
+Probab=0.62  E-value=3.4  Score=17.21  Aligned_cols=24  Identities=25%  Similarity=0.249  Sum_probs=15.6
+
+Q ENC_42390        47 RILENGTVQPLDVKVGDIVIFNDG.   70 (97)
+Q Consensus        47 rilengtvqpldvkvgdivifndg.   70 (98)
+                      |+=++|++.--|.--|+|.|-|+. 
+T Consensus       167 k~p~~g~~~~~D~VrG~V~i~~~~.  190 (518)
+T DEG10070232     159 AVNESGIYKWHDMVKGDIEFEGGNi  183 (486)
+Confidence            344567777667767777766654 
+
+
+No 10 
+>deg-clust258
+Probab=0.60  E-value=3.6  Score=16.76  Aligned_cols=9  Identities=67%  Similarity=0.859  Sum_probs=6.8
+
+Q ENC_42390        80 NEEVLIMSE   88 (97)
+Q Consensus        80 neevlimse   88 (98)
+                      -||.||+|.
+T Consensus       147 LEe~Li~sD  155 (431)
+T DEG10070065     161 LEELLIMSD  169 (429)
+Confidence            478898874
+
+
+Done!
