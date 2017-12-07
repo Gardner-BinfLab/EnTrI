@@ -295,12 +295,12 @@ for (num in ins)
     par(mar = mar.default + c(0, 1, 0, 0))
     max1 = max(h$counts)
     max2 = sort(h$counts,partial=length(h$counts)-1)[length(h$counts)-1]
-    plot(h, col=c("darkgoldenrod4", "black", "dodgerblue2", "red")[cuts], xlab = "Insertion index",
+    plot(h, col=c("darkgoldenrod4", "black", "midnightblue", "red")[cuts], xlab = "Insertion index",
          main =paste("density:", as.character(format(num/len, digits = 3))),
          cex.lab = 2, cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
     # text(2.5,max1-20, paste("n =", length(iis)), lty=1, lwd=4, cex=1.5, bty="n")
     legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
-           col=c("darkgoldenrod4", "black", "dodgerblue2", "red"), bty="n")
+           col=c("darkgoldenrod4", "black", "midnightblue", "red"), bty="n")
   }
 }
 dev.off()
@@ -359,7 +359,7 @@ pdf('~/EnTrI/figures/false-positive-rate_density.pdf')
 par(mar=c(6.1,5.1,4.1,2.1))
 plx<-predict(loess(fprs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,fprs, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
      xlab = 'Insertion density', ylab = 'False positive rate', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
 )
 lines(1/dens,plx$fit, lwd=2)
@@ -377,7 +377,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # dat <- data.frame(1/dens, fprs)
 # colnames(dat) <- c('dns', 'fprs')
 # print(ggplot(dat,aes(dns,fprs))+
-#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"), size=3) +
 #         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
 #         xlab("Insertion density") +ylab("False positive rate")+ theme_bw()+
 #         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
@@ -390,7 +390,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 par(mar=c(6.1,5.1,4.1,2.1))
 plx<-predict(loess(tprs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,tprs, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
      xlab = 'Insertion density', ylab = 'True positive rate', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
 )
 lines(1/dens,plx$fit, lwd=2)
@@ -406,7 +406,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # dat <- data.frame(1/dens, tprs)
 # colnames(dat) <- c('dns', 'tprs')
 # print(ggplot(dat,aes(dns,tprs))+
-#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"), size=3) +
 #         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
 #         xlab("Insertion density") +ylab("True positive rate")+ theme_bw()+
 #         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
@@ -420,7 +420,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(essens ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,essens, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
      xlab = 'Insertion density', ylab = '# predicted essential genes', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
@@ -436,7 +436,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # dat <- data.frame(1/dens, essens)
 # colnames(dat) <- c('dns', 'essens')
 # print(ggplot(dat,aes(dns,essens))+
-#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"), size=3) +
 #         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
 #         xlab("Insertion density") +ylab("# predicted essential genes")+ theme_bw()+
 #         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
@@ -446,7 +446,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(mccs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,mccs, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
      xlab = 'Insertion density', ylab = 'Matthews correlation coefficient', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
@@ -466,7 +466,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # dat <- data.frame(1/dens, mccs)
 # colnames(dat) <- c('dns', 'mccs')
 # print(ggplot(dat,aes(dns,fprs))+
-#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"), size=3) +
 #         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
 #         xlab("Insertion density") +ylab("Matthews correlation coefficient")+ theme_bw()+
 #         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
@@ -476,7 +476,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(insfrees ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,insfrees, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
      xlab = 'Insertion density', ylab = '# insertion free genes', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
@@ -492,7 +492,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # dat <- data.frame(1/dens, insfrees)
 # colnames(dat) <- c('dns', 'insfrees')
 # print(ggplot(dat,aes(dns,insfrees))+
-#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"), size=3) +
 #         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
 #         xlab("Insertion density") +ylab("# insertion free genes")+ theme_bw()+
 #         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +
@@ -502,7 +502,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(noninsfrees*100/length(iitable$locus.tag) ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,noninsfrees*100/length(iitable$locus.tag), type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"),
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
      xlab = 'Insertion density', ylab = '% genes with insertion(s)', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
 lines(1/dens,plx$fit, lwd=2)
@@ -518,7 +518,7 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 # dat <- data.frame(1/dens, noninsfrees*100/length(iitable$locus.tag))
 # colnames(dat) <- c('dns', 'noninsfree')
 # print(ggplot(dat,aes(dns,noninsfree))+
-#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "dodgerblue2"), size=3) +
+#         geom_point(color=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"), size=3) +
 #         geom_smooth(fill='gray47', color='black', method = "loess", span=0.2)+
 #         xlab("Insertion density") +ylab("% genes with insertion(s)")+ theme_bw()+
 #         theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=18)) + theme(axis.title.x = element_text(size=22)) +

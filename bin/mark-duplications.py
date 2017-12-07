@@ -1,8 +1,8 @@
 from os import listdir
 from re import match
 
-interesting_genes = '../results/interesting_genes/sometimes-essential.tsv'
-no_duplications = '../results/interesting_genes/sometimes-essential-marked-dup.tsv'
+interesting_genes = '../results/interesting_genes/universally-conserved_always-essential.tsv'
+no_duplications = '../results/interesting_genes/universally-conserved_always-essential-marked-dup.tsv'
 names = ['ENC', 'BN373', 'ERS227112', 'ROD', 'SL1344', 'SL3261', 'STMMW', 'STM', 'SEN', 't', 'EC958', 'NCTC13441',
          'BW25113', 'b']
 clusters = '../results/homclust/EFam-clusters/'

@@ -27,7 +27,7 @@ for (filename in list_of_files)
   essentialityfile = as.matrix(read.table(filename, as.is=TRUE, header=TRUE))
   for (i in seq(1,nrow(essentialityfile)))
   {
-    if (essentialityfile[i,3] == "beneficial-loss")
+    if (essentialityfile[i,3] == "essential")
     {
       genes=c(genes,essentialityfile[i,1])
     }
@@ -64,14 +64,14 @@ for (i in seq(1,nrow(db)))
 len_db = length(db[,1])
 for (i in seq(1,nrow(enrichment)))
 {
-  # fisherresult = fisher.test(matrix(c(enrichment[i,1],enrichment[i,2],(len_genes-enrichment[i,1]), (len_db-enrichment[i,2])),nrow=2,byrow=TRUE), alternative = "greater")
-  # enrichment[i,3] = fisherresult$p.value
+  fisherresult = fisher.test(matrix(c(enrichment[i,1],enrichment[i,2],(len_genes-enrichment[i,1]), (len_db-enrichment[i,2])),nrow=2,byrow=TRUE), alternative = "greater")
+  enrichment[i,3] = fisherresult$p.value
   
-  x = enrichment[i,1]
-  m = enrichment[i,2]
-  n = len_db - enrichment[i,2]
-  k = len_genes
-  enrichment[i,3] = phyper(x,m,n,k, lower.tail = FALSE)
+  # x = enrichment[i,1]
+  # m = enrichment[i,2]
+  # n = len_db - enrichment[i,2]
+  # k = len_genes
+  # enrichment[i,3] = phyper(x,m,n,k, lower.tail = FALSE)
   
   
 }
@@ -94,8 +94,8 @@ while(enrichment[i,4] < 0.05)
 colnames(pathways) = c('word', 'pvalue')
 pathways = pathways[1:20,]
 
-pdf("../figures/beneficial-loss-pathways.pdf")
+pdf("../figures/essential-pathways.pdf")
 ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
-  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Beneficial loss pathways") +
+  geom_abline(slope = 0, intercept = -log10(0.05), color="red")+ggtitle("Essential pathways") +
   theme(text = element_text(size=15))
 dev.off()

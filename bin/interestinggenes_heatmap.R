@@ -69,6 +69,12 @@ inparalogs = sorted[,45:60]
 rownames(inparalogs) <- rownames(toplot)
 colnames(inparalogs) <- colnames(toplot)
 
+toplot <- toplot[,c(4,10,9,5,6,7,8,12,11,13,14,3,2,1)]
+colnames(toplot) <- c('Citrobacter.rodentium.ICC168', 'Salmonella.Typhi.Ty2', 'Salmonella.Enteritidis.P125109', 'Salmonella.Typhimurium.SL1344',
+                      'Salmonella.Typhimurium.SL3261', 'Salmonella.Typhimurium.D23580', 'Salmonella.Typhimurium.A130',
+                      'Escherichia.coli.UPEC.ST131', 'Escherichia.coli.ST131.EC958', 'Escherichia.coli.BW25113', 'Escherichia.coli.K-12.MG1655',
+                      'Klebsiella.pneumoniae.RH201207', 'Klebsiella.pneumoniae.Ecl8', 'Enterobacter.cloacae.NCTC.9394')
+
 # pdf("~/EnTrI/figures/interesting-genes-modules_heatmap.pdf", height = 70)
 pdf("~/EnTrI/figures/interesting-genes_heatmap.pdf", height = 180)
 Heatmap(toplot, col = col_fun, name = 'log(ii/essentiality_threshold)', cluster_rows = FALSE, cluster_columns = FALSE, split = annotation, gap = unit(5, "mm"),

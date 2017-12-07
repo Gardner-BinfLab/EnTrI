@@ -14,7 +14,7 @@ pdf("../figures/insertion-position-bias.pdf")
 mar.default <- c(5,4,4,2) + 0.1
 par(mar = mar.default + c(0, 1, 0, 0))
 toplot <- colMeans(insertion_positions[,1:ncol(insertion_positions)-1])
-cols = c(rep("darkgoldenrod4",5), rep("dodgerblue2",75), rep("red",20))
+cols = c(rep("sienna4",5), rep("midnightblue",75), rep("red",20))
 midpoints <- barplot(toplot, main="All", xaxt="n", xlab="Position", ylab="Average insertion index", cex.lab = 2, cex.axis = 2, cex.main =2, col=cols, border=NA)
 axis(1, at=midpoints[c(1,100)], labels=c('5\'','3\''), cex.axis=2)
 box()

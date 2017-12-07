@@ -54,7 +54,7 @@ for (filename in list_of_files)
   # # abline(mean(ii),0,col='green', lwd=5)
   # lines(loess.smooth(pos,ii, span=sp), col=2, lwd=5)
   dat <- data.frame(pos,ii)
-  print(ggplot(dat,aes(pos,ii))+geom_point(color='dodgerblue2', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+  print(ggplot(dat,aes(pos,ii))+geom_point(color='midnightblue', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
           xlab("Gene position") +ylab("Insertion index") + ggtitle(paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+
           theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=20, colour = 'black')) + theme(axis.title.x = element_text(size=24)) +
           theme(axis.title.y = element_text(size=24))+ guides(fill=FALSE) +
@@ -73,7 +73,7 @@ for (filename in list_of_files)
   # abline(mean(ii),0,col='green', lwd=5)
   # lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
   dat <- data.frame(gc,ii)
-  print(ggplot(dat,aes(gc,ii))+geom_point(color='dodgerblue2', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+  print(ggplot(dat,aes(gc,ii))+geom_point(color='midnightblue', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
     xlab("GC content") +ylab("Insertion index") + ggtitle(paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+ theme_bw()+
       theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=20, colour = 'black')) + theme(axis.title.x = element_text(size=24)) +
       theme(axis.title.y = element_text(size=24))+ guides(fill=FALSE) + 
@@ -86,7 +86,7 @@ for (filename in list_of_files)
   #      main = paste("GC bias without essential genes -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
   # lines(loess.smooth(newgc,newii, span=sp), col=2, lwd=5)
   dat <- data.frame(newgc,newii)
-  print(ggplot(dat,aes(newgc,newii))+geom_point(color='dodgerblue2', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+  print(ggplot(dat,aes(newgc,newii))+geom_point(color='midnightblue', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
           xlab("GC content") +ylab("Insertion index") + ggtitle(paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+ theme_bw()+
           theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=20, colour = 'black')) + theme(axis.title.x = element_text(size=22)) +
           theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) + 
@@ -247,22 +247,22 @@ for (filename in list_of_files)
   par(mar = mar.default + c(0, 1, 0, 0))
   max1 = max(h$counts)
   max2 = sort(h$counts,partial=length(h$counts)-1)[length(h$counts)-1]
-  plot(h, col=c("darkgoldenrod4", "black", "dodgerblue2", "black", "red")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+  plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
        cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
   box()
   text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
   legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
-         col=c("darkgoldenrod4", "black", "dodgerblue2", "red"), bty="n")
+         col=c("sienna4", "gray", "midnightblue", "red"), bty="n")
   
   if (dict[locusid]=='Escherichia coli BW25113')
   {
     max1 = 100
-    plot(h, col=c("darkgoldenrod4", "black", "dodgerblue2", "black", "red")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+    plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
          cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
     box()
     text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
     legend(2,max1-30, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
-           col=c("darkgoldenrod4", "black", "dodgerblue2", "red"), bty="n")
+           col=c("sienna4", "gray", "midnightblue", "red"), bty="n")
   }
   
   # hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])

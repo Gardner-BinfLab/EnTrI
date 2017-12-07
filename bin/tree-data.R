@@ -54,6 +54,6 @@ points(1*familyFitch/familyFitch,familyFitch, col="red", pch=19)
 lines(1:4, c(median(familyFitch), median(subFamilyFitch), median(speciesFitch), median(strain) ), col="red", lwd=3)
 
 #legend("topright", c("intersection", "ancestral II", "Dollo"), fil=c("red4", "olivedrab4", "cyan3"))
-axis(1, at = 1:4, labels=c("Family", "Subfam.", "Species", "Strain"), cex.axis=2)
+axis(1, at = 1:4, labels=c("Family", "Subfam.", "Genus", "Strain"), cex.axis=2)
 
 dev.off()

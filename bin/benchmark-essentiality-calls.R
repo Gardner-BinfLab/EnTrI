@@ -33,12 +33,14 @@ dir.create(outdir_montecarlo)
 outdir_pca = paste(outdir, 'pca/', sep='')
 dir.create(outdir_pca)
 # colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
-colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'purple', 'gray', 'cyan')
+colors=c('midnightblue', 'darkslategrey', 'limegreen', 'red', 'sienna', 'gray', 'cyan', 'darkslategray')
 avgaucii=c(0,0)
 avgaucmc=c(0,0)
 avgaucconz=0
 avgaucmeandist=0
 avgaucpca=0
+avgaucpca2=0
+ranks=c(0,0,0,0,0,0)
 for (i in seq(length(locus)))
 {
   real_old = read.table(paste('../results/ecogenecounterparts/',locus[i],'.txt',sep = ''), as.is=TRUE, header=FALSE, sep="\t")
@@ -75,7 +77,7 @@ for (i in seq(length(locus)))
     aucbiotradis <- c(aucbiotradis, performance(predbiotradis,measure = "auc")@y.values[[1]])
     if (j==2)
     {
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+      # plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
     }
     else
     {
@@ -204,6 +206,30 @@ for (i in seq(length(locus)))
   cutoffpca = cutoff
   avgaucpca = avgaucpca + aucpca
   
+  data2 = cbind(biotradis$V2, consecutivezeros, meandist)
+  data2 = apply(data2, 2, function(x){(x-mean(x))/sd(x-mean(x))})
+  # for (j in seq(ncol(data)))
+  # {
+  #   data[,j]=(data[,j]-mean(data[,j]))/sd(data[,j]-mean(data[,j]))
+  # }
+  data2.pca <- prcomp(data2, center = TRUE, scale. = TRUE)
+  if (data2.pca$rotation[1,1] < 0)
+  {
+    data2.pca$x = -data2.pca$x
+  }
+  
+  predpca2 <- prediction(data2.pca$x[,1], real_new$essentiality)
+  perfpca2 <- performance(predpca2,"tpr","fpr")
+  aucpca2 <- performance(predpca2,measure = "auc")@y.values[[1]]
+  # plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
+  plot(perfpca2,col=colors[8],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+  
+  perfpcamcc2 <- performance(predpca2,'mat')
+  maxmcc = max(perfpcamcc2@y.values[[1]][!is.na(perfpcamcc2@y.values[[1]])])
+  cutoff = perfpcamcc2@x.values[[1]][perfpcamcc2@y.values[[1]]==maxmcc & !is.na(perfpcamcc2@y.values[[1]])]
+  cutoffpca2 = cutoff
+  avgaucpca2 = avgaucpca2 + aucpca2
+  
   # data.sum = rowSums(data)
   # 
   # predsum <- prediction(data.sum, real$essentiality)
@@ -217,9 +243,9 @@ for (i in seq(length(locus)))
   # cutoffsum = cutoff
   
   labels <- c(paste("Insertion index, AUC = ", format(round(aucbiotradis[1], 4), nsmall = 4))
-              , paste("BioTraDIS logodds, AUC = ", format(round(aucbiotradis[2], 4), nsmall = 4))
+              # , paste("BioTraDIS logodds, AUC = ", format(round(aucbiotradis[2], 4), nsmall = 4))
               # , paste("Monte Carlo Pval, AUC = ", format(round(aucmontecarlo[1], 4), nsmall = 4))
-              , paste("Monte Carlo DESeq LFC, AUC = ", format(round(aucmontecarlo[2], 4), nsmall = 4))
+              , paste("Monte Carlo DESeq, AUC = ", format(round(aucmontecarlo[2], 4), nsmall = 4))
               # , paste("Monte Carlo LFC, AUC = ", format(round(aucmontecarlo[3], 4), nsmall = 4))
               # , paste("Monte Carlo DESeq LFC Distances, AUC = ", format(round(aucmontecarlo[4], 4), nsmall = 4))
               # , paste("Monte Carlo LFC Distances, AUC = ", format(round(aucmontecarlo[5], 4), nsmall = 4))
@@ -227,8 +253,10 @@ for (i in seq(length(locus)))
               , paste("Mean distance between inserts, AUC = ", format(round(aucmeandist, 4), nsmall = 4))
               , paste("PCA, AUC = ", format(round(aucpca, 4), nsmall = 4))
               # , paste("SUM, AUC = ", format(round(aucsum, 4), nsmall = 4))
+              , paste("PCA without Monte Carlo, AUC = ", format(round(aucpca2, 4), nsmall = 4))
               )
-  legend("bottomright", inset=.05, labels, lwd=2, col=colors[c(-3)])
+  legend("bottomright", inset=.05, labels, lwd=2, col=colors[c(-3,-2)])
+  ranks = ranks + c(aucbiotradis[1],aucmontecarlo[2],aucconz,aucmeandist,aucpca,aucpca2)
   
   plot(-biotradis[,2],montecarlo$log2FoldChange, pch=20, col=real_new$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")
   labels <- c("Essential","Non-essential")
@@ -355,3 +383,4 @@ barplot(c(avgaucii,avgaucmc,avgaucconz,avgaucmeandist,avgaucpca),ylim=c(0.92,0.9
 # perftnseq <- performance(predtnseq,"tpr","fpr")
 # auctnseq <- performance(predtnseq,measure = "auc")@y.values[[1]]
 
+print(ranks)
