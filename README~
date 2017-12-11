@@ -231,9 +231,11 @@ Run density-SL1344.R
 13. annotate the output with eggnog mapper
 14. python entero-deg-endo-heatmap-2.py
 15. Rscript entero-deg-endo-heatmap-3.R
-16. python entero-deg-endo-heatmap-4.py
+16. python entero-deg-endo-heatmap-4.py , 5, 6
 17. Manually correct NAs from these files:
 	heatmap.tsv, U00096.fasta.mapper.annotations, final-clusters-plus-single-groups.fasta.emapper.annotations, final-clusters-plus-single-groups, and /home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes
+
+============ COMPARISON OF ACCESSORY ESSENTIAL GENES
 
 
 ============ WHY DO WE HAVE INSERTIONS IN 5' END?
@@ -245,4 +247,4 @@ Run density-SL1344.R
 
 ============ RUN DCGO
 1. hmmscan --cut_ga --domtblout ~/EnTrI/results/dcgo/seqdb_Pfam-A.domtblout -o /dev/null ~/data/pfam/Pfam-A.hmm ~/EnTrI/data/fasta-protein/chromosome/seqdb.fasta
-2. 
+2. dcgo.py and dcgo.R
