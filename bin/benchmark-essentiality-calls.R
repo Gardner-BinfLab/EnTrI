@@ -367,11 +367,16 @@ avgaucmc = avgaucmc / length(locus)
 avgaucconz = avgaucconz / length(locus)
 avgaucmeandist = avgaucmeandist / length(locus)
 avgaucpca = avgaucpca / length(locus)
-barplot(c(avgaucii,avgaucmc,avgaucconz,avgaucmeandist,avgaucpca),ylim=c(0.92,0.96),names.arg = c('insertion index', 'insertion index log-odds',
-                                                                                                 'sampling p-val', 'sampling LFC',
-                                                                                                 'largest uninterrupted', 'mean distance',
-                                                                                                 'PCA'))
-
+avgaucpca2 = avgaucpca2 / length(locus)
+pdf('../figures/average-auc.pdf')
+par(las=2, mar= mar.default + c(8,0,0,0))
+barplot(c(avgaucii[1],avgaucmc[2],avgaucconz,avgaucmeandist,avgaucpca, avgaucpca2),ylim=c(0.95,0.961),names.arg = c('Insertion Index',
+                                                                                                                   'Monte Carlo DESeq',
+                                                                                                 'Largest Uninterrupted Fraction',
+                                                                                                 'Mean Distance', 'PCA',
+                                                                                                 'PCA Excluding Monte Carlo'), xpd = FALSE,
+        main = "Average AUC")
+dev.off()
 
 ############### compare TnSeq:
 # tnseqtest = read.csv('~/program-bank/TnSeq/example data&code/ROD-essentiality.csv')
