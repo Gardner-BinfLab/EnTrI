@@ -37,6 +37,7 @@ for (genename in row.names(eggnogplot))
     eggnogplot[genename, dict[gene]] = 1
   }
 }
+write.table(eggnogplot, file="~/EnTrI/results/venn-entero-deg-endo/deg-heatmap.tsv", quote = FALSE, sep='\t')
 pdf("~/EnTrI/figures/essential_genes_status_deg_heatmap.pdf", height = 65, width = 25)
 Heatmap(eggnogplot, cluster_rows = FALSE, cluster_columns = FALSE, column_names_max_height=unit(13, "cm"), rect_gp = gpar(col = 'gray'), col=c('white', 'black'), name = 'Essentiality',
         heatmap_legend_param=c('Non-essential', 'Essential'))
@@ -79,6 +80,7 @@ for (genename in row.names(eggnogplot))
     eggnogplot[genename, dict[gene]] = 1
   }
 }
+write.table(eggnogplot, file="~/EnTrI/results/venn-entero-deg-endo/endosymbionts-heatmap.tsv", quote = FALSE, sep='\t')
 pdf("~/EnTrI/figures/essential_genes_status_endo_heatmap.pdf", height = 65, width = 25)
 Heatmap(eggnogplot, cluster_rows = FALSE, cluster_columns = FALSE, column_names_max_height=unit(20, "cm"), rect_gp = gpar(col = 'gray'), col=c('white', 'black'), name = 'Essentiality',
         heatmap_legend_param=c('Non-essential', 'Essential'))
