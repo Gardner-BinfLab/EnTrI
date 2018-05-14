@@ -162,7 +162,7 @@ for (cpitem in clusters_path)
   cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   screen(2)
   par(mar=c(5.1,2.5,4.1,1))
-  plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab=NA, ylab=NA, main ="Genus specific", cex.axis=1.5, cex.main = 1.5,
+  plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab=NA, ylab=NA, main ="Genus-specific", cex.axis=1.5, cex.main = 1.5,
        xlim=c(0,4), ylim=c(0,150), lty= "blank", axes=FALSE)
   axis(1, at=seq(0,4,1), cex.axis=1.5)
   axis(2, at=seq(0,150,50), labels=c(0,NA,NA,150), cex.axis=1.5)
@@ -174,7 +174,7 @@ for (cpitem in clusters_path)
   cuts <- cut(h$breaks, c(-Inf,essthr, nesthr, belthr, belam, Inf))
   screen(3)
   par(mar=c(5.1,1,4.1,1))
-  plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab=NA, ylab=NA, main ="Single copy", cex.axis=1.5, cex.main = 1.5,
+  plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab=NA, ylab=NA, main ="Single-copy", cex.axis=1.5, cex.main = 1.5,
        xlim=c(0,4), ylim=c(0,150), lty= "blank", axes=FALSE)
   axis(1, at=seq(0,4,1), cex.axis=1.5)
   axis(2, at=seq(0,150,50), labels=c(NA,NA,NA,NA), cex.axis=1.5)
@@ -244,3 +244,10 @@ for (filename in list_of_files)
 }
 db[db[,1] %in% essorf_lt,3]
 db[db[,1] %in% essmul_lt,3]
+
+beneficial_losses <- names(file_group)[file_II > belthr]
+others <- names(file_group)[file_II <= belthr]
+write.table(beneficial_losses, '../results/beneficialloss-plasmid/beneficial_losses.txt',
+            quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(others, '../results/beneficialloss-plasmid/others.txt',
+            quote = FALSE, row.names = FALSE, col.names = FALSE)

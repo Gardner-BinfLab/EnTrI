@@ -1,6 +1,6 @@
 library(ggplot2)
 library(stringr)
-codons <- "../results/word-enrichment2/beneficialloss-info.txt"
+codons <- "../results/word-enrichment/beneficialloss-info.txt"
 db <- "../results/eggnog-mapper/COGs.tsv"
 codon_table <- read.table(codons, header = TRUE, sep = '\t', quote="")
 eggnogdf <- read.table(db, header = TRUE, sep='\t', quote = "")
@@ -16,7 +16,7 @@ for (i in seq(1,(nrow(codon_table)-1)))
 }
 fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
-write.table(fishertable, file = "../results/word-enrichment2/beneficialloss-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
+write.table(fishertable, file = "../results/word-enrichment/beneficialloss-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
 # df = fishertable[-seq(25,nrow(fishertable),1),]
 df = fishertable#[!is.na(fishertable$V1),]
@@ -35,7 +35,7 @@ ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+
   theme(text = element_text(size=15))
 dev.off()
 
-codons <- "../results/word-enrichment2/essential-info.txt"
+codons <- "../results/word-enrichment/essential-info.txt"
 codon_table <- read.table(codons, header = TRUE, sep = '\t', quote="")
 fishertable =data.frame()
 for (i in seq(1,(nrow(codon_table)-1)))
@@ -47,7 +47,7 @@ for (i in seq(1,(nrow(codon_table)-1)))
 }
 fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
-write.table(fishertable, file = "../results/word-enrichment2/essential-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
+write.table(fishertable, file = "../results/word-enrichment/essential-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
 # df = fishertable[-seq(30,nrow(fishertable),1),]
 df = fishertable[!is.na(fishertable$V1),]
@@ -63,7 +63,7 @@ ggplot(data=df, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+
 dev.off()
 
 
-codons <- "../results/word-enrichment2/non-essential-info.txt"
+codons <- "../results/word-enrichment/non-essential-info.txt"
 codon_table <- read.table(codons, header = TRUE, sep = '\t', quote="")
 fishertable =data.frame()
 for (i in seq(1,(nrow(codon_table)-1)))
@@ -75,7 +75,7 @@ for (i in seq(1,(nrow(codon_table)-1)))
 }
 fishertable[,3] = p.adjust(fishertable[,2], method = "BH")
 fishertable = fishertable[order(fishertable[,3], fishertable[,2]),]
-write.table(fishertable, file = "../results/word-enrichment2/non-essential-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
+write.table(fishertable, file = "../results/word-enrichment/non-essential-pval.txt", quote = FALSE, col.names = c("word", "p-value", "corrected-p-value"), row.names = FALSE, sep="\t")
 
 # df = fishertable[-seq(30,nrow(fishertable),1),]
 df = fishertable[!is.na(fishertable$V1),]

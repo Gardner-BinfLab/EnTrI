@@ -248,3 +248,11 @@ accessory-essential-enterobacteriaceae_1..5
 ============ RUN DCGO
 1. hmmscan --cut_ga --domtblout ~/EnTrI/results/dcgo/seqdb_Pfam-A.domtblout -o /dev/null ~/data/pfam/Pfam-A.hmm ~/EnTrI/data/fasta-protein/chromosome/seqdb.fasta
 2. dcgo.py and dcgo.R
+
+============ ARE BENEFICIAL LOSSES COPIED IN PLASMIDS?
+1. for filename in ../data/embl/new-plasmid/*.embl; do embl2peptides.py $filename ../data/fasta-plasmid/"$(basename $filename | cut -d. -f1).fasta"; done
+2. change locus tags so that they are similar to chromosomal genomes, concat genes of plasmids for the same chromosome, and rename files.
+3. cat ~/EnTrI/results/homclust/EFam-HMMs*.hmm > ~/EnTrI/results/beneficialloss-plasmid/all.hmm
+4. hmmpress all.hmm
+5. hmmscan -o /dev/null --domtblout ~/EnTrI/results/beneficialloss-plasmid/hmmscan.domtblout -E 1e-10 ~/EnTrI/results/beneficialloss-plasmid/all.hmm ~/EnTrI/data/fasta-plasmid/seqdb.fasta
+6. python beneficialloss-plasmid.py

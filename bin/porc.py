@@ -6,6 +6,7 @@ from argparse import ArgumentParser
 from timeit import default_timer
 from itertools import combinations, product, chain
 from scipy.spatial.distance import pdist, cdist
+from scipy.cluster.hierarchy import linkage, fcluster
 import pandas as pd
 from gc import collect
 # from numpy import average, std
@@ -13,14 +14,24 @@ from gc import collect
 import random
 import string
 from warnings import warn
+from numpy import where
+from math import ceil
 
 
 def read_fasta_sequences(seqdir):
     list_of_files = listdir(seqdir)
     sequences = {}
+    counter = 1
     for filename in list_of_files:
+        fileid = 'fid' + str(counter).zfill(7) + '_'
         with open(seqdir + '/' + filename, 'rU') as fasta_file:
-            sequences.update(SeqIO.to_dict(SeqIO.parse(fasta_file, 'fasta')))
+            # sequences.update(SeqIO.to_dict(SeqIO.parse(fasta_file, 'fasta')))
+            records = SeqIO.to_dict(SeqIO.parse(fasta_file, 'fasta'))
+            for key in list(records.keys()):
+                newkey = fileid + key
+                sequences[newkey] = records[key]
+                sequences[newkey].id = newkey
+        counter += 1
     for key in list(sequences.keys()):
         if len(sequences[key]) > 10000:
             del sequences[key]
@@ -30,9 +41,11 @@ def read_fasta_sequences(seqdir):
 
 def extract_features(sequences, chunksize, storepath):
     keys = list(sequences.keys())
-    AAs = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']
+    lens = [len(item) for item in sequences.values()]
+    maxlen = max(lens)
+    AAs = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V', 'len']
     cutoffs = list(range(0, len(keys), chunksize))
-    maxlength = 30
+    maxlength = 40
     if len(keys) not in cutoffs:
         cutoffs.append(len(keys))
     # with pd.get_store(storepath) as store:
@@ -44,6 +57,7 @@ def extract_features(sequences, chunksize, storepath):
             for key in keys[s:e]:
                 seq = sequences[key].seq.upper()
                 length = len(seq)
+                features.at[key, 'len'] = length / maxlen
                 for item in seq:
                     if item in AAs:
                         features.at[key, item] += 1
@@ -61,7 +75,7 @@ def extract_features(sequences, chunksize, storepath):
                 lengths.at[key] = length
             features = features.divide(lengths, axis='index')
             store.append('features', features, min_itemsize={'index': maxlength})
-            store.append('lengths', lengths, min_itemsize={'index': maxlength})
+            # store.append('lengths', lengths, min_itemsize={'index': maxlength})
 
 
 def calculate_distances(storepath, lenfeatures, chunksize, thresh, outpath):
@@ -87,7 +101,7 @@ def calculate_distances(storepath, lenfeatures, chunksize, thresh, outpath):
                 tuplesdf = pd.DataFrame.from_records(tuples)
                 distancesdf = pd.Series(distances)
                 tupledist = pd.concat([tuplesdf, distancesdf], axis=1)
-                tupledist.columns=['g1', 'g2', 'dist']
+                tupledist.columns = ['g1', 'g2', 'dist']
                 tuplesmalldist = tupledist.loc[tupledist['dist'] < thresh]
                 tuplesmalldist.to_csv(outpath, sep='\t', header=False, index=False, mode='a')
                 collect()  # Added to avoid memory leak and consequently freezing of system
@@ -124,39 +138,90 @@ def run_phmmer(evalue, seqs, phmmers):
             raise SystemExit('Unable to run phmmer. Check if:\n 1- ' + seqdb + ' exists.\n 2- HMMER is installed.')
 
 
-def parse_tblouts(inpath, outpath):
+def parse_tblouts(inpath, outpath, storepath):
+    maxlength = 40
     with open(outpath, 'w') as tofile:
-        list_of_files = listdir(inpath)
-        write = tofile.write
-        for filename in list_of_files:
-            edgelist = list()
-            address = inpath + '/' + filename
-            with open(address, 'r') as fromfile:
-                for line in fromfile:
-                    if not line.startswith('#'):
-                        cells = line.split()
-                        seq1 = min(cells[0], cells[2])
-                        seq2 = max(cells[0], cells[2])
-                        score = float(cells[5])
-                        edgelist.append([seq1, seq2, score])
-            edgelist.sort()
-            i = 0
-            while i < len(edgelist):
-                seq1 = edgelist[i][0]
-                seq2 = edgelist[i][1]
-                if seq1 == seq2:
-                    i += 1
-                    continue
-                score = float(edgelist[i][2])
-                j = i + 1
-                while j < len(edgelist) and edgelist[i][0:2] == edgelist[j][0:2]:
-                    score += float(edgelist[j][2])
-                    j += 1
-                steps = j - i
-                score /= steps
-                i += steps
-                write(seq1 + '\t' + seq2 + '\t' + str(score) + '\n')
+        with pd.HDFStore(storepath) as store:
+            list_of_files = listdir(inpath)
+            write = tofile.write
+            for filename in list_of_files:
+                edgelist = list()
+                address = inpath + '/' + filename
+                with open(address, 'r') as fromfile:
+                    for line in fromfile:
+                        if not line.startswith('#'):
+                            cells = line.split()
+                            seq1 = min(cells[0], cells[2])
+                            seq2 = max(cells[0], cells[2])
+                            score = float(cells[5])
+                            edgelist.append([seq1, seq2, score])
+                edgelist.sort()
+                i = 0
+                while i < len(edgelist):
+                    seq1 = edgelist[i][0]
+                    seq2 = edgelist[i][1]
+                    if seq1 == seq2:
+                        i += 1
+                        continue
+                    score = float(edgelist[i][2])
+                    j = i + 1
+                    while j < len(edgelist) and edgelist[i][0:2] == edgelist[j][0:2]:
+                        score += float(edgelist[j][2])
+                        j += 1
+                    steps = j - i
+                    score /= steps
+                    score = 1 / (score + 1)
+                    i += steps
+                    write(seq1 + '\t' + seq2 + '\t' + str(score) + '\n')
+                    index = pd.MultiIndex.from_tuples([(seq1, seq2)], names=['g1', 'g2'])
+                    distances = pd.Series(score, index=index)
+                    store.append('distances', distances, min_itemsize={'g1': maxlength, 'g2': maxlength})
 
+
+def run_hierarchical(storepath, mcl, outpath):
+    with pd.HDFStore(storepath) as store:
+        with open(mcl, 'r') as fromfile:
+            with open(outpath, 'w') as tofile:
+                for line in fromfile:
+                    cells = line.split()
+                    fileids = {item[0:10] for item in cells}
+                    num_genomes = len(fileids)
+                    n = len(cells)
+                    # if num_genomes == 1:
+                    #     for item in cells:
+                    #         tofile.write(item[11:] + '\t\n')
+                    if n > num_genomes:
+                        comb = int(n * (n - 1) / 2)
+                        distarray = [0] * comb
+                        cellsproduct = list(combinations(cells, 2))
+                        i = 0
+                        for item in cellsproduct:
+                            minim = min(item[0], item[1])
+                            maxim = max(item[0], item[1])
+                            selectres = store.select('distances', where=("g1==minim", "g2==maxim"))
+                            if selectres.empty:
+                                distarray[i] = 1
+                            else:
+                                distarray[i] = float(selectres)
+                            i += 1
+                        linkageres = linkage(distarray)
+                        clusters = fcluster(linkageres, ceil(n/num_genomes), criterion='maxclust')
+                        for i in range(1, max(clusters) + 1):
+                            current_cluster = where(clusters == i)[0]
+                            # fileids_c = {cells[item][0:10] for item in current_cluster}
+                            # n_c = len(current_cluster)
+                            # num_genomes_c = len(fileids_c)
+                            # if num_genomes_c == 1:
+                            #     for item in current_cluster:
+                            #         tofile.write(cells[item][11:] + '\t\n')
+                            # else:
+                            for item in current_cluster:
+                                tofile.write(cells[item][11:] + '\t')
+                            tofile.write('\n')
+                    else:
+                        for item in cells:
+                            tofile.write(item[11:] + '\t')
+                        tofile.write('\n')
 
 def add_singletons(sequences, clust_no_sings, outpath):
     genes = set()
@@ -169,6 +234,7 @@ def add_singletons(sequences, clust_no_sings, outpath):
     with open(outpath, 'a') as tofile:
         write = tofile.write
         keys = sequences.keys()
+        keys = {item[11:] for item in keys}
         for key in keys:
             if key not in genes:
                 write(key + '\n')
@@ -191,17 +257,18 @@ def pairwise_orthology_call(seq, outpath, chunksize, thresh, evalue, temp):
     mkdir(phmmers)
     run_phmmer(evalue, seqs, phmmers)
     edges = temp + '/edges.txt'
-    parse_tblouts(phmmers, edges)
+    parse_tblouts(phmmers, edges, storepath)
+    mcl = temp + '/mcl.txt'
+    run_mcl(edges, mcl)
     clust_no_sings = temp + '/no-singletons.txt'
-    run_mcl(edges, clust_no_sings)
-    # finalresult = outpath + '/results.txt'
+    run_hierarchical(storepath, mcl, clust_no_sings)
     add_singletons(sequences, clust_no_sings, outpath)
 
 
 def main():
     start = default_timer()
     parser = ArgumentParser(description='Clusters orthologous proteins. Needs Python 2.7 or higher, MCL, and HMMER 3')
-    parser.add_argument('p', help='Directory containing all proteomes in fasta format')
+    parser.add_argument('p', help='Directory containing all proteomes in fasta format. Each proteome should be in a separate file.')
     parser.add_argument('o', help='Path to the output file')
     parser.add_argument('-e', '--eva', help='E-value threshold for phmmer', default=1e-10)
     parser.add_argument('-s', '--thr', help='Similarity threshold', default=0.05)
