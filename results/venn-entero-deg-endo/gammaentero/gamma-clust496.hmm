@@ -1,0 +1,141 @@
+Query         gamma-clust496
+Match_columns 65
+No_of_seqs    6 out of 10
+Neff          1.8 
+Searched_HMMs 263
+Date          Mon Jul  2 17:01:57 2018
+Command       hhsearch -i /home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/gammaproteobacteria/core-essential-genomes/hhmake/gamma-clust496.hmm -d /home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/enterofam.hmm -o /home/fatemeh/EnTrI/results/venn-entero-deg-endo/gammaentero/gamma-clust496.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 entero-clust4228               100.0 8.2E-38 3.1E-40  185.4   0.0   64    1-64      1-64  (64)
+  2 entero-clust1340                 7.5     1.2  0.0047   22.3   0.0    8    5-12     42-49  (320)
+  3 entero-clust3944                 4.9     2.1  0.0081   17.3   0.0   15   47-61     23-37  (76)
+  4 entero-clust255                  2.9     4.1   0.016   20.9   0.0   13   34-46      6-18  (591)
+  5 entero-clust1377                 2.5     4.8   0.018   19.0   0.0   18    4-21     70-87  (306)
+  6 entero-clust4352                 2.3     5.3    0.02   14.3   0.0   13   24-36     16-28  (47)
+  7 entero-clust1183                 2.0     6.5   0.025   18.8   0.0   12   43-54    173-184 (368)
+  8 entero-clust1205                 1.9     6.8   0.026   18.4   0.0   46   14-59     75-126 (332)
+  9 entero-clust93                   1.9     6.8   0.026   20.3   0.0   13   49-61    494-506 (796)
+ 10 entero-clust1679                 1.8     7.2   0.027   18.0   0.0   19   30-48    166-184 (299)
+
+No 1  
+>entero-clust4228
+Probab=100.00  E-value=8.2e-38  Score=185.43  Aligned_cols=64  Identities=53%  Similarity=0.723  Sum_probs=62.8
+
+Q DEG10430394       1 MKTKDLREKSVEELKALLDEQQLNQFRLRMAKATGQLGKSHEVQVARKTIARIKTLLTEKQGNG   64 (65)
+Q Consensus         1 MK~kdlReKSveeL~~~l~~ll~eqF~LRMq~atGQL~q~H~~k~~rrdIARvkTilteK~g~~   64 (65)
+                      ||+++||||||||||+||+|+|+||||||||+|+|||+|+|++|+|||++|||||+||.|+|+.
+T Consensus         1 mkakelreksveelnaellnllreqfnlrmqaasgqlqqthllkqvrrnvarvktlltqkaga~   64 (64)
+T ENC_25260         1 MKAKELREKSVEELNAELLNLLREQFNLRMQAASGQLQQTHLLKQVRRNVARVKTLLTQKAGA-   63 (63)
+Confidence            8999999999999999999999999999999999999999999999999999999999999973
+
+
+No 2  
+>entero-clust1340
+Probab=7.48  E-value=1.2  Score=22.31  Aligned_cols=8  Identities=88%  Similarity=1.016  Sum_probs=6.1
+
+Q DEG10430394       5 DLREKSVE   12 (65)
+Q Consensus         5 dlReKSve   12 (65)
+                      .|||||||
+T Consensus        42 rlreksve   49 (320)
+T ENC_47080        42 RLREKSVE   49 (319)
+Confidence            47888886
+
+
+No 3  
+>entero-clust3944
+Probab=4.90  E-value=2.1  Score=17.30  Aligned_cols=15  Identities=40%  Similarity=0.492  Sum_probs=11.8
+
+Q DEG10430394      47 RKTIARIKTLLTEKQ   61 (65)
+Q Consensus        47 rrdIARvkTilteK~   61 (65)
+                      -+|||-+|-.|||..
+T Consensus        23 ykdiatlknyitesg   37 (76)
+T ENC_43020        23 YKDIATLKNYITESG   37 (75)
+Confidence            368999998888853
+
+
+No 4  
+>entero-clust255
+Probab=2.89  E-value=4.1  Score=20.87  Aligned_cols=13  Identities=46%  Similarity=0.452  Sum_probs=10.9
+
+Q DEG10430394      34 TGQLGKSHEVQVA   46 (65)
+Q Consensus        34 tGQL~q~H~~k~~   46 (65)
+                      -|||.|+|.-++|
+T Consensus         6 cgqlrqshvgqqv   18 (591)
+T BN373_29661       6 CGQLRQSHVGQQV   18 (595)
+Confidence            5899999987776
+
+
+No 5  
+>entero-clust1377
+Probab=2.52  E-value=4.8  Score=18.98  Aligned_cols=18  Identities=39%  Similarity=0.471  Sum_probs=13.1
+
+Q DEG10430394       4 KDLREKSVEELKALLDEQ   21 (65)
+Q Consensus         4 kdlReKSveeL~~~l~~l   21 (65)
+                      .|.|--.||.||+.|..|
+T Consensus        70 hdvristvehlnaalagl   87 (306)
+T ENC_46080        70 HDVRISTVEHLNAALAGL   87 (305)
+Confidence            466777788888887654
+
+
+No 6  
+>entero-clust4352
+Probab=2.31  E-value=5.3  Score=14.25  Aligned_cols=13  Identities=46%  Similarity=0.779  Sum_probs=9.3
+
+Q DEG10430394      24 NQFRLRMAKATGQ   36 (65)
+Q Consensus        24 eqF~LRMq~atGQ   36 (65)
+                      .-|+-||..-.|.
+T Consensus        16 hgfrarmatkngr   28 (47)
+T BN373_47501      16 HGFRARMATKNGR   28 (46)
+Confidence            3588899876663
+
+
+No 7  
+>entero-clust1183
+Probab=1.96  E-value=6.5  Score=18.80  Aligned_cols=12  Identities=25%  Similarity=0.562  Sum_probs=9.6
+
+Q DEG10430394      43 VQVARKTIARIK   54 (65)
+Q Consensus        43 ~k~~rrdIARvk   54 (65)
+                      --++|||+.|+.
+T Consensus       173 spqarrdvqrlr  184 (368)
+T ENC_23450       173 SPQARRDVQRLR  184 (367)
+Confidence            457999999875
+
+
+No 8  
+>entero-clust1205
+Probab=1.90  E-value=6.8  Score=18.36  Aligned_cols=46  Identities=26%  Similarity=0.325  Sum_probs=28.9
+
+Q DEG10430394      14 LKALLDEQQLNQFRLRMAKAT------GQLGKSHEVQVARKTIARIKTLLTE   59 (65)
+Q Consensus        14 L~~~l~~ll~eqF~LRMq~at------GQL~q~H~~k~~rrdIARvkTilte   59 (65)
+                      ||+.+.+|-....|-|+.+.|      |.--.+--+.-|-|.|.||....-|
+T Consensus        75 lnarkaelesavlnarlaaetidvslpgrriengglhpvtrtidriesffge  126 (332)
+T ENC_14140        71 LNARKAELESAVLNARLAAETIDVSLPGRRIENGGLHPVTRTIDRIESFFGE  122 (327)
+Confidence            555555555566677777655      3333444556678899998876544
+
+
+No 9  
+>entero-clust93
+Probab=1.89  E-value=6.8  Score=20.33  Aligned_cols=13  Identities=38%  Similarity=0.759  Sum_probs=10.0
+
+Q DEG10430394      49 TIARIKTLLTEKQ   61 (65)
+Q Consensus        49 dIARvkTilteK~   61 (65)
+                      .+.||||.|+.|.
+T Consensus       494 slkrvktmlndkg  506 (796)
+T ENC_14130       494 SLKRVKTMLNDKG  506 (795)
+Confidence            4678999988773
+
+
+No 10 
+>entero-clust1679
+Probab=1.81  E-value=7.2  Score=17.99  Aligned_cols=19  Identities=26%  Similarity=0.508  Sum_probs=14.9
+
+Q DEG10430394      30 MAKATGQLGKSHEVQVARK   48 (65)
+Q Consensus        30 Mq~atGQL~q~H~~k~~rr   48 (65)
+                      +..|||.|..-|+.|..-.
+T Consensus       166 ikeatgnlsrvhqikelvs  184 (299)
+T ENC_37950       148 IKEATGNLSRVHQIKELVS  166 (280)
+Confidence            5678999999999886543
+
+
+Done!

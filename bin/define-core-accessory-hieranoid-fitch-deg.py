@@ -47,15 +47,15 @@ outdir = '/home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid-fitch'
 makedir(outdir)
 speciestreedir = '/home/fatemeh/EnTrI/results/deg/trees/'
 sequences = read_fasta_sequences(seqdb)
-species_names = {'all': ['DEG1001', 'DEG1008', 'DEG1020', 'DEG1029', 'DEG1038', 'DEG1045', 'DEG1002', 'DEG1012',
-                         'DEG1021', 'DEG1031', 'DEG1039', 'DEG1046', 'DEG1003', 'DEG1013', 'DEG1023', 'DEG1034',
-                         'DEG1040', 'DEG1047', 'DEG1005', 'DEG1014', 'DEG1024', 'DEG1035', 'DEG1041', 'DEG1006',
-                         'DEG1015', 'DEG1027', 'DEG1036', 'DEG1042', 'DEG1007', 'DEG1017', 'DEG1028', 'DEG1037',
-                         'DEG1043'], 'proteobacteria': ['DEG1035', 'DEG1024','DEG1012', 'DEG1005', 'DEG1003', 'DEG1029',
-                                                        'DEG1015', 'DEG1036', 'DEG1013', 'DEG1043', 'DEG1020', 'DEG1046',
-                                                        'DEG1041', 'DEG1045', 'DEG1028', 'DEG1031', 'DEG1008'],
-                 'gammaproteobacteria': ['DEG1012', 'DEG1005', 'DEG1003', 'DEG1029', 'DEG1015', 'DEG1036', 'DEG1013',
-                                         'DEG1043']}
+species_names = {'all': ['DEG1027', 'DEG1040', 'DEG1022', 'DEG1023', 'DEG1034', 'DEG1020', 'DEG1046', 'DEG1041',
+                         'DEG1045', 'DEG1024', 'DEG1035', 'DEG1012', 'DEG1029', 'DEG1003', 'DEG1005', 'DEG1048',
+                         'DEG1019', 'DEG1032', 'DEG1033', 'DEG1016', 'DEG1043', 'DEG1036', 'DEG1008', 'DEG1006',
+                         'DEG1014', 'DEG1042', 'DEG1037', 'DEG1038', 'DEG1017', 'DEG1002', 'DEG1001'],
+                 'proteobacteria': ['DEG1020', 'DEG1046', 'DEG1041', 'DEG1045', 'DEG1024', 'DEG1035', 'DEG1012',
+                                    'DEG1029', 'DEG1003', 'DEG1005', 'DEG1048', 'DEG1019', 'DEG1032', 'DEG1033',
+                                    'DEG1016', 'DEG1043', 'DEG1036', 'DEG1008'],
+                 'gammaproteobacteria': ['DEG1012', 'DEG1029', 'DEG1003', 'DEG1005', 'DEG1048', 'DEG1019', 'DEG1032',
+                                         'DEG1033', 'DEG1016', 'DEG1043', 'DEG1036']}
 # species_names = ['A359', 'bbp', 'BOBLI757', 'BUMPF009', 'CWO', 'Sant', 'A35E', 'BCc', 'BPEN', 'BUMPG002', 'CWQ', 'SG',
 #                  'AB162', 'BCHRO640', 'BTURN675', 'BUMPUSDA', 'CWS', 'SOPEG', 'BA000003', 'BCI', 'BUAMB', 'BUMPW106',
 #                  'CWU', 'WIGMOR', 'BA000021', 'BCTU', 'BUAP5A', 'BUsg', 'IM45', 'BAKON', 'Bfl', 'BUAPTUC7', 'BVAF',
@@ -85,11 +85,16 @@ for item in species_names.keys():
             for g in genes:
                 if g.startswith('DEG'):
                     s = g[0:7]
+                elif g.startswith('exDEG'):
+                    s = g[2:9]
                 else:
                     s = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', g).group(1).strip('_')
                 if s in gene_dict.keys():
                     list_of_genes.append(g)
-                    gene_dict[s] = {1}
+                    if g.startswith('exDEG'):
+                        gene_dict[s] = {0, 1}
+                    else:
+                        gene_dict[s] = {1}
 
             with open(speciestreedir + item + '.tre', 'r') as tree_file:
                 treeline = tree_file.readline()
@@ -139,11 +144,16 @@ for item in species_names.keys():
             for g in genes:
                 if g.startswith('DEG'):
                     s = g[0:7]
+                elif g.startswith('exDEG'):
+                    s = g[2:9]
                 else:
                     s = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', g).group(1).strip('_')
                 if s in gene_dict.keys():
                     list_of_genes.append(g)
-                    gene_dict[s] = {1}
+                    if g.startswith('exDEG'):
+                        gene_dict[s] = {0, 1}
+                    else:
+                        gene_dict[s] = {1}
             if presence[index] == {1}:
                 counter += 1
                 with open(esscoredir + '/clust' + str(counter), 'w') as corefile:

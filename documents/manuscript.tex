@@ -12,6 +12,7 @@
 
 % line numbers
 \usepackage[right]{lineno}
+\linenumbers
 
 % improves typesetting in LaTeX
 \usepackage{microtype}
@@ -56,7 +57,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{pdflscape}
-\graphicspath{{../figures/}}
+\graphicspath{{../figures/panels/}}
 
 % use if you want to put caption to the side of the figure - see example in text
 \usepackage{sidecap}
@@ -67,6 +68,7 @@
 \usepackage[fulladjust]{marginnote}
 \reversemarginpar
 \usepackage{amsmath}
+\usepackage{pdfpages}
 
 % document begins here
 \begin{document}
@@ -75,7 +77,8 @@
 % title goes here:
 \begin{flushleft}
 {\Large
-\textbf\newline{Title}
+\textbf{Investigating essential genes in Enterobacteriaceae using
+transposon insertion sequencing}
 }
 \newline
 % authors go here:
@@ -92,615 +95,219 @@
 %\bigskip
 %* paul.gardner@canterbury.ac.nz
 
-\end{flushleft}
-
-\section*{Abstract}
-%Many genes have been identified with advances in sequencing technology and genome annotation methods. However, not all of these genes are of the same importance. We have used transposon mutagenesis to investigate gene essentiality in 14 strains of Enterobacteriaceae. We investigated the potential biases of this approach and found an origin of replication bis, no preferred insertion motif bias, a G-C bias in low G-C genes,  and positional bias within genes. After correcting for these biases, we investigated the changes in the cohorts of essential genes and compared them to their conservation level. Surprisingly, we found that conserved genes are not necessarily essential, and essential genes are not necessarily conserved. However, on average, essential genes are more likely to be conserved.
-
-% now start line numbers
-%\linenumbers
-
-% the * after section prevents numbering
+\end{flushleft}% Correct contributions, italicise bacteria names, italicise gene names, abbreviate species names
+% convert MG1655(keio) to BW25113    http://mbio.asm.org/content/6/3/e00306-15.full#sec-11
+% EC958 -> CFT073    http://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1003788#ppat.1003788.s003
+\section{Abstract}
+The study of genes that are essential for the survival of a prokaryotic organism can help with the design of new antibiotics and designing minimal viable genomes that can be ``programmed'' with new genes. Transposon insertion is a method for defining essential genes. We have used this method for different bacteria in the Enterobacteriaceae family. Here, we show that on average a density of one insertion site every 25 nucleotides can result in accurate prediction of essential genes and introduce a new computational method for defining essential genes using transposon insertion data. In addition, we studied possible sources of bias in this experiment. These analyses show that there is a decline in the number of transposon insertions as we get further from the origin of replication. Moreover, insertions in the $5^\prime$ and $3^\prime$ ends of genes do not follow the same pattern as intermediate region. We compared the essential genes in Enterobacteriaceae with other bacteria and found that genes that are essential in all bacteria are involved in replication, transcription, translation, and cell division. However, many genes involved in these processes are not necessarily essential in all bacteria due to the existence of alternatives that compensate for them. In addition, we show that the essentiality of genes and their conservation are related: essential genes are more likely to be conserved and conserved genes are more likely to be essential.
+%\section{Contributions}
+%Lars Barquist and Paul Gardner have supervised the project and provided feedback on the manuscript. I have performed the analyses and written the manuscript. The transposon insertion sequencing data has been provided by Amy Cain, Christine Boinett, Gemma Langridge, Julian Parkhill, and Nicholas Thomson at Wellcome Sanger Institute, Moataz Abd El Ghany at King Abdullah University of Science and Technology, and Lars Barquist at Helmholtz Institute for RNA-based Infection Research.
 \section{Introduction}
-%The study of cells can give us new insights for understanding the foundation of life. However, the naturally existing cells are very complex which hampers the study of their constituents. Restricting these studies to the genes that are required for the growth of cells can reduce this complexity and enable us to study life in its simplest form \cite{juhas_essence_2011}.
+Sequencing a new genome and annotating the genomic regions is now quick and easy thanks to advances in sequencing and genome annotation methods, however the functional annotation of genomes remains challenging. One aspect of functional annotation is the study of genes that are needed for the viability of an organism i.e. essential genes. Detecting essential genes  is important for furthering our understanding of fundamental biology. One of the applications of identifying essential genes is drug discovery \cite{juhas_essential_2012}. New antibiotics, target genes that are essential for the survival of pathogenic bacteria in order to control disease. Moreover, essential genes can serve as the basis for generating minimal genomes \cite{glass_essential_2006, hutchison_global_1999}. Minimal genomes are appealing for two reasons. First, to understand how small can minimal life be and second, for improving biotechnological processes \cite{martinez-garcia_quest_2016}.
 
-Generating genomic variants that carry genes responsible for essential cellular processes can open up new research directions. Adding genes or metabolic pathways to cells provides new variants with specialised phenotypes. Modified cells have different potential applications in biotechnology \cite{juhas_bacillus_2014}, fuel production \cite{seo_synthetic_2013}, healthcare, and food production \cite{juhas_meeting_2013}. Another important application for studying essential genes is in drug discovery \cite{juhas_essential_2012}. Infectious diseases are among the top major causes of mortality worldwide. Even though antibiotic resistance is growing among bacteria, the antibiotic discovery and development rate is diminishing \cite{fischbach_antibiotics_2009, nathan_antibiotics_2004}. Therefore, it is urgent to find new drugs for infectious diseases. New antibiotics target genes that are essential for the survival of pathogenic bacteria in order to control disease. Some well-known antibiotics that target essential functions are tetracyclines that bind to small ribosomal subunit and interfere with protein translation \cite{brodersen_structural_2000}, penicillins that target peptidoglycan and inhibit the cell wall synthesis \cite{chung_rapid_2009}, and quinolones that target DNA Gyrase \cite{marcusson_interplay_2009}.
-%Some candidate antibiotic targets found by investigating essential genes are trans-translation genes \textit{ssrA} and \textit{smpB} from \textit{helicobacter pylori} \cite{thibonnier_trans-translation_2008}, \textit{CcrM} and \textit{MenH} which are bacterial methyltransferases, and \textit{lptD} (previously known as \textit{ostA}) in \textit{Pseudomonas aeruginosa} \cite{srinivas_peptidomimetic_2010} whose essential role is yet under investigation \cite{werneburg_inhibition_2012}.[SOME ANTIBIOTICS THAT TARGET ESSENTIAL GENES ARE...]
+In the earliest attempt for the identification of essential genes, Mushegian and Koonin compared the genomes of \textit{Haemophilus influenzae} and \textit{Mycoplasma genitalium}, assuming that the genes that are shared in these two phylogenetically distant bacteria are indispensable and reported 256 genes fulfilling this requirement \cite{mushegian_minimal_1996}. With the advent of sequencing technologies and availability of more genome sequences, the number of core genes in different prokaryotic genomes has declined to less than 100 \cite{brown_universal_2001, koonin_comparative_2003, harris_genetic_2003}. This number does not seem to be enough for performing all essential functions in a cell since many of the essential functions can be performed by non-orthologous genes. Therefore, computational methods are not capable of defining essential genes and the use of experimental methods for the identification of essential genes is important. By combining computational and experimental studies, Gil et al. introduced a set of 206 genes that can theoretically be used to design a genetically minimal bacterium \cite{gil_determination_2004}. They have divided the genes responsible for essential functions into 5 groups: 1) information storage and processing which can be related to DNA or RNA metabolism, 2) protein processing, folding, and secretion, 3) cell structure and cellular processes, 4) energetic and intermediary metabolism, and 5) poorly characterised genes. However, in practice the number of genes that appear to be required for the smallest viable synthetic bacterium is 437 \cite{hutchison_design_2016}.
 
-In the earliest attempt for the identification of essential genes, Mushegian and Koonin compared the genomes of \textit{Haemophilus influenzae} and \textit{Mycoplasma genitalium}, assuming that the genes that are shared in these two phylogenetically distant bacteria are indispensable and reported 256 genes fulfilling this requirement \cite{mushegian_minimal_1996}. With the advent of sequencing technologies and availability of more genome sequences, the number of core genes in different prokaryotic genomes declined to less than 50 which is not enough for performing all essential functions in a cell \cite{charlebois_computing_2004}. Therefore, the use of experimental methods for the identification of essential genes is vital. Researchers have now studied the essential genes in organisms from all three domains of life \cite{luo_deg_2014} using a number of different methods. Baba et al.\@ \cite{baba_construction_2006} made a library of single gene deletions for \textit{Escherichia coli} K-12. The 303 genes where viable \textit{Escherichia coli} colonies failed to grow are the candidate essential genes. Another group used an antisense RNA knockdown approach to study gene essentiality in \textit{Staphylococcus} aureus \cite{forsyth_genome-wide_2002}. In this method, if the expression of an antisense RNA hinders the growth of the cell, its cognate gene is known as essential. Both of these methods are labour intensive and are dependent on the accuracy of genome annotations. Another widely used procedure is transposon mutagenesis combined with high-throughput sequencing \cite{chao_design_2016, van_opijnen_transposon_2013, barquist_approaches_2013} which includes different approaches namely, Tn-Seq \cite{van_opijnen_tn-seq:_2009}, INSeq \cite{goodman_identifying_2009}, HITS \cite{gawronski_tracking_2009} and TraDIS \cite{langridge_simultaneous_2009}. These procedures differ in the type of transposon, sample preparation methods, and data analysis \cite{van_opijnen_transposon_2013}. Nonetheless, all share the same workflow: pools of single insertion mutants are constructed using transposon mutagenesis. After a growth phase, mutants that are fitter outnumber the less fit ones. Using high-throughput sequencing and tallying transposon junctions gives an indication of whether a genomic region is essential or not. A high number of transposon insertions in a gene indicates that the gene is not essential in its growth medium and conversely, a low number of transposon insertions indicates that a gene is essential in the medium.
+Essential genes have been studied in organisms from all three domains of life \cite{luo_deg_2014} using a number of different methods. Baba et al. \cite{baba_construction_2006} made a library of single gene deletion mutants for \textit{E. coli} K-12 BW25113, called Keio collection, and identified 303 genes that hindered the growth of viable \textit{E. coli} colonies as candidate essential genes.  Antisense RNA knockdowns have also been used to study gene essentiality in \textit{Staphylococcus aureus} \cite{forsyth_genome-wide_2002}. With this approach, if the expression of an antisense RNA hampers cell growth, its cognate gene is thought to be essential. Both methods are labour intensive and depend on the accuracy of genome annotation. A less targeted procedure for identifying essential genes is transposon mutagenesis combined with high-throughput sequencing \cite{barquist_approaches_2013, van_opijnen_transposon_2013, chao_design_2016} which is used in several different approaches, namely Tn-Seq \cite{van_opijnen_tn-seq:_2009}, INSeq \cite{goodman_identifying_2009}, HITS \cite{gawronski_tracking_2009} and TraDIS \cite{langridge_simultaneous_2009}. These methods differ in the type of transposon, sample preparation methods, and data analysis \cite{van_opijnen_transposon_2013}. Nonetheless, all share a similar workflow: pools of single insertion mutants are constructed using transposon mutagenesis and screened using a selective media for the inserted transposons. After a recovery phase and library construction, high-throughput sequencing is used to identify transposon insertion junctions, which are then tallied to indicate whether a genomic region is essential or not. A high number of transposon insertions in a gene indicates that the gene is not essential in its growth medium, and conversely a low number of transposon insertions indicates that a gene is essential in the medium.
 
-There are two groups of essential genes: core essential genes are indispensable for all cells, and accessory essential genes that are required for some organisms. Core essential genes can shed light on the genome structure of the last universal common ancestor and the evolution of living cells \cite{koonin_comparative_2003} and have been used for the synthesis of minimal cells \cite{hutchison_design_2016}. On the other hand, accessory essential genes are helpful in the study of specific lineages. Accessory essential genes may be useful in species-specific antibiotic discovery. Antibiotics that target core essential genes in pathogens may not be ideal, as they may attack homologous genes in their hosts or commensal bacteria.
+The study of core essential genes i.e. genes that are essential in all bacteria can shed light on the genome structure of the last universal common ancestor and the evolution of living cells \cite{koonin_comparative_2003}, and provide insight into the requirements for the synthesis of a universal minimal cell. Knowledge of accessory essential genes, which are only essential in specific lineages, may help identify species-specific antibiotic targets which would not adversely affect the host or commensal bacteria. A number of studies have used transposon insertion experiments to compare cohorts of essential genes and showed that closely related organisms can have specific essential genes. Freed et al. \cite{freed_combining_2016} have investigated the difference between essential genes in \textit{Shigella flexneri} and \textit{E. coli} K-12 BW25113 and shown that there are no genes that are essential in \textit{E. coli} and not essential in \textit{S. flexneri}, while some genes are only essential in \textit{S. flexneri}. These include a group of genes involved in cysteine, proline and sugar nucleotide biosynthesis, acetate utilisation, translation elongation, aminoacyl tRNA synthetase, murein DD-endopeptidase, and the soxR-reducing complex. Many of these are essential in \textit{S. flexneri} due to the absence of paralogs or other alternative pathways that exist in \textit{E. coli}.
 
-%Curtis and Brun \cite{curtis_identification_2014} have studied the essentiality changes in cell cycle genes of three alpha-proteobacteria strains: \textit{Caulobacter crescentus}, \textit{Brevundimonas subvibrioides}, and \textit{Agrobacterium tumefaciens} and concluded that although essential genes responsible for cell functions are conserved, there are many essential genes that are specific to each organism.
-Freed et al. \cite{freed_combining_2016} have investigated the difference between essential genes in \textit{Shigella flexneri} 2a 2457T and \textit{Escherichia coli} K12 BW25113 and shown that there are no genes that are essential in \textit{Escherichi coli} and not essential in \textit{Shigella flexneri}, while some genes are only essential in \textit{Shigella flexneri}. These include a group of genes involved in cysteine, proline and sugar nucleotide biosynthesis, acetate utilisation, translation elongation, aminoacyl tRNA synthetase, murein DD-endopeptidase, and soxR-reducing complex, many of which are essential in \textit{Shigella flexneri} due to the absence of paralogs or other alternative systems that exist in \textit{Escherichia coli}.
-%The difference in essentiality stems from four reasons: the disruption of many of the genes in \textit{Shigella flexneri} 2a 2457T impede the growth, but these genes are not actually essential; the conditions were different in the two experiments done on \textit{Escherichia coli} K12 BW25113 and \textit{Shigella flexneri} 2a 2457T; many of the genes were not actually essential for growth, but essential for transposon insertion and antibiotic resistance; and
+In another study, Canals et al. \cite{canals_high-throughput_2012} have compared the essentiality of genes in \textit{Salmonella} Typhimurium, two isolates of \textit{S.} Typhi Ty2 (varying in \textit{htrA}, \textit{aroC} and \textit{aroD} genes), and \textit{E. coli} K-12 BW25113. Overall, 268 essential genes were found to be shared between these strains. Nine genes are essential in \textit{E. coli} and not essential in \textit{Salmonella}. These genes are mostly near essential in \textit{Salmonella} as well. %, three of which can tolerate insertions only in some parts and one has distant paralogs in Salmonellas that is missing in \textit{E. coli}. For other genes, there are a few insertions in Salmonellas, but the number is not small enough to call those genes essential.
+Moreover, 159 genes were essential in \textit{Salmonella} but not in \textit{E. coli}. These include genes involved in replication and genes related to ribosome and its accessory proteins. The authors also found 26 genes that are under greater selection in \textit{S.} Typhimurium compared to \textit{S.} Typhi and 10 genes vice versa. Barquist et al. \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to compare the essentiality of genes in \textit{S.} Typhi, \textit{S.} Typhimurium, and \textit{E. coli} K-12 BW25113. These genomes share 228 essential genes which are mostly involved in cell division, transcription, translation, and fatty acid and peptidoglycan biosynthesis. Additionally, many of the serovar-specific essential genes in \textit{Salmonella} are phage repressors. These proteins keep the phages in lysogenic phase and stops them from entering the lytic cycle that destructs the cell \cite{echols_establishment_1971}. Another key difference in the two \textit{Salmonella} serovars is the differences in the essentiality of genes involved in iron utilisation and cell surface structure that gives an indication of the adaptation of these two \textit{Salmonella} serovars to their niches. %that a set of genes that are putatively involved in cell wall biosynthesis are essential in \textit{S.} Typhimurium and not essential in \textit{S.} Typhi which gives an indication of the adaptation of these two \textit{Salmonella} serovars to their niches.
 
-%PPG: Reduce, summarise main findings of Canals & Barquist. e.g. Most essential genes are also essential in related species, yet there are some serovar-specific essential genes [GIVE SOME NUMBERS]... 
-Canals et al.\@ \cite{canals_high-throughput_2012} have compared the essentiality of genes in \textit{Salmonella} typhimurium ATCC 14028, two isolates of \textit{Salmonella typhi} Ty2 (varying in \textit{htrA}, \textit{aroC} and \textit{aroD} genes), and \textit{Escherichia coli} K12 BW25113 and found that these cells share 268 essential genes. Nine genes are essential in \textit{Escherichia coli} and not essential in \textit{Salmonella}s, three of which can tolerate insertions only in some parts and one has distant paralogs in \textit{Salmonella}s that is missing in \textit{Escherichia coli}. For other genes, there are a few insertions in \textit{Salmonella}s, but the number is not small enough to call those genes essential. Moreover, 159 genes were almost essential in all \textit{Salmonella}s but not in \textit{Escherichia coli}. These include genes involved in replication and genes related to ribosome and its accessory proteins. The authors also found 26 genes that are under greater selection in \textit{Salmonella} Typhimurium compared to \textit{S. typhi} and 10 genes vice versa. Barquist et al. \cite{barquist_comparison_2013} have used transposon-directed insertion-site sequencing to compare the essentiality of genes in \textit{Salmonella} Typhi Ty2, \textit{Salmonella} Typhimurium SL1344, and \textit{Escherichia coli} K12 BW25113. 
-%THIS IS IMPORTANT:
-These genomes share 228 essential genes which are mostly involved in cell division, transcription, translation, and fatty acid and peptidoglycan biosynthesis. Additionally, many of the serovar-specific essential genes in \textit{Salmonella}s are phage repressors. Another key difference between these two serovars is that a set of genes that are putatively involved in cell wall biosynthesis are essential in \textit{Salmonella} Typhimurium and not essential in \textit{salmonella} Typhi which gives an indication of the adaptation of these two \textit{Salmonella} serovars to their niches.
+Although there are some studies on differentiation of essentiality in different organisms, their scope is limited to a handful of species/genomes. We aimed to extend these studies to a larger scale by investigating the essentiality of genes in 14 different organisms in the Enterobacteriaceae family of bacteria using TraDIS. These bacteria include \textit{Enterobacter cloacae} NCTC 9394, \textit{Klebsiella pneumoniae} Ecl8, \textit{K. pneumoniae} RH201207, \textit{Citrobacter rodentium} ICC168, \textit{S.} Typhimurium SL1344, \textit{S.} Typhimurium SL3261, \textit{S.} Typhimurium D23580, \textit{S.} Typhimurium A130, \textit{S.} Enteritidis P125109, \textit{S.} Typhi Ty2, \textit{E. coli} UPEC CFT073, \textit{E. coli} UPEC ST131, and \textit{E. coli} K-12 BW25113 which is the parent of \textit{E. coli} strain used in Keio collection \cite{baba_construction_2006}. We have also used the essentiality data of \textit{E. coli} K-12 BW25113 from EcoGene database \cite{zhou_ecogene_2013} which improves the essentiality data in Keio collection \cite{baba_construction_2006}. We first introduce a computational method for calling essential genes, compare it with the existing methods and investigate the biases that may affect our results. In addition, we find the best insertion density for transposon insertion experiments in bacteria. We then compare the list of core and accessory essential in different lineages and investigate the implications. %genes to core essential genes in all bacteria and core genes in Gammaproteobacteria endosymbionts to find which genes are essential in which lineages. 
+\section{Results and discussion}
+In this section we will compare different methods for evaluating gene essentiality and describe our approach. Then, we will discuss the ideal insertion rate for transposon insertion experiments. Furthermore, we will review different sources of bias in transposon insertion experiments and study the essentiality of genes in different bacterial lineages.
+\subsection{Benchmarking different essentiality evaluators}
+The number of transposon insertions detected in a gene is negatively correlated with the essentiality level of that gene. The more insertions exist in a gene, the less essential that gene is. A number of methods have been used for evaluating the essentiality of genes using transposon insertion data. Barquist et al. \cite{barquist_tradis_2016} use insertion indices which are calculated by dividing the number of insertion sites in a gene by gene length. Plotting the insertion indices for all genes in a genome gives a bimodal plot (Figure~\ref{fig:fig1}a), each mode representing a group of genes (essential or non-essential). They have fitted two gamma distributions to these modes and calculated the log odds value to select a cut-off on the insertion index that distinguishes between essential and non-essential genes.
 
-Although there are some studies on differentiation of essentiality in different organisms, these studies usually include a few genomes. We are going to extend these studies to a larger scale in Enterobacteriaceae family. Our aim is to study the essentiality of genes in in 16 different organisms. These include \textit{Enterobacter cloacae} NCTC 9394, \textit{Klebsiella pneumoniae} Ecl8, \textit{Klebsiella pneumoniae} RH201207, \textit{Citrobacter rodentium} ICC168, \textit{Salmonella} Typhimurium SL1344, \textit{Salmonella} Typhimurium SL3261, \textit{Salmonella} Typhimurium D23580, \textit{Salmonella} Typhimurium A130, \textit{Salmonella} Enteritidis P125109, \textit{Salmonella} Typhi Ty2, \textit{Escherichia coli} ST131 EC958, \textit{Escherichia coli} UPEC ST131, \textit{Escherichia coli} ETEC CS17, \textit{Escherichia coli} ETEC H10407, \textit{Escherichia coli} BW25113, and \textit{Escherichia coli} K-12 MG1655.
+Freed et al. \cite{freed_combining_2016} compared eleven features that can quantify the essentiality of genes, among which the average distance between insertion sites and the largest uninterrupted fraction were the best predictors. Turner et al. \cite{turner_essential_2015} used Monte Carlo method to randomly simulate insertions in a genome and using the DESeq package \cite{anders_differential_2010} calculated log fold changes for the actual number of insertions compared to the expected number of insertions obtained from the randomisation method, and clustered the log fold changes using Mclust package in R \cite{scrucca_mclust_2016}.
 
-%WHAT FATEMEH DID....
+We compared the predictive power of the average distance between insertion sites in a gene, the largest uninterrupted fraction, insertion index, and Monte Carlo method combined with DESeq. To evaluate the accuracy of these methods, we compared essential genes predicted with each method to the essential genes in \textit{E. coli} K-12 BW25113 in the EcoGene database \cite{zhou_ecogene_2013}. In this database, the essential genes from Keio collection \cite{baba_construction_2006} are further studied and some are omitted from the list (e.g. a non-essential signal peptide needed for the translation of an essential gene, or pseudogenes) while some other genes are added (mostly due to the existence of other copies that compensate for them when deleted \cite{yamamoto_update_2009}). The results of our comparison are depicted in Figure~\ref{fig:fig1}b and Supplementary Figure 1. Most of these methods have very close accuracies, but on average, insertion index is the most accurate predictor as it has the highest average Area Under the Curve (AUC) over all 13 datasets (Supplementary Figure 2). We also combined all these methods using Principal Component Analysis (PCA). We ran the prcomp function in R and selected the first principal component for our analysis. The average AUC is 0.9608 for PCA. As the random sampling method is too slow, our PCA method runs very slowly with only a small improvement to the results. Therefore, we tried PCA excluding random sampling which resulted in an average AUC higher than insertion index (Supplementary Figure 2). The difference between average AUCs of PCA excluding random sampling and insertion index is small and insertion index is a straightforward and more intuitive measure. Therefore, we used insertion index for identifying essential genes. As our dataset is composed of the results of different transposon insertion experiments on different genomes, and the number of transposon insertion sites and genome length varies in these experiments, we have divided the insertion indices in each genome by $n_o/l_o$ where $n_o$ is the number of insertion sites in genome and $l_o$ is the length of the genome. The distribution of the insertion indices for \textit{E. coli} BW25113 is plotted in Figure~\ref{fig:fig1}a.
 
-%Enterobacteriaceae is a well characterised family of Gram-negative bacteria with a variety of host ranges and pathogenecity \cite{brenner_bergeys_2006}. In addition, we added the essential genes of \textit{Escherichia coli} K-12 MG1655 from EcoGene database \cite{zhou_ecogene_2013} to our study. In EcoGene the essentiality of genes suggested as essential by Baba et al.\@ \cite{baba_construction_2006} has been further studied and only 299 out of 303 genes are marked as essential. We first performed a detailed study of biases than can influence the inference of essentiality. Then, we normalised our data for the biases and investigated the essentiality of genes in three classes of genes: genus specific (genes that are present only in one genus), single copy genes (genes with about one instance per genome in all of the genomes that we are studying), and multi-copy genes(genes that are copied multiple times per genome). We have also investigated how essentiality changes in the phylogenetic tree for these organisms.
-
-%\begin{figure}
-%\includegraphics[scale=0.2]{phylosift-aa-raxmlbootstrap.pdf}
-%\caption{The species tree containing the 16 genomes used in this study. We have generated the tree by running RAxML \cite{stamatakis_raxml_2014} on Phylosift \cite{darling_phylosift:_2014} amino acid markers.}
-%\label{fig:species-tree}
-%\end{figure}
-
-\section{Results and Discussion}
-\subsection{Incorporating multiple measures of gene essentiality improves prediction}
-In this section we will compare a number of methods of quantifying the essentiality of genes based on transposon insertion data and introduce our own method.
-\subsubsection{Comparison of old methods}
-A number of methods have been used for evaluating the essentiality of genes using transposon insertion data. Freed et al. \cite{freed_combining_2016} have compared eleven features that can quantify the essentiality of genes. These include: the number of insertion sites within genes; the mean distance between insertion sites, the median distance between insertion sites, the number of base pairs before the first insertion in the $5^\prime$ end, the ratio between the number of base pairs before the first insertion in the $5^\prime$ end and gene length, the number of base pairs before the second insertion in the $5^\prime$ end, the ratio between the number of base pairs before the second insertion in the $5^\prime$ end and gene length, the length of the longest uninterrupted region in the gene, the ratio between the length of the longest uninterrupted region in the gene and gene length, the length of the longest region in the gene containing at most one insertion divided by gene length, and the number of insertion sites divided by gene length. Among these, the average distance between insertion sites and the length of the longest uninterrupted region were the best predictors.
-
-Barquist et al. \cite{barquist_tradis_2016} have used insertion indices which are calculated by dividing the number of insertion sites by gene length for defining the essentiality of genes. Plotting all insertion indices for all genes in a genome gives a bimodal plot, each mode representing a group of genes (essential or non-essential). They have fitted two gamma distributions to these modes and calculated the log odds value for each gene to test which mode it belongs to.
-
-Turner et al. \cite{turner_essential_2015} have randomly sampled insertions in a genome and using DESeq package \cite{anders_differential_2010} calculated log fold changes and P-values for the actual number of insertions compared to the expected number of insertions obtained from the sampling method.
-
-We have compared the predictive power of the average distance between insertion sites in a gene, the length of the longest uninterrupted region, insertion index, log odds value obtained from insertion index value, and P-value and log fold change calculated using DESeq package after sampling. To evaluate the accuracy of these methods, we have compared the predicted essential genes to the essential genes in \textit{Escherichia coli} K-12 MG1655 in EcoGene database \cite{zhou_ecogene_2013}. The results are depicted in Figure~\ref{fig:benchmark}. Among all methods, those that try to fit a distribution to data and predict essentiality based on that, namely log odds value from insertion indices and P-value from DESeq after sampling, are the least accurate methods. Sampling and then calculating log fold changes using DESeq package is the most accurate predictor and the other three methods are also good predictors despite their simplicity.
-\subsubsection{PCA based method}\label{sec:essentiality-call}
-We selected four of the predictors in previous section: insertion index, log fold change using sampling and DESeq, the average distance between insertion sites in a gene, and the length of the longest uninterrupted region. These predictors were selected as they were more accurate and less dependent on each other. Afterwards, we ran principal component analysis on these predictors using \emph{prcomp} function in R and selected the first principal component. As Figure~\ref{fig:benchmark} shows, PCA results gave us the most powerful tool for quantifying the essentiality of genes compared to other methods. We have plotted the results for one sample genome and the results for other genomes are shown in {\color{red}SUPPLEMENTARY}. Figure~\ref{fig:pca} shows the distribution of PCA results after zero mean unit variance normalisation. We call this value NPEQ (Normalised Pca based Essentiality Quantifier) in this paper. The genes whose NPEQ values are less than -1.644854 after normalisation are beneficial losses and the genes with NPEQ greater than 1.644854 are essential. The rest are non-essential genes. The cutoff 1.644854 has been selected because if we assume that NPEQ distribution is normal, this cutoff shows the P-value 0.95. Moreover, by trying to define a cutoff that maximises Matthews correlation coefficient for each genome using NPEQ, we get 1.650449 as the average cutoff which is very close to this value.
+Another challenge is to define a threshold for separating essential genes from non-essential ones. One method, is using gamma fits to find this threshold \cite{barquist_tradis_2016}. However, with this method, when gamma fits are not consistent with the sample distributions, the log odds values obtained from them are not good predictors of essentiality. In order to make our predictions independent of the goodness of fits, we have used DBSCAN clustering \cite{ester_density-based_1996}. The details of this method are provided in Methods~\ref{meth:essentiality}. This method clusters genes whose insertion indices are closely packed together and results in four groups of genes: essential genes, non-essential genes, beneficial losses, and ambiguous genes which are between different groups. Supplementary Figure 3 compares the results of essential gene prediction using gamma fits and DBSCAN. In this figure, we have assumed that essential genes in \textit{E.coli} K-12 BW25113 which are proposed in EcoGene are also essential in other genomes and calculated Matthews Correlation Coefficient for different cut-offs on insertion index. The cut-off found by DBSCAN outperforms gamma fits in predicting essential genes.
 
 \begin{figure}
-\captionsetup[subfigure]{justification=centering}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[page=1, scale=0.4]{essential-call-comparison-BW25113.pdf}
-  \caption{}
-  \label{fig:benchmark}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[page=10, scale=0.4]{essential-call-comparison-BW25113.pdf}
-  \caption{}
-  \label{fig:pca}
-\end{subfigure}
-\caption{(a) The accuracy of 7 different prediction methods for quantifying the essentiality of genes. The higher the area under the curve, the more accurate the method is. (b) The distribution for our proposed method (NPEQ)}
-\label{fig:essentiality-call}
+\includegraphics[scale=0.45]{fig1.pdf}
+\caption{(a) The bimodal distribution of insertion indices shows different classes of essentiality obtained using DBSCAN. These include essential genes which have the lowest insertion indices, non-essential genes with intermediate insertion indices, beneficial losses with high insertion indices, and ambiguous genes which are located between these groups (b) ROC curves showing the accuracy of 6 methods for predicting essential genes. True positives are genes that are predicted as essential and whose orthologs are essential in EcoGene database of essential genes for \textit{E. coli} K-12 BW25113. False positives are genes that are predicted as essential, but are classed as non-essential in EcoGene study.}
+\label{fig:fig1}
 \end{figure}
 
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c c}
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-BN373.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-BW25113.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-CS17.pdf}\\
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-EC958.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-ENC.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-ERS227112.pdf}\\
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-ETEC.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-NCTC13441.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-ROD.pdf}\\
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-SEN.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-SL1344.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-SL3261.pdf}\\
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-STM.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-STMMW.pdf}&
-%\includegraphics[page=1, scale=0.23]{essential-call-comparison-t.pdf}\\
-%\end{tabular}
-%\caption{The plots show the accuracy of 7 different prediction methods for quantifying the essentiality of genes. The higher the area under the curve, the more accurate the method is.}
-%\label{fig:benchmark}
-%\end{figure*}
+\subsection{What is an ideal insertion density?}
+If the number of transposon insertions is too low compared to genome length, the insertion index distribution is not bimodal and therefore the prediction of essential genes is not accurate. However, higher numbers of insertions are labour intensive and cost more due to larger mutant pools which need to be sequenced. Insertion density is defined as the ratio between the number of insertion sites and genome length. In this section, we explore the minimum insertion density which does not affect the accuracy of the experiment.
 
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c c}
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-BN373.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-BW25113.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-CS17.pdf}\\
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-EC958.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-ENC.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-ERS227112.pdf}\\
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-ETEC.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-NCTC13441.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-ROD.pdf}\\
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-SEN.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-SL1344.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-SL3261.pdf}\\
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-STM.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-STMMW.pdf}&
-%\includegraphics[page=10, scale=0.22]{essential-call-comparison-t.pdf}\\
-%\end{tabular}
-%\caption{The plots show the distribution of our new prediction method which is calculated by running PCA on insertion index, log fold change using sampling and DESeq, the average distance between insertion sites in a gene, and the length of the longest uninterrupted region and selecting first principal component. This method is called NPEQ.}
-%\label{fig:pca}
-%\end{figure*}
-\subsection{TraDIS data is biased}
-In Section~\ref{sec:essentiality-call} we proposed NPEQ method that quantifies the level of essentiality of a gene. However, if the transposon insertion is biased to specific regions in the genome, it can increase/decrease the values predicted by our method for genes and put them in a different level of essentiality. Different articles have reported biases in transposon insertion using Tn5 \cite{barquist_comparison_2013, green_insertion_2012, rubin_essential_2015, canals_high-throughput_2012, langridge_simultaneous_2009}. We performed a detailed study of these biases. The biases that we studied include: origin of replication bias, preferred insertion motif bias, and positional bias within genes.
+We provided 4 independent \textit{S.} Typhimurium SL1344 libraries with 50K, 100K, 250K, 500K, and 1000K Colony-Forming Unit (CFU). On average, these libraries have 4075282, 4160203, 4526237, 5711423, and 13813802 reads respectively which results in one insertion site in every 57.07, 52.94, 16.49, 14.17 and 8.86 nucleotides, assuming a uniform distribution of insertions. In order to compare different ranges of insertion densities, we simulated different libraries with one insertion site in 8.86 to 243.90 nucleotides. For each simulated library, we used the closest real library with more insertion sites than our simulated library and randomly omitted insertion sites until we reached the desired density.
+
+The false positive rate declines with the increase of insertion density as illustrated in Figure~\ref{fig:fig2}a and at 0.04 density it becomes almost constant. Figure ~\ref{fig:fig2}b shows that the true positive rate goes down as the insertion density rises to 0.01. This happens due to the large number of predicted essential genes which also includes many actual essential genes. But, as the density increases the number of predicted essential genes decreases which results in a decline in true positive rate. After 0.01, the true positive rate rises with increasing insertion density and it gets almost constant at about 0.04 insertion density. As a result of the fluctuations of the true positive rate and the false positive rate, Matthew's Correlation Coefficient goes up with higher insertion densities until it reaches 0.04. Then, it changes unnoticeably with more insertions (Supplementary Figure 4a). Finally, the percentage of genes with at least 1 insertion rises with higher insertion densities, but the curve becomes almost flat after 0.04 (Supplementary Figure 4b). Overall, these figures show that an insertion density about 0.04 can give us a good trade-off between cost and accuracy.
+
+\begin{figure}[ht]
+\includegraphics[scale=0.45]{fig2.pdf}
+\caption{Simulation of insertion density effects: The red and blue dots are obtained from real and simulated data, respectively. The black line shows the loess curve with 0.2 span and the gray regions show $95\%$ confidence intervals. Insertion resolution is calculated by dividing genome length by the number of insertion sites. (a) False positive rate decreases with the increase of the insertion density (the ratio between the number of insertion sites and genome length) and remains constant after it reaches 0.04. (b) True positive rate goes down as the insertion density rises to 0.01. Afterwards, it rises with increasing insertion density and gets almost constant at about 0.04 insertion density.}
+\label{fig:fig2}
+\end{figure}
+
+\subsection{Exploring possible sources of bias in TraDIS data}
+If the transposon insertion process is biased to specific regions in the genome, it can affect the number of insertions in a gene which changes insertion indices and may put some genes in incorrect essentiality categories. Different articles have reported biases in transposon insertion using Tn5 \cite{goryshin_tn5/is50_1998, langridge_simultaneous_2009, gallagher_genome-scale_2011, canals_high-throughput_2012, green_insertion_2012, zomer_essentials:_2012, barquist_comparison_2013, rubin_essential_2015}. We performed a detailed study of these biases. The biases that we studied include: origin of replication bias, preferred insertion motif bias, and positional bias within genes.
+
 \subsubsection{Distance from the origin of replication bias}
-While a study has reported Tn5 insertion bias near the origin of replication \cite{barquist_comparison_2013}, another study has reported no bias \cite{rubin_essential_2015}. To study the bias towards the position of gene within genome, we plotted NPEQ for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome in Fig.\@ \ref{fig:distance-bias}. The figure indicates that NPEQ increases when the genes are located further from the origin of replication. When the bacteria are under replication during the transposn insertion process, there are more copies of the genes close to the origin of replication than the genes further away due to the initiation of different replication forks. This results in more insertions in the genes near the origin of replication which can influence the accuracy of our predictions.
-%One might argue that the bias that we have observed may have happened due to the abundance of essential genes near the origin of replication. Rocha and Eduardo \cite{rocha_replication-related_2004} have shown that unlike highly expressed genes, essential genes are not enriched near the origin of replication.
+Different studies with conflicting results have been performed on Tn5 insertion bias near the origin of replication \cite{jacobs_comprehensive_2003, gallagher_genome-scale_2011, zomer_essentials:_2012, barquist_comparison_2013, rubin_essential_2015}. When the bacteria are under replication during the transposon insertion process and in the presence of multiple replication forks, there are more copies of the genes close to the origin of replication than the genes further away \cite{barquist_comparison_2013}. To study the insertion bias towards the position of genes within genome, we plotted insertion indices for each gene versus the distance of the gene from the origin of replication normalised by the length of the genome in Figure~\ref{fig:fig3}a. The figure indicates that insertion index decreases when the genes are located further from the origin of replication. This means that there are more insertions in the genes near the origin of replication which can influence the accuracy of our predictions. To correct this bias, we normalised insertion indices by the distance of genes from the origin of replication in genomes (See Methods~\ref{meth:essentiality}).
 
-\begin{figure}
-\captionsetup[subfigure]{justification=centering}
-\begin{subfigure}{.49\textwidth}
-  \centering
-  \includegraphics[page=6, scale=0.25]{biases.pdf}
-  \caption{}
-  \label{fig:distance-bias}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-  \centering
-  \includegraphics[page=5, scale=0.25]{biases.pdf}
-  \caption{}
-  \label{fig:GC-bias}
-\end{subfigure}
-\begin{subfigure}{\textwidth}
-  \centering
-  \includegraphics[scale=0.6]{100logo-prob-edited.pdf}
-  \caption{}
-  \label{fig:logos}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-  \centering
-  \includegraphics[scale=0.25, page=2]{insertion-position-bias.pdf}
-  \caption{}
-  \label{fig:insertion-position-bias-ess}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-  \centering
-  \includegraphics[scale=0.25, page=4]{insertion-position-bias.pdf}
-  \caption{}
-  \label{fig:insertion-position-bias-ben}
-\end{subfigure}
-\caption{(a)The distance of the genes from DnaA gene normalised by the lengths of the genomes versus NPEQ. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (b) G-C content of genes against their NPEQ values. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows no bias. (c) Sequence logo plots generated using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The height of each character shows the relative frequency of that character. (d) and (e) The plots show the average insertion index in percentiles of all essential genes (d) and beneficial losses (e). The genes are divided into 3 segments: 5\% of the genes on the $5^\prime$ end, 20\% of the genes on the $3^\prime$ end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.}
-\label{fig:biases}
-\end{figure}
-
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c c}
-%\includegraphics[page=2, scale=0.22]{biases.pdf}&
-%\includegraphics[page=6, scale=0.22]{biases.pdf}&
-%\includegraphics[page=10, scale=0.22]{biases.pdf}\\
-%\includegraphics[page=14, scale=0.22]{biases.pdf}&
-%\includegraphics[page=18, scale=0.22]{biases.pdf}&
-%\includegraphics[page=22, scale=0.22]{biases.pdf}\\
-%\includegraphics[page=26, scale=0.22]{biases.pdf}&
-%\includegraphics[page=30, scale=0.22]{biases.pdf}&
-%\includegraphics[page=34, scale=0.22]{biases.pdf}\\
-%\includegraphics[page=38, scale=0.22]{biases.pdf}&
-%\includegraphics[page=42, scale=0.22]{biases.pdf}&
-%\includegraphics[page=46, scale=0.22]{biases.pdf}\\
-%\includegraphics[page=50, scale=0.22]{biases.pdf}&
-%\includegraphics[page=54, scale=0.22]{biases.pdf}&
-%\includegraphics[page=58, scale=0.22]{biases.pdf}\\
-%\end{tabular}
-%\caption{The plots show the distance of the genes from DnaA gene normalised by the lengths of the genomes versus the insertion indices of the genes. The distance from DnaA gene has been calculated in both directions and then the minimum value has been used for distance. The red curves show the loess curve when the smoothness parameter is $0.2$.}
-%\label{fig:distance-bias}
-%\end{figure*}
 \subsubsection{Preferred nucleotide composition bias}
-Another concern while inferring essentiality from transposon insertion data is that transposon insertion is biased to certain compositions of nucleotides and high number of insertions in genes reflects the enrichment of the motifs that transposon insertion is biased towards, instead of their essentiality level. During Tn5 transposition, a sequence of 9 nucleotides is duplicated. Lodge et al. \cite{lodge_transposon_1988} showed that these duplicated regions have G-C pairs at two ends and replacing these G-C pairs with A-T pairs reduces the number of transposon insertions by more than fivefold. Goryshin et al. \cite{goryshin_tn5/is50_1998} reported the palindromic sequence A-GNTYWRANC-T as the consensus target site for Tn5 transposition where the 9 letters in middle show the consensus sequence in the duplicated region. %They have also showed that insertion sites are usually grouped together and have 5 base pairs distance from each other.
-In some other research a similar consensus motif has been found for Tn5 \cite{canals_high-throughput_2012} which is CGCGCA-GTTYWRAAC-TGCGCG. Others \cite{green_insertion_2012,rubin_essential_2015} have not found such a sequence but shown that the duplicated regions are G-C rich. We used Weblogo~\cite{crooks_weblogo:_2004} to generate a logo from duplicated regions and 10 nucleotides flanking the 100 top most frequent insertion sites in each genome. The results in Figure \ref{fig:logos} show the consensus motif that we have found is very similar to \cite{green_insertion_2012} and the only difference is in positions 3 and 7 within the duplicated region.
+Another concern while inferring essentiality from transposon insertion data is that transposon insertion is biased to certain compositions of nucleotides and high number of insertions in genes reflects their enrichment in these motifs, instead of their essentiality level. When Tn5 transposon is inserted into DNA, a region of 9 nucleotides is duplicated on both sides of the transposon \cite{goryshin_tn5/is50_1998}. Some preferred sequence motifs have been proposed previously \cite{goryshin_tn5/is50_1998, canals_high-throughput_2012} which are illustrated in Figure~\ref{fig:fig3}c. Other studies have found no compelling evidence of a preferred insertion motif, but showed the existence of G-C pairs at the two ends of duplicated regions \cite{green_insertion_2012, rubin_essential_2015}. We used Weblogo \cite{crooks_weblogo:_2004} to generate a logo from duplicated regions and 10 nucleotides flanking the 100 top most frequent insertion sites in each genome. The results in Figure~\ref{fig:fig3}c show that the nucleotides in the consensus motifs are just slightly overrepresented compared to the background distribution, however when corrected for background nucleotide composition, there is very little signal (see ``bits'' in Figure~\ref{fig:fig3}c).
 
-%\begin{figure*}
-%\includegraphics[scale=0.9]{100logo-prob-edited.pdf}
-%\caption{Sequence logo plots generated using sequences from 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The height of each character shows the relative frequency of that character.}
-%\label{fig:logos}
-%\end{figure*}
-
-The other possible source of bias is if transpositions are more inclined to G-C or A-T rich regions. Rubin et al. \cite{rubin_essential_2015} have reported that the number of Tn5 insertions rises with the increase of G-C content and Green et al. \cite{green_insertion_2012} have shown that the highest number of insertions occur in high G-C content regions. On the other hand, Langridge et al. \cite{langridge_simultaneous_2009} have seen an increase in the number of Tn5 insertions in 40\% G-C content. In Figure \ref{fig:GC-bias}, we plotted the G-C content of genes versus their NPEQ values. The red curves are loess curves with smoothness parameter 0.2 and the green line shows no bias. %In most cases (BW25113, EC958, ENC, ETEC, NCTC13441, ROD, SEN, STM, and t)
-NPEQ decreases gradually (which means an increase in the number of insertions) as G-C content decreases and then somewhere between 40\% and 50\% G-C content, NPEQ starts to rise again in almost all genomes. %In three cases (SL1344, SL3261, and STMMW) NPEQ loess curve starts to fall off again at about 60\% G-C content which is probably due to a small number of genes with low NPEQ values in that region. The loess curve for BN373 is almost flat. In CS17, the loess curve goes down until it reaches the minimum value (at about 48\%) and then remains unchanged and in ERS227112, the NPEQ value is low at the beginning and then it increases at around 50\% G-C content.
-In the region where most of the genes are packed, the loess curve is almost flat. On the left side of this flat region, there are genes with different G-C content which are enriched in mobile genetic elements. So, we expect to see more insertions (smaller NPEQ values) in this region. We have low NPEQ values between 40\% and 50\% G-C content which is expected. However, in most cases when we have less than 40\% G-C content, NPEQ value is high. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which reduces the insertions in A-T rich regions. This has been shown for Tn10 transposon \cite{kimura_nucleoid_2016}, but not for Tn5 transposon, yet. Overall, the results are consistent with Langridge et al. \cite{langridge_simultaneous_2009}. The G-C content of the most of the genes with large NPEQ values is between 50\% and 60\% which is inconsistent with Green et al. \cite{green_insertion_2012} as this region contains most of the genes and is not considered as a high G-C content region but rather an average G-C content region. %Even though most of the regression lines are consistent with Rubin et al. results \cite{rubin_essential_2015}, the figures show that a linear regression cannot predict G-C bias as its slope changes dramatically in different datasets.
-
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c c}
-%\includegraphics[page=1, scale=0.23]{biases.pdf}&
-%\includegraphics[page=5, scale=0.23]{biases.pdf}&
-%\includegraphics[page=9, scale=0.23]{biases.pdf}\\
-%\includegraphics[page=13, scale=0.23]{biases.pdf}&
-%\includegraphics[page=17, scale=0.23]{biases.pdf}&
-%\includegraphics[page=21, scale=0.23]{biases.pdf}\\
-%\includegraphics[page=25, scale=0.23]{biases.pdf}&
-%\includegraphics[page=29, scale=0.23]{biases.pdf}&
-%\includegraphics[page=33, scale=0.23]{biases.pdf}\\
-%\includegraphics[page=37, scale=0.23]{biases.pdf}&
-%\includegraphics[page=41, scale=0.23]{biases.pdf}&
-%\includegraphics[page=45, scale=0.23]{biases.pdf}\\
-%\includegraphics[page=49, scale=0.23]{biases.pdf}&
-%\includegraphics[page=53, scale=0.23]{biases.pdf}&
-%\includegraphics[page=57, scale=0.23]{biases.pdf}\\
-%\end{tabular}
-%\caption{The plots show G-C content of genes against their NPEQ values. The red curves show the loess curve when the smoothness parameter is $0.2$ and the green line shows the linear regression line.}
-%\label{fig:GC-bias}
-%\end{figure*}
+The other possible source of bias is if transpositions are more inclined to G-C or A-T rich regions. Rubin et al. \cite{rubin_essential_2015} have reported that the number of Tn5 insertions rises with the increase of G-C content and Green et al. \cite{green_insertion_2012} have shown that the highest number of insertions occurs in the regions in genome with highest G-C content. On the other hand, Langridge et al. \cite{langridge_simultaneous_2009} have seen a high number of Tn5 insertions in between $40\%$ and $50\%$ G-C content and lower number of insertions for G-C content higher than $50\%$. In Figure~\ref{fig:fig3}b, we plotted the G-C content of genes versus their insertion indices for non-essential genes and beneficial losses in a representative genome. The red lines are generalised additive model (GAM) curves with formula $y \sim s(x)$. Insertion indices increase gradually as G-C content rises up to $40\%$-$50\%$ G-C content, after which insertion indices begin to decrease in almost all genomes. In the region where the genes are most densely packed, the GAM curve is almost flat. In \textit{E. coli} BW25113, only 1365 genes have a GC content of less than $50\%$ or greater than $60\%$ which means they are in the region where the density is not flat. On the left side of this flat region, there are genes with different G-C content which are enriched in mobile genetic elements. So, we expect to see more insertions in this region. We have high insertion indices between $40\%$ and $50\%$ G-C content which is expected. However, in most cases when we have less than $40\%$ G-C content, insertion index is low. A possible reason for this phenomena is the association of A-T rich sequences and histone-like nucleotide structuring (H-NS) proteins, which may inhibit the insertions in A-T rich regions. This has been proposed by Barquist et al. for Tn5 \cite{barquist_comparison_2013} and shown for Tn10 transposon \cite{kimura_nucleoid_2016}.
 
 \subsubsection{Positional bias within genes}
-Some research has indicated that himar1 transposons are more probable to get inserted into the two ends of a gene compared to the middle \cite{griffin_high-resolution_2011}. We have tested this hypothesis using our TraDIS data. We divided every gene into 100 fragments with equal lengths (percentiles) and calculated the mean insertion index for each percentile. Insertion index is calculated using $\frac{\frac{n_p}{l_p}}{\frac{n_g}{l_g}}$, where $n_p$ is the number of insertion sites in a specific percentile, $l_p$ is the length of that percentile, $n_g$ is the number of insertion sites in the whole genome and $l_g$ is genome length. Mean insertion index for each percentile is calculated by averaging over all insertion indices for that specific percentile of genes. We saw almost no bias towards any location when considering all genes together (Fig.\@ \ref{fig:insertion-position-bias} {\color{red}SUPPLEMENTARY}). We studied the bias in three different groups of genes: essential genes which have no or just a few insertions, non-essential genes which have an intermediate number of insertions, and beneficial losses which have a high number of insertions. The results imply that the number of insertions in the internal region of the essential genes is outnumbered by the number of insertions in the $5^\prime$ and $3^\prime$ ends (Fig.\@ \ref{fig:insertion-position-bias-ess}) while it is the opposite in beneficial losses (Fig.\@ \ref{fig:insertion-position-bias-ben}). High number of insertions at the $3^\prime$ end of essential genes implies that the functional domains are located before the insertions and the insertions are not interfering with them. On the other hand, high number of insertions at the $5^\prime$ end of the essential genes indicates there might be alternative start codons in the $5^\prime$ end or it might be because of annotation errors that have predicted the start codon in an incorrect place before the actual start codon.
-
-%\begin{figure*}
-%\begin{tabular}{c c}
-%\includegraphics[scale=0.4, page=1]{insertion-position-bias.pdf}&
-%\includegraphics[scale=0.4, page=2]{insertion-position-bias.pdf}\\
-%\includegraphics[scale=0.4, page=3]{insertion-position-bias.pdf}&
-%\includegraphics[scale=0.4, page=4]{insertion-position-bias.pdf}
-%\end{tabular}
-%\caption{The plots show the average insertion index in the percentiles of all genes (top left), essential genes (top right), non-essential genes (bottom left), and beneficial losses (bottom right). The genes are divided into 3 segments: 5\% of
-%the genes on the 5' end, 20\% of the genes on the 3' end, and the rest in the middle. These are shown by khaki, slate gray, and violet red respectively.}
-%\label{fig:insertion-position-bias}
-%\end{figure*}
-\subsection{Most essential genes are ubiquitously essential in Enterobacteriaceae}
-Previous studies of gene essentiality in Enterobacteriaceae family have compared essential genes in different genomes in this family and studied the sets of core essential genes and accessory essential genes \cite{freed_combining_2016, canals_high-throughput_2012, barquist_comparison_2013}. Core essential genes are responsible for essential processes such as cell division, DNA replication, transcription and translation and some important pathways like peptidoglycan and fatty acid biosynthesis \cite{barquist_comparison_2013}. Accessory essential genes differ in genomes due to different reasons such as niche adaptation, functional redundancy and the existence of alternative pathways \cite{freed_combining_2016, canals_high-throughput_2012, barquist_comparison_2013, bergmiller_patterns_2012}. Another group of accessory essential genes are phage repressors \cite{barquist_comparison_2013}. Even though these genes are not essential for the growth of a cell, once phages are introduced to a cell, they become essential as long as the phage remains in the cell.
-
-In this study, we have compared the genes in 16 bacteria from Enterobacteriaceae family. For this we needed to study core and accessory sets of genes. Moreover, in the presence of two redundant variations of one gene, if we knock out one copy using TraDIS, the other copy compensates and the organism can still survive \cite{bergmiller_patterns_2012,dean_pervasive_2008}. This leads to a different essentiality inference using TraDIS. Therefore, in addition to core and accessory genes, we have studied duplicate genes. To study whether each gene in the 16 organisms is core, we used Jackhmmer from HMMER package~\cite{eddy_accelerated_2011} to iteratively search for homologous proteins in our dataset and cluster them. We divided the clusters of homologous genes into three groups based on their conservation. Genus specific class contains genes that are present only in one genus, the genes in single copy class are present in more than one genus and more than 70\% of them are not duplicated (core genes), and  the genes in multi-copy class are present in more than one genus and more than 30\% of them are duplicated (duplicate genes).
-
-We also evaluated the essentiality of genes and divided the genes into different levels of essentiality using NPEQ values. If NPEQ is less than -1.644854, it means that the gene has tolerated many insertions, so it is beneficial for the organism to lose this gene in the rich medium that we used. However, if NPEQ is greater than 1.644854, the gene can tolerate very few or no insertions indicating that the gene is essential for cell viability in our test medium. Any other NPEQ value shows an intermediate number of insertions in genes meaning that it is not beneficial for the organism to lose these genes, but they are not essential, too. We have called this group of genes non-essential.
-
-The results for comparing three levels of essentiality and three classes of conservation are depicted in Fig.\@ \ref{fig:iidist}. The high number of single copy clusters in essential level, indicates that there is a set of essential genes in Enterobacteriaceae that are conserved and inclined to keep their essentiality. However, there are also many essential genus specific genes. The figure also shows that beneficial losses are over represented in genus specific class. Therefore, beneficial losses are mostly recent genes that the organism tends to lose in the long run. Besides, most of the multi-copy clusters are non-essential and there are only a few multi-copy clusters that are essential. This can be explained by the redundancy that duplicate genes can keep even after $\sim100$ million years \cite{dean_pervasive_2008}. 
+Different studies have suggested that transposons are more likely to insert into the ends of a gene compared to the middle \cite{jacobs_comprehensive_2003, hutchison_global_1999, griffin_high-resolution_2011, gallagher_genome-scale_2011, zomer_essentials:_2012}. We have tested this hypothesis using TraDIS data. We divided every gene into 100 fragments with equal lengths (percentiles) and calculated the mean insertion index for each percentile. Insertion indices were calculated using $\frac{n_p/l_p}{n_g/lg}$, where $n_p$ is the number of insertion sites in a specific percentile, $l_p$ is the length of that percentile, $n_g$ is the number of insertion sites in the whole genome and $l_g$ is genome length. Mean insertion index for each percentile is calculated by averaging over all insertion indices for that specific percentile of genes. We observed almost no bias towards any location when considering all genes together (Supplementary Figure 7a). We studied the bias in three different groups of genes: essential genes which have no or just a few insertions, non-essential genes which have an intermediate number of insertions, and beneficial losses which have a high number of insertions. The results imply that the number of insertions in the internal region of the essential genes is outnumbered by the number of insertions in the $5^\prime$ and $3^\prime$ ends (Figure~\ref{fig:fig3}d) while it is the opposite in beneficial losses (Figure~\ref{fig:fig3}e). High number of insertions at the $3^\prime$ end of essential genes implies that the functional domains are located before the insertions and the insertions are not interfering with them. On the other hand, high number of insertions at the $5^\prime$ end of the essential genes indicates there might be alternative start codons in the $5^\prime$ end, or because of annotation errors that have predicted the start codon in an incorrect place before the actual start codon. In our dataset, the number of start codons or alternative start codons (ttg, ctg, or gtg) after insertion sites (in the $5^\prime$-most $10\%$ of the coding sequence) is significantly higher in genes with insertions in their $5^\prime$ end compared to genes without insertions in their $5^\prime$ end (Fisher's exact test P-value = $6.591 \times 10^{-4}$), meaning that alternative start codons and annotation errors are likely to be responsible for high numbers of insertions in the $5^\prime$ end of genes. In order to correct this bias, we trimmed the ends of genes and calculated insertion indices for the remaining parts (see Methods~\ref{meth:essentiality}). 
 
 \begin{figure}
-\captionsetup[subfigure]{justification=centering}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.4]{cluster-essentiality.pdf}
-  \caption{}
-  \label{fig:iidist}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.4]{essential-pathways.pdf}
-  \caption{}
-  \label{fig:essentiality-pathway-ess}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.4]{non-essential-pathways.pdf}
-  \caption{}
-  \label{fig:essentiality-pathway-nes}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.4]{beneficialloss-pval.pdf}
-  \caption{}
-  \label{fig:essentiality-pathway-ben}
-\end{subfigure}
-\caption{(a) The genes have been clustered into homologous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific. (b) and (c) KEGG Pathways enriched in essential genes (b) and non-essential genes (c). (d) The words enriched in the description of beneficial losses in their embl files compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
-\label{fig:gene-classes}
+\includegraphics[scale=0.34]{fig3.pdf}
+\caption{(a) The distance of \textit{E. coli} genes from the \textit{dnaA} gene (usually found near the origin of replication) versus insertion index. The red line shows the GAM curve when the formula is $y \sim s(x)$ and the pink shading shows $95\%$ confidence interval. (b) G-C content of genes against their insertion indices. The red line shows the GAM curve when the formula is $y \sim s(x)$. (c) Sequence logo plots generated using sequences from the 10 nucleotides flanking the 100 top most frequent insertion sites from each genome. The relative height of each character shows their frequency. (d) and (e) show the average insertion index (mean ii) in percentiles of all essential genes (d) and beneficial losses (e). The genes are divided into 3 segments: $5\%$ of the genes on the $5^\prime$ end, $20\%$ of the genes on the $3^\prime$ end, and the rest in the middle. These are shown by brown, blue, and red respectively.}
+\label{fig:fig3}
 \end{figure}
 
-%\begin{figure}
-%\centering
-%\includegraphics[scale=0.5]{cluster-essentiality.pdf}
-%\caption{The genes have been clustered into homologous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific.}
-%\label{fig:iidist}
-%\end{figure}
+\subsection{Essentiality of genes in Enterobacteriaceae}
+Previous studies of gene essentiality in representative Enterobacteriales have compared essential genes in different genomes in this family and studied the sets of core essential genes (genes that are conserved in all genomes under study) and accessory essential genes (genes that are conserved in some genomes) \cite{canals_high-throughput_2012, barquist_comparison_2013, freed_combining_2016}. These core essential genes are responsible for essential processes such as cell division, DNA replication, transcription and translation and some important metabolic pathways such as peptidoglycan and fatty acid biosynthesis \cite{barquist_comparison_2013}. Accessory essential genes differ in genomes due to niche adaptation, functional redundancy and the existence of alternative pathways \cite{canals_high-throughput_2012, bergmiller_patterns_2012, barquist_comparison_2013, freed_combining_2016}. Another group of accessory essential genes are phage repressors \cite{barquist_comparison_2013}. Although these genes are not essential for cell growth, once phages are introduced to a cell, they become essential as long as the phage remains in the cell. In this study, we have used transposon insertion coupled with high-throughput sequencing in 13 bacteria from the Enterobacteriaceae family in addition to the list of essential genes in \textit{E. coli} K-12 BW25113 in the EcoGene database \cite{zhou_ecogene_2013} to identify and compare the essentiality of genes in these 14 bacteria, and to identify genes that are essential in all Enterobacteriaceae. Supplementary Figure 8 shows all genes that are essential in at least one bacteria in Enterobacteriaceae and the pathways in which they are involved.
+\subsubsection{Core essential genes}
+All living organisms need to perform functions that allow them to survive, reproduce, and evolve. Therefore, there is a set of functions that are conserved universally and enable organisms to maintain these essential properties. These functions can be performed by various genes. In this study core essential genes in a clade are defined as genes that are essential in more than $80\%$ of the genomes that we have data for in that clade (Methods~\ref{meth:corecompare}). We have studied core essential genes in different clades in the bacterial evolutionary tree using this dataset, a set of Gammaproteobacteria endosymbionts (Supplementary Figure 11), and the DEG database of essential genes (Supplementary Figure 10). These genes can be helpful to generate a minimal genome. Here, we discuss genes that are essential in different clades which are Enterobacteriaceae, Gammaproteobacteria, Proteobacteria, and all bacteria to see which genes differentiate these clades.
 
-To study which functions are enriched in each class of essentiality, we used KEGG pathway enrichment analysis \cite{kanehisa_kegg:_2000} and compared the genes in each class with the databases that were available for the genomes in this study. The results show that essential genes are enriched in pathways related to genetic information processing such as replication (DNA replication, homologous recombination and mismatch repair), transcription (RNA polymerase), translation (ribosome), and protein export. These are the essential functions that every cell needs for its viability. Other enriched pathways are mostly metabolism related. These include fatty acid biosynthesis that produces cell membrane, peptidoglycan and lipopolysaccharide biosynthesis that are essential components of cell wall, terpenoid backbone biosynthesis which feeds peptidoglycan biosynthesis, nucleotide and amino acid metabolism, and the metabolism of important cofactors and vitamins like riboflavin, biotin,porphyrin and chlorophyll (Figure~\ref{fig:essentiality-pathway-ess}).
-{\color{red} CAN WE HAVE SOMETHING LIKE THIS? http://www.nature.com/articles/srep00125}
+There are 14 core essential genes in all bacteria. These genes are enriched in complexes and pathways related to the ribosome (\textit{rplF}, \textit{rpsC}, \textit{rpsD}, and \textit{rpsE}), aminoacyl-tRNA biosynthesis (\textit{gltx}, \textit{ileS}, \textit{pheS}, and \textit{valS}), and RNA polymerase (\textit{rpoA} and \textit{rpoB}). Other genes in this group are involved in DNA replication (\textit{dnaE}, \textit{gyrB} and \textit{ligA}) and cell division (\textit{ftsZ}). Overall, genes that are essential in all bacteria are involved in replication, transcription, translation, and cell division.
 
-Non-essential genes are mostly involved in carbohydrate, energy, and lipid metabolism, membrane transport, cell motility and cellular community. Even though these functions are important, they are not essential in a rich medium in lab.
+Genes that are core essential in Proteobacteria, but not core essential in all bacteria are enriched in pathways and complexes related to ribosome (\textit{rplE}, \textit{rplK}, \textit{rplM}, \textit{rplO}, \textit{rplP}, \textit{rplQ}, \textit{rplX}, \textit{rpsG}, \textit{rpsK}, and \textit{rpsM}). Although the ribosome is an essential macromolecule, previous studies have shown that not all of the genes in this macromolecule are essential \cite{shoji_systematic_2011, akanuma_inactivation_2012}. Our study shows that a group of genes in ribosome are essential in all bacteria while some others are only essential in some clades, probably due to redundancy or differences in bacteria life-styles. Another pathway enriched in core essential genes in Proteobacteria is terpenoid backbone biosynthesis (\textit{dxr}, \textit{dxs}, and \textit{uppS}). There are two pathways for terpenoid backbone biosynthesis, the mevalonate pathway and the 2C-methyl-D-erythritol 4-phosphate (MEP) pathway. Most of the time only one of these pathways is used \cite{heuston_isoprenoid_2012}, and as a result these genes are not classed as core essential in all groups of bacteria. Similarly, genes that are core essential in Gammaproteobacteria and not core essential in Proteobacteria are enriched in ribosomal genes (\textit{rplB}, \textit{rplL}, \textit{rplN}, \textit{rplR}, \textit{rplT}, \textit{rplV}, \textit{rpmD}, \textit{rpsH}, \textit{rpsL}, \textit{rpsN}, \textit{rpsP}, and \textit{rpsQ}) and terpenoid backbone biosynthesis (\textit{ispE}, \textit{ispF}, \textit{ispG}, and \textit{ispH}) pathways.
 
-As most of beneficial losses do not have homologs in other genomes, most of them are not studied and therefore there is no KEGG pathway for them. Because of this reason, we studied the description of these genes in their embl files and found the words that were enriched. These are shown in Figure~\ref{fig:essentiality-pathway-ben}. The results show that most of beneficial losses are mobile genetic elements like transposases and insertion elements which are not essential in their host genomes, genes that are not essential in a rich medium like stress protein and acid-resistance protein, and hypothetical proteins.
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c}
-%\includegraphics[scale=0.4]{essential-pathways.pdf}&
-%\includegraphics[scale=0.4]{non-essential-pathways.pdf}\\
-%\includegraphics[scale=0.4]{beneficialloss-pathways.pdf}&
-%\includegraphics[scale=0.4]{beneficialloss-pval.pdf}
-%\end{tabular}
-%\caption{Pathway enrichment analysis for beneficial losses, essential genes, and non-essential genes compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
-%\label{fig:essentiality-pathway}
-%\end{figure*}
+Core essential genes in Enterobacteriaceae that are also core in Gammaproteobacteria endosymbionts are enriched in pathways related to riboflavin metabolism (\textit{ribA}, \textit{ribB}, \textit{ribD}, \textit{ribE}, \textit{ribF}, \textit{ribH}), ribosomal genes (\textit{rplC}, \textit{rplD}, \textit{rplJ}, \textit{rplS}, \textit{rplU}, \textit{rplW}, \textit{rpmA}, \textit{rpmB}, \textit{rpsA}, \textit{rpsB}, \textit{rpsJ}, \textit{rpsR}, \textit{rpsS}, and \textit{rpsU}), DNA replication (\textit{dnaB}, \textit{dnaG}, \textit{dnaN}, \textit{dnaX}, \textit{holB}, and \textit{ssb}), peptidoglycan biosynthesis (\textit{ftsI}, \textit{mraY}, \textit{murA}, \textit{murD}, \textit{murE}, \textit{murI}, and \textit{mviN}), and lysine biosynthesis (\textit{asd}, \textit{dapA}, \textit{dapD}, \textit{dapE}, \textit{murE}). Riboflavin metabolism is an essential pathway in bacteria that can be a useful drug target \cite{long_riboflavin_2010}, however the loss of this pathway can be compensated when riboflavin transporters are present and riboflavin is available in the environment \cite{gutierrez-preciado_extensive_2015} which is mostly the case in rich media. Lysine biosynthesis is another essential pathway and drug target \cite{gillner_lysine_2013, hutton_inhibition_2007}. There are three different pathways for this process, the succinylase pathway which is the most common pathway, and the dehydrogenase and acetylase pathways. Some small groups of species (e.g. \textit{Bacillus}) use only the dehydrogenase and acetylase pathways. The existence of lysine in the media and alternative pathways might make genes in this pathway non-essential in some genomes. Lysine biosynthesis feeds into the peptidoglycan biosynthesis pathway, another core essential pathway in this group,  which forms the cell wall. Overall, this group is enriched in genes involved in replication, translation, and cell division.
 
-%\subsection{Phylogenetic analysis of gene essentiality identifies that essential genes are more likely to be conserved}
+Finally, genes that are only core essential in Enterobacteriaceae are enriched in pathways related to fatty acid biosynthesis and fatty acid metabolism (\textit{accB}, \textit{accC}, \textit{fabA}, \textit{fabD}, and \textit{fabH}). Although this pathway is essential in gram-negative bacteria, it can be bypassed in gram-positive bacteria as they can incorporate exogenous fatty acids \cite{parsons_identification_2014, parsons_incorporation_2014}. In addition, many of fatty acid related genes might be lost during the reduction of endosymbionts. Supplementary Figure 9 shows the list of genes that are core essential in every clade discussed here.
 
-%When a mutation is introduced to a gene, the fixation rate depends on how tolerable this mutation is \cite{wilson_biochemical_1977}. As mutations in essential genes are less likely to be tolerable, less mutations should be fixed in these genes, and therefore essential genes should evolve more slowly than non-essential genes. This is known as knockout rate hypothesis \cite{krylov_gene_2003}. Different studies have verified this hypothesis in prokaryotes \cite{jordan_essential_2002, gerdes_experimental_2003, rocha_analysis_2004, silander_constancy_2009}.
+\subsubsection{Ancestrally essential genes}
+As essential genes are responsible for key functions in the cell, it is expected that they are more conserved than  other genes during the evolution of organisms. We have tested this by comparing the number of essential and conserved genes in the common ancestor of our representative \textit{Enterobacter} genomes and in each level in the phylogenetic tree. For this, we used Fitch's algorithm \cite{fitch_toward_1971} to define ancestrally essential and ancestrally conserved genes. The process is explained in Methods~\ref{meth:fitch}. %Table 1 shows which of the genes involved in important biological processes are ancestrally essential.
 
-We have shown that many of the essential genes are conserved. But are essential genes more likely to be conserved? To answer this question, we have compared the number of ancestrally essential genes and ancestrally present genes in the phylogenetic tree as we go up to the root. We have used Fitch's algorithm \cite{fitch_toward_1971} with a binary alphabet on both essentiality (0 for non-essential and 1 for essential) and conservation (1 for the presence and 0 for the absence of genes) to define if a gene is ancestral essentially or present at each level in the phylogenetic tree. If we get 1 at the top of the tree while studying essentiality of a gene using Fitch's algorithm, it means that the gene is ancestrally essential and otherwise, the gene is ancestrally non-essential. The same applies to the study of ancestrally present genes. The phylogenetic tree has been annotated with the number of ancestrally essential genes (red) and the number of ancestral genes (blue) at each level in Figure~\ref{fig:tree}. We then plotted the ratios at each level in the phylogenetic tree in Figure~\ref{fig:fitch} and connected the medians in each level. The connecting line shows that the ratio between ancestrally essential genes and ancestral genes rises as we go higher in the phylogenetic tree which means essential genes are more likely to be conserved in genomes compared to non-essential genes.
+The phylogenetic tree in Figure~\ref{fig:fig4}a has been annotated with the number of ancestrally essential genes (red) and the number of ancestral genes (blue) at each level. We then plotted the ratios at each level in the phylogenetic tree in Figure~\ref{fig:fig4}b and connected the medians in each level. The connecting line shows that the ratio between ancestrally essential genes and ancestrally conserved genes rises as we go higher in the phylogenetic tree which means essential genes are more likely to be conserved in genomes compared to non-essential genes.
+
+To answer the opposite question, are conserved genes more likely to be essential, we gathered the genes that are conserved in Enterobacteriaceae and defined their conservation level in all bacteria in EMBL database \cite{stoesser_embl_2002} (see: Methods~\ref{meth:conservation}). Figure~\ref{fig:fig4}c shows that conserved genes are more likely to be essential.
 
 \begin{figure}
-\captionsetup[subfigure]{justification=centering}
-\begin{subfigure}{.6\textwidth}
-  \centering
-  \includegraphics[scale=0.12]{phylosift-aa-raxmlbootstrap-annotated.pdf}
-  \caption{}
-  \label{fig:tree}
-\end{subfigure}
-\begin{subfigure}{.4\textwidth}
-  \centering
-  \includegraphics[scale=0.4]{fitch.pdf}
-  \caption{}
-  \label{fig:fitch}
-\end{subfigure}
-\caption{(a) The species tree for all genomes in this study. Numbers in red show the number of ancestrally essential genes at each level and numbers in blue show the number of ancestral genes at each level. (b) The ratio between ancestrally essential genes and ancestral genes at each level in the species tree. The dots in the strain level show the ratios for all 16 bacteria; the dots in the species level show the ratios for Enterobacter, Klebsiella, Citrobacter, Salmonella, and Escherichia; the subfam. level shows the ratios for the common ancestor of Enterobacter and klebsiella, the common ancestor of Citrobacter and Salmonella, and the common ancestor of Citrobacter, Salmonella, and Escherichia; and finally the dot in the family level shows the ratio for the root. The line connects the medians in each level.}
-\label{fig:essentiality-phylogeny}
+\includegraphics[scale=0.4]{fig4.pdf}
+\caption{(a) The species tree for all genomes in this study. Numbers in red show the number of ancestrally essential genes at each level and numbers in blue show the number of ancestral genes at each level. (b) The ratio between ancestrally essential genes and ancestral genes at each level in the species tree. The dots at the strain level show the ratios for all 14 bacteria; the dots at the species level show the ratios for \textit{Enterobacter}, \textit{Klebsiella}, \textit{Citrobacter}, \textit{Salmonella}, and \textit{Escherichia}; the subfamily level shows the ratios for the common ancestor of \textit{Enterobacter} and \textit{Klebsiella}, the common ancestor of \textit{Citrobacter} and \textit{Salmonella}, and the common ancestor of \textit{Citrobacter}, \textit{Salmonella}, and \textit{Escherichia}; and finally the dot in the family level shows the ratio for the root. The line connects the medians in each level. (c) A comparison of essentiality and conservation. Genes conserved in the Enterobacteriaceae family are sorted based on their conservation level in all bacteria from left to right, then a walking hypergeometric test is done from left to right regarding the number of essential genes observed at each step. The khaki line shows the maximum P-value obtained and the blue line shows the gene with median conservation level. Most of the essential genes and the maximum P-value are at the left side of the median showing that conserved genes are more likely to be essential.}
+\label{fig:fig4}
 \end{figure}
 
-We have studied the essentiality status of genes involved in important biological processes in Table~\ref{tab:biological-processes}. These processes include cell division, DNA replication, transcription, translation, and important metabolic pathways such as peptidoglycan and fatty acid biosynthesis. If a gene was not ancestrally essential using Fitch's algorithm, we looked at its essentiality in every genome: if it was essential in some of the genomes we classified it as ambiguous and if it was not essential in any genome we classified it as ancestrally non-essential.
-%FtsA and zipA genes are essential for cell division. FtsA is essential in all the genomes in our study, however zipA is essential everywhere except for Salmonella typhimurium A130 in which this gene is near essential. We investigated if this gene has a homolog in Salmonella typhimurium A130 and found no homologs. It has been shown that 21 mutations in ftsA gene can make it independent of zipA gene so that the zipA gene is no longer essential \cite{geissler_gain--function_2003, pichoff_ftsa_2012}. However, ftsA gene does not have any of these mutations in Salmonella typhimurium A130, so there might be another factor that is causing zipA not to be essential. \textcolor{red}{ADD MORE EXAMPLES HERE}
+\subsubsection{Accessory essential genes}
+Accessory essential genes are important for the design of specialised antibiotics, and can give us insights into the evolution of different genera. Here, we have termed the genes that are ancestrally essential in one genus and not essential in other genera ``accessory essential''. We have used Fitch's algorithm (Materials and Methods) to define ancestrally essential genes in each genus of Enterobacteriaceae for which we had data (\textit{Citrobacter}, \textit{Salmonella}, \textit{Escherichia}, \textit{Klebsiella}, and \textit{Enterobacter}) and studied the genes that are only ancestrally essential in one genus (Supplementary Figure 12). There are five genes that are exclusively essential in \textit{Citrobacter} (\textit{gutQ}, \textit{ihfA}, \textit{ihfB}, \textit{priB}, and \textit{secB}). Among these \textit{ihfA}, \textit{ihfB} and \textit{priB} are related to homologous recombination, \textit{secB} is related to quorum sensing and \textit{gutQ} is arabinose 5-phosphate isomerase. The reason for the essentiality of genes related to homologous recombination might be that \textit{C. rodentium} is a newly evolved and unstable pathogen \cite{petty_citrobacter_2011} and homologous recombination helps with keeping its stability as it can repair DNA damage \cite{darmon_bacterial_2014}.
 
-\begin{landscape}
-\begin{table}
-\small
-\caption{The essentiality status of genes involved in important biological processes}
-\label{tab:biological-processes}
-\begin{tabular}[t]{l l l l l}
+Ten genes are only ancestrally essential in \textit{Salmonella} which are shown in Supplementary Figure 12. Among these are \textit{fepC}, \textit{fepD}, and \textit{fepG}. \textit{FepB} is also essnetial in 3 out of 6 \textit{Salmonella} genomes in this study, but is not defined as ancestrally essential using Fitch's algorithm. These four genes have been previously shown to be essential in \textit{S.} Typhi and non-essential in \textit{S.} Typhimurium SL1344 \cite{barquist_comparison_2013}. Our analysis shows that they are also essential in \textit{S.} Enteritidis, \textit{S.} Typhimurium D23580, and \textit{S.} Typhimurium A130. This shows the importance of the import of Ferric iron in these genomes. \textit{FtsE} and \textit{ftsX} are other accessory essential genes in \textit{Salmonella}. These genes are ABC transporters that facilitate cell division.%These genes are mostly ABC transporters. As ABC transporters are a large family of genes, some genes in this family might be able to perform the same functions in other genera.
+
+Seven genes are exclusively essential in \textit{Escherichia}. One of these genes is \textit{hipB} which is an antitoxin and is essential in \textit{Escherichia} whenever the toxin (hipA) is present. Another gene in this group is \textit{rpsI} which is 30S ribosomal protein S9. Although this gene has appeared as essential in our study and Keio collection \cite{baba_construction_2006}, it is shown that \textit{E. coli} is viable without this gene despite its slow growth \cite{bubunenko_essentiality_2007, shoji_systematic_2011}. Two other genes in this group are \textit{PhoU} which is a phosphate specific transport system accessory protein whose mutation causes the accumulation of inorganic phosphate in \textit{E. coli} \cite{morohoshi_accumulation_2002} and \textit{crr} which is a component of glucose-specific phosphotransferase enzyme.
+%which are involved in different processes and complexes, such as ribosome, quorum sensing, and glycolysis.
+
+The seven genes that are only essential in \textit{Klebsiella} are involved in lipopolysaccharide (LPS) biosynthesis. Bacterial lipopolysaccharides are composed of three components namely, lipid A, core, and O-antigen and core is further divided into two regions, inner core, and outer core \cite{caroff_structure_2003}. These seven essential genes belong to the inner core. LPS is important for stabilising membrane in gram negative bacteria \cite{salton_structure_1996}.
+%It has previously been shown that \textit{Klebsiella} produces an extracellular toxic complex that contains LPS \cite{straus_importance_1985, straus_production_1987}. This complex is responsible for the damage to lung tissues which causes pneumonia and its toxicity is associated to LPS \cite{straus_importance_1985, straus_production_1987}. We hypothesise that the importance of this complex and its correlation with the virulence of \textit{Klebsiella} \cite{domenico_extracellular_1985} is the reason for the essentiality of 7 LPS related genes specifically in \textit{Klebsiella}. 
+ 
+%and finally, the 22 genes that are only essential in Enterobacter are involved in different functions e.g. streptomycin biosynthesis, sulfur relay system, and aminoacyl-tRNA biosynthesis.
+Finally, the 22 genes that are only essential in \textit{Enterobacter} are involved in different functions e.g. sulfur relay system and aminoacyl-tRNA biosynthesis. Further studies are needed to find out the reason for the essentiality of these genes in \textit{Enterobacter}. Moreover, as the \textit{Enterobacter} genus contains only one genome in our dataset, the essentiality of these genes should be studied on different species in this genus.
+
+\subsubsection{Genus-specific, conserved single-copy and conserved multi-copy genes}
+To study the relationship between copy number and essentiality of genes, we divided the genes in this study into 3 groups: genus-specific genes that are present only in one genus, conserved single-copy genes that are present once almost in all genomes in our study, and conserved multi-copy genes that are conserved and have multiple copies in each genome. The procedure for defining these three groups is described in Methods~\ref{meth:homclust}. The distribution of each class is depicted in Figure~\ref{fig:fig5}.
+
+The high number of conserved single-copy essential clusters (380 single-copy essential clusters out of a total of 612 essential clusters), indicates that there is a set of essential genes in Enterobacteriaceae that are conserved and remained essential. However, there are also many essential genus-specific genes (214 genus-specific essential clusters). Most of the conserved multi-copy clusters are non-essential according to TraDIS. This can be explained by the redundancy of function that duplicate genes can retain even after long divergence times \cite{dean_pervasive_2008} which allows duplicates of knocked-out genes to compensate. Therefore, if a gene is essential and has multiple copies in the genome, transposon insertion sequencing is generally unable to detect its essentiality.
+
+Figure~\ref{fig:fig5} also shows that beneficial losses are over represented in the genus-specific class. Therefore, beneficial losses are mostly newer genes that are deleted or mutate over time. Moreover, the figure shows that conserved multi-copy genes have few clusters tagged as beneficial loss, meaning that beneficial losses are less likely to have multiple copies in an organism. We tested whether the reason for this phenomenon is that beneficial losses are copied on plasmid which causes these genes have fewer copies due to high cellular copy number. For this, we compared the number of clusters tagged as beneficial loss that had at least one homolog on plasmids of the genomes in this study, the number of clusters tagged as beneficial loss with no homologs on plasmids, the number of clusters that are not grouped as beneficial loss with at least one homolog on plasmids, and the number of clusters that are not grouped as beneficial loss with no homologs on plasmids using Fisher's exact test. The resulting P-value is 0.31 which shows no statistically significant difference between copies of genes on plasmids in beneficial loss group and others.
+
+As beneficial losses are mostly genus specific, there is not much information about them and most of them do not exist in databases like KEGG and GO. Therefore, in order to investigate beneficial losses we studied the words that were enriched in the description of gene product in EMBL files. The list of enriched words is provided in Supplementary Table 1. The table shows that beneficial losses are mostly mobile genetic elements (e.g. transposable elements, pathogenicity islands, and bacteriophages), putative or hypothetical proteins, and bacterial adhesins (e.g. fimbria, curli, and pilin). Mobile elements are newly acquired genes, so the organism does not generally require them. Bacterial adhesins help the bacteria to adhere together and colonise. Even though these genes are required when the bacteria are living in their host, they are not essential in rich media.
+
+\begin{figure}
+\includegraphics[scale=0.8]{fig5.pdf}
+\caption{Genes clustered into homologous groups using Jackhmmer and divided into 3 groups: genus-specific, conserved single-copy, and conserved multi-copy genes. The essentiality of the clusters has been defined using the insertion indices of the genes in the clusters.}
+\label{fig:fig5}
+\end{figure}
+
+\section{Conclusion}
+Our analysis shows what is needed in order to accurately identify essential genes in a transposon insertion experiment. Transposon insertion density is a major factor for the accuracy of this experiment. Our study shows that on average having one insertion site in every 25 nucleotides can accurately differentiate between essential and non-essential genes. When transposon insertion sequencing is performed, a measure is needed for distinguishing between essential and non-essential genes. Despite its simplicity, insertion index has high accuracy and can quickly evaluate the essentiality of a gene. However, there are biases that can affect the accuracy of this method. We studied different biases and showed that the distance from the origin of replication can affect the number of insertions observed in a gene. To overcome this bias, we normalised insertion indices by the distance of genes from the origin of replication in genomes. In addition, the two ends of genes do not have insertion patterns similar to the intermediate region. Therefore, we calculated insertion indices after trimming the ends.
+
+This study shows the sets of essential genes in 14 bacteria from Enterobacteriaceae and shows that these genes are involved in pathways related to replication, transcription, translation, and protein export. Other enriched pathways are predominantly involved in metabolic processes. These include fatty acid biosynthesis that produces cell membrane, peptidoglycan and lipopolysaccharide biosynthesis that are essential components of cell wall, terpenoid backbone biosynthesis which feeds peptidoglycan biosynthesis, nucleotide and amino acid metabolism, and the metabolism of important cofactors and vitamins like riboflavin, biotin, and porphyrin.
+
+Moreover, we studied the accessory essential genes in each genus of Enterobacteriaceae and showed that the genes that are exclusively essential in each genus help with the specific lifestyle of the genomes in that group. Genes related to homologous recombination are essential in \textit{Citrobacter}. The reason might be that they reduce genome instability by repairing DNA damage \cite{darmon_bacterial_2014}. In addition, genes related to LPS, which help with membrane stability \cite{salton_structure_1996}, are essential in \textit{Klebsiella}. The essential genes in \textit{Salmonella} are mostly related to the import of Ferric iron.
+
+The comparison of the essential genes in Enterobacteriaceae with the essential genes in Gammaproteobacteria, Proteobacteria, and all bacteria shows that many genes are not essential in all groups because of the existence of other genes and pathways that compensate for them. The genes that are essential in all bacteria are involved in ribosome complex, aminoacyl-tRNA biosynthesis, RNA polymerase, DNA replication, and replication. Some genes in terpenoid backbone biosynthesis pathway are not essential in all bacteria but core essential in Proteobacteria or Gammaproteobacteria. The reason might be that, even though terpenoid backbone biosynthesis is an important pathway for the formation of cell wall, there are two pathways for this process, most of the time only one of which is used in a genome \cite{heuston_isoprenoid_2012}. There are genes related to lysine biosynthesis that are core essential in Enterobacteriaceae and core in Gammaproteobacteria endosymbionts, but not core essential in all bacteria. These genes are related to the production of diaminopimelate (DAP) which is important in cell wall biosynthesis. The reason these genes are not core essential in all genomes might be the presence of lysine in the media and alternative pathways. Finally, many fatty acid biosynthesis genes are only core essential in Enterobacteriaceae. This pathway is only essential in gram negative bacteria \cite{parsons_identification_2014, parsons_incorporation_2014}.
+%Moreover, we studied the essential genes in each genus of Enterobacteriaceae family and showed that the genes that are exclusively essential in each genus help with the specific lifestyle of the genomes in that group e.g. by reducing genome instability, and increasing virulence of organisms. %Moreover, genes related to fatty acid metabolism and biosynthesis pathways are only core essential in Enterobacteriaceae. Bacterial type II fatty acid synthesis (FASII) is one of the targets for antibacterial agents \cite{yao_how_2015, freiberg_novel_2006, schiebel_rational_2014}. Although this pathway is essential in gram-negative bacteria, it can be bypassed in gram-positive bacteria as they can incorporate exogenous fatty acids \cite{parsons_identification_2014, parsons_incorporation_2014}. The FASII cycle involves Acetyl-CoA carboxylase (accABCD), and fatty acid biosynthesis genes (fabABDFGHIKLVZ) of which accABCD, fabH, fabI, and fabBF have been targeted by antibacterials \cite{yao_how_2015}. AccB, accC, and fabH are only core essential in Enterobacteriaceae, while accA and accD are core essential in Enterobacteriaceae and Gammaproteobacteria. However, these genes are not core in endosymbionts which might be because they can provide their needed fatty acid from their host. fabI and fabB are core essential in Enterobacteriaceae and endosymbionts and fabF is not core essential anywhere.
+
+The comparison of conservation and essentiality of genes shows that essential genes are less likely to be lost over time compared to non-essential genes. The reverse applies as well; genes that are conserved are more likely to be essential. Our analyses also show that essential genes identified using transposon insertion sequencing include genes that are conserved in all Enterobacteriaceae, or exclusive to single strains. But very few conserved multi-copy genes are essential since the other copy can compensate for the knocked out gene. Finally, most of the genes that an organism tends to lose are genus-specific. We also showed that genes that are beneficial to lose in a rich medium are mostly related to mobile genetic elements or bacterial adhesion.
+
+\section{Materials and methods}
+In this section we will firstly discuss how the essentiality of genes in 13 bacteria from Enterobacteriaceae were evaluated. Secondly, we will explain the methods used to cluster orthologous and homologous genes. Afterwards, the ancestrally essential and ancestral genes are defined. Subsequently, we will explain how core genes are defined in our dataset of 14 bacteria from the Enterobacteriaceae family, DEG database, and our dataset of endosymbionts. In addition, the process for calculating conservation levels of genes is described and finally we will describe the method used for pathway enrichment analysis.
+
+\subsection{Identifying essential genes}\label{meth:essentiality}
+In order to find essential genes for this study, we require a metric to evaluate if a gene is essential or not. For this, we used insertion index as it is an accurate and simple predictor of gene essentiality (Figure~\ref{fig:fig1}a). The insertion index for each gene in each genome is calculated using $\frac{n_g/l_g}{n_o/l_o}$ where $n_g$ is the number of insertion sites in the gene after trimming $5\%$ from the $5^\prime$ end and $20\%$ from the $3^\prime$ end (because the regions close to the $5^\prime$ and $3^\prime$ ends are tolerant of insertions, even in essential genes as shown in Figure~\ref{fig:fig3}d), $l_g$ is the length of the gene after cutting $5\%$ from the $5^\prime$ end and $20\%$ from the $3^\prime$ end, $n_o$ is the number of insertion sites in the genome, and $l_o$ is the length of the genome. Since the insertion of transposons is biased towards the distance from origin of replication, we should normalise insertion indices. In each genome, we fitted a GAM curve when the formula is $y \sim s(x)$ to the distance vs. insertion index plot using R. Then, we calculated the distance-normalised insertion indices by dividing insertion indices by predicted values using the GAM curve and then multiplying them to average insertion index.
+
+We used DBSCAN R package \cite{ester_density-based_1996} and clustered the normalised insertion indices using DBSCAN function with parameters minPts = 200 and eps = 0.05. DBSCAN groups all the genes whose distance from each other is less than or equal to eps. If the number of genes in each group is greater than or equal to minPts, these genes are in one cluster and otherwise, they are identified as noise. This algorithm finds two clusters which are essential genes and non-essential genes shown by brown and blue in Figure~\ref{fig:fig1}a, respectively. The noise data is scattered in two regions; between essential and non-essential clusters and on the right side of non-essential genes. These are shown by both gray and red in Figure~\ref{fig:fig1}a. The noises between essential and non-essential genes were termed ambiguous. Since the noises in the right side of the plot involved some parts of the second peak in insertion index distribution (the rightmost gray region in Figure~\ref{fig:fig1}a) and the long tail on the right (the red region in Figure~\ref{fig:fig1}a), we separated these two regions and called the genes in the right side of the plot beneficial losses. For this, we reran DBSCAN on the group of genes with high insertion index with minPts = 100 and eps = 1. This gives us a cluster of genes that are between the non-essential genes and the long tail of the insertion index distribution. The genes in this cluster are called ambiguous and the rest of the genes on the right side of this ambiguous region are beneficial losses.
+
+\subsection{Genus-specific, conserved single-copy and conserved multi-copy genes}\label{meth:homclust}
+In order to test if copy number can affect the essentiality of genes identified using transposon insertion sequencing, we studied the essentiality of genes in three groups, genus-specific, conserved single-copy, and conserved multi-copy genes. For this we needed to cluster homologs (both orthologs and paralogs). We developed a homologous protein clustering methods (HomClust) using Jackhmmer from HMMER package \cite{eddy_accelerated_2011} and clustered genes based on Jackhmmer results. This program iteratively searches for homologous proteins in a dataset. We first used Jackhmmer with 5 iterations, E-value threshold set to $10^{-10}$, and MSV threshold (F1) equal to $10^{-3}$ to find all genes in all genomes that were homologous to \textit{C. rodentium} genes. Other parameters used in Jackhmmer were the default parameters. Then, we selected genes that were not clustered in the first step and reran Jackhmmer with the same parameters to compare these genes with all genes and cluster them. If the length of the homologous domain was less than $80\%$ of the length of the gene itself, we omitted that gene from the cluster.
+
+The above clustering, results in some very large clusters (e.g. ABC transporters, transcriptional regulators, and dehydrogenases), which can be divided into closer groupings. We collected the clusters that had more than 48 members and reran Jackhmmer on them with 1 iteration and more stringent thresholds, $10^{-20}$ E-value threshold and $10^{-6}$ MSV threshold. Then, we collected all the clusters with less than 5 members and generated a dataset that contains the members of these clusters. We reran Jackhmmer on this dataset with more permissive parameters which is 5 iterations, $10^{-5}$ E-value threshold, $10^{-3/2}$ MSV threshold, and $10^{-3/2}$ inclusion E-value threshold (the default value for inclusion E-value threshold which was used in previous steps is $10^{-3}$). Jackhmmer produces multiple local alignments on the same genes resulting in clusters containing whole genes as well as shorter segments within genes. In order to solve this problem, merged the members of clusters in case they had more than $80\%$ overlap. Finally, clusters with more than $80\%$ sequences in common got merged.
+
+In order to study the essentiality of different classes of genes, we divided the clusters of homologous genes into three classes based on their conservation and copy number; genus-specific class, conserved single-copy class, and conserved multi-copy class. The genus-specific class contains clusters that include genes that are present only in one genus. In order to separate conserved single-copy from conserved multi-copy genes, we define a threshold of $70\%$. %If a single gene is duplicated in 2 of 12 genomes, should that cluster be called conserved single-copy or conserved multi-copy? In order to solve this problem, we called clusters conserved single-copy if a minority of genes in them were duplicated. For this, we used a $70\%$ threshold.
+The genes in the conserved single-copy class are present in more than one genus and more than $70\%$ of them are not duplicated, while the genes in conserved multi-copy class are present in more than one genus and more than $30\%$ of them are duplicated (duplicate genes).
+
+\subsection{Clustering orthologous sequences}\label{meth:ortholog}
+To compare the essentiality of genes in different organisms, we needed to cluster orthologous genes. For this purpose, we used Hieranoid \cite{schreiber_hieranoid:_2013} with default parameters. Clustering with Hieranoid can be performed either using BLAST \cite{altschul_basic_1990, altschul_gapped_1997} or USEARCH \cite{edgar_search_2010}. We used BLAST as Hieranoid's similarity search tool. Hieranoid needs a species tree for clustering. To generate the species tree, we first ran PhyloSift-search on all the genome sequences to find the orthologs of marker genes in PhyloSift database \cite{darling_phylosift:_2014}. Subsequently, we ran PhyloSift-align to align the genes found in previous step. Finally, we concatenated the alignments and ran RaXMLHPC \cite{stamatakis_raxml_2014} to generate a tree. The parameters used for these tools are listed in Table \ref{tab:param}.
+
+\begin{table}[]
+\caption{Tools used for generating the species tree for genomes used in this study and their parameters}
+\label{tab:param}
+\begin{tabular}{ll}
+\textbf{Tool} & \textbf{Parameters}\\
 \hline
-\textbf{Biological process} & \textbf{Subprocess} & \textbf{Ancestrally essential} & \textbf{Ambiguous} & \textbf{Ancestrally non-essential}\\
 \hline
-Cell Division & & \begin{tabular}[t]{@{}l@{}}ftsAHLQWYZ, minE,\\ mukB, zipA \end{tabular}& ftsKNX, minD & \begin{tabular}[t]{@{}l@{}}CedA, ftsJ, minC,\\ sdiA, sulA\end{tabular}\\
-DNA replication & Polymerases I, II, III & dnaENQX, holABD, polA & holC & holE, polB\\	
-& Supercoiling & gyrAB, parCE & & \\
-& Primosome-associated & dnaBCGT, priA, ssb & priB, rep & priC\\
-Transcription & RNA polymerase & rpoABC &  & \\
-& \begin{tabular}[t]{@{}l@{}}Sigma, elongation, anti- \\ and termination factors\end{tabular} & nusABG, rho, rpoDH & rpoEN & rpoS\\	
-Translation & tRNA-synthetases & \begin{tabular}[t]{@{}l@{}}alaS, argS, asnS, aspS, cysS, \\ glnS, gltX, glyQS, hisS, ileS, \\ leuS, lysS, metG, pheST, \\ proS, serS, thrS, tyrS, valS \end{tabular} & trpS	 & \\	
-& Ribosome components & \begin{tabular}[t]{@{}l@{}}rplBCDEFJKLMNOPQRSTUV,\\ rplWXY, rpmABCD,\\ rpsABCDEFGHJKLMNPQRSTU\end{tabular} & \begin{tabular}[t]{@{}l@{}}rplA, rpmEGHI,\\ rpsIO\end{tabular} & rplI, rpmF\\
-& \begin{tabular}[t]{@{}l@{}}Initiation, elongation \\ and peptide chain \\ release factors\end{tabular} & fusA, infABC, prfAB, tsf & efp & prfC, selB, tufAB \\
-Biosynthetic pathways & & & & \\
-Peptidoglycan & & MraY, murABCDEFGI & & ddlAB\\	
-Fatty acids & & accABCD, fabABDGHIZ & & \\
+PhyloSift-search & isolate \\
+ & besthit \\
 \hline
+PhyloSift-align & isolate \\
+ & besthit \\
+\hline
+RaXMLHPC & m PROTGAMMALG4M \\
+ & f a \\
+ & $\#$ 100\\
 \end{tabular}
 \end{table}
-\end{landscape}
 
-%So far we have shown that essential genes are less likely to be lost during evolution. The other question is if essential genes tend to keep their essentiality in different genomes. Bergmiller et al. \cite{bergmiller_patterns_2012} have shown that only essential genes whose functions cannot be taken over by other genes keep their essentiality and others are possible to be lost or non-essential in other genomes. The genes that can replace other genes are not necessarily homologous to them, but they have similar functions.
-Genes that are essential in one organism can be non-essential or absent in other organisms. Bergmiller et al. \cite{bergmiller_patterns_2012} have studied 26 genes that are essential in E. \textit{coli}. Some of these genes are essential in other bacteria and some are non-essential or not present in other bacteria. In 10 cases, they were able to find genes that compensate for these essential genes if they are overexpressed and called these genes high copy suppressors. High copy suppressors are not necessarily similar to their counterpart essential genes in structure or sequence, but they have similar functions. They have shown that genes that are not present or essential everywhere are more likely to be compensated for by overexpression of another gene. The other reason for genes to lose their essentiality in some strains is changes in their physiology or environment \cite{barquist_comparison_2013}.
+\subsection{Defining ancestrally essential and ancestrally conserved genes}\label{meth:fitch}
+In order to compare the number of genes that are essential at each level in the phylogenetic tree with the number of genes that are conserved, we used Fitch's algorithm \cite{fitch_toward_1971} with a binary alphabet on both essentiality (0 for non-essential and 1 for essential) and conservation (1 for the presence and 0 for the absence of genes). The Fitch's algorithm defines the status of each node in the tree by finding the order that minimises the number of mutations. Here, mutations are changes in essentiality or the conservation of genes. Therefore, by using Fitch's algorithm on gene essentiality, we minimise the number of times a gene has lost or gained essentiality during evolution assuming that this process is rare. Likewise, by using this algorithm on gene conservation, we minimise the number of times a gene has been lost or gained throughout time. Here, we describe how we used Fitch's algorithm for defining ancestrally essential genes. Defining ancestrally conserved genes is the same.
 
-We have compared the number of genes that are shared between our bacterial genomes (\ref{fig:upsetr-conservation}) and the number of genes essential in them (\ref{fig:upsetr-essentiality}) and used UpSetR package \cite{conway_upsetr:_2016} to visualise the results in Fig.\@ \ref{fig:upsetr}. As shown in the figures, among 2162 genes that are shared between all the bacteria under study, only 135 are essential everywhere and many of the essential genes are not conserved or essential everywhere probably because of their compensability, physiological, or environmental changes. %We looked at subsets of the genes that were shared in every combination of our bacterial strains to see whether they show a trend similar to the phylogenetic tree. The results propose that although conservation of genes follows a tree-like trend, the essentiality does not show such a trend. The reason is that many of the essential genes that are not shared in all genomes are probably compensable by other genes and so the essentiality does not look tree-like.
+For every gene, considering the phylogenetic tree of the genomes in this study, we assigned a set that contains only one member to each leaf of the tree. If the desired gene was essential in the genome at each leaf, the assigned set contained zero, and if the gene was not essential, the set contained one. The parent of every two nodes was labelled with the intersection of its children's assigned sets, if the intersection was not empty. Otherwise, it was labelled with the union of its children's assigned sets. We continued this process until we reached the root of the tree. At the root, if the assigned set only contained 1, the gene was considered ancestrally essential. Otherwise, it was considered ancestrally non-essential.
 
+\subsection{Comparison of core essential genes in Enterobacteriaceae, endosymbionts, and DEG database}\label{meth:corecompare}
+In order to see how essentiality of genes has changed during evolution, we compared core essential genes at different levels of bacterial phylogeny which includes Enterobacteriaceae, endosymbionts, Gammaproteobacteria, Proteobacteria, and all bacteria. The data for essentiality of genes in Enterobacteriaceae comes from the 14 genomes in our study and the data for other groups excluding endosymbionts is obtained from DEG database \cite{luo_deg_2014}. We only included data from studies that were performed in a rich medium. For some genomes there were multiple studies of essential genes. There were two studies on \textit{E. coli} BW25113 in DEG \cite{gerdes_experimental_2003, baba_construction_2006}, from which we only included the Keio collection \cite{baba_construction_2006} as it uses single gene knockout and is considered to be high accuracy. %Among the three studies on \textit{Mycobacterium tuberculosis} H37Rv \cite{sassetti_genes_2003, griffin_high-resolution_2011, zhang_global_2012} which were either using transposon mutagenesis coupled with high-throughput sequencing or transposon site hybridization, we used the most recent one which uses transposon mutagenesis along with high-throughput sequencing \cite{zhang_global_2012}. Likewise, among the two studies on \textit{Porphyromonas gingivalis} ATCC 33277 that used similar methods \cite{klein_identification_2012, hutcherson_comparison_2016}, we selected the most recent one \cite{hutcherson_comparison_2016}. Finally, there were two studies on \textit{Pseudomonas aeruginosa} PAO1 using Tn-Seq \cite{gallagher_genome-scale_2011, turner_essential_2015}, among which we only used the most recent one \cite{turner_essential_2015}.
+When multiple studies have investigated the essentiality of genes of the same organism, the most recent one was favoured (i.e. \cite{zhang_global_2012, hutcherson_comparison_2016, turner_essential_2015}). Supplementary Figure 10 shows all the genomes and studies from which the essential genes were identified. The orthologous genes are found using Hieranoid as explained in Section~\ref{meth:ortholog}.
 
+Endosymbionts were selected from Gammaproteobacteria. Supplementary Figure 11 shows all of the endosymbionts in this study. We have included endosymbionts since they have extremely reduced genomes, that have lost many non-essential genes. To define core essential genes in each sub-clade, we have calculated the ratio between the number of genomes in which the gene is essential in the sub-clade and the number of all genomes in the sub-clade. The gene was considered core essential if this ratio is greater than 0.8.
 
-\begin{figure}
-\captionsetup[subfigure]{justification=centering}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.45,page=2]{upsetr.pdf}
-  \caption{}
-  \label{fig:upsetr-conservation}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.45,page=3]{upsetr.pdf}
-  \caption{}
-  \label{fig:upsetr-essentiality}
-\end{subfigure}
-\caption{(a) The number of genes and (b) essential genes shared between different groups of bacteria. The bars show the number of genes and the filled circles show which bacteria are sharing those genes.}
-\label{fig:upsetr}
-\end{figure}
+\subsection{Defining the conservation level of gene clusters}\label{meth:conservation}
+For the study of the relationship between conservation and essentiality, we defined the conservation level of each gene as below.
 
-%\section{Discussion}
-\section{Materials and Methods}
-%\subsection{Transposon insertion}
-%\section{Results and discussion}
-%Throughout time, species can gain or lose genes. We investigated if these gene gain and losses are related to the essentiality of the genes. In this section, we have first described the biases that can affect our study, and then evaluated the essentiality of genes and their conservation and the relationship between these two.
-%
-%
-%%\subsection{Length bias}
-%%Short genes are less probable to be hit by transposons and so the genes that are very short might have no insertions. As a result, normalising the number of insertions by the length of the genes does not affect the essentiality level of these genes. 
-%%In Fig.\@ \ref{fig:length-bias} we have studied if the length of genes can influence their essentiality and we have found no correlation between length and insertion index in short genes. It seems that the insertion density in our experiment is high enough to make it possible for every gene to be hit by transposons.
-%%\begin{figure*}
-%%\centering
-%%\includegraphics[page=42, scale=0.3]{biases.pdf}
-%%\caption{The plot shows the lengths of the genes against their insertion indices. The red line shows the loess curve when the smoothness parameter is $0.2$.}
-%%\label{fig:length-bias}
-%%\end{figure*}
-%
-%
-%\subsubsection{Preferred insertion motif bias}
+To define the distance between every pair of bacteria, we used cmsearch from infernal package \cite{nawrocki_infernal_2013} to find the best hit to 16S rRNA (RF00177 Rfam CM model) in each bacterial genome in EMBL database \cite{stoesser_embl_2002} downloaded at 14/4/2016 and then aligned these sequences to the 16S model using cmalign from Infernal. Subsequently, a distance matrix was generated using dnadist from the PHYLIP package \cite{felsenstein_phylip-phylogeny_1989} and the F84 model that defines the distances.  Afterwards, we gathered all 3164 gene clusters that are ancestrally conserved in Enterobacteriaceae and generated HMM profiles for each of these clusters using HMMER \cite{eddy_accelerated_2011}. The resulting HMM profiles were compared to the genes in all bacterial genomes in EMBL and the maximum distance between all hits was used as the conservation level for each gene.
 
-%
-%\begin{itemize}
-%\item model H-NS binding sites? CGWTWHWww Lang et al (2007)
-%\item seems unlikely -- show bulk of genes are around 50\% G+C (add box-whisker plots to scatter diagrams?)
-%\item check Freed, Silander paper -- the missing piece of genome, was this low G+C? It is not mentioned in the paper.
-%\end{itemize}
-%
-%\begin{figure*}
-%\includegraphics[scale=0.55]{lowgc-pval.pdf}
-%\caption{Word enrichment analysis for low G-C genes compared to genes with interquartile G-C level. The red line shows P-value = 0.05. The P-values have been calculated using Fisher's exact test and corrected using Benjamini-Hochberg-Yekutieli.}
-%\label{fig:gc-pval}
-%\end{figure*}
-%
-
-%\subsection{Essentiality and conservation}
-%Essential genes are needed for the growth of organisms. Because of that, one might think that essential genes should not be lost in a short period of time throughout evolution, unless they are no longer needed in new organisms or they are replaced by new pathways. Therefore, it is expected that most of the essential genes are conserved in different organisms from the same family. We have tested this idea by comparing the essentiality and conservation of genes in Enterobacteriaceae family.
-%
-%
-%\subsubsection{Gene classes}
-%%We needed to cluster sets of orthologous genes in our strains to study the conservation of essentiality. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We have used Hieranoid to cluster the sets of orthologous genes. In addition, we intended to study the essentiality of genes in paralogous genes. For this, we have developed a program that clusters all homologous genes using Jackhmmer from HMMER3 package \cite{mistry_challenges_2013}.
-%In order to study the relationship between essentiality and conservation, we needed to evaluate the essentiality and conservation of genes. For this, we divided the genes into different levels of essentiality (essential genes, ambiguous, non-essential genes, beneficial losses). We first normalised the biases that exist in the data using the method explained in Section~\ref{sec:biascorrection} and then defined the essentiality level of genes using the method explained in Section~\ref{sec:essentiality}. Moreover, we grouped the genes into different classes of conservation (genus specific, single copy, multi-copy) using the method explaind in Section~\ref{sec:conservationclasses}.
-%
-%The results for comparing four levels of essentiality and three classes of conservation are depicted in Fig.\@ \ref{fig:iidist}. The high number of single copy genes in essential level, indicates that there is a set of essential genes in Enterobacteriaceae that are conserved and inclined to keep their essentiality. However, the relatively high number of essential genes in genus specific class implies that each genus has a set of essential genes that makes it distinct. The figure also shows that beneficial losses are over represented in genus specific class. Therefore, beneficial losses are mostly recent genes that the organism tends to lose in the long run. Besides, most of the multi-copy clusters are non-essential and there are only a few multi-copy clusters that are essential. This can be explained by the redundancy that genes can keep even after $\sim100$ million years \cite{dean_pervasive_2008}. In the presence of two redundant variations of one gene, if we knock out one copy by transposon mutagenesis, the other copy compensates and the organism can still survive.
-%
-%\begin{figure}
-%\centering
-%\includegraphics[scale=0.5]{cluster-essentiality.pdf}
-%\caption{The genes have been clustered into orthologous groups using Hieranoid and paralogous groups using Jackhmmer and divided into 3 groups: genus specific, single copy, and multi-copy genes. Then, the essentiality of the clusters has been defined using the insertion indices of the genes in the clusters. The figure shows that most of the essential genes are in single copy group, while most of the beneficial losses are genus-specific.}
-%\label{fig:iidist}
-%\end{figure}
-%
-%To study which functions are enriched in each class of essentiality, we used the word enrichment method explained in Section~\ref{sec:enrichment}. Fig.\@ \ref{fig:essentiality-pval} shows the top 20 enriched words for each essentiality class. The results show an enrichment of the genes related to replication, transcription, translation, division, and rod shape determining proteins in essential class. The non-essential genes are mostly membrane associated proteins, flagellar proteins, ATPase, and DNA repair proteins. Beneficial losses are enriched in transposase enzymes, putative and hypothetical proteins, and mobile elements. Beneficial losses also contain many fimbrial proteins which probably has occurred because these proteins are not needed in a rich lab medium \textcolor{red}{\{TRUE?\}}.
-%%We have done a word enrichment analysis on the description of the beneficial losses in Fig.\@ \ref{fig:essentiality-pval}. It shows that most of the beneficial losses are mobile elements. Most of these mobile elements are not included in KEGG database.
-%
-%We also conducted a pathway enrichment analysis for these three groups which is explained in Section~\ref{sec:enrichment}. The results (Fig.\@ \ref{fig:essentiality-pathway}) suggest similar results to the enrichment analysis that we had done on the description of the genes. However, as mobile genetic elements are not stored in KEGG database \cite{kanehisa_kegg:_2000}, the pathway enrichment analysis does not show the enrichment of mobile genetic elements in beneficial-losses.
-%
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c}
-%\includegraphics[scale=0.4]{essential-pval.pdf}&
-%\includegraphics[scale=0.4]{non-essential-pval.pdf}\\
-%\includegraphics[scale=0.4]{beneficialloss-pval.pdf}&
-%\end{tabular}
-%\caption{Word enrichment analysis for essential genes, non-essential genes, and beneficial losses compared to other genes. The red line shows P-value = 0.05. The P-values have been calculated using Fisher's exact test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
-%\label{fig:essentiality-pval}
-%\end{figure*}
-%
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c}
-%\includegraphics[scale=0.4]{essential-pathways.pdf}&
-%\includegraphics[scale=0.4]{non-essential-pathways.pdf}\\
-%\includegraphics[scale=0.4]{beneficialloss-pathways.pdf}&
-%\end{tabular}
-%\caption{Pathway enrichment analysis for beneficial losses, essential genes, and non-essential genes compared to other genes. The red line shows P-value = 0.05. The P-values are calculated using hypergeometric test and then corrected using Benjamini-Hochberg-Yekutieli procedure.}
-%\label{fig:essentiality-pathway}
-%\end{figure*}
-%
-%\subsubsection{The evolution of essentiality}
-%%In order to test if the essentiality of genes follows a tree-like trend we have gathered all the genes that are copied once per genome and made a matrix with rows showing genomes and columns showing genes. If a gene is essential in a genome, its corresponding cell in the matrix has value 1 and 0 otherwise. Then we have used the Bray-Curtis distance to generate a distance matrix for the species under study. Finally, a tree has been generated using PHYLIP Neighbor. The resulting tree is not similar to the species tree.
-%%
-%%\begin{figure}
-%%\centering
-%%\includegraphics[scale=0.2]{neighbor-joining-essentiality-tree.pdf}
-%%\caption{The tree is generated from all the genes that are copied only once per genome. We have made a binary matrix from the essentiality of these genes. Then, we have generated a distance matrix from these values using Bray-Curtis distance and plotted a phylogenetic tree using PHYLIP Neighbor which uses a neighbour joining method.}
-%%\label{fig:neighborjoining}
-%%\end{figure}
-%
-%In this section, we compared the number of genes that were essential and conserved at each level of the phylogenetic tree. We were interested to see if the trend of the essentiality variation between different organisms is in agreement with the phylogenetic tree. In other words, we have tested if organisms close together have more essential genes in common than organisms that have separated earlier in the phylogenetic tree.
-%
-%We needed to cluster sets of orthologous genes in the bacteria that we were studying. Homologous clusters introduced in ~\ref{sec:conservationclasses} were not useful for this purpose as sets of paralogous genes with different essentiality levels can make essentiality inference ambiguous. Plenty of methods are proposed for this purpose. Altenhoff et al.\@ have compared 15 of these methods \cite{altenhoff_standardized_2016} and shown that Hieranoid \cite{schreiber_hieranoid:_2013} is among three methods that keep a balance between precision and recall. We used Hieranoid for clustering orthologous genes. Hieranoid need a species tree for clustering genes. We used the method explained in Section~\ref{sec:phylogenetic} to generate this tree.
-%
-%In order to test if the essentiality of genes follows a tree-like trend, we compared the number of genes that were conserved in different bacteria in our study and the number of genes that were essential in these bacteria. The genes that are conserved in all bacteria being studied are called core genes and the genes that are conserved and essential are called core essential genes. We counted the number of genes that were core between every combination of bacteria, and the number of core essential genes between those combinations. We used UpSetR package \cite{conway_upsetr:_2016} in R to visualise the results in Fig.\@ \ref{fig:upsetr}. As shown in the figures, among 1908 genes that are core between all the bacteria under study, only 184 are core essential. We looked at subsets of the genes that were core essential (core) in every combination of our bacterial strains to see whether they were phylogenetically informative or not. A phylogenetically informative subset is a subset that is core essential (core) in two or more bacteria but not in all bacteria. We have marked the phylogenetically informative sets of genes with ticks and the uninformative ones with crosses. The results propose that although conservation of genes follows a tree-like trend with many phylogenetically informative sets of genes with high cardinality, the essentiality does not show a tree-like signal and most of the large sets of core essential genes belong to only one bacteria. We believe this is due to the small number of essential genes. Each bacterium has about 300 to 500 essential genes among which 184 is core essential between all bacteria. A portion of the remaining essential genes are specific to each bacterium and many are shared between all bacteria except one. The number of remaining essential genes is so low that causes the essentiality trend not to be tree-like. Furthermore, some of the predicted essential genes might be artefacts of transposon mutagenesis method.
-%
-%\begin{figure*}
-%\centering
-%\includegraphics[scale=0.6, page=2]{upsetr-maximiseMCC.pdf}\\
-%\includegraphics[scale=0.6, page=3]{upsetr-maximiseMCC.pdf}
-%\caption{The first figure shows the number of core genes between each group of species and the second figure shows the number of core essential genes. The bars show the number of genes that are core between the strains marked with black circles. The tick marks show phylogenetically informative columns and the cross marks show non-informative columns.}
-%\label{fig:upsetr}
-%\end{figure*}
-%
-%To further study the trend of essentiality changes, we looked at different levels in the species tree and calculated the ratio of the number of core essential genes to the number of core genes in each level. We used three different methods for inferring core genes and core essential genes. These methods are explained in Section~\ref{sec:core}. The numbers predicted using these three methods are shown in Fig.\@ \ref{fig:annotated-speciestree}. As this figure shows, the ratio between core essential and core genes is almost constant using the intersection and dollo method; however, this ratio increases as we go higher in the tree using the ancestral insertion index method.
-%
-%%\begin{figure}
-%%\centering
-%%\includegraphics[scale=0.2]{phylosift-aa-raxmlbootstrap-annotated.pdf}
-%%\caption{The tree shows the species tree in Fig.\@\ref{fig:species-tree} annotated by the number of core essential genes and core genes at each node. We used three methods to define core essential genes and core genes. The numbers at the leaves are the same using all these three methods. At the internal nodes, red shows the numbers using the intersection method, green shows the ancestral insertion index method, and turquoise shows fdollop method.}
-%%\label{fig:annotated-speciestree}
-%%\end{figure}
-%
-%As these three methods lead to conflicting results, we compared the differences between the genes found in these three methods. For this, we compared the set of core essential genes resulted from intersection and ancestral insertion index methods. Then, we performed word enrichment analysis explained in Section~\ref{sec:enrichment} on the 184 genes in intersection method and 89 genes that are core essential using ancestral insertion index and not core essential using the intersection method. Moreover, the intersection and fdollop methods and also ancestral insertion index and fdollop method were compared using the same procedure. The results are depicted in Fig.\@\ref{fig:method-difference}.
-%
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c}
-%\includegraphics[scale=0.4]{ancestral-intersection-pval.pdf}&
-%\includegraphics[scale=0.4]{dollo-ancestral-pval.pdf}\\
-%\includegraphics[scale=0.4]{dollo-intersection-pval.pdf}&
-%\end{tabular}
-%\caption{The figure shows the difference between core essential genes in intersection and ancestral insertion index methods, ancestral insertion index and fdollop methods, and intersection and fdollop methods. The red line shows P-value = 0.05. The P-values have been calculated using Fisher's exact test and then corrected using Benjamini-Hochberg-Yekutieli procedure. The top left figure shows words that are enriched in core essential genes found using ancestral insertion index method but not enriched in core essential genes found using intersection method. The top right figure shows words that are enriched in core essential genes found using fdollop method but not enriched in core essential genes found using ancestral insertion index method. The bottom left figure shows words that are enriched in core essential genes found using fdollop method but not enriched in core essential genes found using intersection method.}
-%\label{fig:method-difference}
-%\end{figure*}
-%
-%\section{Materials and Methods}
-%\subsection{Transposon mutagenesis}\label{sec:transposoninsertion}
-%We studied 2 \textit{Klebsiella} strains, an \textit{Enterobacter} strain, a \textit{Citrobacter} strain, 6 \textit{Salmonella} strains, and 3 \textit{Escherichia} strains (Fig.\@ \ref{fig:species-tree}) and compared the essentiality of genes in these strains and \textit{Escherichia coli} K-12 MG1655 from another study \cite{baba_construction_2006}. These strains are all selected from Enterobacteriaceae family and a transposon mutagenesis study have been performed on them. We generated single inserted mutants using Tn5 transposon and placed the mutants in a selective media for Tn5. Then, we picked the mutants and pooled them and performed PCR enrichment using the method described in \cite{barquist_tradis_2016}. We sequenced the fragments and mapped them back to the genome to figure out the number of insertions that have been tolerated in each position of the genome. The number of insertions in a gene implies the degree of essentiality for that gene.
-%
-%\subsection{Generating the species tree}\label{sec:phylogenetic}
-%We first ran search and align commands from PhyloSift package \cite{darling_phylosift:_2014} to select gene markers for generating a phylogenetic tree and aligning them. Then, we concatenated the protein alignments for all 14 genomes and ran RaxML \cite{stamatakis_raxml_2014} with "PROTGAMMALG4M" amino acid substitution model, "a" algorithm and 100 alternative runs on distinct starting trees.
-%
-%\subsection{Essentiality levels}\label{sec:essentiality}
-%The more transposon insertions we observe in a gene after sequencing the genomes, the less essential the gene is. In order to quantify the essentiality of genes, we used a measure named insertion index which is proportional to the number of insertions in a gene.
-%
-%To calculate the insertion index for each gene, we summed up the number of transposon insertion sites observed in that gene. Since the lengths of the genes are different, the insertion indices were then normalised by dividing them by gene length. Our experiment is performed on different strains and the library density is different in each experiment. Therefore, in order to make the insertion indices comparable in all the strains, we normalised the insertion indices by the ratio between the number of insertions in the whole genome and the length of the genome.
-%
-%Based on insertion indices, the genes were divided into four groups: essential genes, ambiguous, non-essential genes, and beneficial losses. We utilised the pipeline introduced by Barquist et al.\@ \cite{barquist_tradis_2016} to evaluate the essentiality of genes. The insertion index distribution plot has two peaks and a heavy tail as shown in Fig.\@ \ref{fig:iidist-species}. A loess curve was fitted to this distribution to find where the two peaks separate from each other. The first peak shows the genes with no or just a few insertions which are considered as essential genes. We fitted an exponential distribution to the first peak and a gamma distribution to the second one. Then, we calculated the log odds ratio for belonging to each of these distributions for each gene. The region that has log odds value between -2 and 2 is called the ambiguous region, the genes belonging to the first peak are essential and the rest of the genes are not essential. Among genes that are not essential, any gene for which the value of the cumulative distribution function for the gamma distribution is greater than or equal to 0.99 is considered as a beneficial loss and the other genes are non-essential genes.
-%
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c c}
-%\includegraphics[page=1, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=2, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=3, scale=0.25]{essentiality.pdf}\\
-%\includegraphics[page=4, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=5, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=6, scale=0.25]{essentiality.pdf}\\
-%\includegraphics[page=7, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=8, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=9, scale=0.25]{essentiality.pdf}\\
-%\includegraphics[page=10, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=11, scale=0.25]{essentiality.pdf}&
-%\includegraphics[page=12, scale=0.25]{essentiality.pdf}\\
-%&\includegraphics[page=13, scale=0.25]{essentiality.pdf}&\\
-%\end{tabular}
-%\caption{Plots show the insertion index distribution for each genome. The plots are divided into 4 regions using red lines. These regions from left to right are: essential, ambiguous, non-essential, and beneficial loss.}
-%\label{fig:iidist-species}
-%\end{figure*}
-%
-%\subsection{Bias correction}\label{sec:biascorrection}
-%We observed a distance from origin of replication bias and also a positional bias within genes. Hence, these biases needed to be corrected before inferring the essentiality of genes from their insertion indices. We did not include genes shorter than 100 base-pairs in our study as they might not be targeted by any transposon due to their shortness. 
-%
-%To overcome the distance from origin of replication bias, we divided the value of insertion index for a gene in a specific position by the predicted value by loess for that position. This value was then multiplied by the average insertion index. To overcome the positional bias within genes, we calculated the insertion index for genes by ignoring $5\%$ from the 5' end and $20\%$ from the 3' end of the genes. The insertion index distribution for each genome after correcting for distance from the origin of replication bias and bias towards the position of insertion within genes is depicted in Fig.\@ \ref{fig:iidist-species-normalised}.
-%
-%\begin{figure*}
-%\centering
-%\begin{tabular}{c c c}
-%\includegraphics[page=1, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=2, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=3, scale=0.25]{essentiality-normalised.pdf}\\
-%\includegraphics[page=4, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=5, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=6, scale=0.25]{essentiality-normalised.pdf}\\
-%\includegraphics[page=7, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=8, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=9, scale=0.25]{essentiality-normalised.pdf}\\
-%\includegraphics[page=10, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=11, scale=0.25]{essentiality-normalised.pdf}&
-%\includegraphics[page=12, scale=0.25]{essentiality-normalised.pdf}\\
-%&\includegraphics[page=13, scale=0.25]{essentiality-normalised.pdf}&\\
-%\end{tabular}
-%\caption{Plots show the insertion index distribution for each genome after correcting for distance from the origin of replication bias and bias towards the position of insertion within genes. The plots are divided into 4 regions using red lines. These regions from left to right are: essential, ambiguous, non-essential, and beneficial loss.}
-%\label{fig:iidist-species-normalised}
-%\end{figure*}
-%
-%\subsection{Conservation classes}\label{sec:conservationclasses}
-%To study whether each gene in the 14 organisms is conserved we proposed a program that clusters homologous proteins. This program uses Jackhmmer from HMMER package~\cite{eddy_accelerated_2011} to compare protein sequences. It first compares a set of query proteins against all given proteins and clusters homologous proteins using Jackhmmer. Then, it selects all sequences that were not selected in the first step and compares them together and clusters those protein sequences. In the next step, it breaks down large clusters by using Jackhmmer with more stringent parameters within the clusters and also merges clusters which have a single member by running Jackhmmer with more permissive parameters. Finally, the program merges overlapping sequences in each cluster and combines similar clusters. The program is summarised in Fig.\@ \ref{fig:homclust} and the distribution of cluster lengths after clustering the genes of 14 strains under study is plotted in Fig.\@ \ref{fig:homclust-results}.
-%
-%\begin{figure}
-%\includegraphics[scale=0.2]{homclust.pdf}
-%\caption{The steps of our proposed algorithm for clustering homologous genes.}
-%\label{fig:homclust}
-%\end{figure}
-%
-%We divided the clusters of homologous genes into three groups based on their conservation. Genus specific clusters contain genes that are present only in one genus, the genes in single copy clusters are present in more than one genus and more than 70\% of them are not duplicated, and  the genes in multi-copy clusters are present in more than one genus and less than 70\% of them are not duplicated. These three groups are depicted in Fig.\@ \ref{fig:homclust-results}.
-%
-%\begin{figure}
-%\includegraphics[scale=0.3]{cluster-size-dist.pdf}
-%\caption{Size distribution for all clusters of homologous genes. Genus specific genes are genes that are present only in one genus, single copy genes are present in more than one genus and more than 70\% of them are not duplicated, and multi-copy genes are present in more than one genus and less than 70\% of them are not duplicated.}
-%\label{fig:homclust-results}
-%\end{figure}
-%
-%\subsection{Word and pathway enrichment analysis}\label{sec:enrichment}
-%To study the enrichment of words in a group of genes compared to a second group, We gathered the descriptions of genes from their embl files. Then, we counted the repeat number of each word for the genes in each group and the number of all other words in these two groups and used a Fisher's exact test to calculate P-values. The P-values were then corrected using Benjamini-Hochberg-Yekutieli procedure.
-%
-%For pathway enrichment analysis, we downloaded pathway datasets for strains that were available in KEGG database \cite{kanehisa_kegg:_2000}. This includes pathways for Cirobacter rodentium ICC168, Salmonella Enteritidis P125109, Enterobacter cloacae NCTC 9394, Salmonella Typhimurium D23580, Escherichia coli ETEC H10407, Salmonella Typhimurium SL1344, Escherichia coli K-12 MG1655, and Salmonella Typhi Ty2. Then we merged these databases and used the hypergeometric test to find which pathways were enriched in each essentiality class. Finally, we corrected the P-values using Benjamini-Hochberg-Yekutieli.
-%
-%\subsection{Defining core and core essential genes}\label{sec:core}
-%We used three different methods for defining core and core essential genes: intersection, ancestral insertion index, and Dollo law. These three methods are explained in what follows.
-%
-%The first method was intersecting over core genes and core essential genes, so, genes are core in a node if and only if they are core in all the descendants of that node and are core essential if and only if they are core essential in all the descendants of that node.
-%
-%The second method which is called ancestral insertion index uses intersection for core genes but a different definition for core essential genes. In this method, we averaged over the insertion indices of the pair of closest children of the ancestral node. We repeated this and averaged the averages until we reached the ancestral node. Then, we plotted the insertion indices and fitted an exponential and a gamma distribution to the plot as described in Section~\ref{sec:essentiality} and found the essential genes at that level.
-%
-%The third method is using Dollo law to define core genes and core essential genes. This method, assumes that the gain of genes (gain of essentiality) is highly improbable, so it tries to have up to one occurrence of gain of genes (gain of essentiality) and minimise the number of times that a gene (the essentiality of a gene) has been lost. Using this method, we can predict which genes were present in the common ancestor of our strains and which genes were essential in it.
-%
-%\section{Conclusion}
-%In this paper, we studied the relationship between the essentiality and conservation of genes in 14 bacteria from Enterobacteriaceae family. We first studied the biases that can affect our results and showed that transposon insertions are more abundant near the origin of replication. In addition, there is a slight preferred insertion motif bias and a G-C bias in A-T rich genes. Moreover we showed that transposon insertions are more abundant near the ends of essential genes compared to the internal region, while it is the opposite in beneficial losses.
-%
-%After correcting biases, we studied the essentiality versus conservation by dividing the genes into three classes of conservation: genus specific, single copy, and multi-copy, dividing them into four levels of essentiality: essential, ambiguous, non-essential, and benefical losses. We found that essential genes are mostly single copy, however there is a considerable number of genus specific genes in essential level which help to distinguish between genera. Furthermore, beneficial losses are mostly genus specific which means they are mostly new genes. The other finding was that multi-copy genes are mostly non-essential which can happen due to redundancy.
-%
-%We also found that the pattern of essentiality changes is not in agreement with the phylogenetic tree due to the small number of essential genes. Also the ratio between core essential genes and core genes can be either constant or increasing depending on the method that we use for defining core and core essential genes. \textcolor{red}{\{WHAT?\}}
-%
-%Overall, we have found that conserved genes are not necessarily essential, and essential genes are not necessarily conserved. However, on average, essential genes are more likely to be conserved.
-%
-%\section*{Acknowledgments}
-%%
-%%
-%\nolinenumbers
-
-%This is where your bibliography is generated. Make sure that your .bib file is actually called library.bib
-\bibliography{references}
-
-%This defines the bibliographies style. Search online for a list of available styles.
+\subsection{Pathway enrichment analysis}
+We used KEGG \cite{kanehisa_kegg:_2000} pathway enrichment analysis to study different groups of genes and their functions. Only pathways for \textit{C. rodentium} ICC168, \textit{S.} Typhi Ty2, \textit{S.} Enteritidis P125109, \textit{S.} Typhimurium SL1344, \textit{S.} Typhimurium D23580, \textit{E. coli} UPEC CFT073, \textit{E. coli} K-12 BW25113 from Keio collection, and \textit{E. cloacae} NCTC 9394 genomes were available in KEGG database. The available pathways were downloaded using the KEGGREST package in R and then the pathways related to the desired groups of genes were compared to all pathways using Fisher's exact test. We adjusted the obtained P-values using the Benjamini, Hochberg, and Yekutieli method. Pathways with corrected P-values over 0.05 were considered to be enriched.
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\newpage
 \bibliographystyle{apalike}
+%\bibliographystyle{natbib}
+\bibliography{refs2.bib}
+
+\includepdf[pages=1,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=2,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=3,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=4,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=5,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=6,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=7,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=8,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=9,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=10,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=11,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=12,fitpaper]{supplementary/supplementary.pdf}
+\includepdf[pages=13,fitpaper]{supplementary/supplementary.pdf}
 
 \end{document}
-

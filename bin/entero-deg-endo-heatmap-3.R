@@ -11,19 +11,20 @@ Heatmap(toplot, cluster_rows = FALSE, cluster_columns = FALSE, rect_gp = gpar(co
 dev.off()
 
 dict <- c('Mycobacterium tuberculosis H37Rv', 'Synechococcus elongatus PCC 7942', 'Porphyromonas gingivalis ATCC 33277',
-          'Bacteroides fragilis 638R', 'Bacteroides thetaiotaomicron VPI-5482', 'Sphingomonas wittichii RW1', 'Caulobacter crescentus',
-          'Brevundimonas subvibrioides ATCC 15264', 'Agrobacterium fabrum str. C58', 'Rhodopseudomonas palustris CGA009',
-          'Francisella novicida U112', 'Shewanella oneidensis MR-1', 'Vibrio cholerae N16961', 'Haemophilus influenzae Rd KW20',
-          'Salmonella enterica serovar Typhimurium SL1344', 'Salmonella enterica serovar Typhi Ty2', 'Salmonella enterica serovar Typhi',
-          'Escherichia coli MG1655', 'Escherichia coli ST131 strain EC958', 'Pseudomonas aeruginosa PAO1', 'Pseudomonas aeruginosa UCBPP-PA14',
-          'Acinetobacter baumannii ATCC 17978', 'Acinetobacter baylyi ADP1', 'Burkholderia pseudomallei K96243',
-          'Burkholderia thailandensis E264', 'Helicobacter pylori 26695', 'Mycoplasma genitalium G37', 'Mycoplasma pulmonis UAB CTIP',
-          'Bacillus subtilis 168', 'Staphylococcus aureus N315', 'Staphylococcus aureus NCTC 8325', 'Streptococcus sanguinis',
-          'Streptococcus pyogenes NZ131', 'Streptococcus pyogenes MGAS5448', 'Streptococcus agalactiae A909')
-names(dict) <- c('DEG1027', 'DEG1040', 'DEG1022', 'DEG1034', 'DEG1023', 'DEG1028', 'DEG1020', 'DEG1046', 'DEG1045', 'DEG1041', 'DEG1012',
-                 'DEG1029', 'DEG1003', 'DEG1005', 'DEG1032', 'DEG1033', 'DEG1016', 'DEG1019', 'DEG1048', 'DEG1036', 'DEG1015', 'DEG1043',
-                 'DEG1013', 'DEG1035', 'DEG1024', 'DEG1008', 'DEG1006', 'DEG1014', 'DEG1001', 'DEG1002', 'DEG1017', 'DEG1021', 'DEG1038',
-                 'DEG1037', 'DEG1042')
+          'Bacteroides thetaiotaomicron VPI-5482','Bacteroides fragilis 638R', 'Caulobacter crescentus',
+          'Brevundimonas subvibrioides ATCC 15264', 'Rhodopseudomonas palustris CGA009', 'Agrobacterium fabrum str. C58',
+          'Burkholderia thailandensis E264', 'Burkholderia pseudomallei K96243', 'Francisella novicida U112',
+          'Shewanella oneidensis MR-1', 'Vibrio cholerae N16961', 'Haemophilus influenzae Rd KW20',
+          'Escherichia coli ST131 strain EC958', 'Escherichia coli MG1655', 'Salmonella enterica serovar Typhimurium SL1344',
+          'Salmonella enterica serovar Typhi Ty2', 'Salmonella enterica serovar Typhi', 'Acinetobacter baumannii ATCC 17978',
+          'Pseudomonas aeruginosa PAO1', 'Helicobacter pylori 26695', 'Mycoplasma genitalium G37',
+          'Mycoplasma pulmonis UAB CTIP', 'Streptococcus agalactiae A909', 'Streptococcus pyogenes MGAS5448',
+          'Streptococcus pyogenes NZ131', 'Staphylococcus aureus NCTC 8325', 'Staphylococcus aureus N315',
+          'Bacillus subtilis 168')
+names(dict) <- c('DEG1027', 'DEG1040', 'DEG1022', 'DEG1023', 'DEG1034', 'DEG1020', 'DEG1046', 'DEG1041',
+                 'DEG1045', 'DEG1024', 'DEG1035', 'DEG1012', 'DEG1029', 'DEG1003', 'DEG1005', 'DEG1048',
+                 'DEG1019', 'DEG1032', 'DEG1033', 'DEG1016', 'DEG1043', 'DEG1036', 'DEG1008', 'DEG1006',
+                 'DEG1014', 'DEG1042', 'DEG1037', 'DEG1038', 'DEG1017', 'DEG1002', 'DEG1001')
 eggnog <- read.table('~/EnTrI/results/deg/fasta-proteins/seqdb.fasta.emapper.annotations', sep = '\t', quote = '')
 eggnogplot <- data.frame(matrix(0, nrow = nrow(toplot), ncol = length(dict)))
 rownames(eggnogplot) <- row.names(toplot)
@@ -33,14 +34,22 @@ for (genename in row.names(eggnogplot))
   genomes = eggnog[,1][eggnog[,5]==toupper(genename)]
   for (item in genomes)
   {
-    gene = substr(toString(item),1,7)
-    eggnogplot[genename, dict[gene]] = 1
+    if (startsWith(item, 'exDEG'))
+    {
+      gene = substr(toString(item),3,9)
+      eggnogplot[genename, dict[gene]] = 2
+    }
+    else
+    {
+      gene = substr(toString(item),1,7)
+      eggnogplot[genename, dict[gene]] = 1
+    }
   }
 }
 write.table(eggnogplot, file="~/EnTrI/results/venn-entero-deg-endo/deg-heatmap.tsv", quote = FALSE, sep='\t')
 pdf("~/EnTrI/figures/essential_genes_status_deg_heatmap.pdf", height = 65, width = 25)
-Heatmap(eggnogplot, cluster_rows = FALSE, cluster_columns = FALSE, column_names_max_height=unit(13, "cm"), rect_gp = gpar(col = 'gray'), col=c('white', 'black'), name = 'Essentiality',
-        heatmap_legend_param=c('Non-essential', 'Essential'))
+Heatmap(eggnogplot, cluster_rows = FALSE, cluster_columns = FALSE, column_names_max_height=unit(13, "cm"), rect_gp = gpar(col = 'gray'), col=c('white', 'black', 'gray'), name = 'Essentiality',
+        heatmap_legend_param=c('Non-essential', 'Essential', 'Not analysed'))
 dev.off()
 
 dict <- c('Wigglesworthia glossinidia endosymbiont of Glossina brevipalpis',

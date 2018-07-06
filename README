@@ -214,7 +214,7 @@ Run density-SL1344.R
 7. python define-core-accessory-hieranoid-fitch-deg.py
 	python3 define-core-accessory-hieranoid-deg.py
 8. 
-	cd EnTrI/results/deg/define-core-accessory-hieranoid-fitch/core-essential-genomes/
+	cd EnTrI/results/deg/define-core-accessory-hieranoid/core-essential-genomes/
 	mkdir alignments && mkdir profiles
 	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
 	cd alignments
@@ -230,7 +230,7 @@ Run density-SL1344.R
 12. python entero-deg-endo-heatmap-1.py
 13. annotate the output with eggnog mapper
 14. python entero-deg-endo-heatmap-2.py
-15. Rscript entero-deg-endo-heatmap-3.R
+15. Rscript entero-deg-endo-heatmap-3.R (use partition-seqdb.py in fasta-proteins beforehand)
 16. python entero-deg-endo-heatmap-4.py , 5, 6
 17. Manually correct NAs from these files:
 	heatmap.tsv, U00096.fasta.mapper.annotations, final-clusters-plus-single-groups.fasta.emapper.annotations, final-clusters-plus-single-groups, and /home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes

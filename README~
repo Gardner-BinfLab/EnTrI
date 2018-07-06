@@ -214,7 +214,7 @@ Run density-SL1344.R
 7. python define-core-accessory-hieranoid-fitch-deg.py
 	python3 define-core-accessory-hieranoid-deg.py
 8. 
-	cd EnTrI/results/deg/define-core-accessory-hieranoid-fitch/core-essential-genomes/
+	cd EnTrI/results/deg/define-core-accessory-hieranoid/core-essential-genomes/
 	mkdir alignments && mkdir profiles
 	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
 	cd alignments
@@ -228,7 +228,7 @@ Run density-SL1344.R
 10. python pathways-for-clusts.py
 11. python venn-entero-deg-endo-4.py
 12. python entero-deg-endo-heatmap-1.py
-13. annotate the output with eggnog mapper
+13. annotate the output with eggnog mapper (use partition-seqdb.py in fasta-proteins)
 14. python entero-deg-endo-heatmap-2.py
 15. Rscript entero-deg-endo-heatmap-3.R
 16. python entero-deg-endo-heatmap-4.py , 5, 6
@@ -255,3 +255,4 @@ accessory-essential-enterobacteriaceae_1..5
 3. cat ~/EnTrI/results/homclust/EFam-HMMs*.hmm > ~/EnTrI/results/beneficialloss-plasmid/all.hmm
 4. hmmpress all.hmm
 5. hmmscan -o /dev/null --domtblout ~/EnTrI/results/beneficialloss-plasmid/hmmscan.domtblout -E 1e-10 ~/EnTrI/results/beneficialloss-plasmid/all.hmm ~/EnTrI/data/fasta-plasmid/seqdb.fasta
+6. python beneficialloss-plasmid.py
