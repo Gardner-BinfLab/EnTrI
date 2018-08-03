@@ -57,6 +57,7 @@
 ============ FIND ESSENTIAL GENES
 1. cd EnTrI/bin
 2. Rscript calculate-insertion-index.R
+3. Rscript calculate-insertion-index_not-trimmed.R
 
 ============ BENCHMARK DIFFERENT METHODS
 1. Download the list of E.coli K-12 essential genes from ecogenes and save it as ecogene-k12.txt in results directory.
@@ -76,8 +77,9 @@
 3. python3 insertion-position-bias.py
 4. Rscript insertion-position-bias.R
 5. python3 check-biases.py
-6. Rscript check-biases-ii.R
-7. Rscript compare-dbscan-gamma.R
+6. python3 check-biases_not-trimmed.py
+7. Rscript check-biases-ii.R
+8. Rscript compare-dbscan-gamma.R
 
 ============ EVOLUTION OF ESSENTIALITY
 1. python3 define-core-accessory-hieranoid.py
