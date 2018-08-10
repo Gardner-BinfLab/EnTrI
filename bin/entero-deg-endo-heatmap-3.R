@@ -1,5 +1,6 @@
 library(ComplexHeatmap)
 library(stringr)
+library(UpSetR)
 toplot <- read.table('~/EnTrI/results/venn-entero-deg-endo/heatmap.tsv', header = TRUE)
 rownames(toplot) = make.names(toplot$gene, unique=TRUE)
 toplot <- toplot[,seq(2,6)]
@@ -8,6 +9,18 @@ toplot <- toplot[ order(toplot$Enterobacteriaceae, toplot$Endosymbiont, toplot$G
 pdf("~/EnTrI/figures/essential_genes_heatmap.pdf", height = 60, width = 3)
 Heatmap(toplot, cluster_rows = FALSE, cluster_columns = FALSE, rect_gp = gpar(col = 'gray'), col=c('white', 'black'), name = 'Essentiality',
         heatmap_legend_param=c('Non-essential', 'Essential'))
+dev.off()
+
+upsetrlist <- list("Enterobacteriaceae"=c(), "Endosymbiont"=c(), "Gammaproteobacteria"=c(), "Proteobacteria"=c(), "Bacteria"=c())
+for (gene in row.names(toplot))
+{
+  for (cl in names(upsetrlist))
+  if(toplot[gene,cl])
+    upsetrlist[[cl]]=c(upsetrlist[[cl]], gene)
+}
+
+pdf("~/EnTrI/figures/essential_genes_upsetr.pdf")
+upset(fromList(upsetrlist), nsets = 5, order.by="freq", keep.order = T, sets=names(upsetrlist))
 dev.off()
 
 dict <- c('Mycobacterium tuberculosis H37Rv', 'Synechococcus elongatus PCC 7942', 'Porphyromonas gingivalis ATCC 33277',
