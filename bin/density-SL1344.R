@@ -359,15 +359,16 @@ pdf('~/EnTrI/figures/false-positive-rate_density.pdf')
 par(mar=c(6.1,5.1,4.1,2.1))
 plx<-predict(loess(fprs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,fprs, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
-     xlab = 'Insertion density', ylab = 'False positive rate', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "#8c510a", "#d8b365"),
+     pch=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), 17, 20),
+     xlab = 'Insertion density', ylab = 'False positive rate', cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
 )
-lines(1/dens,plx$fit, lwd=2)
+lines(1/dens,plx$fit, lwd=2, col="#01665e")
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
 # lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
 x <- c(1/dens, rev(1/dens))
 y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
-color <- adjustcolor("gray20",alpha.f=0.5)
+color <- adjustcolor("#c7eae5",alpha.f=0.5)
 polygon(x,y,col=color, border = NA)
 axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
 mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
@@ -390,15 +391,16 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 par(mar=c(6.1,5.1,4.1,2.1))
 plx<-predict(loess(tprs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,tprs, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
-     xlab = 'Insertion density', ylab = 'True positive rate', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "#8c510a", "#d8b365"),
+     pch=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), 17, 20),
+     xlab = 'Insertion density', ylab = 'True positive rate', cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,0.050)
 )
-lines(1/dens,plx$fit, lwd=2)
+lines(1/dens,plx$fit, lwd=2, col="#01665e")
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
 # lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
 x <- c(1/dens, rev(1/dens))
 y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
-color <- adjustcolor("gray20",alpha.f=0.5)
+color <- adjustcolor("#c7eae5",alpha.f=0.5)
 polygon(x,y,col=color, border = NA)
 axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
 mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
@@ -420,15 +422,16 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(essens ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,essens, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
-     xlab = 'Insertion density', ylab = '# predicted essential genes', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "#8c510a", "#d8b365"),
+     pch=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), 17, 20),
+     xlab = 'Insertion density', ylab = '# predicted essential genes', cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
-lines(1/dens,plx$fit, lwd=2)
+lines(1/dens,plx$fit, lwd=2, col="#01665e")
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
 # lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
 x <- c(1/dens, rev(1/dens))
 y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
-color <- adjustcolor("gray20",alpha.f=0.5)
+color <- adjustcolor("#c7eae5",alpha.f=0.5)
 polygon(x,y,col=color, border = NA)
 axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
 mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
@@ -446,15 +449,16 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(mccs ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,mccs, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
-     xlab = 'Insertion density', ylab = 'Matthews correlation coefficient', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "#8c510a", "#d8b365"),
+     pch=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), 17, 20),
+     xlab = 'Insertion density', ylab = 'Matthews correlation coefficient', cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
-lines(1/dens,plx$fit, lwd=2)
+lines(1/dens,plx$fit, lwd=2, col="#01665e")
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
 # lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
 x <- c(1/dens, rev(1/dens))
 y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
-color <- adjustcolor("gray20",alpha.f=0.5)
+color <- adjustcolor("#c7eae5",alpha.f=0.5)
 polygon(x,y,col=color, border = NA)
 axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
 mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
@@ -476,15 +480,16 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(insfrees ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,insfrees, type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
-     xlab = 'Insertion density', ylab = '# insertion free genes', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "#8c510a", "#d8b365"),
+     pch=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), 17, 20),
+     xlab = 'Insertion density', ylab = '# insertion free genes', cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
-lines(1/dens,plx$fit, lwd=2)
+lines(1/dens,plx$fit, lwd=2, col="#01665e")
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
 # lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
 x <- c(1/dens, rev(1/dens))
 y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
-color <- adjustcolor("gray20",alpha.f=0.5)
+color <- adjustcolor("#c7eae5",alpha.f=0.5)
 polygon(x,y,col=color, border = NA)
 axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
 mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
@@ -502,15 +507,16 @@ mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)
 
 plx<-predict(loess(noninsfrees*100/length(iitable$locus.tag) ~ 1/dens, span = 0.2), se=T)
 plot(1/dens,noninsfrees*100/length(iitable$locus.tag), type = 'p', #ylim=c(0,0.1),
-     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "red", "midnightblue"),
-     xlab = 'Insertion density', ylab = '% genes with insertion(s)', pch=20, cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
+     col=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), "#8c510a", "#d8b365"),
+     pch=ifelse(dens %in% c(den$SL1344_1, den$SL1344_3, den$SL1344_7, den$SL1344_5, den$SL1344_9), 17, 20),
+     xlab = 'Insertion density', ylab = '% genes with insertion(s)', cex.lab = 2, cex.axis = 2, cex=1.5#, ylim=c(0,430)
 )
-lines(1/dens,plx$fit, lwd=2)
+lines(1/dens,plx$fit, lwd=2, col="#01665e")
 # lines(1/dens,plx$fit + qt(0.025,plx$df)*plx$se, lty=2, lwd=2)
 # lines(1/dens,plx$fit + qt(0.975,plx$df)*plx$se, lty=2, lwd=2)
 x <- c(1/dens, rev(1/dens))
 y <- c(plx$fit + qt(0.025,plx$df)*plx$se, rev(plx$fit + qt(0.975,plx$df)*plx$se))
-color <- adjustcolor("gray20",alpha.f=0.5)
+color <- adjustcolor("#c7eae5",alpha.f=0.5)
 polygon(x,y,col=color, border = NA)
 axis(side =3, at=1/seq(10,300,10), labels=seq(10,300,10), cex.axis=2)
 mtext(side = 3, line = 2.5, 'Insertion resolution', cex = 2)

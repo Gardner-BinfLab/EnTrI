@@ -52,8 +52,8 @@ Min <- min(toplot, na.rm=TRUE)
 Max <- max(toplot, na.rm=TRUE)
 Thresh <- 0
 eps <- 1e-10
-rc1 <- colorRampPalette(colors = c("palevioletred4", "pink"), space="Lab")(nHalf)
-rc2 <- colorRampPalette(colors = c("paleturquoise", "lightsteelblue4"), space="Lab")(nHalf)
+rc1 <- colorRampPalette(colors = c("#8c510a", "#f6e8c3"), space="Lab")(nHalf)
+rc2 <- colorRampPalette(colors = c("#c7eae5", "#01665e"), space="Lab")(nHalf)
 ramps <- c(rc1,rc2)
 rb1 <- seq(Min, Thresh, length.out=nHalf)
 rb2 <- seq(Thresh+eps, Max, length.out=nHalf)
@@ -70,7 +70,7 @@ rownames(inparalogs) <- rownames(toplot)
 colnames(inparalogs) <- colnames(toplot)
 
 toplot <- toplot[,c(4,10,9,5,6,7,8,12,11,13,14,3,2,1)]
-colnames(toplot) <- c('C.rodentium.ICC168', 'S.Typhi.Ty2', 'S.Enteritidis.P125109', 'S.Typhimurium.SL1344',
+colnames(toplot) <- c('C.rodentium.ICC168', 'S.Typhi.Ty2', 'S.Enteritidis', 'S.Typhimurium.SL1344',
                       'S.Typhimurium.SL3261', 'S.Typhimurium.D23580', 'S.Typhimurium.A130',
                       'E.coli.UPEC.ST131', 'E.coli.UPEC.CFT073', 'E.coli.BW25113', 'E.coli.BW25113-keio',
                       'K.pneumoniae.RH201207', 'K.pneumoniae.Ecl8', 'E.cloacae.NCTC.9394')

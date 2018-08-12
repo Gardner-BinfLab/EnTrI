@@ -5,12 +5,13 @@ library(mgcv)
 library("dbscan")
 library("ROCR")
 library("ggplot2")
+cols <- c("#8c510a", "#80cdc1", "#01665e")
 # library("plotrix")
 names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
-dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
-         "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
-         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
-         "Escherichia coli BW25113", "Escherichia coli ST131 EC958")
+dict = c("C. rodentium ICC168", "Escherichia coli ETEC CS17", "E. cloacae NCTC 9394", "Escherichia coli ETEC H10407", "E. coli UPEC ST131",
+         "K. pneumoniae RH201207", "K. pneumoniae Ecl8", "S. Enteritidis", "S. Typhimurium A130",
+         "S. Typhimurium SL1344", "S. Typhimurium D23580", "S. Typhi Ty2", "S. Typhimurium SL3261",
+         "E. coli BW25113", "E. coli UPEC CFT073")
 names(dict) <- names
 genome_length = c(5346659, 4994793, 4908759, 5153435, 5174631, 5869288, 5324709, 4685848, 4895639, 4878012, 4879400, 4791961, 4878012, 4631469, 5109767)
 names(genome_length) <- names
@@ -54,7 +55,7 @@ for (filename in list_of_files)
   # # abline(mean(ii),0,col='green', lwd=5)
   # lines(loess.smooth(pos,ii, span=sp), col=2, lwd=5)
   dat <- data.frame(pos,ii)
-  print(ggplot(dat,aes(pos,ii))+geom_point(color='midnightblue', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+  print(ggplot(dat,aes(pos,ii))+geom_point(color=cols[1], shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill=cols[2], color=cols[3]) + ylim(0,2)+
           xlab("Gene position") +ylab("Insertion index") + ggtitle(paste("Distance bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+
           theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=20, colour = 'black')) + theme(axis.title.x = element_text(size=24)) +
           theme(axis.title.y = element_text(size=24))+ guides(fill=FALSE) +
@@ -73,7 +74,7 @@ for (filename in list_of_files)
   # abline(mean(ii),0,col='green', lwd=5)
   # lines(loess.smooth(gc,ii, span=sp), col=2, lwd=5)
   dat <- data.frame(gc,ii)
-  print(ggplot(dat,aes(gc,ii))+geom_point(color='midnightblue', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+  print(ggplot(dat,aes(gc,ii))+geom_point(color=cols[1], shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill=cols[2], color=cols[3]) + ylim(0,2)+
     xlab("GC content") +ylab("Insertion index") + ggtitle(paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+ theme_bw()+
       theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=20, colour = 'black')) + theme(axis.title.x = element_text(size=24)) +
       theme(axis.title.y = element_text(size=24))+ guides(fill=FALSE) + 
@@ -86,7 +87,7 @@ for (filename in list_of_files)
   #      main = paste("GC bias without essential genes -", dict[strsplit(basename(filename), "\\.")[[1]][1]]), cex.lab = 2, cex.axis = 2, cex.main =2)
   # lines(loess.smooth(newgc,newii, span=sp), col=2, lwd=5)
   dat <- data.frame(newgc,newii)
-  print(ggplot(dat,aes(newgc,newii))+geom_point(color='midnightblue', shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill='plum', color='red') + ylim(0,2)+
+  print(ggplot(dat,aes(newgc,newii))+geom_point(color=cols[1], shape='.') +geom_smooth(method = "gam", formula = y ~ s(x), fill=cols[2], color=cols[3]) + ylim(0,2)+
           xlab("GC content") +ylab("Insertion index") + ggtitle(paste("GC bias -", dict[strsplit(basename(filename), "\\.")[[1]][1]]))+ theme_bw()+
           theme(plot.title = element_text(size=24, hjust=0.5, face = 'bold'), axis.text=element_text(size=20, colour = 'black')) + theme(axis.title.x = element_text(size=22)) +
           theme(axis.title.y = element_text(size=22))+ guides(fill=FALSE) + 
@@ -247,22 +248,24 @@ for (filename in list_of_files)
   par(mar = mar.default + c(0, 1, 0, 0))
   max1 = max(h$counts)
   max2 = sort(h$counts,partial=length(h$counts)-1)[length(h$counts)-1]
-  plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+  plot(h, col=c(cols[1], cols[2], cols[3], cols[3], cols[3])[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
        cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
   box()
   text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
-  legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
-         col=c("sienna4", "gray", "midnightblue", "red"), bty="n")
+  # legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
+  #        col=c("sienna4", "gray", "midnightblue", "red"), bty="n")
+  legend(2,max1-50, c("Essential", "Ambiguous", "Non-essential"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
+        col=c(cols[1], cols[2], cols[3]), bty="n")
   
-  if (dict[locusid]=='Escherichia coli BW25113')
+  if (dict[locusid]=='E. coli BW25113')
   {
     max1 = 100
-    plot(h, col=c("sienna4", "gray", "midnightblue", "gray", "red")[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
+    plot(h, col=c(cols[1], cols[2], cols[3], cols[3], cols[3])[cuts], xlab = "Insertion index", main =dict[locusid], cex.lab = 2,
          cex.axis = 2, cex.main = 2, xlim=c(0,4), ylim=c(0,max1), lty= "blank")
     box()
     text(2.5,max1-20, paste("n =", length(ii)), lty=1, lwd=4, cex=1.5, bty="n")
-    legend(2,max1-30, c("Essential", "Ambiguous", "Non-essential", "Beneficial loss"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
-           col=c("sienna4", "gray", "midnightblue", "red"), bty="n")
+    legend(2,max1-30, c("Essential", "Ambiguous", "Non-essential"), lty=c(1,1,1,1), lwd=c(4,4,4,4),cex=1.5,
+           col=c(cols[1], cols[2], cols[3]), bty="n")
   }
   
   # hist(ii,breaks=0:(max(ii)*50+1)/50, xlim=c(0,4), freq=FALSE,xlab="Insertion index", main=dict[locusid])

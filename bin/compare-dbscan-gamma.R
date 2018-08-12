@@ -4,10 +4,10 @@ library("ROCR")
 datapath <- "../results/biases/dbscan"
 list_of_files <- list.files(path=datapath, full.names=T, recursive=FALSE)
 names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
-dict = c("Citrobacter", "Escherichia coli ETEC CS17", "Enterobacter", "Escherichia coli ETEC H10407", "Escherichia coli UPEC",
-         "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
-         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
-         "Escherichia coli BW25113", "Escherichia coli ST131 EC958")
+dict = c("C. rodentium ICC168", "Escherichia coli ETEC CS17", "E. cloacae NCTC 9394", "Escherichia coli ETEC H10407", "E. coli UPEC ST131",
+         "K. pneumoniae RH201207", "K. pneumoniae Ecl8", "S. Enteritidis", "S. Typhimurium A130",
+         "S. Typhimurium SL1344", "S. Typhimurium D23580", "S. Typhi Ty2", "S. Typhimurium SL3261",
+         "E. coli BW25113", "E. coli UPEC CFT073")
 names(dict) <- names
 pdf('../figures/gamma-vs-dbscan.pdf')
 for (filename in list_of_files)
@@ -72,19 +72,19 @@ for (filename in list_of_files)
   auc <- performance(pred,measure = "auc")@y.values[[1]]
   mar.default <- c(5,4,4,2) + 0.1
   par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
-  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, print.cutoffs.at = c(dbthr, gammathr),
+  plot(perf,col="#5ab4ac",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, print.cutoffs.at = c(dbthr, gammathr),
        cutoff.label.function=function(x) {c('                  DBSCAN','                Gamma')}, ylim=c(0.92,1), main=dict[locus], cex=1.5)
   perf <- performance(pred,'mat')
   par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
-  plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, main=dict[locus], ylim=c(0.5,0.9), xlim=c(0,0.5), xlab='Insertion index threshold')
+  plot(perf,col="#5ab4ac",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, main=dict[locus], ylim=c(0.5,0.9), xlim=c(0,0.5), xlab='Insertion index threshold')
   points(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], cex=1.5)
   text(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], '                  DBSCAN',cex = 1.5)
   points(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], cex=1.5)
   text(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], '                Gamma', cex=1.5)
-  if (dict[locus]=='Escherichia coli BW25113')
+  if (dict[locus]=='E. coli BW25113')
   {
     par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
-    plot(perf,col="red",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, main=dict[locus], ylim=c(0.5,0.75), xlim=c(0,0.4), xlab='Insertion index threshold')
+    plot(perf,col="#5ab4ac",lty=1,lwd=4,cex.lab = 2,cex.axis = 2, cex.main =2, main=dict[locus], ylim=c(0.5,0.75), xlim=c(0,0.4), xlab='Insertion index threshold')
     points(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], cex=1.5)
     text(dbthr,perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)], '                  DBSCAN',cex = 1.5)
     points(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], cex=1.5)

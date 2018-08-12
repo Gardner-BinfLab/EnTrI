@@ -14,10 +14,10 @@ address = c('Klebsiella_pneumoniae_subsp_pneumoniae_Ecl8_HF536482_v1.fasta','Ent
             'SL3261.fasta','Salmonella_enterica_subsp_enterica_serovar_Typhimurium_A130_v0.fasta', 'HG941718.fasta',
             'CP009273.fasta')
 names = c("ROD", "ENC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344", "STMMW", "t", "SL3261", "BW25113", "EC958")
-dict = c("Citrobacter", "Enterobacter", "Escherichia coli UPEC",
-         "Klebsiella pneumoniae RH201207", "Klebsiella pneumoniae Ecl8", "Salmonella enteritidis", "Salmonella typhimurium A130",
-         "Salmonella typhimurium SL1344", "Salmonella typhimurium D23580", "Salmonella typhi", "Salmonella typhimurium SL3261",
-         "Escherichia coli BW25113", "Escherichia coli ST131 EC958")
+dict = c("C. rodentium ICC168", "E. cloacae NCTC 9394", "E. coli UPEC ST131",
+         "K. pneumoniae RH201207", "K. pneumoniae Ecl8", "S. Enteritidis", "S. Typhimurium A130",
+         "S. Typhimurium SL1344", "S. Typhimurium D23580", "S. Typhi Ty2", "S. Typhimurium SL3261",
+         "E. coli BW25113", "E. coli UPEC CFT073")
 names(dict) <- names
 
 contingency <- array(0, dim=c(2,2,length(locus)))
@@ -33,7 +33,7 @@ dir.create(outdir_montecarlo)
 outdir_pca = paste(outdir, 'pca/', sep='')
 dir.create(outdir_pca)
 # colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
-colors=c('midnightblue', 'darkslategrey', 'limegreen', 'red', 'sienna', 'gray', 'cyan', 'darkslategray')
+colors=c("#c51b7d", "#e9a3c9", "#8c510a", "#d8b365", "#01665e", "#5ab4ac")
 avgaucii=c(0,0)
 avgaucmc=c(0,0)
 avgaucconz=0
@@ -82,8 +82,8 @@ for (i in seq(length(locus)))
     else
     {
       mar.default <- c(5,4,4,2) + 0.1
-      par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2)
-      plot(perfbiotradis,col=colors[j],lty=1,lwd=4,cex.lab=2, main=dict[locus[i]], cex.main=2, ylim=c(0.6,1))
+      par(mar = mar.default + c(0, 1, 0, 0), cex.axis=2, family='sans')
+      plot(perfbiotradis,col=colors[1],lty=1,lwd=4,cex.lab=2, main=dict[locus[i]], cex.main=2, ylim=c(0.6,1))
     }
     
     perfbiotradismcc <- performance(predbiotradis,'mat')
@@ -103,7 +103,7 @@ for (i in seq(length(locus)))
     aucmontecarlo <- c(aucmontecarlo, performance(predmontecarlo,measure = "auc")@y.values[[1]])
     if (j==2)
     {
-      plot(perfmontecarlo,col=colors[j+2],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+      plot(perfmontecarlo,col=colors[2],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
     }
     
     perfmontecarlomcc <- performance(predmontecarlo,'mat')
@@ -161,7 +161,7 @@ for (i in seq(length(locus)))
   perfconz <- performance(predconz,"tpr","fpr")
   aucconz <- performance(predconz,measure = "auc")@y.values[[1]]
   # plot(perfconz,col=colors[8],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfconz,col=colors[5],lty=1,lwd=4,cex.lab=2,cex.axis=2,cex.main=2, add=TRUE)
+  plot(perfconz,col=colors[3],lty=1,lwd=4,cex.lab=2,cex.axis=2,cex.main=2, add=TRUE)
   
   perfconzmcc <- performance(predconz,'mat')
   maxmcc = max(perfconzmcc@y.values[[1]][!is.na(perfconzmcc@y.values[[1]])])
@@ -174,7 +174,7 @@ for (i in seq(length(locus)))
   perfmeandist <- performance(predmeandist,"tpr","fpr")
   aucmeandist <- performance(predmeandist,measure = "auc")@y.values[[1]]
   # plot(perfmeandist,col=colors[9],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfmeandist,col=colors[6],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+  plot(perfmeandist,col=colors[4],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
   
   perfmeandistmcc <- performance(predmeandist,'mat')
   maxmcc = max(perfmeandistmcc@y.values[[1]][!is.na(perfmeandistmcc@y.values[[1]])])
@@ -198,7 +198,7 @@ for (i in seq(length(locus)))
   perfpca <- performance(predpca,"tpr","fpr")
   aucpca <- performance(predpca,measure = "auc")@y.values[[1]]
   # plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfpca,col=colors[7],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+  plot(perfpca,col=colors[5],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
   
   perfpcamcc <- performance(predpca,'mat')
   maxmcc = max(perfpcamcc@y.values[[1]][!is.na(perfpcamcc@y.values[[1]])])
@@ -222,7 +222,7 @@ for (i in seq(length(locus)))
   perfpca2 <- performance(predpca2,"tpr","fpr")
   aucpca2 <- performance(predpca2,measure = "auc")@y.values[[1]]
   # plot(perfpca,col=colors[10],lty=1,lwd=4,cex.lab=1.5,xaxis.cex.axis=1.7,yaxis.cex.axis=1.7, add=TRUE)
-  plot(perfpca2,col=colors[8],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
+  plot(perfpca2,col=colors[6],lty=1,lwd=4,cex.lab=2,cex.axis=2, cex.main=2, add=TRUE)
   
   perfpcamcc2 <- performance(predpca2,'mat')
   maxmcc = max(perfpcamcc2@y.values[[1]][!is.na(perfpcamcc2@y.values[[1]])])
@@ -255,7 +255,7 @@ for (i in seq(length(locus)))
               # , paste("SUM, AUC = ", format(round(aucsum, 4), nsmall = 4))
               , paste("PCA without Monte Carlo, AUC = ", format(round(aucpca2, 4), nsmall = 4))
               )
-  legend("bottomright", inset=.05, labels, lwd=2, col=colors[c(-3,-2)])
+  legend("bottomright", inset=.05, labels, lwd=2, col=colors)
   ranks = ranks + c(aucbiotradis[1],aucmontecarlo[2],aucconz,aucmeandist,aucpca,aucpca2)
   
   plot(-biotradis[,2],montecarlo$log2FoldChange, pch=20, col=real_new$essentiality+1, xlab = "BioTraDIS logodds", ylab = "Monte Carlo logfoldchange")

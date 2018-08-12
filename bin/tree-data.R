@@ -42,16 +42,16 @@ pdf(file = '~/EnTrI/figures/fitch.pdf')
 
 par(mar=c(5.1,5.1,4.1,2.1))
 
-plot(4*strain/strain, strain, xlim=c(1,4), ylim=c(0.06,0.102), col="red", ylab="Proportion of essential ancestral genes", xaxt="n", xlab="",pch=19,
+plot(4*strain/strain, strain, xlim=c(1,4), ylim=c(0.06,0.102), col="#5ab4ac", ylab="Proportion of essential ancestral genes", xaxt="n", xlab="",pch=19,
      cex.lab=2, cex.axis=2, main = 'Conservation of essential genes', cex.main=2)
 
-points(3*speciesFitch/speciesFitch,speciesFitch, col="red", pch=19)
+points(3*speciesFitch/speciesFitch,speciesFitch, col="#5ab4ac", pch=19)
 
-points(2*subFamilyFitch/subFamilyFitch,subFamilyFitch, col="red", pch=19)
+points(2*subFamilyFitch/subFamilyFitch,subFamilyFitch, col="#5ab4ac", pch=19)
 
-points(1*familyFitch/familyFitch,familyFitch, col="red", pch=19)
+points(1*familyFitch/familyFitch,familyFitch, col="#5ab4ac", pch=19)
 
-lines(1:4, c(median(familyFitch), median(subFamilyFitch), median(speciesFitch), median(strain) ), col="red", lwd=3)
+lines(1:4, c(median(familyFitch), median(subFamilyFitch), median(speciesFitch), median(strain) ), col="#5ab4ac", lwd=3)
 
 #legend("topright", c("intersection", "ancestral II", "Dollo"), fil=c("red4", "olivedrab4", "cyan3"))
 axis(1, at = 1:4, labels=c("Family", "Subfam.", "Genus", "Strain"), cex.axis=2)

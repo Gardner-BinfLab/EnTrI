@@ -5,6 +5,7 @@ getmode <- function(v) {
   uniqv <- unique(v)
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
+cols <- c("#01665e", "#5ab4ac", "#8c510a", "#d8b365", "#c51b7d")
 notrimpath = '../results/biases/check-biases_not-trimmed/BW25113.txt'
 trimpath = '../results/biases/check-biases/BW25113.txt'
 infotab <- read.table(notrimpath, header = FALSE, stringsAsFactors = FALSE)
@@ -102,33 +103,33 @@ par(mar=c(5.1,5.1,4,2), cex.axis=2)
 predii <- prediction(-ii, labels)
 perfii <- performance(predii,"tpr","fpr")
 aucii <- performance(predii,measure = "auc")@y.values[[1]]
-plot(perfii,col='midnightblue',lty=1,lwd=4,cex.lab=2,cex.axis=2, ylim=c(0.7,1), cex.main=1.8,
-     main = 'Essentiality of E. coli BW25113 genes')
+plot(perfii,col=cols[1],lty=1,lwd=4,cex.lab=2,cex.axis=2, ylim=c(0.7,1), cex.main=2,
+     main = 'Essentiality predictors in E. coli BW25113')
 
 prediid <- prediction(-ii_dnormalised, labels)
 perfiid <- performance(prediid,"tpr","fpr")
 auciid <- performance(prediid,measure = "auc")@y.values[[1]]
-plot(perfiid,col='goldenrod4',lty=1,lwd=4,add=TRUE)
+plot(perfiid,col=cols[2],lty=1,lwd=4,add=TRUE)
 
 prediigc <- prediction(-ii_gcnormalised, labels)
 perfiigc <- performance(prediigc,"tpr","fpr")
 auciigc <- performance(prediigc,measure = "auc")@y.values[[1]]
-plot(perfiigc,col='limegreen',lty=1,lwd=4,add=TRUE)
+plot(perfiigc,col=cols[3],lty=1,lwd=4,add=TRUE)
 
 prediitr <- prediction(-ii_trimmed, labels)
 perfiitr <- performance(prediitr,"tpr","fpr")
 auciitr <- performance(prediitr,measure = "auc")@y.values[[1]]
-plot(perfiitr,col='gray',lty=1,lwd=4,add=TRUE)
+plot(perfiitr,col=cols[4],lty=1,lwd=4,add=TRUE)
 
 prediito <- prediction(-ii_total, labels)
 perfiito <- performance(prediito,"tpr","fpr")
 auciito <- performance(prediito,measure = "auc")@y.values[[1]]
-plot(perfiito,col='red',lty=1,lwd=4,add=TRUE)
+plot(perfiito,col=cols[5],lty=1,lwd=4,add=TRUE)
 
 lab = c(paste('Unnormalised II, AUC = ', format(round(aucii, 4), nsmall = 4)),
         paste('Distance normalised II, AUC = ', format(round(auciid, 4), nsmall = 4)),
         paste('GC normalised II, AUC = ', format(round(auciigc, 4), nsmall = 4)),
         paste('II for trimmed genes, AUC = ', format(round(auciitr, 4), nsmall = 4)),
         paste('Normalised II for all biases, AUC = ', format(round(auciito, 4), nsmall = 4)))
-legend("bottomright", inset=.05, legend=lab, lwd=2, col=c('midnightblue', 'goldenrod4', 'limegreen', 'gray', 'red'))
+legend("bottomright", inset=.05, legend=lab, lwd=2, col=cols)
 dev.off()
