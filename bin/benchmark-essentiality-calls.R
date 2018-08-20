@@ -17,7 +17,7 @@ names = c("ROD", "ENC", "NCTC13441", "ERS227112", "BN373", "SEN", "STM", "SL1344
 dict = c("C. rodentium ICC168", "E. cloacae NCTC 9394", "E. coli UPEC ST131",
          "K. pneumoniae RH201207", "K. pneumoniae Ecl8", "S. Enteritidis", "S. Typhimurium A130",
          "S. Typhimurium SL1344", "S. Typhimurium D23580", "S. Typhi Ty2", "S. Typhimurium SL3261",
-         "E. coli BW25113", "E. coli UPEC CFT073")
+         "E. coli BW25113", "E. coli UPEC ST131 EC958")
 names(dict) <- names
 
 contingency <- array(0, dim=c(2,2,length(locus)))

@@ -72,7 +72,7 @@ colnames(inparalogs) <- colnames(toplot)
 toplot <- toplot[,c(4,10,9,5,6,7,8,12,11,13,14,3,2,1)]
 colnames(toplot) <- c('C.rodentium.ICC168', 'S.Typhi.Ty2', 'S.Enteritidis', 'S.Typhimurium.SL1344',
                       'S.Typhimurium.SL3261', 'S.Typhimurium.D23580', 'S.Typhimurium.A130',
-                      'E.coli.UPEC.ST131', 'E.coli.UPEC.CFT073', 'E.coli.BW25113', 'E.coli.BW25113-keio',
+                      'E.coli.UPEC.ST131', 'E.coli.UPEC.ST131.EC958', 'E.coli.BW25113', 'E.coli.BW25113-keio',
                       'K.pneumoniae.RH201207', 'K.pneumoniae.Ecl8', 'E.cloacae.NCTC.9394')
 
 # pdf("~/EnTrI/figures/interesting-genes-modules_heatmap.pdf", height = 70)

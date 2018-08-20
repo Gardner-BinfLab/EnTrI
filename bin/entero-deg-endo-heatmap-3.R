@@ -23,6 +23,18 @@ pdf("~/EnTrI/figures/essential_genes_upsetr.pdf")
 upset(fromList(upsetrlist), nsets = 5, order.by="freq", keep.order = T, sets=names(upsetrlist))
 dev.off()
 
+upsetrlist <- list("Enterobacteriaceae"=c(), "Gammaproteobacteria"=c(), "Proteobacteria"=c(), "Bacteria"=c())
+for (gene in row.names(toplot))
+{
+  for (cl in names(upsetrlist))
+    if(toplot[gene,cl])
+      upsetrlist[[cl]]=c(upsetrlist[[cl]], gene)
+}
+
+pdf("~/EnTrI/figures/essential_genes_upsetr_excluded_endosymbionts.pdf")
+upset(fromList(upsetrlist), nsets = 5, order.by="freq", keep.order = T, sets=names(upsetrlist))
+dev.off()
+
 dict <- c('Mycobacterium tuberculosis H37Rv', 'Synechococcus elongatus PCC 7942', 'Porphyromonas gingivalis ATCC 33277',
           'Bacteroides thetaiotaomicron VPI-5482','Bacteroides fragilis 638R', 'Caulobacter crescentus',
           'Brevundimonas subvibrioides ATCC 15264', 'Rhodopseudomonas palustris CGA009', 'Agrobacterium fabrum str. C58',

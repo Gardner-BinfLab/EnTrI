@@ -11,7 +11,7 @@ names = c("ROD", "CS17", "ENC", "ETEC", "NCTC13441", "ERS227112", "BN373", "SEN"
 dict = c("C. rodentium ICC168", "Escherichia coli ETEC CS17", "E. cloacae NCTC 9394", "Escherichia coli ETEC H10407", "E. coli UPEC ST131",
          "K. pneumoniae RH201207", "K. pneumoniae Ecl8", "S. Enteritidis", "S. Typhimurium A130",
          "S. Typhimurium SL1344", "S. Typhimurium D23580", "S. Typhi Ty2", "S. Typhimurium SL3261",
-         "E. coli BW25113", "E. coli UPEC CFT073")
+         "E. coli BW25113", "E. coli UPEC ST131 EC958")
 names(dict) <- names
 genome_length = c(5346659, 4994793, 4908759, 5153435, 5174631, 5869288, 5324709, 4685848, 4895639, 4878012, 4879400, 4791961, 4878012, 4631469, 5109767)
 names(genome_length) <- names
