@@ -126,10 +126,10 @@ perfiito <- performance(prediito,"tpr","fpr")
 auciito <- performance(prediito,measure = "auc")@y.values[[1]]
 plot(perfiito,col=cols[5],lty=1,lwd=4,add=TRUE)
 
-lab = c(paste('Unnormalised II, AUC = ', format(round(aucii, 4), nsmall = 4)),
-        paste('Distance normalised II, AUC = ', format(round(auciid, 4), nsmall = 4)),
-        paste('GC normalised II, AUC = ', format(round(auciigc, 4), nsmall = 4)),
-        paste('II for trimmed genes, AUC = ', format(round(auciitr, 4), nsmall = 4)),
-        paste('Normalised II for all biases, AUC = ', format(round(auciito, 4), nsmall = 4)))
-legend("bottomright", inset=.05, legend=lab, lwd=2, col=cols)
+lab = c(paste('Unnorm. AUC = ', format(round(aucii, 4), nsmall = 4)),
+        paste('Distance norm. AUC = ', format(round(auciid, 4), nsmall = 4)),
+        paste('GC norm. AUC = ', format(round(auciigc, 4), nsmall = 4)),
+        paste('Trimmed genes AUC = ', format(round(auciitr, 4), nsmall = 4)),
+        paste('Norm. for all AUC = ', format(round(auciito, 4), nsmall = 4)))
+legend("bottomright", inset=.05, legend=lab, lwd=4, col=cols, cex = 1.5)
 dev.off()

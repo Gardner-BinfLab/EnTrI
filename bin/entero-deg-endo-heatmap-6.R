@@ -163,3 +163,187 @@ if (nrow(pathways) > 0)
         theme(text = element_text(size=15)))
   dev.off()
 }
+
+##################################################
+# Comparing Enterobacteriaceae with endosymbionts
+##################################################
+
+###### essential in both enterobacters and endosymbionts
+genes = kegg[heatmap$Enterobacteriaceae&heatmap$Endosymbiont,1]
+enrichment = data.frame(matrix(nrow=length(unique(db[,3])),ncol=4),row.names =unique(db[,3]) )
+for (i in seq(1,nrow(enrichment)))
+{
+  for (j in seq(1,ncol(enrichment)))
+  {
+    enrichment[i,j]=0
+  }
+}
+len_genes = 0
+for (item in genes)
+{
+  for (i in seq(1,nrow(db)))
+  {
+    if (!is.na(item) & item == db[i,1])
+    {
+      enrichment[db[i,3], 1] = enrichment[db[i,3], 1] + 1
+      len_genes = len_genes + 1
+    }
+  }
+}
+for (i in seq(1,nrow(db)))
+{
+  enrichment[db[i,3], 2] = enrichment[db[i,3], 2] + 1
+}
+
+len_db = length(db[,1])
+for (i in seq(1,nrow(enrichment)))
+{
+  fisherresult = fisher.test(matrix(c(enrichment[i,1],enrichment[i,2],(len_genes-enrichment[i,1]), (len_db-enrichment[i,2])),nrow=2,byrow=TRUE), alternative = "greater")
+  enrichment[i,3] = fisherresult$p.value
+}
+enrichment[,4] = p.adjust(enrichment[,3], method = "BH")
+enrichment <- enrichment[order(enrichment[,4], enrichment[,3]),]
+pathways=data.frame()
+i=1
+while(enrichment[i,4] < 0.05)
+{
+  j = 1
+  while(db[j,3] != row.names(enrichment)[i])
+  {
+    j = j + 1
+  }
+  pathways[i,1] = db[j,3]
+  pathways[i,2] = -log10(enrichment[i,4])
+  i = i + 1
+}
+if (nrow(pathways) > 0)
+{
+  colnames(pathways) = c('word', 'pvalue')
+  # print(pathways)
+  pdf("../figures/entero1-endo1.pdf")
+  print(ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
+          geom_abline(slope = 0, intercept = -log10(0.05), color="red")+
+          # ggtitle("Core pathways") +
+          theme(text = element_text(size=15)))
+  dev.off()
+}
+
+###### essential only in enterobacters
+genes = kegg[heatmap$Enterobacteriaceae&!heatmap$Endosymbiont,1]
+enrichment = data.frame(matrix(nrow=length(unique(db[,3])),ncol=4),row.names =unique(db[,3]) )
+for (i in seq(1,nrow(enrichment)))
+{
+  for (j in seq(1,ncol(enrichment)))
+  {
+    enrichment[i,j]=0
+  }
+}
+len_genes = 0
+for (item in genes)
+{
+  for (i in seq(1,nrow(db)))
+  {
+    if (!is.na(item) & item == db[i,1])
+    {
+      enrichment[db[i,3], 1] = enrichment[db[i,3], 1] + 1
+      len_genes = len_genes + 1
+    }
+  }
+}
+for (i in seq(1,nrow(db)))
+{
+  enrichment[db[i,3], 2] = enrichment[db[i,3], 2] + 1
+}
+
+len_db = length(db[,1])
+for (i in seq(1,nrow(enrichment)))
+{
+  fisherresult = fisher.test(matrix(c(enrichment[i,1],enrichment[i,2],(len_genes-enrichment[i,1]), (len_db-enrichment[i,2])),nrow=2,byrow=TRUE), alternative = "greater")
+  enrichment[i,3] = fisherresult$p.value
+}
+enrichment[,4] = p.adjust(enrichment[,3], method = "BH")
+enrichment <- enrichment[order(enrichment[,4], enrichment[,3]),]
+pathways=data.frame()
+i=1
+while(enrichment[i,4] < 0.05)
+{
+  j = 1
+  while(db[j,3] != row.names(enrichment)[i])
+  {
+    j = j + 1
+  }
+  pathways[i,1] = db[j,3]
+  pathways[i,2] = -log10(enrichment[i,4])
+  i = i + 1
+}
+if (nrow(pathways) > 0)
+{
+  colnames(pathways) = c('word', 'pvalue')
+  # print(pathways)
+  pdf("../figures/entero1-endo0.pdf")
+  print(ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
+          geom_abline(slope = 0, intercept = -log10(0.05), color="red")+
+          # ggtitle("Core pathways") +
+          theme(text = element_text(size=15)))
+  dev.off()
+}
+
+###### essential only in endosymbionts
+genes = kegg[!heatmap$Enterobacteriaceae&heatmap$Endosymbiont,1]
+enrichment = data.frame(matrix(nrow=length(unique(db[,3])),ncol=4),row.names =unique(db[,3]) )
+for (i in seq(1,nrow(enrichment)))
+{
+  for (j in seq(1,ncol(enrichment)))
+  {
+    enrichment[i,j]=0
+  }
+}
+len_genes = 0
+for (item in genes)
+{
+  for (i in seq(1,nrow(db)))
+  {
+    if (!is.na(item) & item == db[i,1])
+    {
+      enrichment[db[i,3], 1] = enrichment[db[i,3], 1] + 1
+      len_genes = len_genes + 1
+    }
+  }
+}
+for (i in seq(1,nrow(db)))
+{
+  enrichment[db[i,3], 2] = enrichment[db[i,3], 2] + 1
+}
+
+len_db = length(db[,1])
+for (i in seq(1,nrow(enrichment)))
+{
+  fisherresult = fisher.test(matrix(c(enrichment[i,1],enrichment[i,2],(len_genes-enrichment[i,1]), (len_db-enrichment[i,2])),nrow=2,byrow=TRUE), alternative = "greater")
+  enrichment[i,3] = fisherresult$p.value
+}
+enrichment[,4] = p.adjust(enrichment[,3], method = "BH")
+enrichment <- enrichment[order(enrichment[,4], enrichment[,3]),]
+pathways=data.frame()
+i=1
+while(enrichment[i,4] < 0.05)
+{
+  j = 1
+  while(db[j,3] != row.names(enrichment)[i])
+  {
+    j = j + 1
+  }
+  pathways[i,1] = db[j,3]
+  pathways[i,2] = -log10(enrichment[i,4])
+  i = i + 1
+}
+if (nrow(pathways) > 0)
+{
+  colnames(pathways) = c('word', 'pvalue')
+  # print(pathways)
+  pdf("../figures/entero0-endo1.pdf")
+  print(ggplot(data=pathways, aes(x=reorder(word,pvalue),y=pvalue))+geom_bar(stat="identity")+ coord_flip()+labs(x='Pathway',y='-log10(P-value)') +
+          geom_abline(slope = 0, intercept = -log10(0.05), color="red")+
+          # ggtitle("Core pathways") +
+          theme(text = element_text(size=15)))
+  dev.off()
+}
