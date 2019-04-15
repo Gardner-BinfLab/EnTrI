@@ -1,7 +1,7 @@
 library(ggplot2)
 library(stringr)
 dbs <- "~/EnTrI/results/KEGG/"
-essentiality <- "~/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes/"
+essentiality <- "~/EnTrI/results/define-core-accessory-hieranoid-fitch/all/core-essential-genomes/"
 # seqdb <- "~/EnTrI/data/fasta-protein/chromosome/seqdb.fasta"
 list_of_files <- list.files(path=dbs, full.names=T, recursive=FALSE)
 db=matrix(,nrow=0,ncol=3)
