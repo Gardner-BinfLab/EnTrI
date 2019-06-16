@@ -16,9 +16,9 @@ for (filename in list_of_files)
 }
 iis = as.matrix(read.table(k12_path))
 list_of_essential_genes["b"] <- list(iis[,1])
-presence = rev(list("ENC"=c(), "BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
+presence = rev(list("BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
                 "t"=c(), "EC958"=c(), "NCTC13441"=c(), "BW25113"=c(), "b"=c()))
-essentiality = rev(list("ENC"=c(), "BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
+essentiality = rev(list("BN373"=c(), "ERS227112"=c(), "ROD"=c(), "SL1344"=c(), "SL3261"=c(), "STMMW"=c(), "STM"=c(), "SEN"=c(),
                 "t"=c(), "EC958"=c(), "NCTC13441"=c(), "BW25113"=c(), "b"=c()))
 cluster <- readLines(clusters_path)
 numclusters = length(cluster)
@@ -47,12 +47,12 @@ for (clusterindex in (1:numclusters))
   }
 }
 
-names(presence) <- rev(c("Enterobacter cloacae NCTC 9394", "Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
+names(presence) <- rev(c("Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
                      "Citrobacter rodentium ICC168", "Salmonella typhimurium SL1344", "Salmonella typhimurium SL3261",
                      "Salmonella typhimurium D23580", "Salmonella typhimurium A130", "Salmonella enteritidis P125109",
                      "Salmonella typhi Ty2", "Escherichia coli ST131 EC958", "Escherichia coli UPEC ST131"
                      , "Escherichia coli BW25113", "Escherichia coli K-12 MG1655"))
-names(essentiality) <- rev(c("Enterobacter cloacae NCTC 9394", "Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
+names(essentiality) <- rev(c("Klebsiella pneumoniae Ecl8", "Klebsiella pneumoniae RH201207",
                      "Citrobacter rodentium ICC168", "Salmonella typhimurium SL1344", "Salmonella typhimurium SL3261",
                      "Salmonella typhimurium D23580", "Salmonella typhimurium A130", "Salmonella enteritidis P125109",
                      "Salmonella typhi Ty2", "Escherichia coli ST131 EC958", "Escherichia coli UPEC ST131",

@@ -75,12 +75,12 @@ speciestreedir = '/home/fatemeh/EnTrI/bin/speciestrees-no-k12'
 sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 gene_essentiality = read_k12(k12path, gene_essentiality)
-species_names = {"all":["BN373", "ENC", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
+species_names = {"all":["BN373", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
     "STMMW", "t", "SL3261","BW25113", "EC958", "b"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
-    "ecoli":["NCTC13441","BW25113", "EC958", "b"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
-    ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
+    "ecoli":["NCTC13441","BW25113", "EC958", "b"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"],
+    "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
     "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "NCTC13441", "ROD","BW25113", "EC958", "b"],
-    "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
+    "salmonellaty2":["t"], "salmonellap125109":["SEN"],
     "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
     "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"],
     "ecolik12":["b"]}

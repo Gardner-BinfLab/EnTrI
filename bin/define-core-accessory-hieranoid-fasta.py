@@ -50,22 +50,22 @@ seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
 clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
 insertion_indices = '/home/fatemeh/EnTrI/results/biases/dbscan'
 k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
-outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fasta-100'
+outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fasta-80'
 makedir(outdir)
 sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 gene_essentiality = read_k12(k12path, gene_essentiality)
 species_names = defaultdict()
-species_names = {"all":["BN373", "ENC", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
-    "STMMW", "t", "b", "SL3261","BW25113", "EC958"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"], "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"],
-    "ecoli":["NCTC13441", "b","BW25113", "EC958"], "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "enterobacter":
-    ["ENC"], "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
+species_names = {"all":["BN373", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344", "STM",
+    "STMMW", "t", "b", "SL3261","BW25113", "EC958"],"typhimurium":["STM", "SL1344", "STMMW", "SL3261"],
+    "salmonella":["SEN", "SL1344", "STM", "STMMW", "t", "SL3261"], "ecoli":["NCTC13441", "b","BW25113", "EC958"],
+    "klebsiella":["ERS227112", "BN373"], "citrobacter":["ROD"], "salmonellacitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "ROD"],
     "salmonellaecolicitrobacter":["SEN", "SL1344", "SL3261", "STM", "STMMW", "t", "NCTC13441", "b", "ROD","BW25113", "EC958"],
-    "klebsiellaenterobacter":["ERS227112", "BN373", "ENC"], "salmonellaty2":["t"], "salmonellap125109":["SEN"],
-    "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"], "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"],
-    "ecolik12":["b"], "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"]}
+    "salmonellaty2":["t"], "salmonellap125109":["SEN"], "salmonellasl1344":["SL1344"], "salmonellasl3261":["SL3261"],
+    "salmonellaa130":["STM"], "salmonellad23580":["STMMW"], "ecolist131":["NCTC13441"], "ecolik12":["b"],
+    "klebsiellarh201207":["ERS227112"], "klebsiellaecl8":["BN373"],"ecoliBW25113":["BW25113"], "ecoliEC958":["EC958"]}
 
-with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fasta-100/info.txt', 'w') as infofile:
+with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fasta-80/info.txt', 'w') as infofile:
     infofile.write('speciesname\tcoreessential\tcore\n')
 
 for item in species_names.keys():
@@ -118,10 +118,10 @@ for item in species_names.keys():
                         list_of_essential_genes.append(g)
                         essentiality_dict[s] = 1
             #if gene_dict[min(gene_dict, key=gene_dict.get)] == 1:
-            if(sum(gene_dict.values()) >= 100/100 * len(gene_dict.keys())):
+            if(sum(gene_dict.values()) >= 80/100 * len(gene_dict.keys())):
                 #if essentiality_dict[min(essentiality_dict, key=essentiality_dict.get)] == 1:
                 #if len(list_of_essential_genes) == len(list_of_genes):
-                if len(list_of_essential_genes) >= len(list_of_genes) * 100 / 100:
+                if len(list_of_essential_genes) >= len(list_of_genes) * 80 / 100:
                     esscoregenes += list_of_genes
                 elif essentiality_dict[max(essentiality_dict, key=essentiality_dict.get)] == 0:
                     nesscoregenes += list_of_genes
@@ -129,7 +129,7 @@ for item in species_names.keys():
                     sesscoregenes += list_of_genes
             else:
                 #if not sum([gene_dict[item] - essentiality_dict[item] for item in essentiality_dict.keys()]):
-                if len(list_of_essential_genes) >= len(list_of_genes) * 100 / 100:
+                if len(list_of_essential_genes) >= len(list_of_genes) * 80 / 100:
                     essaccessorygenes += list_of_genes
                 elif essentiality_dict[max(essentiality_dict, key=essentiality_dict.get)] == 0:
                     nessaccessorygenes += list_of_genes
@@ -148,7 +148,7 @@ for item in species_names.keys():
     nessaccessorygenes = list(set(nessaccessorygenes))
     nessaccessorygenes.sort()
 
-    with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fasta-100/info.txt', 'a') as infofile:
+    with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fasta-80/info.txt', 'a') as infofile:
         infofile.write(str(item) + '\t' + str(len(esscoregenes)/len(species_names[item])) + '\t' +
                        str((len(esscoregenes)+len(sesscoregenes)+len(nesscoregenes))/len(species_names[item])) + '\n')
 
