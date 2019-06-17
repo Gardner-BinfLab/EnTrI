@@ -4,13 +4,14 @@ dbs <- "~/EnTrI/results/KEGG/"
 essentiality <- "~/EnTrI/results/define-core-accessory-hieranoid-fitch/all/core-essential-genomes/"
 # seqdb <- "~/EnTrI/data/fasta-protein/chromosome/seqdb.fasta"
 list_of_files <- list.files(path=dbs, full.names=T, recursive=FALSE)
+list_of_files = list_of_files[list_of_files != "/home/fatemeh/EnTrI/results/KEGG//enterobacter_cloacae_NCTC_9394.dat"]
 db=matrix(,nrow=0,ncol=3)
 for (filename in list_of_files)
 {
   dbfile = as.matrix(read.table(filename, as.is=TRUE, header=TRUE, sep="\t"))
   for (i in seq(1,nrow(dbfile)))
   {
-    dbfile[i,3] = str_match(dbfile[i,3], '([[:print:]]+)-[[ Citrobacter rodentium]]|[[ Enterobacter cloacae subsp. cloacae NCTC 9394]]|
+    dbfile[i,3] = str_match(dbfile[i,3], '([[:print:]]+)-[[ Citrobacter rodentium]]|
                             [[ Escherichia coli O78:H11:K80 H10407 (ETEC)]]|[[ Escherichia coli K\\-12 MG1655]]|
                             [[ Salmonella enterica subsp. enterica serovar Enteritidis P125109]]|
                             [[ Salmonella enterica subsp. enterica serovar Typhimurium D23580]]|

@@ -39,17 +39,18 @@ for filename in salmonellas:
                 cells = line.split()
                 salmonella.append(cells[0][1:])
 
-enterobacter = []
-enterobacterdir = '../results/define-core-accessory-hieranoid-fitch/enterobacter/core-essential-genomes/'
-enterobacters = listdir(enterobacterdir)
-for filename in enterobacters:
-    with open(enterobacterdir + filename, 'r') as fromfile:
-        for line in fromfile:
-            if line.startswith('>'):
-                cells = line.split()
-                enterobacter.append(cells[0][1:])
-
-all = ecoli + citrobacter + salmonella + enterobacter + klebsiella
+# enterobacter = []
+# enterobacterdir = '../results/define-core-accessory-hieranoid-fitch/enterobacter/core-essential-genomes/'
+# enterobacters = listdir(enterobacterdir)
+# for filename in enterobacters:
+#     with open(enterobacterdir + filename, 'r') as fromfile:
+#         for line in fromfile:
+#             if line.startswith('>'):
+#                 cells = line.split()
+#                 enterobacter.append(cells[0][1:])
+#
+# all = ecoli + citrobacter + salmonella + enterobacter + klebsiella
+all = ecoli + citrobacter + salmonella + klebsiella
 
 eggnog = '../results/eggnog-mapper/seqdb.fasta.emapper.annotations'
 eggnogdict = {}
@@ -57,9 +58,9 @@ cogdict = {}
 with open(eggnog, 'r') as fromfile:
     for line in fromfile:
         cells = line.split('\t')
-        if cells[4] != '':
+        if cells[4] != '' and not cells[0].startswith('ENC'):
             eggnogdict[cells[0]] = cells[4]
-        else:
+        elif not cells[0].startswith('ENC'):
             whole = cells[8].split(',')
             for item in whole:
                 pre = item.split('@')[0]
@@ -72,6 +73,7 @@ clusters = '../results/hieranoid/clusters.txt'
 with open(clusters, 'r') as fromfile:
     for line in fromfile:
         cells = line.split()
+        cells = [item for item in cells if not item.startswith('ENC')]
         if len(set(cells) & set(all)) > 0:
             flag = 0
             for item in set(cells) & set(all):
@@ -88,7 +90,7 @@ with open(clusters, 'r') as fromfile:
             if not flag:
                 print(item)
             else:
-                genedict[name] = [0, 0, 0, 0, 0]
+                genedict[name] = [0, 0, 0, 0]
             if len(set(cells) & set(citrobacter)) > 0:
                 genedict[name][0] = 1
             if len(set(cells) & set(salmonella)) > 0:
@@ -97,8 +99,8 @@ with open(clusters, 'r') as fromfile:
                 genedict[name][2] = 1
             if len(set(cells) & set(klebsiella)) > 0:
                 genedict[name][3] = 1
-            if len(set(cells) & set(enterobacter)) > 0:
-                genedict[name][4] = 1
+            # if len(set(cells) & set(enterobacter)) > 0:
+            #     genedict[name][4] = 1
 
 for item in genedict.keys():
     genedict[item] = tuple(genedict[item])
@@ -106,7 +108,7 @@ for item in genedict.keys():
 sorted_dict = sorted(genedict, key=genedict.get, reverse=True)
 writepath = '../results/define-core-accessory-hieranoid-fitch/heatmap.tsv'
 with open(writepath, 'w') as tofile:
-    tofile.write('gene\tCitrobacter\tSalmonella\tEscherichia\tKlebsiella\tEnterobacter\n')
+    tofile.write('gene\tCitrobacter\tSalmonella\tEscherichia\tKlebsiella\n')
     for item in sorted_dict:
         first = item[0:3]
         last = item[3:]
