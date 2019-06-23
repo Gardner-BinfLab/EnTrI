@@ -2,21 +2,21 @@ Query         gamma-clust489
 Match_columns 64
 No_of_seqs    6 out of 10
 Neff          1.2 
-Searched_HMMs 263
-Date          Mon Jul  2 16:59:21 2018
+Searched_HMMs 268
+Date          Sun Jun 23 10:47:42 2019
 Command       hhsearch -i /home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/gammaproteobacteria/core-essential-genomes/hhmake/gamma-clust489.hmm -d /home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/enterofam.hmm -o /home/fatemeh/EnTrI/results/venn-entero-deg-endo/gammaentero/gamma-clust489.hmm 
 
  No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
   1 entero-clust4352                99.9 1.3E-34 4.9E-37  163.3   0.0   46   19-64      1-46  (47)
-  2 entero-clust960                  3.0     3.9   0.015   19.8   0.0   10   22-31    109-118 (371)
-  3 entero-clust3597                 2.8     4.3   0.016   16.7   0.0    6   53-58     88-93  (111)
-  4 entero-clust1171                 2.3     5.3    0.02   19.0   0.0    9   19-28     91-99  (357)
-  5 entero-clust1588                 2.2     5.7   0.021   18.6   0.0    9   22-30     63-71  (316)
-  6 entero-clust3853                 1.3      11   0.042   14.1   0.0   14   10-24     30-43  (85)
-  7 entero-clust282                  1.1      13   0.048   17.9   0.0   14   24-37    551-564 (582)
-  8 entero-clust2345                 1.1      13   0.051   15.9   0.0   17   33-49     14-30  (237)
-  9 entero-clust2583                 1.0      14   0.053   15.6   0.0   13   16-28     60-73  (214)
- 10 entero-clust2324                 1.0      14   0.055   15.6   0.0   16    4-19     66-81  (223)
+  2 entero-clust1171                 3.1     3.9   0.014   19.8   0.0    9   19-28     91-99  (357)
+  3 entero-clust960                  2.8     4.3   0.016   19.6   0.0   10   22-31    109-118 (371)
+  4 entero-clust3597                 2.8     4.4   0.016   16.7   0.0    6   53-58     88-93  (111)
+  5 entero-clust1588                 2.7     4.5   0.017   19.2   0.0    9   22-30     63-71  (316)
+  6 entero-clust3277                 2.4     5.3    0.02   16.9   0.0    7    2-8      24-30  (140)
+  7 entero-clust2324                 2.0     6.4   0.024   17.5   0.0   19    4-22     66-84  (223)
+  8 entero-clust3680                 1.7     7.6   0.028   15.4   0.0    8   31-38     68-75  (102)
+  9 entero-clust2210                 1.6     8.3   0.031   17.2   0.0    9    1-9     225-233 (246)
+ 10 entero-clust282                  1.1      13   0.048   17.9   0.0   14   24-37    551-564 (582)
 
 No 1  
 >entero-clust4352
@@ -31,66 +31,102 @@ Confidence            7999999999999999999999999999999999999999999986
 
 
 No 2  
->entero-clust960
-Probab=3.02  E-value=3.9  Score=19.79  Aligned_cols=10  Identities=50%  Similarity=0.863  Sum_probs=7.4
-
-Q DEG10430363      22 TFQPSELKRK   31 (62)
-Q Consensus        22 TFQPS~LKRk   31 (64)
-                      .||||++.+-
-T Consensus       109 rfqpseiaki  118 (371)
-T ENC_20750       109 RFQPSEIAKI  118 (370)
-Confidence            5999987653
-
-
-No 3  
->entero-clust3597
-Probab=2.77  E-value=4.3  Score=16.71  Aligned_cols=6  Identities=83%  Similarity=1.154  Sum_probs=3.6
-
-Q DEG10430363      53 RAKGRH   58 (62)
-Q Consensus        53 RAKGR~   58 (64)
-                      |||||+
-T Consensus        88 rakgra   93 (111)
-T ENC_25290        88 RAKGRA   93 (110)
-Confidence            566665
-
-
-No 4  
 >entero-clust1171
-Probab=2.34  E-value=5.3  Score=19.03  Aligned_cols=9  Identities=56%  Similarity=1.062  Sum_probs=5.4
+Probab=3.07  E-value=3.9  Score=19.81  Aligned_cols=9  Identities=67%  Similarity=1.106  Sum_probs=5.7
 
 Q DEG10430363      19 MKRTFQPSEL   28 (62)
 Q Consensus        19 mKRTFQPS~L   28 (64)
                       ||| |||.+.
 T Consensus        91 mkr-f~pdvv   99 (357)
-T ENC_46020        83 MKR-FKPDVV   91 (347)
-Confidence            444 777664
+T BN373_05831      91 MKR-FQPDVV   99 (356)
+Confidence            444 788764
+
+
+No 3  
+>entero-clust960
+Probab=2.83  E-value=4.3  Score=19.60  Aligned_cols=10  Identities=50%  Similarity=0.863  Sum_probs=7.5
+
+Q DEG10430363      22 TFQPSELKRK   31 (62)
+Q Consensus        22 TFQPS~LKRk   31 (64)
+                      .||||++.+-
+T Consensus       109 rfqpseiaki  118 (371)
+T BN373_12461     109 RFQPSEIAKI  118 (370)
+Confidence            5999987653
+
+
+No 4  
+>entero-clust3597
+Probab=2.77  E-value=4.4  Score=16.71  Aligned_cols=6  Identities=83%  Similarity=1.154  Sum_probs=3.6
+
+Q DEG10430363      53 RAKGRH   58 (62)
+Q Consensus        53 RAKGR~   58 (64)
+                      |||||+
+T Consensus        88 rakgra   93 (111)
+T BN373_43511      88 RAKGRA   93 (110)
+Confidence            566665
 
 
 No 5  
 >entero-clust1588
-Probab=2.21  E-value=5.7  Score=18.59  Aligned_cols=9  Identities=44%  Similarity=0.855  Sum_probs=5.6
+Probab=2.69  E-value=4.5  Score=19.16  Aligned_cols=9  Identities=56%  Similarity=0.944  Sum_probs=6.2
 
 Q DEG10430363      22 TFQPSELKR   30 (62)
 Q Consensus        22 TFQPS~LKR   30 (64)
                       .|||+.|.-
-T Consensus        63 ~fqp~slrp   71 (316)
-T ENC_303added     63 LFQPASLRP   71 (315)
-Confidence            477776643
+T Consensus        63 vfqp~slrp   71 (316)
+T BN373_43241      63 VFQPSSLRP   71 (315)
+Confidence            578877754
 
 
 No 6  
->entero-clust3853
-Probab=1.25  E-value=11  Score=14.14  Aligned_cols=14  Identities=43%  Similarity=0.850  Sum_probs=8.2
+>entero-clust3277
+Probab=2.36  E-value=5.3  Score=16.85  Aligned_cols=7  Identities=71%  Similarity=1.104  Sum_probs=4.3
 
-Q DEG10430363      10 RKIIFGSFDMKRTFQ   24 (62)
-Q Consensus        10 rkiifgsfdmKRTFQ   24 (64)
-                      ..-|+|.| .|||-.
-T Consensus        30 khpiygkf-ikrttk   43 (85)
-T ENC_25250        30 KHPIYGKF-IKRTTK   43 (84)
-Confidence            34467777 566643
+Q DEG10430363       2 HNKIADL    8 (62)
+Q Consensus         2 hnkiadl    8 (64)
+                      ||.|||.
+T Consensus        24 hndiadv   30 (140)
+T BN373_08571      24 HNDIADV   30 (139)
+Confidence            5666664
 
 
 No 7  
+>entero-clust2324
+Probab=2.02  E-value=6.4  Score=17.51  Aligned_cols=19  Identities=37%  Similarity=0.648  Sum_probs=16.1
+
+Q DEG10430363       4 KIADLYRKIIFGSFDMKRT   22 (62)
+Q Consensus         4 kiadlyrkiifgsfdmKRT   22 (64)
+                      .||..|-.-||...|..|-
+T Consensus        66 riakmyvdeifsgldysrf   84 (223)
+T BN373_31931      66 RIAKMYVDEIFSGLDYSRF   84 (222)
+Confidence            5888999999999888774
+
+
+No 8  
+>entero-clust3680
+Probab=1.75  E-value=7.6  Score=15.36  Aligned_cols=8  Identities=50%  Similarity=0.775  Sum_probs=5.4
+
+Q DEG10430363      31 KRVHGFRA   38 (62)
+Q Consensus        31 kRtHGFRA   38 (64)
+                      -|.|||=.
+T Consensus        68 grphgflr   75 (102)
+T BN373_43431      68 GRPHGFLR   75 (101)
+Confidence            36799843
+
+
+No 9  
+>entero-clust2210
+Probab=1.62  E-value=8.3  Score=17.17  Aligned_cols=9  Identities=67%  Similarity=0.693  Sum_probs=5.2
+
+Q DEG10430363       1 MHNKIADLY    9 (62)
+Q Consensus         1 mhnkiadly    9 (64)
+                      |..|||||-
+T Consensus       225 m~~kia~ld  233 (246)
+T BN373_40881     225 MAAKIADLD  233 (245)
+Confidence            445666663
+
+
+No 10 
 >entero-clust282
 Probab=1.10  E-value=13  Score=17.91  Aligned_cols=14  Identities=36%  Similarity=0.627  Sum_probs=10.5
 
@@ -100,42 +136,6 @@ Q Consensus        24 QPS~LKRkRtHGFR   37 (64)
 T Consensus       551 qeeliardrthgls  564 (582)
 T BN373_41281     551 QEELIARDRTHGLS  564 (581)
 Confidence            45567899999973
-
-
-No 8  
->entero-clust2345
-Probab=1.06  E-value=13  Score=15.94  Aligned_cols=17  Identities=41%  Similarity=0.608  Sum_probs=12.6
-
-Q DEG10430363      33 VHGFRARMATKAGRQVL   49 (62)
-Q Consensus        33 tHGFRARMaT~~GR~Vl   49 (64)
-                      .-||-.||.|.--.|.|
-T Consensus        14 aagfgrrmqtecpkqyl   30 (237)
-T ENC_30020        14 AAGFGRRMQTECPKQYL   30 (236)
-Confidence            45888899987766654
-
-
-No 9  
->entero-clust2583
-Probab=1.01  E-value=14  Score=15.65  Aligned_cols=13  Identities=54%  Similarity=0.810  Sum_probs=6.7
-
-Q DEG10430363      16 SFD-MKRTFQPSEL   28 (62)
-Q Consensus        16 sfd-mKRTFQPS~L   28 (64)
-                      ||| ||-|..-.+|
-T Consensus        60 sfdlmketlritnl   73 (214)
-T ENC_13370        60 SFDLMKETLRITNL   73 (213)
-Confidence            455 5555554444
-
-
-No 10 
->entero-clust2324
-Probab=0.99  E-value=14  Score=15.58  Aligned_cols=16  Identities=38%  Similarity=0.715  Sum_probs=12.2
-
-Q DEG10430363       4 KIADLYRKIIFGSFDM   19 (62)
-Q Consensus         4 kiadlyrkiifgsfdm   19 (64)
-                      .||..|-.-||...|.
-T Consensus        66 riakmyvdeifsgldy   81 (223)
-T ENC_40160        66 RIAKMYVDEIFSGLDY   81 (222)
-Confidence            5788888888877764
 
 
 Done!

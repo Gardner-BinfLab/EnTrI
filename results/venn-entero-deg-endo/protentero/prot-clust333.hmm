@@ -1,0 +1,157 @@
+Query         prot-clust333
+Match_columns 129
+No_of_seqs    9 out of 16
+Neff          1.6 
+Searched_HMMs 268
+Date          Sun Jun 23 10:38:20 2019
+Command       hhsearch -i /home/fatemeh/EnTrI/results/deg/define-core-accessory-hieranoid/proteobacteria/core-essential-genomes/hhmake/prot-clust333.hmm -d /home/fatemeh/EnTrI/results/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/enterofam.hmm -o /home/fatemeh/EnTrI/results/venn-entero-deg-endo/protentero/prot-clust333.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 entero-clust3275               100.0 2.8E-83 1.1E-85  469.2   0.0  129    1-129     1-129 (130)
+  2 entero-clust741                 40.6   0.077 0.00029   33.0   0.0   60   21-80    200-283 (463)
+  3 entero-clust2088                13.3    0.57  0.0021   25.7   0.0   33   65-97    132-164 (234)
+  4 entero-clust51                   7.0     1.4  0.0051   27.0   0.0   38   13-56    110-150 (880)
+  5 entero-clust2929                 6.2     1.6   0.006   22.2   0.0   21   95-116    88-108 (169)
+  6 entero-clust3277                 3.9     2.9   0.011   20.2   0.0   22   92-113     9-30  (140)
+  7 entero-clust3501                 3.4     3.4   0.013   19.4   0.0   22   68-89     76-97  (118)
+  8 entero-clust636                  3.3     3.6   0.013   22.7   0.0   28   15-42     51-78  (441)
+  9 entero-clust748                  3.2     3.7   0.014   22.5   0.0   48   14-62    207-259 (429)
+ 10 entero-clust273                  2.9     4.2   0.016   22.8   0.0   42   41-82    395-436 (558)
+
+No 1  
+>entero-clust3275
+Probab=100.00  E-value=2.8e-83  Score=469.19  Aligned_cols=129  Identities=80%  Similarity=1.256  Sum_probs=128.3
+
+Q DEG10360189       1 MAKPAARPRKKVKKTVVDGIAHIHASFNNTIVTITDRQGNALSWATSGGSGFRGSRKSTPFAAQVAAERAGQAALEYGLK   80 (129)
+Q Consensus         1 MAK~~~r~rkr~rk~v~~gvaHi~asFNNTivTITDrQGNalaWatsG~~GFrGSRKSTPfAAQvAAE~a~~~A~e~G~k   80 (129)
+                      |||.+-|.||||||+|.|||||||+|||||||||||||||||.|+|+||+||||||||||||||||||+|+++-+|||+|
+T Consensus         1 makapirarkrvrkqvsdgvahihasfnntivtitdrqgnalgwataggsgfrgsrkstpfaaqvaaercaeavkeygik   80 (130)
+T BN373_43341       1 MAKAPIRARKRVRKQVSDGVAHIHASFNNTIVTITDRQGNALGWATAGGSGFRGSRKSTPFAAQVAAERCAEAVKEYGIK   80 (129)
+Confidence            89999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+Q DEG10360189      81 NLDVNVKGPGPGRESAVRALNACGYKIASITDVTPIPHNGCRPPKKRRV  129 (129)
+Q Consensus        81 nleV~vkGPG~GReSavRAL~a~g~~itsI~DvTpiPHNGCRPpKkRRv  129 (129)
+                      ||||+||||||||||.+||||++||.||+|+||||||||||||||||||
+T Consensus        81 nlevmvkgpgpgrestiralnaagfritnitdvtpiphngcrppkkrrv  129 (130)
+T BN373_43341      81 NLEVMVKGPGPGRESTIRALNAAGFRITNITDVTPIPHNGCRPPKKRRV  129 (129)
+Confidence            9999999999999999999999999999999999999999999999997
+
+
+No 2  
+>entero-clust741
+Probab=40.57  E-value=0.077  Score=33.00  Aligned_cols=60  Identities=35%  Similarity=0.454  Sum_probs=41.7
+
+Q DEG10360189      21 AHIHASFNNTIVT---------------ITDRQGNALSWATSGGSGFRGSRK---------STPFAAQVAAERAGQAALE   76 (129)
+Q Consensus        21 aHi~asFNNTivT---------------ITDrQGNalaWatsG~~GFrGSRK---------STPfAAQvAAE~a~~~A~e   76 (129)
+                      |.-.+.|||-||.               +.|-|||||-.+.---+=-|--.|         -||---..-.|+|++++.+
+T Consensus       200 aeakaafnndmvymekylenprhieiqvladgqgnaiylaerdcsmqrrhqkvveeapapgitpelrryigercakacvd  279 (463)
+T ERS227112_0094  187 AEAKAAFNNDMVYMEKYLENPRHIEIQVLADGQGNAIYLAERDCSMQRRHQKVVEEAPAPGITPELRRYIGERCAKACVD  266 (450)
+Confidence            4456789998874               469999999877544333332222         3666666778999999988
+
+
+Q DEG10360189      77 YGLK   80 (129)
+Q Consensus        77 ~G~k   80 (129)
+                      .|.+
+T Consensus       280 igyr  283 (463)
+T ERS227112_0094  267 IGYR  270 (450)
+Confidence            7764
+
+
+No 3  
+>entero-clust2088
+Probab=13.32  E-value=0.57  Score=25.72  Aligned_cols=33  Identities=39%  Similarity=0.412  Sum_probs=27.0
+
+Q DEG10360189      65 VAAERAGQAALEYGLKNLDVNVKGPGPGRESAV   97 (129)
+Q Consensus        65 vAAE~a~~~A~e~G~knleV~vkGPG~GReSav   97 (129)
+                      -|-.+|.+-|+..|.|.+.|+|+|-=-|-|-|.
+T Consensus       132 ramkravqnamrlgakgikvevsgrlggaeiar  164 (234)
+T BN373_43501     132 RAMKRAVQNAMRLGAKGIKVEVSGRLGGAEIAR  164 (232)
+Confidence            356778888999999999999999877766653
+
+
+No 4  
+>entero-clust51
+Probab=6.99  E-value=1.4  Score=26.97  Aligned_cols=38  Identities=37%  Similarity=0.533  Sum_probs=26.7
+
+Q DEG10360189      13 KKTVVDGIAHIHASFNNTIVTITDRQGNALSWAT---SGGSGFRGSR   56 (129)
+Q Consensus        13 rk~v~~gvaHi~asFNNTivTITDrQGNalaWat---sG~~GFrGSR   56 (129)
+                      -|++++--.||+-      -|=.||.|.||+|-.   -||.--|-||
+T Consensus       110 lkqlaekadhiyl------atdldregeaiawhlreviggdeqrysr  150 (880)
+T BN373_18951      96 LKQLAEKADHIYL------ATDLDREGEAIAWHLREVIGGDEQRYSR  136 (865)
+Confidence            3566777777763      466799999999975   4555555555
+
+
+No 5  
+>entero-clust2929
+Probab=6.21  E-value=1.6  Score=22.20  Aligned_cols=21  Identities=43%  Similarity=0.661  Sum_probs=16.8
+
+Q DEG10360189      95 SAVRALNACGYKIASITDVTPI  116 (129)
+Q Consensus        95 SavRAL~a~g~~itsI~DvTpi  116 (129)
+                      .|.|-+|+.||+.-++ |||-|
+T Consensus        88 eawrriqargytlgnv-dvtii  108 (169)
+T BN373_37521      79 EAWRRIQARGYTLGNV-DVTII   99 (159)
+Confidence            4778899999998774 78765
+
+
+No 6  
+>entero-clust3277
+Probab=3.88  E-value=2.9  Score=20.24  Aligned_cols=22  Identities=41%  Similarity=0.472  Sum_probs=16.1
+
+Q DEG10360189      92 GRESAVRALNACGYKIASITDV  113 (129)
+Q Consensus        92 GReSavRAL~a~g~~itsI~Dv  113 (129)
+                      .||.|+.||-.--+.-+.|.||
+T Consensus         9 arecavqalyswqlshndiadv   30 (140)
+T BN373_08571       9 ARECAVQALYSWQLSHNDIADV   30 (139)
+Confidence            4788888887776666677665
+
+
+No 7  
+>entero-clust3501
+Probab=3.40  E-value=3.4  Score=19.40  Aligned_cols=22  Identities=27%  Similarity=0.463  Sum_probs=15.5
+
+Q DEG10360189      68 ERAGQAALEYGLKNLDVNVKGP   89 (129)
+Q Consensus        68 E~a~~~A~e~G~knleV~vkGP   89 (129)
+                      ...++.|+|.|+|.+...-+|-
+T Consensus        76 kavaeralekgikdvsfdrsgf   97 (118)
+T BN373_43401      76 KAVAERALEKGIKDVSFDRSGF   97 (117)
+Confidence            3456678899999877665553
+
+
+No 8  
+>entero-clust636
+Probab=3.26  E-value=3.6  Score=22.66  Aligned_cols=28  Identities=36%  Similarity=0.603  Sum_probs=20.4
+
+Q DEG10360189      15 TVVDGIAHIHASFNNTIVTITDRQGNAL   42 (129)
+Q Consensus        15 ~v~~gvaHi~asFNNTivTITDrQGNal   42 (129)
+                      .+.|..-||.-.|..|--||..|-.|||
+T Consensus        51 elvdafrhvsdafeqtsetisqrannai   78 (441)
+T BN373_15651      51 ELVDAFRHVSDAFEQTSETISQRANNAI   78 (440)
+Confidence            3566778998888888888776655554
+
+
+No 9  
+>entero-clust748
+Probab=3.20  E-value=3.7  Score=22.53  Aligned_cols=48  Identities=27%  Similarity=0.536  Sum_probs=36.2
+
+Q DEG10360189      14 KTVVDGIA-----HIHASFNNTIVTITDRQGNALSWATSGGSGFRGSRKSTPFA   62 (129)
+Q Consensus        14 k~v~~gva-----Hi~asFNNTivTITDrQGNalaWatsG~~GFrGSRKSTPfA   62 (129)
+                      -||++||.     |-|.-|.=|+-.||.++|.-.. -|-||.=+-...|..||-
+T Consensus       207 gnitsgidltrrlhqnqvfgltvplitkadgtkfg-kteggavwldpkktspyk  259 (429)
+T BN373_25561     203 GNITSGIDLTRRLHQNQVFGLTVPLITKADGTKFG-KTEGGAVWLDPKKTSPYK  255 (424)
+Confidence            36778874     8888899999999999987664 355666666677888863
+
+
+No 10 
+>entero-clust273
+Probab=2.87  E-value=4.2  Score=22.81  Aligned_cols=42  Identities=29%  Similarity=0.477  Sum_probs=31.4
+
+Q DEG10360189      41 ALSWATSGGSGFRGSRKSTPFAAQVAAERAGQAALEYGLKNL   82 (129)
+Q Consensus        41 alaWatsG~~GFrGSRKSTPfAAQvAAE~a~~~A~e~G~knl   82 (129)
+                      -|+|-.+|-...|--.|.-..||-|---+|-+.-...|+|.|
+T Consensus       395 diswnvageeavreykkgdeiaavvlqvdaererislgvkql  436 (558)
+T BN373_15541     395 DISWNVAGEEAVREYKKGDEIAAVVLQVDAERERISLGVKQL  436 (557)
+Confidence            489999999988888888888885555555555566777765
+
+
+Done!

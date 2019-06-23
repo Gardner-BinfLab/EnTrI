@@ -8,7 +8,7 @@ db=matrix(,nrow=0,ncol=3)
 dbfile = as.matrix(read.table(dbpath, as.is=TRUE, header=TRUE, sep="\t"))
 for (i in seq(1,nrow(dbfile)))
 {
-  dbfile[i,3] = str_match(dbfile[i,3], '([[:print:]]+)-[[ Citrobacter rodentium]]|[[ Enterobacter cloacae subsp. cloacae NCTC 9394]]|
+  dbfile[i,3] = str_match(dbfile[i,3], '([[:print:]]+)-[[ Citrobacter rodentium]]|
                             [[ Escherichia coli O78:H11:K80 H10407 (ETEC)]]|[[ Escherichia coli K\\-12 MG1655]]|
                             [[ Salmonella enterica subsp. enterica serovar Enteritidis P125109]]|
                             [[ Salmonella enterica subsp. enterica serovar Typhimurium D23580]]|
