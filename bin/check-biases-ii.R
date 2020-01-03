@@ -94,8 +94,10 @@ for (filename in list_of_files)
           theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                 panel.background = element_blank(), axis.line = element_line(colour = "black")))
   
-  fit <- loess(ii~d, span = sp)
-  loessprediction <- predict(fit, d)
+  # fit <- loess(ii~d, span = sp)
+  # loessprediction <- predict(fit, d)
+  fit <- gam(ii ~ s(d), data = data.frame(ii,d), method = "REML")
+  loessprediction <- predict(fit)
   ii_dnormalised = ii/(loessprediction/mean(ii))
   ii_dnormalisedtotal <- c(ii_dnormalisedtotal, ii_dnormalised)
   plot(d, ii_dnormalised, pch='.', xlab = "Gene position", ylab = "Insertion index",
@@ -103,8 +105,10 @@ for (filename in list_of_files)
        ylim=c(0,5))
   lines(loess.smooth(d,ii_dnormalised, span=sp), col=2, lwd=5)
   
-  fit <- loess(ii_dnormalised~gc, span =sp)
-  loessprediction <- predict(fit, gc)
+  # fit <- loess(ii_dnormalised~gc, span =sp)
+  # loessprediction <- predict(fit, gc)
+  fit <- gam(ii_dnormalised~ s(gc), data = data.frame(ii_dnormalised,gc), method = "REML")
+  loessprediction <- predict(fit)
   ii_dgcnormalised = ii_dnormalised/(loessprediction/mean(ii_dnormalised))
   ii_dgcnormalisedtotal <- c(ii_dgcnormalisedtotal, ii_dnormalised)
   plot(gc, ii_dgcnormalised, pch='.', xlab = "GC content", ylab = "Insertion index",

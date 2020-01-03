@@ -32,6 +32,8 @@ outdir_montecarlo = paste(outdir, 'monte-carlo/', sep='')
 dir.create(outdir_montecarlo)
 outdir_pca = paste(outdir, 'pca/', sep='')
 dir.create(outdir_pca)
+outdir_pcaeq = paste(outdir, 'pca-eq.txt', sep='')
+file.create(outdir_pcaeq)
 # colors=c('blue', 'darkslategrey', 'limegreen', 'red', 'cyan', 'black', 'orange', 'purple', 'gray', 'brown', 'goldenrod4')
 colors=c("#c51b7d", "#e9a3c9", "#8c510a", "#d8b365", "#01665e", "#5ab4ac")
 avgaucii=c(0,0)
@@ -194,6 +196,15 @@ for (i in seq(length(locus)))
     data.pca$x = -data.pca$x
   }
   
+  write(paste(locus[i], '\n', 'PCA-all', sep=''),file=outdir_pcaeq,append=TRUE)
+  write('Eigen vectors:',file=outdir_pcaeq,append=TRUE)
+  write(data.pca$rotation[1,],file=outdir_pcaeq,append=TRUE)
+  write(data.pca$rotation[2,],file=outdir_pcaeq,append=TRUE)
+  write(data.pca$rotation[3,],file=outdir_pcaeq,append=TRUE)
+  write(data.pca$rotation[4,],file=outdir_pcaeq,append=TRUE)
+  write('Standard deviation:',file=outdir_pcaeq,append=TRUE)
+  write(data.pca$sdev,file=outdir_pcaeq,append=TRUE)
+  
   predpca <- prediction(data.pca$x[,1], real_new$essentiality)
   perfpca <- performance(predpca,"tpr","fpr")
   aucpca <- performance(predpca,measure = "auc")@y.values[[1]]
@@ -217,6 +228,15 @@ for (i in seq(length(locus)))
   {
     data2.pca$x = -data2.pca$x
   }
+  
+  write(paste('\n', 'PCA-ex-montecarlo', sep=''),file=outdir_pcaeq,append=TRUE)
+  write('Eigen vectors:',file=outdir_pcaeq,append=TRUE)
+  write(data2.pca$rotation[1,],file=outdir_pcaeq,append=TRUE)
+  write(data2.pca$rotation[2,],file=outdir_pcaeq,append=TRUE)
+  write(data2.pca$rotation[3,],file=outdir_pcaeq,append=TRUE)
+  write('Standard deviation:',file=outdir_pcaeq,append=TRUE)
+  write(data2.pca$sdev,file=outdir_pcaeq,append=TRUE)
+  write('\n\n',file=outdir_pcaeq,append=TRUE)
   
   predpca2 <- prediction(data2.pca$x[,1], real_new$essentiality)
   perfpca2 <- performance(predpca2,"tpr","fpr")

@@ -9,6 +9,9 @@ dict = c("C. rodentium ICC168", "Escherichia coli ETEC CS17", "E. cloacae NCTC 9
          "S. Typhimurium SL1344", "S. Typhimurium D23580", "S. Typhi Ty2", "S. Typhimurium SL3261",
          "E. coli BW25113", "E. coli UPEC ST131 EC958")
 names(dict) <- names
+sumdb = 0
+sumgamma = 0
+counter = 0
 pdf('../figures/gamma-vs-dbscan.pdf')
 for (filename in list_of_files)
 {
@@ -90,5 +93,11 @@ for (filename in list_of_files)
     points(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], cex=1.5)
     text(gammathr,perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)], '                Gamma', cex=1.5)
   }
+  sumdb = sumdb + perf@y.values[[1]][sum(perf@x.values[[1]]>dbthr)]
+  sumgamma = sumgamma + perf@y.values[[1]][sum(perf@x.values[[1]]>gammathr)]
+  counter = counter + 1
 }
 dev.off()
+# print average MCC values for DBSCAN and GAMMA
+print(sumdb/counter)
+print(sumgamma/counter)

@@ -65,3 +65,7 @@ dev.off()
 #     print(item)
 #   }
 # }
+
+# Calculate what percentage of essential genes have insertions in each region of the coding sequence
+parts = data.frame(rowSums(essential[,1:5]),rowSums(essential[,6:80]),rowSums(essential[,81:100]))>0
+print(colSums(parts)*100/nrow(parts))
