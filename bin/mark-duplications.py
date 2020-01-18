@@ -1,8 +1,8 @@
 from os import listdir
 from re import match
 
-interesting_genes = '../results/interesting_genes/universally-conserved_always-essential.tsv'
-no_duplications = '../results/interesting_genes/universally-conserved_always-essential-marked-dup.tsv'
+interesting_genes = '../results/interesting_genes/sometimes-essential.tsv'
+no_duplications = '../results/interesting_genes/sometimes-essential-marked-dup.tsv'
 names = ['ENC', 'BN373', 'ERS227112', 'ROD', 'SL1344', 'SL3261', 'STMMW', 'STM', 'SEN', 't', 'EC958', 'NCTC13441',
          'BW25113', 'b']
 clusters = '../results/homclust/EFam-clusters/'
@@ -55,6 +55,9 @@ with open(interesting_genes, 'r') as fromfile:
                         for item in items:
                             genome = match('([a-zA-Z0-9]+_+|[a-zA-Z]+)[a-zA-Z0-9]+', item).group(1).strip('_')
                             inparalogs[genome] += 1
+
+            for key in genomes.keys():
+                genomes[key] = max(genomes[key], inparalogs[key])
 
             line = line.rstrip('\n') + '\t' + str(genomes['ENC']) + '\t' + str(genomes['BN373']) + '\t' + str(genomes['ERS227112'])\
                    + '\t' + str(genomes['ROD']) + '\t' + str(genomes['SL1344']) + '\t' + str(genomes['SL3261']) + '\t'\
