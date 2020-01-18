@@ -21,10 +21,10 @@ names(data) <- gsub("NPEQ", "II", names(data))
 
 merged <- merge(x=data, y=db, by.x="EsCoMG1655.locus.tag", by.y="gene_id")
 # merged <- merged[,c(seq(2,34),1,35,36)]
-merged <- merged[,c(seq(2,30),1,seq(31,60))]
+merged <- merged[,c(seq(2,28),1,seq(29,56))]
 write.table(merged, file=writepath, quote=FALSE, sep = '\t', row.names = FALSE)
 sorted <- merged[ order(merged$path_name, merged$Gene), ]
-toplot <- sorted[,seq(3,16)]
+toplot <- sorted[,seq(3,15)]
 # toplot$EsCoMG1655.NPEQ[toplot$EsCoMG1655.NPEQ == 7] <- 9
 toplot[toplot == 'X'] <- NA
 toplot <- data.matrix(toplot)
@@ -61,19 +61,19 @@ rampbreaks <- c(rb1, rb2)
 col_fun = circlize::colorRamp2(rampbreaks, ramps)
 # ha = HeatmapAnnotation(levels = rampbreaks[c(1,25,50,75,100)], col = list(NPEQ = ramps[c(1,25,50,75,100)]))
 
-dups = sorted[,31:44]
+dups = sorted[,29:41]
 rownames(dups) <- rownames(toplot)
 colnames(dups) <- colnames(toplot)
 
-inparalogs = sorted[,45:60]
+inparalogs = sorted[,42:54]
 rownames(inparalogs) <- rownames(toplot)
 colnames(inparalogs) <- colnames(toplot)
 
-toplot <- toplot[,c(4,10,9,5,6,7,8,12,11,13,14,3,2,1)]
+toplot <- toplot[,c(3,9,8,4,5,6,7,11,10,12,13,2,1)]
 colnames(toplot) <- c('C.rodentium.ICC168', 'S.Typhi.Ty2', 'S.Enteritidis', 'S.Typhimurium.SL1344',
                       'S.Typhimurium.SL3261', 'S.Typhimurium.D23580', 'S.Typhimurium.A130',
                       'E.coli.UPEC.ST131', 'E.coli.UPEC.ST131.EC958', 'E.coli.BW25113', 'E.coli.BW25113-keio',
-                      'K.pneumoniae.RH201207', 'K.pneumoniae.Ecl8', 'E.cloacae.NCTC.9394')
+                      'K.pneumoniae.RH201207', 'K.pneumoniae.Ecl8')
 
 # pdf("~/EnTrI/figures/interesting-genes-modules_heatmap.pdf", height = 70)
 pdf("~/EnTrI/figures/interesting-genes_heatmap.pdf", height = 180)
@@ -101,9 +101,9 @@ Heatmap(toplot, col = col_fun, name = 'log(ii/essentiality_threshold)', cluster_
 )
 dev.off()
 
-ess = data[,3:16]
+ess = data[,3:15]
 ess[ess == 'X'] <- NA
-repetition = data[,31:44]
+repetition = data[,29:41]
 
 essdup <- sum(repetition > 1 & ess > Thresh, na.rm = TRUE)
 nessdup <- sum(repetition > 1 & ess <= Thresh, na.rm = TRUE)
