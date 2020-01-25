@@ -1,12 +1,12 @@
 from os import listdir
 from re import match
 
-interesting_genes = '../results/interesting_genes/universally-conserved_always-essential.tsv'
-no_duplications = '../results/interesting_genes/universally-conserved_always-essential-marked-dup.tsv'
+interesting_genes = '../results/interesting_genes/sometimes-essential.tsv'
+no_duplications = '../results/interesting_genes/sometimes-essential-marked-dup.tsv'
 names = ['BN373', 'ERS227112', 'ROD', 'SL1344', 'SL3261', 'STMMW', 'STM', 'SEN', 't', 'EC958', 'NCTC13441',
          'BW25113', 'b']
 clusters = '../results/homclust/EFam-clusters/'
-inpars = '../results/hieranoid/clusters-with-inparalogs.txt'
+inpars = '../results/hieranoid/clusters.txt'
 list_of_files = listdir(clusters)
 with open(interesting_genes, 'r') as fromfile:
     with open(no_duplications, 'w') as tofile:
@@ -23,7 +23,7 @@ with open(interesting_genes, 'r') as fromfile:
                               'STM': 0, 'SEN': 0, 't': 0, 'EC958': 0, 'NCTC13441': 0,
                               'BW25113': 0, 'b': 0}
             for i in range(2, 15):
-                if cells[i] != 'X' and float(cells[i]) >= 1:
+                if cells[i] != 'X' and float(cells[i]) >= 1.644854:
                     essentialities[names[i - 2]] += 1
             i = 0
             first_gene = genes[i]
@@ -59,7 +59,10 @@ with open(interesting_genes, 'r') as fromfile:
                                 inparalogs[genome] += 1
 
             for key in genomes.keys():
-                genomes[key] = max(genomes[key], inparalogs[key])
+                if inparalogs[key] == 0:
+                    genomes[key] = 0
+                else:
+                    genomes[key] = max(genomes[key], inparalogs[key])
 
             line = line.rstrip('\n') + '\t' + str(genomes['BN373']) + '\t' + str(genomes['ERS227112'])\
                    + '\t' + str(genomes['ROD']) + '\t' + str(genomes['SL1344']) + '\t' + str(genomes['SL3261']) + '\t'\

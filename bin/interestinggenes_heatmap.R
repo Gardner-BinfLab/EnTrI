@@ -111,3 +111,4 @@ essndup <- sum(repetition == 1 & ess > Thresh, na.rm = TRUE)
 nessndup <- sum(repetition == 1 & ess <= Thresh, na.rm = TRUE)
 duplication.essentiality <- matrix(c(essdup,nessdup,essndup,nessndup), nrow = 2)
 fisher.test(duplication.essentiality, alternative = "l")
+

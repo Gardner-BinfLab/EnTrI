@@ -470,7 +470,7 @@ with open(clustersfile, 'r') as fromfile:
             cells = [x for x in cells if not x.startswith('ENC')]
             newcells = list(cells)
             for i in range(len(newcells)-1, -1, -1):
-                if float(npeq[newcells[i]]) < 1:
+                if float(npeq[newcells[i]]) < 1.644854:
                     del newcells[i]
             for i in range(len(newcells)):
                 match_result = match('(\S+)_\S+', newcells[i])
