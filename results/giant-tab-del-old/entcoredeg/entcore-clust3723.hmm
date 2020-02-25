@@ -1,0 +1,141 @@
+Query         entcore-clust3723
+Match_columns 128
+No_of_seqs    1 out of 4
+Neff          1.0 
+Searched_HMMs 83
+Date          Wed Feb 12 15:19:18 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3723.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust3723.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust215                     8.1    0.35  0.0042   23.3   0.0   31   71-101    81-127 (184)
+  2 deg-clust300                     4.5    0.76  0.0091   22.7   0.0    9   78-86     76-84  (297)
+  3 deg-clust48                      2.1     1.9   0.023   23.3   0.0   30   38-73    536-565 (983)
+  4 deg-clust51                      1.1     4.1    0.05   20.0   0.0   14   28-41    276-289 (585)
+  5 deg-clust33                      0.9       5   0.061   20.4   0.0   21   98-118   580-600 (894)
+  6 deg-clust238                     0.5     9.4    0.11   17.0   0.0   34   14-48    164-206 (464)
+  7 deg-clust429                     0.5     9.6    0.12   16.3   0.0   19   55-73    152-170 (384)
+  8 deg-clust421                     0.5     9.8    0.12   15.4   0.0   18   95-112   190-207 (232)
+  9 deg-clust316                     0.4      11    0.13   14.7   0.0   23   29-51     30-52  (176)
+ 10 deg-clust124                     0.4      12    0.14   16.1   0.0    6   29-34    270-275 (388)
+
+No 1  
+>deg-clust215
+Probab=8.14  E-value=0.35  Score=23.32  Aligned_cols=31  Identities=39%  Similarity=0.505  Sum_probs=19.6
+
+Q b2602            65 KGYAEGQKKTCQTDFTY----------------ARGLSGKSFPASCN   95 (121)
+Q Consensus        71 kgyaegqkktcqtdfty----------------arglsgksfpascn  101 (128)
+                      +|+.-|-|-|-..+--|                -||+|+|||-..-|
+T Consensus        81 eg~pIG~kVTLR~~rMyeFLdrLi~ialPRvRDFrG~s~ksFDGrGN  127 (184)
+T DEG10010047      81 EGMPIGAKVTLRGERMYDFLDKLISVSLPRVRDFRGVSKKSFDGRGN  127 (179)
+Confidence            46666666665544322                38999999975433
+
+
+No 2  
+>deg-clust300
+Probab=4.46  E-value=0.76  Score=22.67  Aligned_cols=9  Identities=33%  Similarity=0.593  Sum_probs=7.0
+
+Q b2602            72 KKTCQTDFT   80 (121)
+Q Consensus        78 kktcqtdft   86 (128)
+                      .-.|+|||-
+T Consensus        76 EvN~ETDFV   84 (297)
+T DEG10010130      74 EVNSETDFV   82 (293)
+Confidence            347999994
+
+
+No 3  
+>deg-clust48
+Probab=2.06  E-value=1.9  Score=23.32  Aligned_cols=30  Identities=33%  Similarity=0.587  Sum_probs=15.9
+
+Q b2602            32 DWYDVGMEDAISGSAIKDDDAFSDSQADRGLYLKGY   67 (121)
+Q Consensus        38 dwydvgmedaisgsaikdddafsdsqadrglylkgy   73 (128)
+                      -|||-|-.-+    ++-+.+..+...||  |||.|-
+T Consensus       536 VWFDSGst~~----~v~~~r~~~~~pAD--lYLEGs  565 (983)
+T DEG10010110     526 VWFDSGSSHQ----AVLEERDDLVRPAD--LYLEGS  555 (921)
+Confidence            4888764322    22222333666676  777763
+
+
+No 4  
+>deg-clust51
+Probab=1.08  E-value=4.1  Score=20.01  Aligned_cols=14  Identities=29%  Similarity=0.622  Sum_probs=12.2
+
+Q b2602            22 YTHAPTLTSTDWYD   35 (121)
+Q Consensus        28 ythaptltstdwyd   41 (128)
+                      -+|.|-+|+-.||-
+T Consensus       276 ~rHNPEFTmmE~Y~  289 (585)
+T DEG10010018     265 TRHNPEFTMIELYE  278 (499)
+Confidence            38999999999984
+
+
+No 5  
+>deg-clust33
+Probab=0.91  E-value=5  Score=20.42  Aligned_cols=21  Identities=24%  Similarity=0.200  Sum_probs=17.1
+
+Q b2602            92 ASCNNVENASQLHEVWQKGAD  112 (121)
+Q Consensus        98 ascnnvenasqlhevwqkgad  118 (128)
+                      .-||..=||+.+-..|..|.+
+T Consensus       580 NF~nKlWNasRfv~mn~~~~~  600 (894)
+T DEG10010199     574 NFANKIWNASRFALMNMDGMT  594 (880)
+Confidence            349999999999999877665
+
+
+No 6  
+>deg-clust238
+Probab=0.51  E-value=9.4  Score=17.00  Aligned_cols=34  Identities=18%  Similarity=0.153  Sum_probs=21.2
+
+Q b2602             8 PLLALLVSGCQIDPYT-HAPT---L-----TSTDWYDVGMEDAI   42 (121)
+Q Consensus        14 pllallvsgcqidpyt-hapt---l-----tstdwydvgmedai   48 (128)
+                      .++.+=+|.-|+|--. -.|.   +     .--||| -+||+-.
+T Consensus       164 d~~V~ELSSFQL~~~~~l~p~~a~ilNitpDHLDRy-~~me~Y~  206 (464)
+T DEG10010104     163 EWIVTELSSFQLMGTHAFRPEISLILNVFDAHLD-YhHTRENYE  205 (451)
+Confidence            3556667888888532 2232   1     235999 8999854
+
+
+No 7  
+>deg-clust429
+Probab=0.51  E-value=9.6  Score=16.26  Aligned_cols=19  Identities=21%  Similarity=0.305  Sum_probs=14.4
+
+Q b2602            49 DDDAFSDSQADRGLYLKGY   67 (121)
+Q Consensus        55 dddafsdsqadrglylkgy   73 (128)
+                      +.-+|+-||-|.--||.|-
+T Consensus       152 ~~t~FA~s~~e~R~~LnGv  170 (384)
+T DEG10010002     147 RQTVFAVSTSETRPILTGV  165 (378)
+Confidence            3567999999987777773
+
+
+No 8  
+>deg-clust421
+Probab=0.50  E-value=9.8  Score=15.40  Aligned_cols=18  Identities=22%  Similarity=0.392  Sum_probs=13.0
+
+Q b2602            89 SFPASCNNVENASQLHEV  106 (121)
+Q Consensus        95 sfpascnnvenasqlhev  112 (128)
+                      .+|..|-.+.+...+.||
+T Consensus       190 ~~p~r~~~IDA~q~~~eV  207 (232)
+T DEG10010008     178 RFPERFHSVDAGQSKDLV  195 (212)
+Confidence            578888888766666655
+
+
+No 9  
+>deg-clust316
+Probab=0.45  E-value=11  Score=14.66  Aligned_cols=23  Identities=9%  Similarity=0.017  Sum_probs=15.7
+
+Q b2602            23 THAPTLTSTDWYDVGMEDAISGS   45 (121)
+Q Consensus        29 thaptltstdwydvgmedaisgs   51 (128)
+                      +--|.--.-+||-|.-+|..-|.
+T Consensus        30 ~ak~~~V~rkW~vVDA~g~~lGR   52 (176)
+T DEG10010064       6 MANASTIERKCLVVDAAGKTLGR   28 (145)
+Confidence            33444456799999888876664
+
+
+No 10 
+>deg-clust124
+Probab=0.41  E-value=12  Score=16.10  Aligned_cols=6  Identities=67%  Similarity=0.722  Sum_probs=4.2
+
+Q b2602            23 THAPTL   28 (121)
+Q Consensus        29 thaptl   34 (128)
+                      ||-||=
+T Consensus       270 TH~PTG  275 (388)
+T DEG10010255     245 THLPTG  250 (356)
+Confidence            777773
+
+
+Done!

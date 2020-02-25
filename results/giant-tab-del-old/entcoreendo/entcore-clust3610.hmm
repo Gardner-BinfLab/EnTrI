@@ -1,0 +1,141 @@
+Query         entcore-clust3610
+Match_columns 95
+No_of_seqs    3 out of 12
+Neff          1.2 
+Searched_HMMs 333
+Date          Wed Feb 12 19:29:23 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3610.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust3610.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust332                   51.7   0.049 0.00015   31.2   0.0   39   11-54     49-87  (229)
+  2 endo-clust180                   21.8    0.33 0.00098   28.5   0.0   18    2-19     30-47  (399)
+  3 endo-clust100                    8.0     1.4  0.0043   25.4   0.0   15   68-82    469-483 (518)
+  4 endo-clust567                    6.3       2  0.0059   20.7   0.0   16   72-87     88-103 (138)
+  5 endo-clust182                    5.2     2.5  0.0076   23.4   0.0   41    1-41      9-56  (413)
+  6 endo-clust579                    4.4       3  0.0092   19.9   0.0   13   68-81     35-47  (147)
+  7 endo-clust198                    3.8     3.7   0.011   22.1   0.0   32   54-87     84-119 (381)
+  8 endo-clust523                    2.8     5.3   0.016   18.8   0.0   18   75-93     70-87  (150)
+  9 endo-clust378                    2.8     5.4   0.016   19.7   0.0   32    1-32      7-38  (219)
+ 10 endo-clust398                    2.8     5.5   0.016   20.9   0.0   31    1-39      6-36  (350)
+
+No 1  
+>endo-clust332
+Probab=51.74  E-value=0.049  Score=31.21  Aligned_cols=39  Identities=31%  Similarity=0.369  Sum_probs=27.1
+
+Q ERS227112_0105   11 GAVATSTMAAEEIKELCADHNIELDLVQCRVNEIETYMDGADLI   54 (95)
+Q Consensus        11 gavatstmaaeeikelc~~~~i~~dlvqcrv~eietymdg~~li   54 (95)
+                      |+|+.|......+|    +.|||+-= --.++.++-|.||||=|
+T Consensus        49 G~VsSS~~Ss~~LK----klgI~~fd-Ln~~~~LdiYvDsADEI   87 (229)
+T BUsg_397         48 GAVSSSNSSTVLLK----KNGIRVLD-LNTFDFLEIYVDSADEI   86 (219)
+Confidence            78888877766555    45787621 12456788899999955
+
+
+No 2  
+>endo-clust180
+Probab=21.83  E-value=0.33  Score=28.45  Aligned_cols=18  Identities=44%  Similarity=0.630  Sum_probs=15.6
+
+Q ERS227112_0105    2 KRKVIVACGGAVATSTMA   19 (95)
+Q Consensus         2 krkvivacggavatstma   19 (95)
+                      +.|||||-.|.|-.|-.|
+T Consensus        30 ~KKVIvamSGGVDSSVSA   47 (399)
+T BUsg_252          5 NKKVIIAMSGGVDSSVSA   22 (367)
+Confidence            689999999999888765
+
+
+No 3  
+>endo-clust100
+Probab=7.96  E-value=1.4  Score=25.43  Aligned_cols=15  Identities=40%  Similarity=0.707  Sum_probs=11.9
+
+Q ERS227112_0105   68 PVVHGMPFVSGVGIE   82 (95)
+Q Consensus        68 p~vhgmpfvsgvgie   82 (95)
+                      .+-||+|--||+||-
+T Consensus       469 ALeyGLPPTaGlGIG  483 (518)
+T BUsg_422        461 ALKYGLPPTSGLGIG  475 (503)
+Confidence            467999999987763
+
+
+No 4  
+>endo-clust567
+Probab=6.29  E-value=2  Score=20.73  Aligned_cols=16  Identities=25%  Similarity=0.690  Sum_probs=13.1
+
+Q ERS227112_0105   72 GMPFVSGVGIEALQQK   87 (95)
+Q Consensus        72 gmpfvsgvgiealq~k   87 (95)
+                      -|||+-|+-|.-+|+-
+T Consensus        88 ~mPfidGt~iDyvk~G  103 (138)
+T BUsg_114         89 EAPFLNGIKIDFVKDS  104 (129)
+Confidence            6999999988877654
+
+
+No 5  
+>endo-clust182
+Probab=5.15  E-value=2.5  Score=23.35  Aligned_cols=41  Identities=27%  Similarity=0.458  Sum_probs=32.1
+
+Q ERS227112_0105    1 MKRKVIVACGGAVATSTMAAEE-------IKELCADHNIELDLVQCRV   41 (95)
+Q Consensus         1 mkrkvivacggavatstmaaee-------ikelc~~~~i~~dlvqcrv   41 (95)
+                      ||.--|...-|.+.++|.+--+       +..|-+++|+.+-+-||-.
+T Consensus         9 Mk~iTILGSTGSIG~~TLsvi~~n~d~F~V~ALVA~nNv~lM~~QC~~   56 (413)
+T BUsg_229          1 MKKITVLGSTGSIGISTLSIVKNNPSLFKVIVLVANKNSSMMLEQCEY   48 (398)
+Confidence            4455678888999999987532       4568889999999999954
+
+
+No 6  
+>endo-clust579
+Probab=4.44  E-value=3  Score=19.95  Aligned_cols=13  Identities=31%  Similarity=0.393  Sum_probs=10.2
+
+Q ERS227112_0105   68 PVVHGMPFVSGVGI   81 (95)
+Q Consensus        68 p~vhgmpfvsgvgi   81 (95)
+                      |=+ |||-||||-+
+T Consensus        35 PRI-~~~TVSgV~v   47 (147)
+T BUsg_364         30 PRIkTIITVSEVRL   43 (124)
+Confidence            445 9999999865
+
+
+No 7  
+>endo-clust198
+Probab=3.77  E-value=3.7  Score=22.13  Aligned_cols=32  Identities=0%  Similarity=-0.031  Sum_probs=21.4
+
+Q ERS227112_0105   54 ICTTARVERTFGDIPVVHGM----PFVSGVGIEALQQK   87 (95)
+Q Consensus        54 icttarvdr~fg~ip~vhgm----pfvsgvgiealq~k   87 (95)
+                      =||+|-++-  |=--||-.|    |-|+|=|+.-|||.
+T Consensus        84 pC~~ALi~a--gv~rVv~amlDPnp~v~GrG~~~Lq~a  119 (381)
+T BUsg_446          1 --------------------------------------    0 (217)
+Confidence            366655442  333355555    78999999999984
+
+
+No 8  
+>endo-clust523
+Probab=2.84  E-value=5.3  Score=18.79  Aligned_cols=18  Identities=44%  Similarity=0.831  Sum_probs=12.4
+
+Q ERS227112_0105   75 FVSGVGIEALQQKILGILA   93 (95)
+Q Consensus        75 fvsgvgiealq~kil~il~   93 (95)
+                      ++|| ||-..|-.+.+||+
+T Consensus        70 YlSG-GILEVQp~vVtILA   87 (150)
+T BUsg_009         62 YISG-GILEVQPSVVSILA   79 (138)
+Confidence            4555 67777777777775
+
+
+No 9  
+>endo-clust378
+Probab=2.78  E-value=5.4  Score=19.73  Aligned_cols=32  Identities=31%  Similarity=0.300  Sum_probs=16.4
+
+Q ERS227112_0105    1 MKRKVIVACGGAVATSTMAAEEIKELCADHNI   32 (95)
+Q Consensus         1 mkrkvivacggavatstmaaeeikelc~~~~i   32 (95)
+                      ||-|.||-=|=-=|--|-|...|+.+-.++||
+T Consensus         7 m~~KFIVIEGLEGaGKT~a~~~i~~iL~~~gI   38 (219)
+T BUsg_341          3 IKSKFIVIEGLEGAGKTHACICVQRILKENNI   34 (213)
+Confidence            56666665553223334445555555555554
+
+
+No 10 
+>endo-clust398
+Probab=2.76  E-value=5.5  Score=20.88  Aligned_cols=31  Identities=23%  Similarity=0.332  Sum_probs=20.8
+
+Q ERS227112_0105    1 MKRKVIVACGGAVATSTMAAEEIKELCADHNIELDLVQC   39 (95)
+Q Consensus         1 mkrkvivacggavatstmaaeeikelc~~~~i~~dlvqc   39 (95)
+                      |||.|-|||-        -.++|.=+.-+.+-.++|+|-
+T Consensus         6 MkqIvYIasp--------eSq~I~VW~l~~~g~l~liQv   36 (350)
+T BUsg_282          1 MQQIIYIANA--------ESENIEVWILYNNGDMKLIQT   31 (333)
+Confidence            7787777653        235666666666777788773
+
+
+Done!

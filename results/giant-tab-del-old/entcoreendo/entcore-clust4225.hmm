@@ -1,0 +1,141 @@
+Query         entcore-clust4225
+Match_columns 47
+No_of_seqs    1 out of 3
+Neff          1.0 
+Searched_HMMs 333
+Date          Wed Feb 12 17:30:21 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4225.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust4225.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust313                   11.2    0.91  0.0027   22.0   0.0   13    7-19     61-73  (270)
+  2 endo-clust227                    7.5     1.6  0.0047   21.1   0.0   12    1-12     98-109 (301)
+  3 endo-clust56                     5.3     2.4  0.0073   22.1   0.0    9   13-21    330-338 (647)
+  4 endo-clust520                    4.2     3.3  0.0098   17.3   0.0   12   12-23     85-96  (124)
+  5 endo-clust138                    4.2     3.3  0.0099   21.1   0.0    9   14-22     41-49  (600)
+  6 endo-clust485                    4.2     3.3  0.0099   19.5   0.0   11   23-33     68-78  (351)
+  7 endo-clust265                    3.6     3.9   0.012   18.5   0.0   29    3-31    126-155 (235)
+  8 endo-clust4                      2.0       8   0.024   19.4   0.0   16    9-24    409-428 (763)
+  9 endo-clust348                    2.0     8.1   0.024   16.4   0.0   19   26-44     46-65  (186)
+ 10 endo-clust574                    2.0     8.1   0.024   16.2   0.0    6   40-45     28-33  (175)
+
+No 1  
+>endo-clust313
+Probab=11.15  E-value=0.91  Score=22.00  Aligned_cols=13  Identities=38%  Similarity=0.715  Sum_probs=11.2
+
+Q STMMW_43821       7 ALSAGRHPANCNT.   19 (47)
+Q Consensus         7 alsagrhpancnt.   19 (47)
+                      -+|-|-||-||.. 
+T Consensus        61 l~SCGiHPl~~~~.   73 (270)
+T BUsg_343         66 FYSCGIHPLYCQKe   79 (264)
+Confidence            4789999999976 
+
+
+No 2  
+>endo-clust227
+Probab=7.45  E-value=1.6  Score=21.13  Aligned_cols=12  Identities=33%  Similarity=1.174  Sum_probs=7.8
+
+Q STMMW_43821       1 LWDGGFALSAGR   12 (47)
+Q Consensus         1 lwdggfalsagr   12 (47)
+                      +||||...-.|-
+T Consensus        98 iWeGGMSFHGGL  109 (301)
+T BUAP5A_432       92 IWEGGMSFHGGL  103 (281)
+Confidence            488887665554
+
+
+No 3  
+>endo-clust56
+Probab=5.31  E-value=2.4  Score=22.05  Aligned_cols=9  Identities=44%  Similarity=0.918  Sum_probs=6.8
+
+Q STMMW_43821      13 HPANCNTHH   21 (47)
+Q Consensus        13 hpancnthh   21 (47)
+                      -|-||+.|=
+T Consensus       330 KPMNCPgHv  338 (647)
+T BUsg_117        330 KPMNCPGHV  338 (642)
+Confidence            488888874
+
+
+No 4  
+>endo-clust520
+Probab=4.20  E-value=3.3  Score=17.26  Aligned_cols=12  Identities=25%  Similarity=0.371  Sum_probs=7.7
+
+Q STMMW_43821      12 RHPANCNTHHTF   23 (47)
+Q Consensus        12 rhpancnthhtf   23 (47)
+                      |---|||.|=.-
+T Consensus        85 RlIiNCN~~gGQ   96 (124)
+T BUsg_345         85 KIVMNCNKNGGQ   96 (115)
+Confidence            445699987443
+
+
+No 5  
+>endo-clust138
+Probab=4.17  E-value=3.3  Score=21.12  Aligned_cols=9  Identities=22%  Similarity=0.637  Sum_probs=6.9
+
+Q STMMW_43821      14 PANCNTHHT   22 (47)
+Q Consensus        14 pancnthht   22 (47)
+                      -|+|+-||.
+T Consensus        41 ~a~CPFH~e   49 (600)
+T BUsg_053         37 QTHCPFHND   45 (579)
+Confidence            478988885
+
+
+No 6  
+>endo-clust485
+Probab=4.17  E-value=3.3  Score=19.54  Aligned_cols=11  Identities=27%  Similarity=0.676  Sum_probs=5.4
+
+Q STMMW_43821      23 FSLYTTTSLFF   33 (47)
+Q Consensus        23 fslytttslff   33 (47)
+                      |+++-+.||||
+T Consensus        68 f~~~k~~sLF~   78 (351)
+T BUsg_430         65 INFHKSKNLFF   75 (338)
+Confidence            44455555543
+
+
+No 7  
+>endo-clust265
+Probab=3.64  E-value=3.9  Score=18.50  Aligned_cols=29  Identities=28%  Similarity=0.458  Sum_probs=20.5
+
+Q STMMW_43821       3 DGGFALS-AGRHPANCNTHHTFSLYTTTSL   31 (47)
+Q Consensus         3 dggfals-agrhpancnthhtfslytttsl   31 (47)
+                      |-.|... ..|---.||.-|.|.-+-|.+|
+T Consensus       126 DH~FLMAA~~R~~~k~NPFHpF~tFDTAaL  155 (235)
+T BUsg_182        125 DHNFLMAAIQRVKIKNNPFHPFVTFDTAAL  154 (219)
+Confidence            4445444 3566678999999998887665
+
+
+No 8  
+>endo-clust4
+Probab=2.01  E-value=8  Score=19.45  Aligned_cols=16  Identities=50%  Similarity=1.047  Sum_probs=11.7
+
+Q STMMW_43821       9 SAGR----HPANCNTHHTFS   24 (47)
+Q Consensus         9 sagr----hpancnthhtfs   24 (47)
+                      |.||    |-..||||-.|.
+T Consensus       409 STGRIYiQ~vDHCNtHS~F~  428 (763)
+T BUsg_173        408 STGRIYIQHVDHCNSHSAFN  427 (763)
+Confidence            4555    677899997774
+
+
+No 9  
+>endo-clust348
+Probab=1.99  E-value=8.1  Score=16.35  Aligned_cols=19  Identities=42%  Similarity=0.819  Sum_probs=12.8
+
+Q STMMW_43821      26 YTTTSLFFPL-YAAIDLTLS   44 (47)
+Q Consensus        26 ytttslffpl-yaaidltls   44 (47)
+                      +..|+.|.|- |.-|.-|||
+T Consensus        46 Fi~T~MfYPCNYGyIN~TLS   65 (186)
+T BUsg_081         45 FIPTPMFYPCNYGYINETLS   64 (180)
+Confidence            3456777774 677777776
+
+
+No 10 
+>endo-clust574
+Probab=1.98  E-value=8.1  Score=16.21  Aligned_cols=6  Identities=0%  Similarity=0.097  Sum_probs=3.5
+
+Q STMMW_43821      40 DLTLSR   45 (47)
+Q Consensus        40 dltlsr   45 (47)
+                      .|.|||
+T Consensus        28 ~~~~~~   33 (175)
+T BUsg_374          1 ------    0 (107)
+Confidence            555665
+
+
+Done!

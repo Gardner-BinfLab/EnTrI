@@ -262,3 +262,33 @@ accessory-essential-enterobacteriaceae_1..5
 4. hmmpress all.hmm
 5. hmmscan -o /dev/null --domtblout ~/EnTrI/results/beneficialloss-plasmid/hmmscan.domtblout -E 1e-10 ~/EnTrI/results/beneficialloss-plasmid/all.hmm ~/EnTrI/data/fasta-plasmid/seqdb.fasta
 6. python beneficialloss-plasmid.py
+
+============ Generate giant table
+#1. python giant-tab-1-del.py
+#2.
+	cd results/giant-tab/clusters/
+	mkdir alignments && mkdir profiles
+	for filename in clust*; do mafft --text --quiet $filename > alignments/$filename.msa; done
+	cd alignments
+	for filename in *.msa; do hmmbuild -o /dev/null ../profiles/$filename $filename; done
+	cd ../profiles
+	cat * > corefam.hmm
+	cd ..
+	mkdir hhmake
+	for filename in alignments/*; do hhmake -i $filename -o hhmake/"entcore-$(basename $filename | cut -d. -f1).hmm" -M 50; done
+
+#1. python giant-tab-1.py
+1. cd EnTrI/results/all-hieranoid/
+	find fasta-genome/ -maxdepth 1 -name "*.fa*" -exec ~/program-bank/phylosift_v1.0.1/phylosift search --isolate --besthit {} \;
+	find fasta-genome/ -maxdepth 1 -name "*.fa*" -exec ~/program-bank/phylosift_v1.0.1/phylosift align --isolate --besthit {} \;
+	for f in PS_temp/*/alignDir/concat.updated.1.fasta; do cat "$f" >> protein_alignment.fa; done
+	raxmlHPC -s protein_alignment.fa -n phylosift-aa.raxmlbootstrap -m PROTGAMMALG4M -p 1234 -f a -x 1234 -# 100
+2. Copy all the protein fasta sequences to program-bank/hieranoid/data/sequences and replace all '<>s with _prime().
+3. Copy the species tree to program-bank/hieranoid/data/tree, root it, and add node names to it.
+4. Edit program-bank/hieranoid/Configurations/Configuration.pm
+5. cd program-bank/hieranoid/
+6. perl hieranoid.pl
+7. for all protein sequences run cat * > seqdb.fasta to have all sequences together
+8. edit the addresses and run python3 edit-hieranoid.py
+9. run annotate-clust.py and run eggnog-mapper on the output (cluster-representatives.txt) to find gene names for clusters.
+10. run giant-tab.py

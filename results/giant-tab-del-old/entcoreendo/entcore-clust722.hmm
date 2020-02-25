@@ -1,0 +1,189 @@
+Query         entcore-clust722
+Match_columns 429
+No_of_seqs    1 out of 13
+Neff          1.0 
+Searched_HMMs 333
+Date          Wed Feb 12 19:57:59 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust722.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust722.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust204                  100.0  3E-196  8E-199 1391.3   0.0  426    3-428    63-488 (491)
+  2 endo-clust71                     8.8     1.3  0.0038   31.4   0.0  116   37-163     8-128 (680)
+  3 endo-clust79                     7.3     1.6  0.0048   29.5   0.0   50  137-194     2-52  (467)
+  4 endo-clust183                    4.7     2.9  0.0086   27.3   0.0   46   53-112   155-212 (399)
+  5 endo-clust22                     4.5       3   0.009   29.8   0.0   21  311-331   333-353 (966)
+  6 endo-clust34                     4.4     3.1  0.0093   29.5   0.0   42  189-233    97-146 (916)
+  7 endo-clust349                    4.2     3.3  0.0099   24.7   0.0   18   96-113   154-171 (193)
+  8 endo-clust370                    2.7     5.7   0.017   24.1   0.0   16   22-46    190-205 (256)
+  9 endo-clust226                    2.6       6   0.018   24.6   0.0   14   70-83    147-160 (327)
+ 10 endo-clust508                    2.3     6.8    0.02   22.1   0.0   44  147-190    86-129 (158)
+
+No 1  
+>endo-clust204
+Probab=100.00  E-value=2.5e-196  Score=1391.30  Aligned_cols=426  Identities=54%  Similarity=0.931  Sum_probs=424.3
+
+Q BN373_25561       1 --MASSNLIKQLQERGLVAQVTDEEALAERLAQGPIALYCGFDPTADSLHLGHLVPLLCLKRFQQAGHKPVALVGGATGL   78 (424)
+Q Consensus         3 ~~massnlikqlqerglvaqvtdeealaerlaqgpialycgfdptadslhlghlvpllclkrfqqaghkpvalvggatgl   82 (429)
+                      ..|++.|||++||||||++|+|||..|+++|..++|.|||||||||||||+|||+|||||||||-|||+||.|+||||||
+T Consensus        63 ~~M~~~NlI~~L~~R~LIsqITde~~L~~~l~~~~IsLYCGFDPTaDSLHiGHLlPLlcLKrFQ~aGHrPIILIGGAT~L  142 (491)
+T BUsg_113          1 -----MDLINELHQRNLIFHITNENKLKELIKNKYISLYCGFDPTEDSLHVGHLLPLITLKRFQVLGHKPIVLIGGATSL   75 (422)
+Confidence            36999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+Q BN373_25561      79 IGDPSFKAAERKLNTEDTVQEWVDKIRKQVAPFLDFDCGDNSAIAANNYDWFGSMNVLTFLRDIGKHFSVNQMINKEAVK  158 (424)
+Q Consensus        83 igdpsfkaaerklntedtvqewvdkirkqvapfldfdcgdnsaiaannydwfgsmnvltflrdigkhfsvnqminkeavk  162 (429)
+                      |||||||+.||+||+-+|||.|..||+||+..||||+||.|||+..||||||.+||+||||||||||||||+|||||+||
+T Consensus       143 IGDPSFK~~ERklns~~~v~~W~ekI~kQis~Fldfn~~~nsa~i~NNy~WF~~~nILtFLRdIGk~FSIN~MInKeaVK  222 (491)
+T BUsg_113         76 IGDPSFKTKERLLKSDSFVEKCTLKISQQISFFLDFNSNFNSAIILNNNLWFKKINILQFLRDVGKYFSVNALINREAVK  155 (422)
+Confidence            99999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+Q BN373_25561     159 QRLNRDDQGISFTEFSYNLLQGYDFACLNKLHGVALQIGGSDQWGNITSGIDLTRRLHQNQVFGLTVPLITKADGTKFGK  238 (424)
+Q Consensus       163 qrlnrddqgisftefsynllqgydfaclnklhgvalqiggsdqwgnitsgidltrrlhqnqvfgltvplitkadgtkfgk  242 (429)
+                      |||+|+++|||||||||||||||||+||||-.||.||||||||||||+|||||+||+|++.|+||||||+||.|||||||
+T Consensus       223 ~RL~r~~~GISFTEFSYnLLQaYDF~~L~kkY~V~LQIGGSDQWGNIiSGIdLi~r~~kk~vYGlTvPLltksng~KfGK  302 (491)
+T BUsg_113        156 KRIKRSDQGISFTEFSYNLLQAYDFFILNQKNQVSLQIGGSDQWGNISSGMHLIHRISKKEAYGLTLPLLMQSNGIKFGK  235 (422)
+Confidence            99999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+Q BN373_25561     239 TEGGAVWLDPKKTSPYKFYQFWINTADADVYRFLKFFTFMDIAEINALEEEDKNSGKAPRAQYVLAEQVTRLVHGEEGLE  318 (424)
+Q Consensus       243 teggavwldpkktspykfyqfwintadadvyrflkfftfmdiaeinaleeedknsgkapraqyvlaeqvtrlvhgeegle  322 (429)
+                      ||+|.|||||+|||||||||||+||+|.|||||||+|||||++|||+||.|+.++-+.|+||++|||.+||+|||++||.
+T Consensus       303 TE~~tIWLD~~KTSPYkFYQFWiN~~D~~Vy~FLK~FTFi~~~~In~le~~~~~~~~~~~~q~iLAe~iTrlVHGk~~L~  382 (491)
+T BUsg_113        236 TESGTVWLDPQKTTPYRFYQFWMNIEDSNVYRFLKLFTFIDIHEINEREKNSYKKNQIVSDKVLLAKHMTRLVHGDEKLS  315 (422)
+Confidence            99999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+Q BN373_25561     319 AAKRITESLFNGNLSDLSEADFEQLAQDGVPMIEMEKGADLLQALVDSELQPSRGQARKTVASNAVTINGEKQADPEYVF  398 (424)
+Q Consensus       323 aakriteslfngnlsdlseadfeqlaqdgvpmiemekgadllqalvdselqpsrgqarktvasnavtingekqadpeyvf  402 (429)
+                      ||+|||.+||.|++++|+|.||.||+|||+|+|+.+++.||-||||-|.|.|||+|||..+.||||+|||+||.+++|+|
+T Consensus       383 aaqRIT~~LF~~~i~~l~e~Df~QL~qDGIP~v~~~~~~dLq~aLV~s~La~Sr~qAr~mI~SnsI~IN~~Kq~~~~YiF  462 (491)
+T BUsg_113        316 AAERITNILFFKNINDIQISDLEQLRKDGVPVVETYKIKDLQEALVLSSLAQSRTQAKNMIISNSISINTKKIVNKNYII  395 (422)
+Confidence            99999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+
+Q BN373_25561     399 SDSDRLFGRYTLLRRGKKNYCLVCWK  424 (424)
+Q Consensus       403 sdsdrlfgrytllrrgkknyclvcwk  428 (429)
+                      +++||||++|||||||||||||.||+
+T Consensus       463 ~~~DkLy~kyTLL~rGKK~~cLi~W~  488 (491)
+T BUsg_113        396 DDNDKLFNQFTLLSRGKKNHCLIYWN  421 (422)
+Confidence            99999999999999999999999997
+
+
+No 2  
+>endo-clust71
+Probab=8.80  E-value=1.3  Score=31.37  Aligned_cols=116  Identities=22%  Similarity=0.401  Sum_probs=65.3
+
+Q BN373_25561      33 PIALYCGFDPTADSLHLGHLVPLLC---LKRFQQAGHKPVALVGGATGLIGDPS-FKAAERKLNTEDTVQEWVDKIRKQ-  107 (424)
+Q Consensus        37 pialycgfdptadslhlghlvpllc---lkrfqqaghkpvalvggatgligdps-fkaaerklntedtvqewvdkirkq-  111 (429)
+                      -|.+-|.+--...|+||||++--+-   .-|+|..-..-|-.+- |----|-|- .||-.-....|.-    +.+|++. 
+T Consensus         8 KILVTCAlPYANGsiHiGHmLEHIQADIWVRYqRMrg~~VyFIc-ADDaHGTaIMLKaq~l~I~Pe~m----I~~i~~eH   82 (680)
+T BUsg_102          7 KILVTCALPYANGPIHIGHMLEHIQADIWVRYQRMRNNEVWFIS-SDDAHGTAIMLKSEKLGITPIKL----IKKIKEEH   81 (545)
+Confidence            3667788877778999999875432   2366654444444332 222233443 3444444444443    4455543 
+
+
+Q BN373_25561     108 VAPFLDFDCGDNSAIAANNYDWFGSMNVLTFLRDIGKHFSVNQMINKEAVKQ  159 (424)
+Q Consensus       112 vapfldfdcgdnsaiaannydwfgsmnvltflrdigkhfsvnqminkeavkq  163 (429)
+                      ..-|..|.      |.-.||----|---+.+++.|=+...-|-.|.+.-+-|
+T Consensus        83 ~~D~~~F~------IsyDnYySTHS~EN~~L~~~Iy~~Lk~~glIk~k~IsQ  128 (680)
+T BUsg_102         82 IIDFSNFN------ISHDNYHSTHCVENLFLLRKIFLSLSEQKLINEKKIFQ  127 (545)
+Confidence            23344443      44455544455555677888887777777776665554
+
+
+No 3  
+>endo-clust79
+Probab=7.34  E-value=1.6  Score=29.55  Aligned_cols=50  Identities=28%  Similarity=0.356  Sum_probs=28.3
+
+Q BN373_25561     133 MNVLTFLRDIGKHFSVNQMINKEAVKQRLNRDD-QGISFTEFSYNLLQGYDFACLNKLH  190 (424)
+Q Consensus       137 mnvltflrdigkhfsvnqminkeavkqrlnrdd-qgisftefsynllqgydfaclnklh  194 (429)
+                      ||+.+...=+-++..+|.-|.-..-- |-.||. -||||-.       =||=.|++.+.
+T Consensus         2 M~~~sI~dI~~~~i~~ns~iti~GWV-RtrR~SK~giSFl~-------iYDGSC~~~lQ   52 (467)
+T BUsg_348          1 MSRISISEIYKDDIIVNTPITIFGWV-RSRRSSKSGFSFIT-------VYDGSCLNSVQ   51 (466)
+Confidence            66666554445666666665533221 333554 7999843       46777776543
+
+
+No 4  
+>endo-clust183
+Probab=4.68  E-value=2.9  Score=27.35  Aligned_cols=46  Identities=33%  Similarity=0.585  Sum_probs=28.2
+
+Q BN373_25561      49 LGHLVPLLCL--------KRFQQAGHKP----VALVGGATGLIGDPSFKAAERKLNTEDTVQEWVDKIRKQV  108 (424)
+Q Consensus        53 lghlvpllcl--------krfqqaghkp----valvggatgligdpsfkaaerklntedtvqewvdkirkqv  112 (429)
+                      +|..||+-|.        +.+..|=.+|    ||+|||+              |..|.-+|-+=+.||-.++
+T Consensus       155 i~KF~~iaCaG~Ll~~Ei~~L~kaL~np~RPmVaIvGGs--------------KVSTKl~vL~~LskIsD~i  212 (399)
+T BUsg_435        155 IGKFVKIACAGPLLISEINNLKKALKNPKRPMVAIVGGA--------------KVSTKFNVLNKLAAISDTI  212 (388)
+Confidence            6788999883        4444554555    7999996              3444444554455554443
+
+
+No 5  
+>endo-clust22
+Probab=4.50  E-value=3  Score=29.81  Aligned_cols=21  Identities=19%  Similarity=0.207  Sum_probs=13.7
+
+Q BN373_25561     307 VTRLVHGEEGLEAAKRITESL  327 (424)
+Q Consensus       311 vtrlvhgeegleaakritesl  331 (429)
+                      +-.-.||-|-..|-|.|.+.+
+T Consensus       333 IP~~f~~ld~~~ARk~Iv~e~  353 (966)
+T BUsg_354        327 IPTEFQNLDILSARKKIIYEI  347 (960)
+Confidence            334467777777777776654
+
+
+No 6  
+>endo-clust34
+Probab=4.39  E-value=3.1  Score=29.54  Aligned_cols=42  Identities=26%  Similarity=0.484  Sum_probs=24.9
+
+Q BN373_25561     185 CLNKLHGVAL-QIGGSDQWGNIT-------SGIDLTRRLHQNQVFGLTVPLIT  229 (424)
+Q Consensus       189 clnklhgval-qiggsdqwgnit-------sgidltrrlhqnqvfgltvplit  233 (429)
+                      -+|.-|---+ .-||+-+--..|       .-.-.+.|-|.||..|   |+|+
+T Consensus        97 m~NHPHDCPVCeEGG~CHLQDMTVM~~h~~RRYRF~KRth~NQYLG---pFIs  146 (916)
+T BUsg_152         96 LTNHPHDCPVCEEGGNCHLQDMTVMTTHNFRNYRFSKRTHKNQYLG---SFIK  145 (910)
+Confidence            3455554332 345554433322       3456788999999998   7765
+
+
+No 7  
+>endo-clust349
+Probab=4.17  E-value=3.3  Score=24.72  Aligned_cols=18  Identities=11%  Similarity=-0.004  Sum_probs=14.4
+
+Q BN373_25561      92 NTEDTVQEWVDKIRKQVA  109 (424)
+Q Consensus        96 ntedtvqewvdkirkqva  113 (429)
+                      -|+..|..||.+|++.+-
+T Consensus       154 ~T~~Rv~~Wvk~I~~e~n  171 (193)
+T BUsg_289        152 KTE---------------  154 (154)
+Confidence            377889999999987653
+
+
+No 8  
+>endo-clust370
+Probab=2.67  E-value=5.7  Score=24.05  Aligned_cols=16  Identities=50%  Similarity=1.163  Sum_probs=11.2
+
+Q BN373_25561      18 QVTDEEALAERLAQGPIALYCGFDP   42 (424)
+Q Consensus        22 qvtdeealaerlaqgpialycgfdp   46 (429)
+                      .+|||.+--|         |||+-|
+T Consensus       190 ~iTDEASALE---------yCGY~p  205 (256)
+T BUsg_405        190 NITDEASALE---------YCGYHP  205 (236)
+Confidence            4788765444         899876
+
+
+No 9  
+>endo-clust226
+Probab=2.55  E-value=6  Score=24.58  Aligned_cols=14  Identities=43%  Similarity=0.726  Sum_probs=10.7
+
+Q BN373_25561      66 HKPVALVGGATGLI   79 (424)
+Q Consensus        70 hkpvalvggatgli   83 (429)
+                      .+.||+|||+.-.|
+T Consensus       147 n~~VAVvGGGNTAi  160 (327)
+T BUsg_304        146 NKEIAVVGGGNTAI  159 (319)
+Confidence            57899999976443
+
+
+No 10 
+>endo-clust508
+Probab=2.31  E-value=6.8  Score=22.14  Aligned_cols=44  Identities=20%  Similarity=0.232  Sum_probs=23.2
+
+Q BN373_25561     143 GKHFSVNQMINKEAVKQRLNRDDQGISFTEFSYNLLQGYDFACL  186 (424)
+Q Consensus       147 gkhfsvnqminkeavkqrlnrddqgisftefsynllqgydfacl  190 (429)
+                      |.-.--.|.|.+||-+|.-.-+..=--.+--.---|-|||-.+-
+T Consensus        86 GDlViC~qiIe~Ea~~~nk~le~hWAHmvIHGsLHLLGYdH~~~  129 (158)
+T BUsg_427         34 GDLVLCKKIIEKESLKYQKTLESRWAHMIIHGTLHLLGYDHKNK   77 (105)
+Confidence            33344578999999887654333222222222233457775543
+
+
+Done!

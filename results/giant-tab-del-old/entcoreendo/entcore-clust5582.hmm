@@ -1,0 +1,141 @@
+Query         entcore-clust5582
+Match_columns 72
+No_of_seqs    2 out of 3
+Neff          1.2 
+Searched_HMMs 333
+Date          Wed Feb 12 18:19:34 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust5582.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust5582.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust18                    13.1    0.72  0.0022   27.2   0.0   11   57-67     45-55  (763)
+  2 endo-clust606                    5.6     2.3  0.0069   18.7   0.0   11   61-71     29-39  (101)
+  3 endo-clust148                    4.9     2.7  0.0081   21.6   0.0   10   12-21    198-207 (333)
+  4 endo-clust256                    3.3     4.5   0.013   20.4   0.0   26   36-61    278-303 (328)
+  5 endo-clust398                    2.5     6.2   0.019   19.7   0.0   22   46-68    194-215 (350)
+  6 endo-clust379                    2.4     6.6    0.02   19.1   0.0   24   46-69    180-203 (294)
+  7 endo-clust157                    2.3     6.7    0.02   19.7   0.0   14   20-33    211-224 (369)
+  8 endo-clust377                    1.9     8.5   0.026   17.7   0.0   20   49-68     48-67  (201)
+  9 endo-clust600                    1.9     8.8   0.026   15.7   0.0   13   59-71     81-94  (97)
+ 10 endo-clust359                    1.8     8.9   0.027   18.5   0.0    9   58-66     39-47  (300)
+
+No 1  
+>endo-clust18
+Probab=13.12  E-value=0.72  Score=27.24  Aligned_cols=11  Identities=45%  Similarity=1.014  Sum_probs=9.7
+
+Q EC958_1114       57 VRAWKRQKNTG   67 (71)
+Q Consensus        57 vraw~~qkntg   67 (72)
+                      .|.|+|||+.|
+T Consensus        45 ~rhW~qQkd~G   55 (763)
+T BUsg_031         45 RENWKKQKDAG   55 (757)
+Confidence            57899999987
+
+
+No 2  
+>endo-clust606
+Probab=5.56  E-value=2.3  Score=18.74  Aligned_cols=11  Identities=55%  Similarity=0.773  Sum_probs=8.1
+
+Q EC958_1114       61 KRQKNTGDTEQ   71 (71)
+Q Consensus        61 ~~qkntgdteq   71 (72)
+                      +.-||+|+||-
+T Consensus        29 ~n~kdsG~teV   39 (101)
+T BUsg_362         17 KNEKNTGKTDV   27 (89)
+Confidence            34689999883
+
+
+No 3  
+>endo-clust148
+Probab=4.88  E-value=2.7  Score=21.64  Aligned_cols=10  Identities=30%  Similarity=0.929  Sum_probs=7.0
+
+Q EC958_1114       12 TLILTGLATC   21 (71)
+Q Consensus        12 ~~~ltg~a~c   21 (72)
+                      +|.+.|+|+|
+T Consensus       198 ~Ffiag~AvC  207 (333)
+T BUsg_153        198 CFFIAGIALC  207 (322)
+Confidence            4667777777
+
+
+No 4  
+>endo-clust256
+Probab=3.27  E-value=4.5  Score=20.39  Aligned_cols=26  Identities=19%  Similarity=0.578  Sum_probs=22.8
+
+Q EC958_1114       36 TTQWLWEKLKAAYSLKELSDAVRAWK   61 (71)
+Q Consensus        36 ~tqwlweklkaayslkelsdavraw~   61 (72)
+                      ...+.||+-+.|.+...||+.+|..-
+T Consensus       278 e~eFrw~hn~daMAVeKlseGIr~F~  303 (328)
+T BUsg_085        277 EAEFRWEHNQDEMAVQKLSEGIRNFG  302 (316)
+Confidence            35789999999999999999999764
+
+
+No 5  
+>endo-clust398
+Probab=2.50  E-value=6.2  Score=19.72  Aligned_cols=22  Identities=32%  Similarity=0.552  Sum_probs=17.0
+
+Q EC958_1114       46 AAYSLKELSDAVRAWKRQ.KNTGD   68 (71)
+Q Consensus        46 aayslkelsdavraw~~q.kntgd   68 (72)
+                      -||+..||+--|.-|+-  +|+++
+T Consensus       194 yaY~INELngTV~V~~i-.~~~~~  215 (350)
+T BUsg_282        189 FSYTVNELNGSVDVWKIskENKVL  212 (333)
+Confidence            48999999999999954  55543
+
+
+No 6  
+>endo-clust379
+Probab=2.36  E-value=6.6  Score=19.13  Aligned_cols=24  Identities=21%  Similarity=0.212  Sum_probs=20.2
+
+Q EC958_1114       46 AAYSLKELSDAVRAWKRQKNTGDT   69 (71)
+Q Consensus        46 aayslkelsdavraw~~qkntgdt   69 (72)
+                      ..-|+++|.+-.+.|-+.++--||
+T Consensus       180 ~~Is~~~lk~Il~pWL~~~~~PDT  203 (294)
+T BUsg_536        153 LSISNIKLKKIFQSWIILSIKPDT  176 (256)
+Confidence            356888999999999999888887
+
+
+No 7  
+>endo-clust157
+Probab=2.33  E-value=6.7  Score=19.74  Aligned_cols=14  Identities=29%  Similarity=0.465  Sum_probs=11.4
+
+Q EC958_1114       20 TCLSAGAALAALLM   33 (71)
+Q Consensus        20 ~c~~ag~al~all~   33 (72)
+                      +++.+|++++|+.+
+T Consensus       211 vfv~~Glalia~~s  224 (369)
+T BUAP5A_215      203 IFLTCGLTLISLFS  216 (357)
+Confidence            67889999988764
+
+
+No 8  
+>endo-clust377
+Probab=1.90  E-value=8.5  Score=17.67  Aligned_cols=20  Identities=40%  Similarity=0.332  Sum_probs=10.2
+
+Q EC958_1114       49 SLKELSDAVRAWKRQKNTGD   68 (71)
+Q Consensus        49 slkelsdavraw~~qkntgd   68 (72)
+                      |-.|.|-.=+.=-|||.||.
+T Consensus        48 sRseVsGSgkKPWRQKGTGR   67 (201)
+T BUsg_504         48 SRADVSGSGRKPWRQKGTGR   67 (201)
+Confidence            33344443333236788885
+
+
+No 9  
+>endo-clust600
+Probab=1.85  E-value=8.8  Score=15.70  Aligned_cols=13  Identities=31%  Similarity=0.460  Sum_probs=6.3
+
+Q EC958_1114       59 AW-KRQKNTGDTEQ   71 (71)
+Q Consensus        59 aw-~~qkntgdteq   71 (72)
+                      .| +.+|+.+--+|
+T Consensus        81 EW~~~~k~~~~~~~   94 (97)
+T BUsg_372         74 EWDKNQK-------   80 (80)
+Confidence            46 34555554443
+
+
+No 10 
+>endo-clust359
+Probab=1.84  E-value=8.9  Score=18.53  Aligned_cols=9  Identities=33%  Similarity=0.800  Sum_probs=6.7
+
+Q EC958_1114       58 RAWKRQKNT   66 (71)
+Q Consensus        58 raw~~qknt   66 (72)
+                      --|.+||+-
+T Consensus        39 ~GWQrQk~v   47 (300)
+T BUsg_193         21 HGWQSQKGL   29 (263)
+Confidence            468888874
+
+
+Done!

@@ -27,10 +27,10 @@ def makedir(dirname):
 # outdir = '/home/fatemeh/EnTrI/results/hieranoid/edited-hieranoid-result'
 # clusterspath = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
 
-seqdb = '/home/fatemeh/EnTrI/results/deg/fasta-proteins/seqdb.fasta'
-hieranoid = '/home/fatemeh/EnTrI/results/deg/hieranoid-result.txt'
-outdir = '/home/fatemeh/EnTrI/results/deg/edited-hieranoid-result'
-clusterspath = '/home/fatemeh/EnTrI/results/deg/clusters.txt'
+seqdb = '../results/all-hieranoid/seqdb.fasta'
+hieranoid = '../results/all-hieranoid/hieranoid-result.txt'
+outdir = '../results/all-hieranoid/edited-hieranoid-result'
+clusterspath = '../results/all-hieranoid/clusters.txt'
 
 makedir(outdir)
 sequences = read_fasta_sequences(seqdb)
@@ -38,10 +38,14 @@ clusters = list()
 with open(hieranoid) as from_file:
     for line in from_file:
         genes = findall('[\(,]([a-zA-Z0-9_]+):', line)
-        if genes[0].startswith('DEG'):
-            species = [gene[0:7] for gene in genes]
-        else:
-            species = [s.strip('_') for s in findall('\'([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+\'', str(genes))]
+        species = []
+        for gene in genes:
+            if gene.startswith('DEG'):
+                species.append(gene[0:7])
+            elif gene.startswith('exDEG'):
+                species.append(gene[2:9])
+            else:
+                species.append(match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', str(gene)).group(1).strip('_'))
         unique_species = list(set(species))
         while len(unique_species) < len(species):
             uniques_index = []
@@ -96,13 +100,25 @@ with open(hieranoid) as from_file:
                     if not row.startswith('#'):
                         cells = row.split()
                         gn = cells[0]
-                        sp = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', gn).group(1).strip('_')
+                        if gn.startswith('DEG'):
+                            sp = gn[0:7]
+                        elif gn.startswith('exDEG'):
+                            sp = gn[2:9]
+                        else:
+                            sp = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', str(gn)).group(1).strip('_')
                         if sp not in newspecies:
                             newspecies.append(sp)
                             newgenes.append(gn)
             clusters.append(newgenes)
             [genes.remove(g) for g in newgenes]
-            species = [s.strip('_') for s in findall('\'([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+\'', str(genes))]
+            species = []
+            for gene in genes:
+                if gene.startswith('DEG'):
+                    species.append(gene[0:7])
+                elif gene.startswith('exDEG'):
+                    species.append(gene[2:9])
+                else:
+                    species.append(match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', str(gene)).group(1).strip('_'))
             unique_species = list(set(species))
         clusters.append(genes)
 list_of_genes = [item for sublist in clusters for item in sublist]

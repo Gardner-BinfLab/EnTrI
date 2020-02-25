@@ -1,0 +1,141 @@
+Query         entcore-clust5621
+Match_columns 105
+No_of_seqs    2 out of 7
+Neff          1.3 
+Searched_HMMs 333
+Date          Wed Feb 12 17:36:53 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust5621.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust5621.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust348                    8.5     1.3   0.004   23.0   0.0   20   17-36     36-66  (186)
+  2 endo-clust507                    4.3     3.2  0.0096   18.5   0.0   37   53-89     30-66  (80)
+  3 endo-clust204                    3.6       4   0.012   23.0   0.0    9    2-10    102-110 (491)
+  4 endo-clust415                    3.2     4.6   0.014   20.8   0.0   12   91-102   204-215 (248)
+  5 endo-clust293                    2.8     5.5   0.016   21.1   0.0   31   59-93     54-91  (319)
+  6 endo-clust201                    2.6     5.9   0.018   21.2   0.0   10   90-99    206-215 (364)
+  7 endo-clust521                    2.5     6.2   0.019   18.5   0.0   24    2-33     43-66  (135)
+  8 endo-clust369                    2.4     6.4   0.019   18.4   0.0   14   53-66     60-73  (138)
+  9 endo-clust63                     2.1     7.6   0.023   20.5   0.0   12   24-35    330-341 (376)
+ 10 endo-clust551                    2.1     7.7   0.023   18.8   0.0   35   27-65     31-67  (193)
+
+No 1  
+>endo-clust348
+Probab=8.49  E-value=1.3  Score=23.04  Aligned_cols=20  Identities=45%  Similarity=0.821  Sum_probs=13.7
+
+Q EC958_5056       17 KNTGSLSVNR-----------YGWINIWMAI   36 (88)
+Q Consensus        17 ~~TGSLSVN~-----------YGWINIW~AI   36 (105)
+                      |++|-|-|+|           ||.||-=.+.
+T Consensus        36 K~~g~lFVdRFi~T~MfYPCNYGyIN~TLSl   66 (186)
+T BUsg_081         35 KQSGVLFVDRFIPTPMFYPCNYGYINETLSL   65 (180)
+Confidence            5778888876           6777754443
+
+
+No 2  
+>endo-clust507
+Probab=4.27  E-value=3.2  Score=18.46  Aligned_cols=37  Identities=22%  Similarity=0.277  Sum_probs=22.6
+
+Q EC958_5056       53 ILLKTWLEIFPDNAGILRIYLLQFSAIVGYKtrRAA---   88 (88)
+Q Consensus        53 ~~~~~~~~~~~DNA~I~RIY~L~F~~i~G~K..R~Arli   89 (105)
+                      ++|...+|-....+|..-+.--|||.+.|.-  .+.-.|
+T Consensus        30 ilg~kflegaarqpdlipllrtqffivmglv..daipmi   66 (80)
+T BUsg_003         30 ILGSKFLEGAARQPDLVPLLRTQFFVVMGLV..DAIPMI   66 (79)
+Confidence            4455555555555555555557999999886  554443
+
+
+No 3  
+>endo-clust204
+Probab=3.58  E-value=4  Score=23.03  Aligned_cols=9  Identities=44%  Similarity=1.069  Sum_probs=5.2
+
+Q EC958_5056        2 CGFSVVADP   10 (88)
+Q Consensus         2 cgfs~~~D~   10 (105)
+                      |||.-|+||
+T Consensus       102 CGFDPTaDS  110 (491)
+T BUsg_113         35 CGFDPTEDS   43 (422)
+Confidence            666555554
+
+
+No 4  
+>endo-clust415
+Probab=3.19  E-value=4.6  Score=20.84  Aligned_cols=12  Identities=0%  Similarity=0.182  Sum_probs=8.5
+
+Q EC958_5056       89 ------------   88 (88)
+Q Consensus        91 khttfsscrhfq  102 (105)
+                      .|..|-.|+||.
+T Consensus       204 A~rGFfGC~HFs  215 (248)
+T CWS_00965       202 AYRGFFGCKHFS  213 (230)
+Confidence            345577799985
+
+
+No 5  
+>endo-clust293
+Probab=2.76  E-value=5.5  Score=21.07  Aligned_cols=31  Identities=19%  Similarity=0.417  Sum_probs=19.7
+
+Q EC958_5056       59 LEIFPDNAGILRIYLLQFSAIVGY-------KtrRAA-------   88 (88)
+Q Consensus        59 ~~~~~DNA~I~RIY~L~F~~i~G~-------K..R~Arliqkht   93 (105)
+                      +.+.|.|.+=+|..-    -+-|+       -  |||+|+|++-
+T Consensus        54 l~i~~t~~g~IrLfn----~~~~i~~~~NlIi..~AAkLLq~~c   91 (319)
+T BUsg_164         41 LTIIPNTKGTIELFT----ESNSLVNIKNSII..TAAELLKEKA   78 (292)
+Confidence            456677777666432    22222       2  9999999874
+
+
+No 6  
+>endo-clust201
+Probab=2.59  E-value=5.9  Score=21.20  Aligned_cols=10  Identities=0%  Similarity=0.292  Sum_probs=7.3
+
+Q EC958_5056       89 ----------   88 (88)
+Q Consensus        90 qkhttfsscr   99 (105)
+                      ..||+|||--
+T Consensus       206 rRHTSFsSvf  215 (364)
+T BUAP5A_429      196 RRHTSFSSIF  205 (349)
+Confidence            3589998853
+
+
+No 7  
+>endo-clust521
+Probab=2.47  E-value=6.2  Score=18.46  Aligned_cols=24  Identities=29%  Similarity=0.627  Sum_probs=13.3
+
+Q EC958_5056        2 CGFSVVADPTTTLQVKNTGSLSVNRYGWINIW   33 (88)
+Q Consensus         2 cgfs~~~D~T~sL~V~~TGSLSVN~YGWINIW   33 (105)
+                      ||||--+-..        =|...-+|-.|++-
+T Consensus        43 CGFSAqAvq~--------Ls~c~~~FaYiDVL   66 (135)
+T BUsg_181         29 CGFSAQAVQA--------LSICGEKFAYVDIL   52 (107)
+Confidence            8888654333        33444566666653
+
+
+No 8  
+>endo-clust369
+Probab=2.41  E-value=6.4  Score=18.40  Aligned_cols=14  Identities=36%  Similarity=0.835  Sum_probs=11.3
+
+Q EC958_5056       53 ILLKTWLEIFPDNA   66 (88)
+Q Consensus        53 ~~~~~~~~~~~DNA   66 (105)
+                      .-||-|..+|||-+
+T Consensus        60 RQGKiWIriFPDKP   73 (138)
+T BUsg_498         59 RQGKIWIRVFPDKP   72 (136)
+Confidence            35888999999965
+
+
+No 9  
+>endo-clust63
+Probab=2.09  E-value=7.6  Score=20.47  Aligned_cols=12  Identities=42%  Similarity=1.013  Sum_probs=9.4
+
+Q EC958_5056       24 VNRYGWINIWMA   35 (88)
+Q Consensus        24 VN~YGWINIW~A   35 (105)
+                      -|.--|||-|..
+T Consensus       330 snpipwinswl~  341 (376)
+T BUsg_172        330 SNPIPWINSWLN  341 (376)
+Confidence            477789999963
+
+
+No 10 
+>endo-clust551
+Probab=2.08  E-value=7.7  Score=18.75  Aligned_cols=35  Identities=29%  Similarity=0.692  Sum_probs=20.0
+
+Q EC958_5056       27 YGWINIW--MAILGQFFTQFPLFFESCLILLKTWLEIFPDN   65 (88)
+Q Consensus        27 YGWINIW--~AILG~FF~QFP~FFE~~~~~~~~~~~~~~DN   65 (105)
+                      .||+.|-  |-=.-..|--+|-|+.-.    +.|..+..+|
+T Consensus        31 ~GWlki~SfTEk~e~IF~Y~PWfi~~~----~~w~~i~l~~   67 (193)
+T BUsg_382         24 LGWVKFFSFTENKEKIFSYFPWFILK-----KKWEIIHVDK   59 (175)
+Confidence            3566653  222345677889998765    4444444443
+
+
+Done!

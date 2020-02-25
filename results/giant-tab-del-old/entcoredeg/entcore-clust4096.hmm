@@ -1,0 +1,136 @@
+Query         entcore-clust4096
+Match_columns 29
+No_of_seqs    2 out of 5
+Neff          1.1 
+Searched_HMMs 83
+Date          Wed Feb 12 14:48:47 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4096.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust4096.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust318                     0.9       5   0.061   12.4   0.0   14   14-27     17-30  (124)
+  2 deg-clust429                     0.7     6.3   0.076   13.7   0.0   12    3-14     59-70  (384)
+  3 deg-clust60                      0.7     6.6   0.079   15.7   0.0   18    3-20    817-834 (904)
+  4 deg-clust283                     0.7     7.2   0.087   13.1   0.0    6   17-22     73-78  (268)
+  5 deg-clust299                     0.5      10    0.12   11.7   0.0    7   20-26     90-96  (181)
+  6 deg-clust357                     0.4      14    0.17   10.8   0.0    9   20-28    122-130 (157)
+  7 deg-clust107                     0.3      16    0.19   12.8   0.0    8    5-12    165-172 (618)
+  8 deg-clust355                     0.3      16    0.19   11.0   0.0   12    1-12     42-53  (226)
+  9 deg-clust201                     0.3      16    0.19   12.3   0.0   14    3-16     33-46  (469)
+ 10 deg-clust322                     0.3      16     0.2   12.0   0.0   20    4-23    326-345 (459)
+
+No 1  
+>deg-clust318
+Probab=0.91  E-value=5  Score=12.44  Aligned_cols=14  Identities=43%  Similarity=0.560  Sum_probs=6.7
+
+Q b4602            14 IVLGLIVAVGLTAA   27 (29)
+Q Consensus        14 ivlg~iva~gltaa   27 (29)
+                      |.|--|...|.+.|
+T Consensus        17 IaLTyI~GIG~t~a   30 (124)
+T DEG10010060      17 ISLTYIFGIGRTTA   30 (121)
+Confidence            44444555555443
+
+
+No 2  
+>deg-clust429
+Probab=0.74  E-value=6.3  Score=13.68  Aligned_cols=12  Identities=25%  Similarity=0.263  Sum_probs=8.0
+
+Q b4602             3 TDLKFSLVTTII.......   14 (29)
+Q Consensus         3 tdlkfslitt~i.......   14 (29)
+                      +|+.+++.+++-       
+T Consensus        59 sD~e~~i~~~i~.......   70 (384)
+T DEG10010002      47 SDSDISIESFIPkeegdke   65 (378)
+Confidence            577777776654       
+
+
+No 3  
+>deg-clust60
+Probab=0.71  E-value=6.6  Score=15.68  Aligned_cols=18  Identities=39%  Similarity=0.593  Sum_probs=13.2
+
+Q b4602             3 TDLKFSLVTTIIVLGLIV   20 (29)
+Q Consensus         3 tdlkfslitt~ivlg~iv   20 (29)
+                      .|+|--|..++|+|+...
+T Consensus       817 D~~k~kl~s~vi~L~~~~  834 (904)
+T DEG10010189     793 DELKAKLGSAVIVLGAVQ  810 (878)
+Confidence            467777888888887654
+
+
+No 4  
+>deg-clust283
+Probab=0.66  E-value=7.2  Score=13.14  Aligned_cols=6  Identities=33%  Similarity=0.385  Sum_probs=2.3
+
+Q b4602            17 GLIVAV   22 (29)
+Q Consensus        17 g~iva~   22 (29)
+                      |+++.|
+T Consensus        73 ~vVIGG   78 (268)
+T DEG10170157      50 AVIVGG   55 (240)
+Confidence            333333
+
+
+No 5  
+>deg-clust299
+Probab=0.48  E-value=10  Score=11.66  Aligned_cols=7  Identities=57%  Similarity=0.767  Sum_probs=2.7
+
+Q b4602            20 VAVGLTA   26 (29)
+Q Consensus        20 va~glta   26 (29)
+                      +.+|--|
+T Consensus        90 vGVGYRA   96 (181)
+T DEG10010050      91 VGVGYRA   97 (179)
+Confidence            3344333
+
+
+No 6  
+>deg-clust357
+Probab=0.35  E-value=14  Score=10.77  Aligned_cols=9  Identities=44%  Similarity=0.516  Sum_probs=0.0
+
+Q b4602            20 VAVGLTAAL   28 (29)
+Q Consensus        20 va~gltaal   28 (29)
+                      |..||.-|+
+T Consensus       122 V~nGLGIAI  130 (157)
+T DEG10010049      97 VLNGLGIAI  105 (132)
+
+
+No 7  
+>deg-clust107
+Probab=0.31  E-value=16  Score=12.78  Aligned_cols=8  Identities=50%  Similarity=0.447  Sum_probs=0.0
+
+Q b4602             5 LKFSLVTT   12 (29)
+Q Consensus         5 lkfslitt   12 (29)
+                      .||-|-||
+T Consensus       165 vkFIlATT  172 (618)
+T DEG10010007     150 CIFILATT  157 (563)
+
+
+No 8  
+>deg-clust355
+Probab=0.31  E-value=16  Score=10.97  Aligned_cols=12  Identities=25%  Similarity=0.454  Sum_probs=0.0
+
+Q b4602             1 MSTDLKFSLVTT   12 (29)
+Q Consensus         1 mstdlkfslitt   12 (29)
+                      .++++.||.-.|
+T Consensus        42 ~~~~~~~SiS~T   53 (226)
+T DEG10010111      29 EDTKFEYSISVT   40 (204)
+
+
+No 9  
+>deg-clust201
+Probab=0.31  E-value=16  Score=12.31  Aligned_cols=14  Identities=21%  Similarity=0.622  Sum_probs=0.0
+
+Q b4602             3 TDLKFSLVTTIIVL   16 (29)
+Q Consensus         3 tdlkfslitt~ivl   16 (29)
+                      +|++-.++.|+..+
+T Consensus        33 ~el~~ri~fTi~~l   46 (469)
+T DEG10010055      12 SDIRNKIIFTLLML   25 (431)
+
+
+No 10 
+>deg-clust322
+Probab=0.31  E-value=16  Score=12.04  Aligned_cols=20  Identities=20%  Similarity=0.305  Sum_probs=0.0
+
+Q b4602             4 DLKFSLVTTIIVLGLIVAVG   23 (29)
+Q Consensus         4 dlkfslitt~ivlg~iva~g   23 (29)
+                      +|+-|=+.--+--|+|+-||
+T Consensus       326 ~L~~sG~~~~l~aGiVLTGG  345 (459)
+T DEG10010108     309 ELRSMGITD-LPGGFVLTGG  327 (440)
+
+
+Done!

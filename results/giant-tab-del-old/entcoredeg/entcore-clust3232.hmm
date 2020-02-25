@@ -1,0 +1,141 @@
+Query         entcore-clust3232
+Match_columns 135
+No_of_seqs    2 out of 3
+Neff          1.1 
+Searched_HMMs 83
+Date          Wed Feb 12 15:58:39 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3232.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust3232.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust245                    12.4    0.19  0.0023   27.1   0.0   65    5-72     27-100 (360)
+  2 deg-clust333                     4.0    0.86    0.01   20.5   0.0   17   97-113    34-50  (136)
+  3 deg-clust287                     3.4       1   0.013   23.3   0.0   25   47-71    418-446 (464)
+  4 deg-clust124                     3.2     1.1   0.014   22.7   0.0   44   21-66     80-123 (388)
+  5 deg-clust60                      3.2     1.1   0.014   25.0   0.0   24  104-127   871-894 (904)
+  6 deg-clust319                     1.8     2.2   0.027   19.3   0.0   14  115-128    71-84  (208)
+  7 deg-clust51                      1.4       3   0.036   21.1   0.0   18   51-72     26-43  (585)
+  8 deg-clust33                      1.4     3.2   0.038   22.0   0.0    7   54-60    874-880 (894)
+  9 deg-clust204                     1.0     4.3   0.052   19.6   0.0   28   12-41    357-384 (481)
+ 10 deg-clust95                      1.0     4.7   0.056   19.6   0.0   12   25-36    250-261 (521)
+
+No 1  
+>deg-clust245
+Probab=12.42  E-value=0.19  Score=27.09  Aligned_cols=65  Identities=28%  Similarity=0.384  Sum_probs=33.6
+
+Q ERS227112_0414    5 LKALNNIRTLRAQARETDLATLEEMLEKLSVIVDERREEEQAI-------LKEQEQRQAKLE--AFRQKLLEDGIDP   72 (135)
+Q Consensus         5 lkalnnirtlra~aretdlatleemlekls~iv~~rreee~ai-------~keqe~rqakle--afrqklledgidp   72 (135)
+                      +++|+++| +...-..-.++.+-..|.+|+.  ++|...-++|       .+.-++|++.|+  +.-++|....||.
+T Consensus        27 ~~~Le~~R-v~~LGKkG~lt~~l~~l~~l~~--eer~~~G~~iN~~k~~~~~~l~~rk~~l~~a~l~a~l~ae~iDv  100 (360)
+T DEG10010204      22 LKVVNDIR-VQYLGKKGPITEVLRGMGKLSA--EERPKMGALANEVRERIANAIADKNEKLEEEEMKQKLAGQTIDV   95 (344)
+Confidence            44555555 4444444555555555555543  5555544433       333344455444  4456666677775
+
+
+No 2  
+>deg-clust333
+Probab=4.02  E-value=0.86  Score=20.47  Aligned_cols=17  Identities=35%  Similarity=0.769  Sum_probs=14.1
+
+Q ERS227112_0414   97 YKYTDDNGNEQTWTGQG  113 (135)
+Q Consensus        97 ykytd~ngneqtwtgqg  113 (135)
+                      ...||..||--.|..-|
+T Consensus        34 VtitD~~GnaisWasaG   50 (136)
+T DEG10010061      34 VTITDTHGNAISWSSAG   50 (131)
+Confidence            45799999999998655
+
+
+No 3  
+>deg-clust287
+Probab=3.43  E-value=1  Score=23.34  Aligned_cols=25  Identities=28%  Similarity=0.344  Sum_probs=14.9
+
+Q ERS227112_0414   47 ILKEQEQRQAK----LEAFRQKLLEDGID   71 (135)
+Q Consensus        47 i~keqe~rqak----leafrqklledgid   71 (135)
+                      |.+.++.|++|    -..+|..|.+.||-
+T Consensus       418 i~~R~~Ar~~Kd~a~AD~IR~~L~~~Gi~  446 (464)
+T DEG10010022     424 IEKRNEARRNRDFALSDQIRDQLKSMNII  452 (466)
+Confidence            33444444443    45688888877773
+
+
+No 4  
+>deg-clust124
+Probab=3.24  E-value=1.1  Score=22.71  Aligned_cols=44  Identities=23%  Similarity=0.237  Sum_probs=23.7
+
+Q ERS227112_0414   21 TDLATLEEML.EKLSVIVDERREEEQAILKEQEQRQAKLEAFRQKLL   66 (135)
+Q Consensus        21 tdlatleeml.ekls~iv~~rreee~ai~keqe~rqakleafrqkll   66 (135)
+                      .|+..+++|| +..+-  .+-||.-..-.++-+++-..|+.+.+-||
+T Consensus        80 ~~~~~a~e~l.~~~~D--~Em~ema~eE~~~~~~~l~~leeelkilL  123 (388)
+T DEG10010255      56 EQLADAKAM-lEEKLD--AEMRDMVKEEISELQKETETLSERLKVLL   99 (356)
+Confidence            4666777777 44332  12233333334445556666777777665
+
+
+No 5  
+>deg-clust60
+Probab=3.22  E-value=1.1  Score=24.96  Aligned_cols=24  Identities=17%  Similarity=0.379  Sum_probs=15.6
+
+Q ERS227112_0414  104 GNEQTWTGQGRTPKAIATAIEAGK  127 (135)
+Q Consensus       104 gneqtwtgqgrtpkaia~aieagk  127 (135)
+                      |+..--.|-|-+|.+|.+|+..-+
+T Consensus       871 GrpdmAqagg~~~~~l~aaL~~v~  894 (904)
+T DEG10010189     848 GRPDMAQAGGKQPEKLEEALASVE  871 (878)
+Confidence            444445556778888888876543
+
+
+No 6  
+>deg-clust319
+Probab=1.84  E-value=2.2  Score=19.30  Aligned_cols=14  Identities=43%  Similarity=0.650  Sum_probs=11.9
+
+Q ERS227112_0414  115 TPKAIATAIEAGKT  128 (135)
+Q Consensus       115 tpkaia~aieagk~  128 (135)
+                      -|-||..|+|+.|+
+T Consensus        71 VP~AI~Kave~Akk   84 (208)
+T DEG10010052      56 VPEAIRKAVEDAKK   69 (166)
+Confidence            58999999998875
+
+
+No 7  
+>deg-clust51
+Probab=1.43  E-value=3  Score=21.14  Aligned_cols=18  Identities=39%  Similarity=0.846  Sum_probs=12.3
+
+Q ERS227112_0414   51 QEQRQAKLEAFRQKLLEDGIDP   72 (135)
+Q Consensus        51 qe~rqakleafrqklledgidp   72 (135)
+                      ...|..||.+.|    +.|+||
+T Consensus        26 ~~~Rr~Kl~~Lr----~~g~dp   43 (585)
+T DEG10010018      15 LQVRRDKMNQLR----DNGIDP   32 (499)
+Confidence            345667777665    678887
+
+
+No 8  
+>deg-clust33
+Probab=1.35  E-value=3.2  Score=21.99  Aligned_cols=7  Identities=43%  Similarity=0.249  Sum_probs=2.7
+
+Q ERS227112_0414   54 RQAKLEA   60 (135)
+Q Consensus        54 rqaklea   60 (135)
+                      +++||.+
+T Consensus       874 ~~~kl~~  880 (894)
+T DEG10010199     864 YVAKRDA  870 (880)
+Confidence            3334433
+
+
+No 9  
+>deg-clust204
+Probab=1.04  E-value=4.3  Score=19.58  Aligned_cols=28  Identities=36%  Similarity=0.529  Sum_probs=19.1
+
+Q ERS227112_0414   12 RTLRAQARETDLATLEEMLEKLSVIVDERR   41 (135)
+Q Consensus        12 rtlra~aretdlatleemlekls~iv~~rr   41 (135)
+                      |.|.+.|+|-+.--+  .|..||.-||.|.
+T Consensus       357 rsLKaLAKELnvPVI--ALSQLsR~vEqR~  384 (481)
+T DEG10010264     344 RELKSIARELQVPVI--ALSQLSRGVEQRQ  371 (454)
+Confidence            677788888765543  3667777777664
+
+
+No 10 
+>deg-clust95
+Probab=0.96  E-value=4.7  Score=19.57  Aligned_cols=12  Identities=42%  Similarity=0.448  Sum_probs=8.6
+
+Q ERS227112_0414   25 TLEEMLEKLSVI   36 (135)
+Q Consensus        25 tleemlekls~i   36 (135)
+                      .+.|.+||+|++
+T Consensus       250 KV~e~~Ek~SV~  261 (521)
+T DEG10010162     238 KVYETTEKYSVL  249 (436)
+Confidence            356788888865
+
+
+Done!

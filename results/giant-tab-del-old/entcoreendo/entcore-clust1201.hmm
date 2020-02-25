@@ -1,0 +1,141 @@
+Query         entcore-clust1201
+Match_columns 329
+No_of_seqs    3 out of 13
+Neff          1.1 
+Searched_HMMs 333
+Date          Wed Feb 12 17:46:38 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust1201.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust1201.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust589                   13.3     0.7  0.0021   24.4   0.0   39  258-304    12-55  (65)
+  2 endo-clust355                    6.9     1.7  0.0052   27.8   0.0   30  285-314   207-236 (352)
+  3 endo-clust63                     6.6     1.8  0.0055   27.5   0.0   12   56-67    208-219 (376)
+  4 endo-clust207                    4.4     3.1  0.0093   24.8   0.0   11    7-17     16-26  (236)
+  5 endo-clust9                      4.3     3.1  0.0094   27.7   0.0   14  228-241   237-250 (705)
+  6 endo-clust219                    3.9     3.6   0.011   25.5   0.0   26  202-227   164-189 (349)
+  7 endo-clust383                    2.7     5.6   0.017   23.8   0.0   14   78-91    202-215 (284)
+  8 endo-clust601                    2.3     6.9   0.021   19.0   0.0   21   17-37     16-36  (65)
+  9 endo-clust375                    2.0       8   0.024   21.6   0.0   56  121-176    42-97  (184)
+ 10 endo-clust590                    1.8     9.2   0.028   20.6   0.0   19  182-200   106-124 (158)
+
+No 1  
+>endo-clust589
+Probab=13.34  E-value=0.7  Score=24.35  Aligned_cols=39  Identities=44%  Similarity=0.651  Sum_probs=24.2
+
+Q BN373_41931     258 KCDKRRISDYLNLYGFLRDIYQMPGIAETVSFPHIRHH-----YYRSHKTIN  304 (328)
+Q Consensus       258 kcdk~risdylnlygflrdiyq~~giaetv~~~hirhh-----y~rshktin  304 (329)
+                      |-..||--|.|.+--+--|  +.+|      --|||||     |||--|.|+
+T Consensus        12 KRGMRRSHd~l~~~~~SvD--k~Sg------E~H~RHhiT~~GfY~G~kvi~   55 (65)
+T BUsg_337         12 KRGMRRSHDSLKEITLSKD--KFSG------EMHIRHHITAKGYYRGKKVI-   54 (54)
+Confidence            3445677777776544322  3343      2499999     788777765
+
+
+No 2  
+>endo-clust355
+Probab=6.88  E-value=1.7  Score=27.81  Aligned_cols=30  Identities=30%  Similarity=0.408  Sum_probs=25.7
+
+Q BN373_41931     285 ETVSFPHIRHHYYRSHKTINPTGIISIGPQ  314 (328)
+Q Consensus       285 etv~~~hirhhy~rshktinptgiisigp~  314 (329)
+                      -|||-|=+||-+.|.|-+.+|.|==||-=.
+T Consensus       207 GtI~qPI~Rh~~kRT~M~V~~~GK~AiTHY  236 (352)
+T BUsg_388        183 GIVNYPIMRHPFKRICMTTDSLGKKSITHY  212 (315)
+Confidence            589999999999999999999996665433
+
+
+No 3  
+>endo-clust63
+Probab=6.64  E-value=1.8  Score=27.55  Aligned_cols=12  Identities=50%  Similarity=1.060  Sum_probs=9.6
+
+Q BN373_41931      56 HLYVSLACPWAH   67 (328)
+Q Consensus        56 hlyvslacpwah   67 (329)
+                      ..|||.||.+|-
+T Consensus       208 rfyvsfacsfaf  219 (376)
+T BUsg_172        208 RFYVSFACSFAF  219 (376)
+Confidence            469999998764
+
+
+No 4  
+>endo-clust207
+Probab=4.40  E-value=3.1  Score=24.77  Aligned_cols=11  Identities=18%  Similarity=0.975  Sum_probs=8.6
+
+Q BN373_41931       7 GVWQDTWYDTK   17 (328)
+Q Consensus         7 gvw~dtwydtk   17 (329)
+                      -.|+.|||..+
+T Consensus        16 k~W~StWyan~   26 (236)
+T BUsg_499         16 KKWNSVWFANT   26 (233)
+Confidence            36999999754
+
+
+No 5  
+>endo-clust9
+Probab=4.35  E-value=3.1  Score=27.73  Aligned_cols=14  Identities=43%  Similarity=0.859  Sum_probs=12.9
+
+Q BN373_41931     228 RYLTGNQLTEADIR  241 (328)
+Q Consensus       228 ryltg~~lteadir  241 (329)
+                      +||.|++|||.+|.
+T Consensus       237 kYL~~~~lse~eik  250 (705)
+T BUsg_508        236 KYLSGFVLSEKEIK  249 (702)
+Confidence            69999999999985
+
+
+No 6  
+>endo-clust219
+Probab=3.90  E-value=3.6  Score=25.50  Aligned_cols=26  Identities=42%  Similarity=0.515  Sum_probs=22.0
+
+Q BN373_41931     202 SQQAYDEAVDAVFTSLERLEQILGQH  227 (328)
+Q Consensus       202 sqqaydeavd~vft~l~rleqilgqh  227 (329)
+                      -|--+|--||+||+++--||.+|-|.
+T Consensus       164 IQGFFDvpvDnvf~s~illeDml~~~  189 (349)
+T BUsg_163        135 IQGFFDVPVDNVFGSLILLEDMLQRE  160 (315)
+Confidence            36668999999999999999988764
+
+
+No 7  
+>endo-clust383
+Probab=2.70  E-value=5.6  Score=23.81  Aligned_cols=14  Identities=29%  Similarity=0.517  Sum_probs=11.3
+
+Q BN373_41931      78 LEPFLPVSVVNPLM   91 (328)
+Q Consensus        78 lepf~pvsvvnplm   91 (329)
+                      --|++|+|+++|..
+T Consensus       202 ~~p~ip~slI~~~t  215 (284)
+T BUsg_474        200 K-NFLPLSLITSKT  212 (273)
+Confidence            35999999998853
+
+
+No 8  
+>endo-clust601
+Probab=2.28  E-value=6.9  Score=18.95  Aligned_cols=21  Identities=38%  Similarity=0.667  Sum_probs=15.1
+
+Q BN373_41931      17 KSTGGRFKRSVSAFRNWLTAD   37 (328)
+Q Consensus        17 ks~gg~f~rs~safrnwltad   37 (329)
+                      |.+.|+|++--.-.|--||--
+T Consensus        16 ktssg~fK~K~A~lRHiLTKK   36 (65)
+T BUsg_119         16 KTASGKFKRKQANLRHILTKK   36 (65)
+Confidence            456778888877777777753
+
+
+No 9  
+>endo-clust375
+Probab=2.02  E-value=8  Score=21.56  Aligned_cols=56  Identities=23%  Similarity=0.380  Sum_probs=30.5
+
+Q BN373_41931     121 LHADPHYTGRVTVPVLWDKKQQTIVSNESAEIIRMFNTAFDGLGARAGDYYPPALR  176 (328)
+Q Consensus       121 lhadphy~grvtvpvlwdkk~~tivsnesaeiirmfntafd~lgakagdyyp~~l~  176 (329)
+                      +|..|.|.||+.+---=|-...-+.-|--|+.--.=--+...--.+.|.+||.-.|
+T Consensus        42 ~~~s~RyRGRIiLTrd~~G~ERCVACnLCav~CPV~CIsLkKse~~~GRWYp~fFr   97 (184)
+T BUsg_154         38 LYLSPRYRGRVILTRNIDGGERCVACNLCAVVCPVDCISLQKSEKKNGRWYPKFFR   93 (180)
+Confidence            67789999998765444444444444544433221111222233456788887665
+
+
+No 10 
+>endo-clust590
+Probab=1.78  E-value=9.2  Score=20.56  Aligned_cols=19  Identities=16%  Similarity=0.284  Sum_probs=15.0
+
+Q BN373_41931     182 LNGWIYDNVNNGVYKAGFA  200 (328)
+Q Consensus       182 lngwiydnvnngvykagfa  200 (329)
+                      -||+.+++.-+-.||+||.
+T Consensus       106 ~~g~~~~~~~k~l~K~Gf~  124 (158)
+T BUsg_049        101 IDSLEYNKYIKKFTKYGLD  119 (147)
+Confidence            4788888888888888884
+
+
+Done!

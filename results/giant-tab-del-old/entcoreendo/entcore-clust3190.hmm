@@ -1,0 +1,141 @@
+Query         entcore-clust3190
+Match_columns 178
+No_of_seqs    2 out of 3
+Neff          1.2 
+Searched_HMMs 333
+Date          Wed Feb 12 17:54:29 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3190.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust3190.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust217                   35.5    0.13 0.00039   32.7   0.0   14   16-29    264-277 (323)
+  2 endo-clust7                      8.3     1.4  0.0041   30.2   0.0   33   13-45    631-666 (1168)
+  3 endo-clust5                      8.3     1.4  0.0041   29.8   0.0   26   20-45    745-770 (1084)
+  4 endo-clust212                    6.7     1.8  0.0055   25.3   0.0   11  105-115   122-132 (299)
+  5 endo-clust229                    4.2     3.3  0.0099   23.0   0.0   15  106-120    61-75  (240)
+  6 endo-clust266                    3.7     3.9   0.012   22.4   0.0   43   26-84     33-90  (219)
+  7 endo-clust357                    2.8     5.3   0.016   22.0   0.0    7  167-173   236-242 (249)
+  8 endo-clust120                    2.1     7.6   0.023   21.9   0.0   16   57-74     26-41  (361)
+  9 endo-clust577                    2.1     7.7   0.023   18.3   0.0   15  116-132    55-73  (95)
+ 10 endo-clust587                    1.7     9.7   0.029   19.3   0.0   12   23-34     92-103 (181)
+
+No 1  
+>endo-clust217
+Probab=35.51  E-value=0.13  Score=32.66  Aligned_cols=14  Identities=50%  Similarity=0.603  Sum_probs=11.6
+
+Q ERS227112_0286   15 LIAAGASAPVLMDQ   28 (177)
+Q Consensus        16 liaaga~ap~~~dq   29 (178)
+                      -|.||||||+||-|
+T Consensus       264 GiTagASAPeILv~  277 (323)
+T BUsg_140        263 GITAGASAPDILVE  276 (313)
+Confidence            47899999999754
+
+
+No 2  
+>endo-clust7
+Probab=8.32  E-value=1.4  Score=30.16  Aligned_cols=33  Identities=39%  Similarity=0.580  Sum_probs=25.8
+
+Q ERS227112_0286   12 MLALIAAGASAP---VLMDQFLNEKEGKSLTSYRDG   44 (177)
+Q Consensus        13 ~laliaaga~ap---~~~dqfl~ekeg~~~t~yrdg   45 (178)
+                      +.||+|.=-|.|   -..|.|.|.|.|...-+|-|-
+T Consensus       631 iIALVALFRPGPLQSGMVDNFInRKHGrE~IsYPD~  666 (1168)
+T BUsg_233        630 IIALIALFRPGPLQSGMVDNFINRKHGYEEISYPDH  665 (1161)
+Confidence            445555555544   688999999999999999985
+
+
+No 3  
+>endo-clust5
+Probab=8.25  E-value=1.4  Score=29.77  Aligned_cols=26  Identities=31%  Similarity=0.510  Sum_probs=17.9
+
+Q ERS227112_0286   19 GASAPVLMDQFLNEKEGKSLTSYRDG   44 (177)
+Q Consensus        20 ga~ap~~~dqfl~ekeg~~~t~yrdg   45 (178)
+                      .--+|+||||||+..---...+-=||
+T Consensus       745 s~~~pvLLd~fl~~AiEvDVDaicDG  770 (1084)
+T BUsg_137        746 NHITPILLDQYLNYAIEVDVDAICDG  771 (1077)
+Confidence            44579999999987655555554444
+
+
+No 4  
+>endo-clust212
+Probab=6.65  E-value=1.8  Score=25.32  Aligned_cols=11  Identities=45%  Similarity=1.044  Sum_probs=8.9
+
+Q ERS227112_0286  104 IASFCPYNIGP  114 (177)
+Q Consensus       105 iasfcpynigp  115 (178)
+                      .-.|=|||+|-
+T Consensus       122 VDGFHPYNiGr  132 (299)
+T BUsg_470        120 VDGFHPYNTGS  130 (285)
+Confidence            35699999994
+
+
+No 5  
+>endo-clust229
+Probab=4.16  E-value=3.3  Score=22.98  Aligned_cols=15  Identities=40%  Similarity=0.884  Sum_probs=13.0
+
+Q ERS227112_0286  105 ASFCPYNIGPGKCFP  119 (177)
+Q Consensus       106 asfcpynigpgkcfp  120 (178)
+                      -|.-|||.|-.-||-
+T Consensus        61 NSlWPYNFGLSCCYV   75 (240)
+T BUsg_148         55 NSLWPYNFGLSCCYV   69 (223)
+Confidence            378999999999985
+
+
+No 6  
+>endo-clust266
+Probab=3.68  E-value=3.9  Score=22.36  Aligned_cols=43  Identities=33%  Similarity=0.587  Sum_probs=28.9
+
+Q ERS227112_0286   25 LMDQFLNEKEGKSL------------TSYRDGAGIWTICRGATRVDGRPVTQGMKLTQAKCDQVNA---VERNE   83 (177)
+Q Consensus        26 ~~dqfl~ekeg~~~------------t~yrdgagiwticrga~~vdg~pv~~gmkl~~~kcd~vna---ier~~   84 (178)
+                      +||.=-.|.||.-.            -+.|-|.||--+|                ||++||.|.|.   ||+|.
+T Consensus        33 vlDdE~RENEGDmiFaaEnMTveQMAL~IRyGSGIVClC----------------lTe~~~k~L~LpMMV~~Nt   90 (219)
+T BUsg_056         31 ILDDEKRENEGDLVFSSETMTVEQMALTIRYGSGIVCLC----------------ITESKRKKLNLPMMVKHNT   88 (213)
+Confidence            45555556666533            2467888887777                78999999884   55553
+
+
+No 7  
+>endo-clust357
+Probab=2.83  E-value=5.3  Score=21.96  Aligned_cols=7  Identities=71%  Similarity=1.687  Sum_probs=4.4
+
+Q ERS227112_0286  166 ESALACW  172 (177)
+Q Consensus       167 esalacw  173 (178)
+                      +.|++||
+T Consensus       236 ~EAi~CW  242 (249)
+T BUsg_097        235 EEALKCW  241 (244)
+Confidence            4566666
+
+
+No 8  
+>endo-clust120
+Probab=2.10  E-value=7.6  Score=21.89  Aligned_cols=16  Identities=31%  Similarity=0.690  Sum_probs=11.7
+
+Q ERS227112_0286   56 RVDGRPVTQGMKLTQAKC   73 (177)
+Q Consensus        57 ~vdg~pv~~gmkl~~~kc   74 (178)
+                      .+||.|  ||+.|+.+.-
+T Consensus        26 IiDGvP--Pgl~l~~~dl   41 (361)
+T BUsg_090         26 VIDGMP--PGLELSSDDL   41 (353)
+Confidence            378855  9999987643
+
+
+No 9  
+>endo-clust577
+Probab=2.07  E-value=7.7  Score=18.34  Aligned_cols=15  Identities=53%  Similarity=1.267  Sum_probs=8.9
+
+Q ERS227112_0286  115 GKCFPSTFY----RKLNAGDR  131 (177)
+Q Consensus       116 gkcfpstfy----r~~nagdr  132 (178)
+                      ++|-|  ||    |.||.|.|
+T Consensus        55 s~CHP--FYTGkQR~idt~GR   73 (95)
+T BUsg_556         38 AKCHP--FYTGKQRIIDTGGR   56 (72)
+Confidence            45666  55    66666655
+
+
+No 10 
+>endo-clust587
+Probab=1.71  E-value=9.7  Score=19.34  Aligned_cols=12  Identities=25%  Similarity=0.357  Sum_probs=9.1
+
+Q ERS227112_0286   22 APVLMDQFLNEK   33 (177)
+Q Consensus        23 ap~~~dqfl~ek   34 (178)
+                      -|.++.||++=+
+T Consensus        92 lp~Il~qFi~l~  103 (181)
+T BUsg_005         89 FNNILRQFLKLE  100 (177)
+Confidence            488999998644
+
+
+Done!

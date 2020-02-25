@@ -1,0 +1,141 @@
+Query         entcore-clust4648
+Match_columns 75
+No_of_seqs    2 out of 6
+Neff          1.2 
+Searched_HMMs 333
+Date          Wed Feb 12 18:16:16 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4648.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust4648.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust592                    7.7     1.5  0.0045   19.4   0.0   13   12-24      1-13  (89)
+  2 endo-clust313                    3.6       4   0.012   20.3   0.0    6   69-74    207-212 (270)
+  3 endo-clust318                    3.5     4.1   0.012   20.4   0.0    8    1-8      26-33  (290)
+  4 endo-clust510                    3.5     4.1   0.012   18.7   0.0   12   63-74     63-74  (149)
+  5 endo-clust482                    2.4     6.5   0.019   18.8   0.0   11   11-21    177-187 (242)
+  6 endo-clust19                     2.0     7.9   0.024   21.0   0.0   32    5-51    320-354 (723)
+  7 endo-clust419                    1.8     8.9   0.027   18.3   0.0    9    2-10    197-205 (274)
+  8 endo-clust83                     1.8     8.9   0.027   19.8   0.0   19   19-37    263-281 (484)
+  9 endo-clust413                    1.5      11   0.033   16.5   0.0   24   25-48     58-81  (150)
+ 10 endo-clust7                      1.4      12   0.037   21.0   0.0   42    5-46    713-756 (1168)
+
+No 1  
+>endo-clust592
+Probab=7.73  E-value=1.5  Score=19.39  Aligned_cols=13  Identities=38%  Similarity=0.509  Sum_probs=10.5
+
+Q STM_MW04321      12 MVRQRASAGGRRN   24 (75)
+Q Consensus        12 mvrqrasaggrrn   24 (75)
+                      ||+-|.+.||-++
+T Consensus         1 MV~IRLaR~G~Kk   13 (89)
+T BUsg_381          1 MVRIRLALYGTKK   13 (85)
+Confidence            7888888888765
+
+
+No 2  
+>endo-clust313
+Probab=3.55  E-value=4  Score=20.27  Aligned_cols=6  Identities=33%  Similarity=0.351  Sum_probs=3.5
+
+Q STM_MW04321      69 SPLNSG   74 (75)
+Q Consensus        69 sp~~s~   74 (75)
+                      |||++|
+T Consensus       207 SPYLsP  212 (270)
+T BUsg_343        212 SPYLAP  217 (264)
+Confidence            566655
+
+
+No 3  
+>endo-clust318
+Probab=3.50  E-value=4.1  Score=20.44  Aligned_cols=8  Identities=63%  Similarity=0.796  Sum_probs=5.6
+
+Q STM_MW04321       1 MVAASRMD    8 (75)
+Q Consensus         1 mvaasrmd    8 (75)
+                      |||||.|-
+T Consensus        26 mVa~SKMr   33 (290)
+T BUsg_007         26 MVAVSKMR   33 (291)
+Confidence            67777774
+
+
+No 4  
+>endo-clust510
+Probab=3.47  E-value=4.1  Score=18.66  Aligned_cols=12  Identities=25%  Similarity=0.398  Sum_probs=9.4
+
+Q STM_MW04321      63 TFARLISPLNSG   74 (75)
+Q Consensus        63 ~~~~l~sp~~s~   74 (75)
+                      .+|.|+.||+|-
+T Consensus        63 ~lD~Lm~PyLsR   74 (149)
+T BUsg_447         63 SIDDLMKPYLSR   74 (138)
+Confidence            468888999874
+
+
+No 5  
+>endo-clust482
+Probab=2.40  E-value=6.5  Score=18.85  Aligned_cols=11  Identities=45%  Similarity=0.546  Sum_probs=7.7
+
+Q STM_MW04321      11 DMVRQRASAGG   21 (75)
+Q Consensus        11 dmvrqrasagg   21 (75)
+                      -|+|-|+.||-
+T Consensus       177 G~mRGR~LAGA  187 (242)
+T BUsg_318        178 GSVRGRVLAGA  188 (242)
+Confidence            36688888764
+
+
+No 6  
+>endo-clust19
+Probab=2.02  E-value=7.9  Score=21.01  Aligned_cols=32  Identities=47%  Similarity=0.865  Sum_probs=17.6
+
+Q STM_MW04321       5 SRMDGR--DMVRQRASAGGRRNVIQTAHDLRRISLLTDTPGRA-FVAGES   51 (75)
+Q Consensus         5 srmdgr--dmvrqrasaggrrnviqtahdlrrislltdtp~~~-fvages   51 (75)
+                      .|.|||  ||+|.-              |. |..+|--|-|.+ |.-||.
+T Consensus       320 ~RIDGR~~dmIR~l--------------di-rtgiLpRtHGSALFtRGeT  354 (723)
+T BUsg_361        314 NRIDGREKDMIRAL--------------DI-RTGVLPRTHGSSLFTRGET  348 (707)
+Confidence            477887  666632              32 345555555543 556664
+
+
+No 7  
+>endo-clust419
+Probab=1.84  E-value=8.9  Score=18.32  Aligned_cols=9  Identities=44%  Similarity=0.556  Sum_probs=6.3
+
+Q STM_MW04321       2 VAASRMDGR   10 (75)
+Q Consensus         2 vaasrmdgr   10 (75)
+                      |||.|.||-
+T Consensus       197 vAaGRiD~~  205 (274)
+T BUsg_274        194 VASGRIDCL  202 (269)
+Confidence            677777764
+
+
+No 8  
+>endo-clust83
+Probab=1.83  E-value=8.9  Score=19.79  Aligned_cols=19  Identities=26%  Similarity=0.606  Sum_probs=14.7
+
+Q STM_MW04321      19 AGGRRNVIQTAHDLRRISL   37 (75)
+Q Consensus        19 aggrrnviqtahdlrrisl   37 (75)
+                      .|=.+-+||+||.|-|+-+
+T Consensus       263 vgiQKklI~rAr~LNraVI  281 (484)
+T BUsg_311        263 VGIQKKLIRTARKLNKVAI  281 (481)
+Confidence            3456778999999999743
+
+
+No 9  
+>endo-clust413
+Probab=1.54  E-value=11  Score=16.50  Aligned_cols=24  Identities=29%  Similarity=0.380  Sum_probs=18.8
+
+Q STM_MW04321      25 VIQTAHDLRRISLLTDTPGRAFVA   48 (75)
+Q Consensus        25 viqtahdlrrislltdtp~~~fva   48 (75)
+                      ||-|--.=|-.++.|-||-..|..
+T Consensus        58 VvITVYsDrsFtFi~KTPPasvlL   81 (150)
+T BUsg_039         57 VIVTVYSDRSFTFITKTPPASVLL   80 (142)
+Confidence            555666668899999999998854
+
+
+No 10 
+>endo-clust7
+Probab=1.39  E-value=12  Score=21.04  Aligned_cols=42  Identities=29%  Similarity=0.455  Sum_probs=26.5
+
+Q STM_MW04321       5 SRMDGRDMVRQRA--SAGGRRNVIQTAHDLRRISLLTDTPGRAF   46 (75)
+Q Consensus         5 srmdgrdmvrqra--saggrrnviqtahdlrrislltdtp~~~f   46 (75)
+                      +.-+-.||++||+  .+|.-+|-|...--..=.-|+---.|-.|
+T Consensus       713 gKK~~~eM~kQR~iFk~GA~~~GId~~lSmKIFdLlEKFaGYGF  756 (1168)
+T BUsg_233        712 SKKNIKDMAEQRSIFIEGAQKNGINRKLAIKIFDLLEKFAGYGF  755 (1161)
+Confidence            3445578999987  47778887776555554455555445444
+
+
+Done!

@@ -1,0 +1,141 @@
+Query         entcore-clust4502
+Match_columns 186
+No_of_seqs    1 out of 6
+Neff          1.0 
+Searched_HMMs 333
+Date          Wed Feb 12 20:12:59 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4502.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust4502.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust375                   95.0 1.3E-05 3.8E-08   54.0   0.0   50   55-109    65-123 (184)
+  2 endo-clust375                   94.8 1.7E-05 5.2E-08   53.2   0.0   49   86-143    61-121 (184)
+  3 endo-clust64                     8.6     1.3  0.0039   30.3   0.0   14   31-44    171-185 (1198)
+  4 endo-clust34                     7.8     1.5  0.0045   29.2   0.0   19   80-98    143-161 (916)
+  5 endo-clust18                     2.5     6.1   0.018   24.5   0.0   24  116-151   643-666 (763)
+  6 endo-clust247                    2.1     7.7   0.023   21.4   0.0   15   73-87    172-186 (301)
+  7 endo-clust109                    1.8     9.4   0.028   21.5   0.0   17    1-17    182-198 (390)
+  8 endo-clust348                    1.7     9.4   0.028   19.6   0.0   22  127-148    81-103 (186)
+  9 endo-clust318                    1.5      12   0.035   20.2   0.0   13   31-43    201-213 (290)
+ 10 endo-clust413                    1.4      12   0.036   18.5   0.0    7   21-27     39-45  (150)
+
+No 1  
+>endo-clust375
+Probab=94.99  E-value=1.3e-05  Score=53.96  Aligned_cols=50  Identities=36%  Similarity=0.788  Sum_probs=37.1
+
+Q STM_MW06771      55 LACNHCEHPACVAACPVEAYT--K--REDGV-----VVHNPERCIGCKNCIRNCPYGAPRFNEE  109 (186)
+Q Consensus        55 lacnhcehpacvaacpveayt--k--redgv-----vvhnpercigckncirncpygaprfnee  109 (186)
+                      .|||-     |.+||||....  |  +.||-     .--|-.|||-||.|-..||+.|+....+
+T Consensus        65 VACnL-----Cav~CPV~CIsLkKse~~~GRWYp~fFrINfSRCIFCGlCEEACPT~AIQL~pD  123 (184)
+T BUsg_154         61 VACNL-----CAVVCPVDCISLQKSEKKNGRWYPKFFRINFSRCIFCGLCEEACPTAAIQLMPD  119 (180)
+Confidence            46664     57899998764  2  34553     3457889999999999999999876543
+
+
+No 2  
+>endo-clust375
+Probab=94.79  E-value=1.7e-05  Score=53.16  Aligned_cols=49  Identities=33%  Similarity=0.933  Sum_probs=37.6
+
+Q STM_MW06771      86 PERCIGCKNCIRNCPYGAPRFNEETRKA------------EKCSMCYERLDIGMNPACVNACPVGALSII  143 (186)
+Q Consensus        86 percigckncirncpygaprfneetrka------------ekcsmcyerldigmnpacvnacpvgalsii  143 (186)
+                      -|||..|..|.-+||++.+......++.            ..|-.|      |   -|-.|||+.||.++
+T Consensus        61 ~ERCVACnLCav~CPV~CIsLkKse~~~GRWYp~fFrINfSRCIFC------G---lCEEACPT~AIQL~  121 (184)
+T BUsg_154         57 GERCVACNLCAVVCPVDCISLQKSEKKNGRWYPKFFRINFSRCIFC------G---LCEEACPTAAIQLM  117 (180)
+Confidence            4999999999999999999876544432            235555      2   37889999999765
+
+
+No 3  
+>endo-clust64
+Probab=8.63  E-value=1.3  Score=30.34  Aligned_cols=14  Identities=50%  Similarity=1.179  Sum_probs=9.7
+
+Q STM_MW06771      31 DRFWR-YVYPLDKDI   44 (186)
+Q Consensus        31 drfwr-yvypldkdi   44 (186)
+                      ..||| |+|+|..+|
+T Consensus       171 ~DFWRryfy~LP~~I  185 (1198)
+T BUsg_439        177 QDFWRYFFYNLPKKI  191 (1179)
+Confidence            45785 788877665
+
+
+No 4  
+>endo-clust34
+Probab=7.78  E-value=1.5  Score=29.16  Aligned_cols=19  Identities=42%  Similarity=1.081  Sum_probs=16.2
+
+Q STM_MW06771      80 GVVVHNPERCIGCKNCIRN   98 (186)
+Q Consensus        80 gvvvhnpercigckncirn   98 (186)
+                      -.+-|.-.|||.|-.|+|-
+T Consensus       143 pFIsHEMNRCItCYRCVRY  161 (916)
+T BUsg_152        142 SFIKHEMNRCIGCYRCVRY  160 (910)
+Confidence            4677999999999999873
+
+
+No 5  
+>endo-clust18
+Probab=2.53  E-value=6.1  Score=24.50  Aligned_cols=24  Identities=38%  Similarity=0.499  Sum_probs=17.1
+
+Q STM_MW06771     116 CSMCYERLDIGMNPACVNACPVGALSIIDLDADPVP  151 (186)
+Q Consensus       116 csmcyerldigmnpacvnacpvgalsiidldadpvp  151 (186)
+                      =-|||-.++==|+            ||..||||-+.
+T Consensus       643 THMCY~eFndIm~------------~I~~lDaDVIt  666 (763)
+T BUsg_031        639 THMCYCEFHDIMH------------AISFLDADVIT  662 (757)
+Confidence            3599988766665            57778888654
+
+
+No 6  
+>endo-clust247
+Probab=2.08  E-value=7.7  Score=21.44  Aligned_cols=15  Identities=33%  Similarity=0.944  Sum_probs=12.3
+
+Q STM_MW06771      73 AYTKREDGVVVHNPE   87 (186)
+Q Consensus        73 aytkredgvvvhnpe   87 (186)
+                      |++.|.||.++..|.
+T Consensus       172 aFsqRsDGLIIsTPT  186 (301)
+T BUsg_179        171 AFSQRSDGLIISTPT  185 (292)
+Confidence            678899999987763
+
+
+No 7  
+>endo-clust109
+Probab=1.76  E-value=9.4  Score=21.49  Aligned_cols=17  Identities=29%  Similarity=0.874  Sum_probs=10.8
+
+Q STM_MW06771       1 MRRAFLVNSDKCIGCRG   17 (186)
+Q Consensus         1 mrraflvnsdkcigcrg   17 (186)
+                      ||..|+.-...|..|+|
+T Consensus       182 mRqGFFsVQQtCptC~G  198 (390)
+T BUsg_145        174 IRKGFFTVQQSCPTCNG  190 (378)
+Confidence            56666666666666655
+
+
+No 8  
+>endo-clust348
+Probab=1.75  E-value=9.4  Score=19.64  Aligned_cols=22  Identities=32%  Similarity=0.628  Sum_probs=17.2
+
+Q STM_MW06771     127 MNPACVNAC-PVGALSIIDLDAD  148 (186)
+Q Consensus       127 mnpacvnac-pvgalsiidldad  148 (186)
+                      +-|.+|--| |+|.|..+|-..+
+T Consensus        81 i~~gsVI~CrPiGmL~M~DEsGe  103 (186)
+T BUsg_081         80 IQSNVVINCKPVGILKMHDESGN  102 (180)
+Confidence            457788888 9999999886544
+
+
+No 9  
+>endo-clust318
+Probab=1.47  E-value=12  Score=20.25  Aligned_cols=13  Identities=23%  Similarity=0.682  Sum_probs=9.8
+
+Q STM_MW06771      31 DRFWRYVYPLDKD   43 (186)
+Q Consensus        31 drfwryvypldkd   43 (186)
+                      -.+|.|+|--|..
+T Consensus       201 ~k~wDYlYEPd~K  213 (290)
+T BUsg_007        202 KIKWDYLYEPESK  214 (291)
+Confidence            4789999976643
+
+
+No 10 
+>endo-clust413
+Probab=1.43  E-value=12  Score=18.46  Aligned_cols=7  Identities=57%  Similarity=1.075  Sum_probs=4.9
+
+Q STM_MW06771      21 ACKSFNQ   27 (186)
+Q Consensus        21 acksfnq   27 (186)
+                      -||.||.
+T Consensus        39 FCK~FN~   45 (150)
+T BUsg_039         38 FCKLFNK   44 (142)
+Confidence            4788874
+
+
+Done!

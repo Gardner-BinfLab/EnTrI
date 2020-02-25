@@ -1,0 +1,141 @@
+Query         entcore-clust3512
+Match_columns 127
+No_of_seqs    3 out of 13
+Neff          1.1 
+Searched_HMMs 333
+Date          Wed Feb 12 20:09:10 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3512.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust3512.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust507                   14.2    0.64  0.0019   22.4   0.0   22   79-101    12-33  (80)
+  2 endo-clust280                    5.0     2.6  0.0079   22.3   0.0   14    6-19     11-24  (218)
+  3 endo-clust203                    4.0     3.4    0.01   24.1   0.0   22   54-75    156-177 (527)
+  4 endo-clust402                    3.1     4.8   0.014   20.5   0.0   11   15-25    109-119 (198)
+  5 endo-clust72                     2.2     7.2   0.022   21.8   0.0   10   12-21    312-321 (486)
+  6 endo-clust396                    2.1     7.6   0.023   18.8   0.0    7   14-20     70-76  (157)
+  7 endo-clust10                     2.0     8.2   0.025   22.0   0.0   17   88-104   376-392 (673)
+  8 endo-clust612                    1.9     8.3   0.025   15.8   0.0    6   43-48     14-19  (54)
+  9 endo-clust292                    1.2      14   0.042   18.3   0.0   52   15-66     64-128 (236)
+ 10 endo-clust165                    1.0      17   0.052   18.3   0.0   16    2-17     78-93  (299)
+
+No 1  
+>endo-clust507
+Probab=14.19  E-value=0.64  Score=22.43  Aligned_cols=22  Identities=50%  Similarity=0.848  Sum_probs=16.0
+
+Q BN373_01611      58 AYAVWTGIGAVGAAVTGIVLLGE   80 (105)
+Q Consensus        79 ayavwtgigavgaaitgi~llge  101 (127)
+                      |.|+-.|.-++|||| ||-.||.
+T Consensus        12 aaaimmglaaigaai-gigilg~   33 (80)
+T BUsg_003         12 AVAIMIGLAAIGAAI-GIGILGS   33 (79)
+Confidence            567888888999887 5555553
+
+
+No 2  
+>endo-clust280
+Probab=5.02  E-value=2.6  Score=22.33  Aligned_cols=14  Identities=0%  Similarity=0.198  Sum_probs=10.9
+
+Q BN373_01611       1 --------------    0 (105)
+Q Consensus         6 qtrlftgdgpnfpe   19 (127)
+                      -||+|+-||-..|-
+T Consensus        11 MTRiF~~dG~siPv   24 (218)
+T BUsg_505         11 MSRIFTKEGSSIPI   24 (209)
+Confidence            37889999887773
+
+
+No 3  
+>endo-clust203
+Probab=4.04  E-value=3.4  Score=24.09  Aligned_cols=22  Identities=32%  Similarity=0.449  Sum_probs=16.7
+
+Q BN373_01611      33 VITIVAMVASMALLSWAMKTLP   54 (105)
+Q Consensus        54 viti~amv~smallswamktlp   75 (127)
+                      .|+++|.+++|.+...|-|.|-
+T Consensus       156 ~ImiiAViia~~iMll~Sk~Lt  177 (527)
+T BUsg_314        155 LIMMIAVVLATILMLLASKALT  176 (515)
+Confidence            3678888899888877777653
+
+
+No 4  
+>endo-clust402
+Probab=3.07  E-value=4.8  Score=20.54  Aligned_cols=11  Identities=18%  Similarity=0.545  Sum_probs=9.4
+
+Q BN373_01611       1 -------MSWI    4 (105)
+Q Consensus        15 pnfpepdmswi   25 (127)
+                      .|+|-|.|-|=
+T Consensus       109 ~~lplPHmGWN  119 (198)
+T BUsg_096        110 SNLPLPHMGWN  120 (197)
+Confidence            68999999995
+
+
+No 5  
+>endo-clust72
+Probab=2.19  E-value=7.2  Score=21.83  Aligned_cols=10  Identities=0%  Similarity=0.131  Sum_probs=7.5
+
+Q BN373_01611       1 ----------    0 (105)
+Q Consensus        12 gdgpnfpepd   21 (127)
+                      -.||.|||--
+T Consensus       312 aSGPGfpeg~  321 (486)
+T BUsg_262        312 ASGPGFPKNV  321 (486)
+Confidence            4689999853
+
+
+No 6  
+>endo-clust396
+Probab=2.09  E-value=7.6  Score=18.78  Aligned_cols=7  Identities=0%  Similarity=0.102  Sum_probs=5.1
+
+Q BN373_01611       1 -------    0 (105)
+Q Consensus        14 gpnfpep   20 (127)
+                      --|||.|
+T Consensus        70 a~NfPDP   76 (157)
+T BUsg_192         66 STNFPDP   72 (151)
+Confidence            4688877
+
+
+No 7  
+>endo-clust10
+Probab=1.96  E-value=8.2  Score=22.01  Aligned_cols=17  Identities=59%  Similarity=0.714  Sum_probs=13.5
+
+Q BN373_01611      67 AVGAAVTGIVLLGESAS   83 (105)
+Q Consensus        88 avgaaitgi~llgesa~  104 (127)
+                      |+|||+-|-||-|+--.
+T Consensus       376 aigaavqggvlsgdvkd  392 (673)
+T BUsg_146        372 AVGAAVQGGVLSGDVKD  388 (638)
+Confidence            57889999998887654
+
+
+No 8  
+>endo-clust612
+Probab=1.95  E-value=8.3  Score=15.77  Aligned_cols=6  Identities=50%  Similarity=1.060  Sum_probs=4.0
+
+Q BN373_01611      22 YTHGFS   27 (105)
+Q Consensus        43 ythgfs   48 (127)
+                      -||||.
+T Consensus        14 rtHGFR   19 (54)
+T BUsg_013         14 RSHGFR   19 (47)
+Confidence            477874
+
+
+No 9  
+>endo-clust292
+Probab=1.25  E-value=14  Score=18.31  Aligned_cols=52  Identities=23%  Similarity=0.281  Sum_probs=29.1
+
+Q BN373_01611       1 -------MSWIVLFIA---GLLEVVW----------AVGLKYTHGFSRLVPSVITIVAMVASMAL   45 (105)
+Q Consensus        15 pnfpepdmswiil~ia---gllevvw----------avglkythgfsrl~psviti~amv~smal   66 (127)
+                      |+.+|-|||-+=.-..   -|.|+.-          ..|=.-+-||+|=.---=|+-|.+-|..|
+T Consensus        64 ~~i~EGdMSrmRatLVrgnTLaeiArEf~lg~yL~LG~GElKsGG~~RESILantvEAlIG~IFL  128 (236)
+T BUsg_249         61 PYIDEGDMSRMRATLVRGNTLAEIAYEFDLGEYLQLGQGELKSGGFRRESILANTVEALIGSIYL  125 (226)
+Confidence            6777899997632111   1223321          22334477899865444566677666544
+
+
+No 10 
+>endo-clust165
+Probab=1.04  E-value=17  Score=18.25  Aligned_cols=16  Identities=0%  Similarity=0.205  Sum_probs=11.4
+
+Q BN373_01611       1 ----------------    0 (105)
+Q Consensus         2 qddlqtrlftgdgpnf   17 (127)
+                      ++++-+|.+.|+-|+|
+T Consensus        78 eEelL~R~~q~~~~~Y   93 (299)
+T BUsg_092         78 QEELLHRISQNLENSY   93 (299)
+Confidence            4566778888887765
+
+
+Done!

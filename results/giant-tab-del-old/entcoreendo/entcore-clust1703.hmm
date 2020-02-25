@@ -1,0 +1,141 @@
+Query         entcore-clust1703
+Match_columns 291
+No_of_seqs    2 out of 13
+Neff          1.1 
+Searched_HMMs 333
+Date          Wed Feb 12 17:30:23 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust1703.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust1703.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust109                    3.0     4.9   0.015   24.6   0.0   33  246-285   275-308 (390)
+  2 endo-clust210                    2.6     5.9   0.018   23.3   0.0   12   82-93    152-163 (283)
+  3 endo-clust376                    2.4     6.4   0.019   22.0   0.0   36  150-191   111-146 (197)
+  4 endo-clust568                    2.4     6.6    0.02   18.7   0.0   10  263-272    13-22  (65)
+  5 endo-clust28                     2.1     7.8   0.023   25.5   0.0   28   83-110    59-86  (862)
+  6 endo-clust524                    2.0       8   0.024   19.2   0.0   24    9-32     12-35  (90)
+  7 endo-clust136                    1.9     8.5   0.026   23.8   0.0   27   25-51    195-226 (498)
+  8 endo-clust484                    1.7      10    0.03   21.1   0.0   19  168-186   106-124 (218)
+  9 endo-clust321                    1.4      12   0.036   20.4   0.0   11   60-70     99-109 (200)
+ 10 endo-clust76                     1.4      13   0.038   21.8   0.0   12  260-271    49-60  (391)
+
+No 1  
+>endo-clust109
+Probab=3.01  E-value=4.9  Score=24.61  Aligned_cols=33  Identities=42%  Similarity=0.578  Sum_probs=25.0
+
+Q BN373_48131     246 SVVPILFVWVYWTWCIVLLGAEITV-TLGEYRKL----ETE  281 (286)
+Q Consensus       246 ~vipilfvwvywtwcivllgaeitv-tlgeyrklkqaae~e  285 (291)
+                      .=|||-|       ....||.||.| ||.---|||--+|+.
+T Consensus       275 CeVPInF-------~mAAlgGeIeVPtldGrvkLkiP~ETQ  308 (390)
+T BUsg_145        267 CEVPINF-------TMAALGGEIEVPTLDGRVNLKIPSETQ  300 (378)
+Confidence            3468888       46789999998 666667888777764
+
+
+No 2  
+>endo-clust210
+Probab=2.58  E-value=5.9  Score=23.26  Aligned_cols=12  Identities=50%  Similarity=0.944  Sum_probs=9.7
+
+Q BN373_48131      82 ATGDVIQGYIEQ   93 (286)
+Q Consensus        82 atgdviq~yieq   93 (291)
+                      .-|.+||.|+|.
+T Consensus       152 ~iGk~IQ~~Ve~  163 (283)
+T BUsg_224        147 KIGEVIQNYVEN  158 (261)
+Confidence            469999999874
+
+
+No 3  
+>endo-clust376
+Probab=2.43  E-value=6.4  Score=22.04  Aligned_cols=36  Identities=31%  Similarity=0.501  Sum_probs=26.9
+
+Q BN373_48131     150 GPLLAGASLAISSYLLSLRWASDLDGVIDNLLRLFPLILSWA  191 (286)
+Q Consensus       150 gpllag~slaissyllslrwasdl~~vidn~l~~~pl~lsw~  191 (291)
+                      -|++||-|+--.-.++|-....+.+..      ++.++.+|.
+T Consensus       111 IPLvAGPsilatL~lLShqy~~~~~~l------~~sLlIaW~  146 (197)
+T BUsg_434        111 IPLVAGPSLLATLMLLSHQYLHHMPYL------VGSLLIAWF  146 (196)
+Confidence            499999999888888998887766543      345566664
+
+
+No 4  
+>endo-clust568
+Probab=2.37  E-value=6.6  Score=18.67  Aligned_cols=10  Identities=60%  Similarity=0.989  Sum_probs=7.7
+
+Q BN373_48131     263 LLGAEITVTL  272 (286)
+Q Consensus       263 llgaeitvtl  272 (291)
+                      ..|.|||||.
+T Consensus        13 ~igdeitvtv   22 (65)
+T BUsg_391         13 IIGDEITVTV   22 (60)
+Confidence            4688888885
+
+
+No 5  
+>endo-clust28
+Probab=2.06  E-value=7.8  Score=25.55  Aligned_cols=28  Identities=32%  Similarity=0.350  Sum_probs=16.9
+
+Q BN373_48131      83 TGDVIQGYIEQFVANSSRMTAVGAFGLI  110 (286)
+Q Consensus        83 tgdviq~yieqfvans~~mtavga~gli  110 (291)
+                      -||||.||-.-.-.|--.-..--||||-
+T Consensus        59 IgDVIaRYQRMLGKNVLqPiGWDAFGLP   86 (862)
+T BUsg_429         58 ISDVISRYQRMLGKNVLQPIGWDAFGLP   85 (861)
+Confidence            4888888865544444333344477774
+
+
+No 6  
+>endo-clust524
+Probab=2.01  E-value=8  Score=19.22  Aligned_cols=24  Identities=29%  Similarity=0.284  Sum_probs=17.5
+
+Q BN373_48131       9 LLHHTRPLLAWLKLLWRRIDEDHM   32 (286)
+Q Consensus         9 ~~~htrp~~awlkllw~rided~m   32 (291)
+                      -|-||||--...|.-=.-+.|-..
+T Consensus        12 nGLHTRPA~qfVKeAK~F~SeIti   35 (90)
+T BUsg_062         12 HGLHTRPAAEFVKEAKNFISDIHI   35 (85)
+Confidence            367999999998877666665443
+
+
+No 7  
+>endo-clust136
+Probab=1.90  E-value=8.5  Score=23.80  Aligned_cols=27  Identities=19%  Similarity=0.374  Sum_probs=19.5
+
+Q BN373_48131      25 RRIDEDHMTTLAGNLAY-----VSLLSLVPLI   51 (286)
+Q Consensus        25 ~rided~mttlagnlay-----vsllslvpli   51 (291)
+                      -.||.|||.+--||.-+     ...|-=.|+-
+T Consensus       195 TNIE~DHmd~Yq~nf~~LK~tFi~FL~nlP~y  226 (498)
+T BUAP5A_211      192 TNIEPDHIDHYDNSFKKLKQTFLIFLKKITLY  223 (484)
+Confidence            46899999999999754     4445445553
+
+
+No 8  
+>endo-clust484
+Probab=1.65  E-value=10  Score=21.07  Aligned_cols=19  Identities=21%  Similarity=0.350  Sum_probs=12.9
+
+Q BN373_48131     168 RWASDLDGVIDNLLRLFPL  186 (286)
+Q Consensus       168 rwasdl~~vidn~l~~~pl  186 (291)
+                      |...|+=-||||+-|-+-+
+T Consensus       106 kf~~elLPVIDNlERALnl  124 (218)
+T BUsg_243         92 KVIIEFLPIIDNIERALSV  110 (202)
+Confidence            5666677778887776543
+
+
+No 9  
+>endo-clust321
+Probab=1.42  E-value=12  Score=20.37  Aligned_cols=11  Identities=36%  Similarity=0.800  Sum_probs=8.3
+
+Q BN373_48131      60 AFPMFSEVSVQ   70 (286)
+Q Consensus        60 afpmfs~vsiq   70 (291)
+                      -|||.||+.-.
+T Consensus        99 ~yPMVsDikre  109 (200)
+T BUsg_176         99 KFPMVSDIKHE  109 (198)
+Confidence            58999998643
+
+
+No 10 
+>endo-clust76
+Probab=1.36  E-value=13  Score=21.80  Aligned_cols=12  Identities=58%  Similarity=0.844  Sum_probs=9.6
+
+Q BN373_48131     260 CIVLLGAEITVT  271 (286)
+Q Consensus       260 civllgaeitvt  271 (291)
+                      -+||.|.|||-+
+T Consensus        49 gmVliGGEItt~   60 (391)
+T BUsg_393         49 GMVLIGGEITTT   60 (379)
+Confidence            578999999854
+
+
+Done!

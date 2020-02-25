@@ -1,0 +1,141 @@
+Query         entcore-clust5497
+Match_columns 104
+No_of_seqs    2 out of 3
+Neff          1.2 
+Searched_HMMs 333
+Date          Wed Feb 12 20:03:11 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust5497.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust5497.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust466                   12.1    0.81  0.0024   24.2   0.0   17   78-94     50-66  (191)
+  2 endo-clust374                    6.5     1.9  0.0056   21.6   0.0   15   46-60    117-131 (156)
+  3 endo-clust180                    5.6     2.3  0.0068   23.8   0.0   32    6-44     35-66  (399)
+  4 endo-clust453                    3.8     3.7   0.011   19.6   0.0   25    8-37     71-95  (133)
+  5 endo-clust120                    3.8     3.8   0.011   22.2   0.0   13    3-15    267-279 (361)
+  6 endo-clust167                    3.6       4   0.012   23.1   0.0   50   50-104   250-299 (519)
+  7 endo-clust219                    3.2     4.5   0.014   21.6   0.0   12   68-79    163-174 (349)
+  8 endo-clust357                    3.1     4.8   0.014   20.7   0.0   18   61-78      9-26  (249)
+  9 endo-clust241                    3.1     4.8   0.014   23.2   0.0   24   54-77    624-647 (662)
+ 10 endo-clust598                    2.4     6.3   0.019   18.9   0.0   16   63-86    114-129 (163)
+
+No 1  
+>endo-clust466
+Probab=12.12  E-value=0.81  Score=24.22  Aligned_cols=17  Identities=47%  Similarity=0.687  Sum_probs=13.1
+
+Q EC958_0397       75 CNTLAQQHGIGIAAMLV   91 (99)
+Q Consensus        78 cntlaqqhgigiaam~v   94 (104)
+                      ..|.-++-|||+||-=|
+T Consensus        50 fdTMY~~~GIGLAAtQV   66 (191)
+T BUsg_477         36 IDTMYQEEGIGLAATQV   52 (167)
+Confidence            35777889999999644
+
+
+No 2  
+>endo-clust374
+Probab=6.54  E-value=1.9  Score=21.58  Aligned_cols=15  Identities=40%  Similarity=0.742  Sum_probs=12.1
+
+Q EC958_0397       43 EMRKTNELFDSKDNP   57 (99)
+Q Consensus        46 emrktne~fdskdnp   60 (104)
+                      ++|-+||+||.-+|-
+T Consensus       117 ~~rLanEl~dA~e~k  131 (156)
+T BUsg_509        117 ALRLSNELYDAVENK  131 (156)
+Confidence            467899999987764
+
+
+No 3  
+>endo-clust180
+Probab=5.61  E-value=2.3  Score=23.83  Aligned_cols=32  Identities=38%  Similarity=0.539  Sum_probs=25.6
+
+Q EC958_0397        3 VNASGGIDGSDALMGPKVQANDIKQAAEQFEAIFLRNML   41 (99)
+Q Consensus         6 v~~~ggi~g~dalmgp~i~~~d~~~aaeqfeaiflrnml   44 (104)
+                      |--|||||.|       |.|-=++|.--|.|-+|.+|.=
+T Consensus        35 vamSGGVDSS-------VSAWlLkkqgY~VEGLFMKNWE   66 (399)
+T BUsg_252         10 IAMSGGVDSS-------VSAWFLKNENYQVEGLFMKNWE   41 (367)
+Confidence            5679999876       5566678888899999999863
+
+
+No 4  
+>endo-clust453
+Probab=3.81  E-value=3.7  Score=19.56  Aligned_cols=25  Identities=20%  Similarity=0.482  Sum_probs=15.2
+
+Q EC958_0397        5 ASGGIDGSDALMGPKVQANDIKQAAEQFEA   34 (99)
+Q Consensus         8 ~~ggi~g~dalmgp~i~~~d~~~aaeqfea   37 (104)
+                      .||||||.-.-+     .|-|-.|.-++..
+T Consensus        71 kGGGiSGQAGAI-----rhGitrALi~Yd~   95 (133)
+T BUsg_377         68 KGGGVSGQAGAI-----RQGITRALIKYNH   92 (130)
+Confidence            589999965432     3555566555543
+
+
+No 5  
+>endo-clust120
+Probab=3.76  E-value=3.8  Score=22.19  Aligned_cols=13  Identities=46%  Similarity=0.699  Sum_probs=9.9
+
+Q EC958_0397        1 -MKVNASGGIDGS   12 (99)
+Q Consensus         3 q~kv~~~ggi~g~   15 (104)
+                      -|+.||+|||-|-
+T Consensus       267 GF~sNh~GGILGG  279 (361)
+T BUsg_090        267 GFKSNHCGGILGG  279 (353)
+Confidence            3788999998663
+
+
+No 6  
+>endo-clust167
+Probab=3.57  E-value=4  Score=23.08  Aligned_cols=50  Identities=22%  Similarity=0.377  Sum_probs=37.9
+
+Q EC958_0397       47 TNELFDSKDNPFNSDSVRMMQGFYDDELCNTLAQQHGIGIAAMLVKQLSPRHK--   99 (99)
+Q Consensus        50 tne~fdskdnpfnsdsvrmmqgfydd~lcntlaqqhgigiaam~vkqls~~h~kg  104 (104)
+                      -|.+|.|-   ++|.||--|  ||.|.|-.-=.--.|..+...+.--||..+++|
+T Consensus       250 INTifsSf---L~sGSISWm--YYADRLmEfP~GilGvslsTILlp~LSr~~~~~  299 (519)
+T BUsg_321        249 FNTIFSSL---LHSGSISWI--YYADRLIEFPIGIIGVSLSTILFTSFSCSYSNN  298 (514)
+Confidence            37777774   678898888  899999877666677777778887787766653
+
+
+No 7  
+>endo-clust219
+Probab=3.23  E-value=4.5  Score=21.63  Aligned_cols=12  Identities=42%  Similarity=0.739  Sum_probs=8.4
+
+Q EC958_0397       65 MMQGFYDDELCN   76 (99)
+Q Consensus        68 mmqgfydd~lcn   79 (104)
+                      -.|||||--+-|
+T Consensus       163 QIQGFFDvpvDn  174 (349)
+T BUsg_163        134 QIQGFFDVPVDN  145 (315)
+Confidence            479999865544
+
+
+No 8  
+>endo-clust357
+Probab=3.09  E-value=4.8  Score=20.67  Aligned_cols=18  Identities=22%  Similarity=0.388  Sum_probs=14.0
+
+Q EC958_0397       58 FNSDSVRMMQGFYDDELC   75 (99)
+Q Consensus        61 fnsdsvrmmqgfydd~lc   78 (104)
+                      -|..-||.-||=|..|-+
+T Consensus         9 Ing~iVRLyQG~Y~~q~~   26 (249)
+T BUsg_097          9 INGEIVRLYKGNFFNRTK   26 (244)
+Confidence            367789999998877654
+
+
+No 9  
+>endo-clust241
+Probab=3.07  E-value=4.8  Score=23.22  Aligned_cols=24  Identities=0%  Similarity=-0.299  Sum_probs=17.2
+
+Q EC958_0397       51 FDSKDNPFNSDSVRMMQGFYDDEL   74 (99)
+Q Consensus        54 fdskdnpfnsdsvrmmqgfydd~l   77 (104)
+                      ...|++--+.--+.|+|.|||.|+
+T Consensus       624 ~~~k~~~~~D~~ik~i~~~fdAel  647 (662)
+T BUsg_466        364 ------------------------  363 (363)
+Confidence            334455455567899999999887
+
+
+No 10 
+>endo-clust598
+Probab=2.45  E-value=6.3  Score=18.86  Aligned_cols=16  Identities=31%  Similarity=0.605  Sum_probs=11.0
+
+Q EC958_0397       60 SDSVRMMQGFYDDELCNTLAQQHG   83 (99)
+Q Consensus        63 sdsvrmmqgfydd~lcntlaqqhg   86 (104)
+                      |.|+||        |.+.++|+||
+T Consensus       114 sPsiRm--------LIksi~~k~G  129 (163)
+T BUsg_451         65 TPSMRM--------LIKSIEKKIG   80 (114)
+Confidence            567887        4567777776
+
+
+Done!

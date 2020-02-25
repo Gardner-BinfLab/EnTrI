@@ -1,0 +1,141 @@
+Query         entcore-clust4331
+Match_columns 103
+No_of_seqs    1 out of 5
+Neff          1.0 
+Searched_HMMs 333
+Date          Wed Feb 12 20:15:52 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4331.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust4331.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust523                   10.7    0.97  0.0029   22.8   0.0   40   27-67     83-122 (150)
+  2 endo-clust384                    6.2       2   0.006   21.8   0.0   26   68-93    134-159 (181)
+  3 endo-clust221                    2.4     6.3   0.019   20.6   0.0   10   33-42     31-40  (334)
+  4 endo-clust239                    2.3       7   0.021   19.3   0.0    8   53-60      7-14  (225)
+  5 endo-clust302                    1.9     8.3   0.025   19.4   0.0   28   13-42     23-50  (277)
+  6 endo-clust121                    1.7      10    0.03   20.1   0.0   34   57-90    150-195 (440)
+  7 endo-clust43                     1.7      10    0.03   20.6   0.0   27    4-31    359-385 (589)
+  8 endo-clust210                    1.6      11   0.032   18.8   0.0   41   31-71    140-180 (283)
+  9 endo-clust213                    1.5      11   0.034   18.5   0.0   13   28-40    111-123 (263)
+ 10 endo-clust280                    1.4      12   0.035   18.0   0.0   11    7-19    103-113 (218)
+
+No 1  
+>endo-clust523
+Probab=10.65  E-value=0.97  Score=22.84  Aligned_cols=40  Identities=23%  Similarity=0.308  Sum_probs=27.9
+
+Q STM_MW03051      27 AILISDLMLRFGKELDESVAVVQSRCDEDEFNVYRETVGFI   67 (103)
+Q Consensus        27 ailisdlmlrfgkeldesvavvqsrcdedefnvyretvgfi   67 (103)
+                      ...++|.-.| |++|||+.++-..|--|+.++-...-+.++
+T Consensus        83 VtILAD~AIR-g~dLDe~r~~esK~~aE~~Ikn~~~~i~y~  122 (150)
+T BUsg_009         75 VSILADVAIR-GIDLDRKRVVKAKKQAEEYFKKETTNVKKD  114 (138)
+Confidence            3345666666 899999998877777777766655555554
+
+
+No 2  
+>endo-clust384
+Probab=6.23  E-value=2  Score=21.75  Aligned_cols=26  Identities=35%  Similarity=0.330  Sum_probs=18.5
+
+Q STM_MW03051      68 MGEMLIKIMNPLYEKHPEIKPKGLKQ   93 (103)
+Q Consensus        68 mgemlikimnplyekhpeikpkglkq   93 (103)
+                      .-|-|.+.-|||||.-..|.-+--.|
+T Consensus       134 ~Le~LA~eRnPLYeeIadi~i~tdeq  159 (181)
+T BUsg_520        132 VLENLAYERNPLYEEIADFKIQTDNQ  157 (173)
+Confidence            34778889999999877765443333
+
+
+No 3  
+>endo-clust221
+Probab=2.44  E-value=6.3  Score=20.55  Aligned_cols=10  Identities=50%  Similarity=0.979  Sum_probs=7.2
+
+Q STM_MW03051      33 LMLRFGKELD   42 (103)
+Q Consensus        33 lmlrfgkeld   42 (103)
+                      +.|||||-|-
+T Consensus        31 IvLrFGKVlr   40 (334)
+T BUsg_547         30 IILQFGKVLR   39 (307)
+Confidence            4688998764
+
+
+No 4  
+>endo-clust239
+Probab=2.25  E-value=7  Score=19.26  Aligned_cols=8  Identities=0%  Similarity=-0.378  Sum_probs=6.2
+
+Q STM_MW03051      53 DEDEFNVY   60 (103)
+Q Consensus        53 dedefnvy   60 (103)
+                      .|+|||.|
+T Consensus         7 ~~~~~~~~   14 (225)
+T BUsg_481          1 --------    0 (206)
+Confidence            47788888
+
+
+No 5  
+>endo-clust302
+Probab=1.95  E-value=8.3  Score=19.41  Aligned_cols=28  Identities=36%  Similarity=0.413  Sum_probs=21.6
+
+Q STM_MW03051      13 VFTTGISMVNDKDTAILISDLMLRFGKELD   42 (103)
+Q Consensus        13 vfttgismvndkdtailisdlmlrfgkeld   42 (103)
+                      +.-|||+  |.+..|.=|+-.|-|.|.||.
+T Consensus        23 ILitGI~--n~rSIA~GIA~al~rq~AeLa   50 (277)
+T BUsg_255          9 ILITGIL--NEKSIAFGIAKSMYKQEAELI   36 (260)
+Confidence            3456664  777888889999999998874
+
+
+No 6  
+>endo-clust121
+Probab=1.66  E-value=10  Score=20.07  Aligned_cols=34  Identities=24%  Similarity=0.405  Sum_probs=23.7
+
+Q STM_MW03051      57 FNVYRETVGFIMGEMLIK------------IMNPLYEKHPEIKPKG   90 (103)
+Q Consensus        57 fnvyretvgfimgemlik------------imnplyekhpeikpkg   90 (103)
+                      |---+---||.-|...|+            +|-||-.+.-.|.-||
+T Consensus       150 yPPi~~~GGf~GG~I~i~g~ISSQFLsslLmmaPLA~~dt~I~vkg  195 (440)
+T BUsg_301        149 YPPVLTKGGFKGGSIMLDGSISSQFLTSLLMVAPLALQNTNIFIKG  194 (428)
+Confidence            333344457777766543            7999999998888776
+
+
+No 7  
+>endo-clust43
+Probab=1.65  E-value=10  Score=20.65  Aligned_cols=27  Identities=19%  Similarity=0.380  Sum_probs=21.2
+
+Q STM_MW03051       4 NANKINAVDVFTTGISMVNDKDTAILIS   31 (103)
+Q Consensus         4 nankinavdvfttgismvndkdtailis   31 (103)
+                      |-.-||+-|+-+.|++|.++-| ||||-
+T Consensus       359 ~I~lInsq~ie~~~i~~Lk~Ld-~ILiP  385 (589)
+T BUsg_399        324 KIELINSQEIENKNFKLLQNLN-GILIP  350 (553)
+Confidence            3445889999999999999885 66664
+
+
+No 8  
+>endo-clust210
+Probab=1.56  E-value=11  Score=18.80  Aligned_cols=41  Identities=27%  Similarity=0.345  Sum_probs=32.5
+
+Q STM_MW03051      31 SDLMLRFGKELDESVAVVQSRCDEDEFNVYRETVGFIMGEM   71 (103)
+Q Consensus        31 sdlmlrfgkeldesvavvqsrcdedefnvyretvgfimgem   71 (103)
+                      |=-|.|-|..|..-=.++|.--....|.|-||--|-=.|.-
+T Consensus       140 ai~~irPGi~L~~iGk~IQ~~Ve~~nFSvVrEYCGHGIGk~  180 (283)
+T BUsg_224        135 SLNILKPGIPLYKIGEVIQNYVENNNFSVVKEYCGHGIGRA  175 (261)
+Confidence            33466777777777778898889999999999988777754
+
+
+No 9  
+>endo-clust213
+Probab=1.49  E-value=11  Score=18.48  Aligned_cols=13  Identities=38%  Similarity=0.606  Sum_probs=11.1
+
+Q STM_MW03051      28 ILISDLMLRFGKE   40 (103)
+Q Consensus        28 ilisdlmlrfgke   40 (103)
+                      .|||+|--|||-.
+T Consensus       111 ~LI~~ladrfG~Q  123 (263)
+T BUsg_098        111 DLITKIANRFGVQ  123 (258)
+Confidence            5899999999964
+
+
+No 10 
+>endo-clust280
+Probab=1.44  E-value=12  Score=17.95  Aligned_cols=11  Identities=73%  Similarity=0.960  Sum_probs=5.5
+
+Q STM_MW03051       7 KINAVDVFTTGIS   19 (103)
+Q Consensus         7 kinavdvfttgis   19 (103)
+                      ++.-|||  ||||
+T Consensus       103 ~vkkVDv--tGiS  113 (218)
+T BUsg_505        103 DIKKVDV--TGIS  113 (209)
+Confidence            3444554  5665
+
+
+Done!

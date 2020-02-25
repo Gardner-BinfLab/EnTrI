@@ -1,0 +1,141 @@
+Query         entcore-clust4646
+Match_columns 57
+No_of_seqs    1 out of 3
+Neff          1.0 
+Searched_HMMs 333
+Date          Wed Feb 12 19:37:30 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4646.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust4646.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust444                   14.2    0.64  0.0019   21.4   0.0   12   41-52      7-18  (130)
+  2 endo-clust266                    4.8     2.8  0.0084   19.6   0.0   12   42-53    114-125 (219)
+  3 endo-clust260                    4.0     3.5    0.01   20.4   0.0   16   41-56    335-350 (366)
+  4 endo-clust396                    3.9     3.5   0.011   18.3   0.0   16   31-46     66-81  (157)
+  5 endo-clust522                    2.9     5.2   0.016   16.8   0.0   11   44-54      8-18  (121)
+  6 endo-clust33                     2.6     5.9   0.018   21.2   0.0   27   27-53    804-830 (863)
+  7 endo-clust608                    1.6      10   0.031   12.7   0.0   21   10-30     10-30  (39)
+  8 endo-clust534                    1.6      11   0.032   16.5   0.0   11   10-20    172-182 (217)
+  9 endo-clust39                     1.5      11   0.033   18.9   0.0   16   40-55    466-481 (615)
+ 10 endo-clust294                    1.5      11   0.033   17.5   0.0   12   43-54     71-82  (329)
+
+No 1  
+>endo-clust444
+Probab=14.16  E-value=0.64  Score=21.39  Aligned_cols=12  Identities=58%  Similarity=0.794  Sum_probs=9.8
+
+Q SL3261_4084      41 FTDRLTRIRRGI   52 (57)
+Q Consensus        41 ftdrltrirrgi   52 (57)
+                      ..|-|||||.|-
+T Consensus         7 IaDMlTrIRNgQ   18 (130)
+T BUsg_491          7 VADMLTRIRNGQ   18 (130)
+Confidence            368899999984
+
+
+No 2  
+>endo-clust266
+Probab=4.77  E-value=2.8  Score=19.64  Aligned_cols=12  Identities=42%  Similarity=0.648  Sum_probs=9.8
+
+Q SL3261_4084      42 TDRLTRIRRGIS   53 (57)
+Q Consensus        42 tdrltrirrgis   53 (57)
+                      .||||-||-.|.
+T Consensus       114 ~DRltTI~tai~  125 (219)
+T BUsg_056        112 KDRLTTIKTATA  123 (213)
+Confidence            489999998774
+
+
+No 3  
+>endo-clust260
+Probab=3.99  E-value=3.5  Score=20.45  Aligned_cols=16  Identities=50%  Similarity=0.675  Sum_probs=13.3
+
+Q SL3261_4084      41 FTDRLTRIRRGISTLR   56 (57)
+Q Consensus        41 ftdrltrirrgistlr   56 (57)
+                      =..|||-+|-||+.+|
+T Consensus       335 GIERlaML~Y~isDlR  350 (366)
+T BUsg_121        298 GIERITMLRYGISDLR  313 (329)
+Confidence            3589999999999887
+
+
+No 4  
+>endo-clust396
+Probab=3.94  E-value=3.5  Score=18.28  Aligned_cols=16  Identities=31%  Similarity=0.437  Sum_probs=10.8
+
+Q SL3261_4084      31 FKQESINFRHFTDRLT   46 (57)
+Q Consensus        31 fkqesinfrhftdrlt   46 (57)
+                      .+.|++||-.=.||-.
+T Consensus        66 mqd~a~NfPDPiDRA~   81 (157)
+T BUsg_192         62 IQDKSTNFPDPIDRAA   77 (151)
+Confidence            4567888877666643
+
+
+No 5  
+>endo-clust522
+Probab=2.89  E-value=5.2  Score=16.78  Aligned_cols=11  Identities=27%  Similarity=0.440  Sum_probs=6.8
+
+Q SL3261_4084      44 RLTRIRRGIST   54 (57)
+Q Consensus        44 rltrirrgist   54 (57)
+                      .+.||||..++
+T Consensus         8 k~aRiRRa~k~   18 (121)
+T BUsg_489          9 IISRTRRLLKA   19 (121)
+Confidence            45677776654
+
+
+No 6  
+>endo-clust33
+Probab=2.59  E-value=5.9  Score=21.25  Aligned_cols=27  Identities=22%  Similarity=0.512  Sum_probs=21.5
+
+Q SL3261_4084      27 KCSNFKQESINFRHFTDRLTRIRRGIS   53 (57)
+Q Consensus        27 kcsnfkqesinfrhftdrltrirrgis   53 (57)
+                      .---+..|-...|+|-|-...+|.|+.
+T Consensus       804 nIVIyEGeLeSLRrFKeDVNEVR~G~E  830 (863)
+T BUsg_365        812 NVVVYEGELESLRRFKEDINEIRNGME  838 (867)
+Confidence            334466777889999999999999874
+
+
+No 7  
+>endo-clust608
+Probab=1.60  E-value=10  Score=12.69  Aligned_cols=21  Identities=29%  Similarity=0.515  Sum_probs=13.3
+
+Q SL3261_4084      10 KNCIKCSIAHILRYKRQKCSN   30 (57)
+Q Consensus        10 kncikcsiahilrykrqkcsn   30 (57)
+                      +-|-.|-|..--.--|--|++
+T Consensus        10 ~lCrnCkivkR~~vvRViC~~   30 (39)
+T BUsg_484          9 VLCRNCKIVRRKNVVRVICTN   29 (38)
+Confidence            457778776555555666765
+
+
+No 8  
+>endo-clust534
+Probab=1.56  E-value=11  Score=16.50  Aligned_cols=11  Identities=27%  Similarity=0.616  Sum_probs=8.5
+
+Q SL3261_4084      10 KNCIKCSIAHI   20 (57)
+Q Consensus        10 kncikcsiahi   20 (57)
+                      .-|-.||.+..
+T Consensus       172 GGCNGCSMv~~  182 (217)
+T BUsg_525        148 GGCNGCSMIGT  158 (192)
+Confidence            46999998864
+
+
+No 9  
+>endo-clust39
+Probab=1.52  E-value=11  Score=18.87  Aligned_cols=16  Identities=31%  Similarity=0.629  Sum_probs=11.3
+
+Q SL3261_4084      40 HFTDRLTRIRRGISTL   55 (57)
+Q Consensus        40 hftdrltrirrgistl   55 (57)
+                      .|.|||..|-+|-..|
+T Consensus       466 ~FFD~lkSiS~GYASL  481 (615)
+T BUsg_251        457 NFFDELKSVSSGYASL  472 (601)
+Confidence            5778888887776554
+
+
+No 10 
+>endo-clust294
+Probab=1.52  E-value=11  Score=17.45  Aligned_cols=12  Identities=42%  Similarity=0.512  Sum_probs=9.0
+
+Q SL3261_4084      43 DRLTRIRRGIST   54 (57)
+Q Consensus        43 drltrirrgist   54 (57)
+                      -|||++|.-|.-
+T Consensus        71 ~RlT~lRdKvky   82 (329)
+T BUsg_143         69 KRLTTIQNKIKY   80 (312)
+Confidence            689998876654
+
+
+Done!

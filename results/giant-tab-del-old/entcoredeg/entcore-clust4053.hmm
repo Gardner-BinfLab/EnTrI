@@ -1,0 +1,140 @@
+Query         entcore-clust4053
+Match_columns 75
+No_of_seqs    2 out of 3
+Neff          1.2 
+Searched_HMMs 83
+Date          Wed Feb 12 15:56:35 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4053.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust4053.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust107                     4.9    0.67  0.0081   23.4   0.0   12   53-64     88-99  (618)
+  2 deg-clust303                     1.2     3.7   0.045   18.3   0.0   13   59-71    172-184 (496)
+  3 deg-clust60                      1.1       4   0.048   19.8   0.0   22   53-74    193-214 (904)
+  4 deg-clust333                     1.0     4.3   0.051   15.3   0.0    6   17-22     22-27  (136)
+  5 deg-clust117                     1.0     4.5   0.055   18.7   0.0   36   32-70    412-450 (678)
+  6 deg-clust239                     0.9     5.3   0.064   15.4   0.0   24   24-50     76-99  (179)
+  7 deg-clust319                     0.8     5.4   0.065   15.7   0.0   23   47-69    153-175 (208)
+  8 deg-clust355                     0.7     6.6    0.08   15.2   0.0   11    3-13    155-165 (226)
+  9 deg-clust4                       0.7     7.1   0.086   18.9   0.0   21   33-53     84-106 (1239)
+ 10 deg-clust316                     0.7     7.3   0.088   14.6   0.0    5   65-69     61-65  (176)
+
+No 1  
+>deg-clust107
+Probab=4.91  E-value=0.67  Score=23.35  Aligned_cols=12  Identities=33%  Similarity=1.132  Sum_probs=10.4
+
+Q SL3261_2703      53 CDLCVTCQEIAE   64 (75)
+Q Consensus        53 ~~~cvtcqeiae   64 (75)
+                      |--|.+|++|.|
+T Consensus        88 C~~C~~C~aI~e   99 (618)
+T DEG10010007      73 CNECAACKGITN   84 (563)
+Confidence            777999999986
+
+
+No 2  
+>deg-clust303
+Probab=1.18  E-value=3.7  Score=18.30  Aligned_cols=13  Identities=38%  Similarity=0.521  Sum_probs=8.4
+
+Q SL3261_2703      59 CQEIAELKGKHYN   71 (75)
+Q Consensus        59 cqeiaelkgkhyn   71 (75)
+                      +..|||--|++||
+T Consensus       172 a~~VAe~pg~~yN  184 (496)
+T DEG10010001     133 SLAVAEAPAKAYN  145 (446)
+Confidence            4566666666666
+
+
+No 3  
+>deg-clust60
+Probab=1.12  E-value=4  Score=19.76  Aligned_cols=22  Identities=18%  Similarity=0.025  Sum_probs=18.9
+
+Q SL3261_2703      53 CDLCVTCQEIAELKGKHYNGGA   74 (75)
+Q Consensus        53 ~~~cvtcqeiaelkgkhyngga   74 (75)
+                      ---|--|-||-==.|.|+-||-
+T Consensus       193 tGPCGPctEIfyD~G~~i~gg~  214 (904)
+T DEG10010189     163 EGPSGPNTEIFYDRGEA-YGND  183 (878)
+Confidence            4579999999999999988874
+
+
+No 4  
+>deg-clust333
+Probab=1.05  E-value=4.3  Score=15.26  Aligned_cols=6  Identities=33%  Similarity=0.501  Sum_probs=2.6
+
+Q SL3261_2703      17 QRHIHN   22 (75)
+Q Consensus        17 qrhih~   22 (75)
+                      +-|||.
+T Consensus        22 vaHi~s   27 (136)
+T DEG10010061      22 IAHIRS   27 (131)
+Confidence            344443
+
+
+No 5  
+>deg-clust117
+Probab=0.99  E-value=4.5  Score=18.70  Aligned_cols=36  Identities=19%  Similarity=0.404  Sum_probs=18.4
+
+Q SL3261_2703      32 SLECESCGIVIPEERRAAMPGCDLCV---TCQEIAELKGKHY   70 (75)
+Q Consensus        32 ~~~c~~c~~~ip~~rr~a~pg~~~cv---tcqeiaelkgkhy   70 (75)
+                      ...|++|+-.+--..-.+   +..|.   .|++..--+=|||
+T Consensus       412 p~~CP~Cgs~lvr~egEa---~~rC~~~~~C~aq~~e~L~HF  450 (678)
+T DEG10010081     401 PTECPECGSELVRIEGEV---ALRCINPE-CPAQIREGLIHF  438 (668)
+Confidence            457999997754322222   23343   2665444344555
+
+
+No 6  
+>deg-clust239
+Probab=0.86  E-value=5.3  Score=15.38  Aligned_cols=24  Identities=25%  Similarity=0.596  Sum_probs=13.1
+
+Q SL3261_2703      24 RIRKVGASSLECESCGIVIPEERRAAM   50 (75)
+Q Consensus        24 r~~~~g~s~~~c~~c~~~ip~~rr~a~   50 (75)
+                      |.|.+|-|...-.   ..+.|+||.++
+T Consensus        76 ksRRVGGatYQVP---vEVRp~Rr~aL   99 (179)
+T DEG10010031      76 KARRVGGANYQVP---VEVRPERRTTL   99 (156)
+Confidence            4455665543221   23667888775
+
+
+No 7  
+>deg-clust319
+Probab=0.85  E-value=5.4  Score=15.65  Aligned_cols=23  Identities=30%  Similarity=0.546  Sum_probs=13.9
+
+Q SL3261_2703      47 RAAMPGCDLCVTCQEIAELKGKH   69 (75)
+Q Consensus        47 r~a~pg~~~cvtcqeiaelkgkh   69 (75)
+                      |+.+.|...=.+=++||.+.|+.
+T Consensus       153 rAT~~aL~~~~sp~~VAa~Rg~~  175 (208)
+T DEG10010052     138 RATLQGLSELKRAEDVAKLRGKS  160 (166)
+Confidence            45555555555666677666654
+
+
+No 8  
+>deg-clust355
+Probab=0.71  E-value=6.6  Score=15.21  Aligned_cols=11  Identities=18%  Similarity=0.543  Sum_probs=5.9
+
+Q SL3261_2703       3 DSMDLVQQRVE   13 (75)
+Q Consensus         3 dsmdlvqqrve   13 (75)
+                      ||.+.+.+|++
+T Consensus       155 Ds~EvI~~Rm~  165 (226)
+T DEG10010111     141 ETDALIENRMK  151 (204)
+Confidence            55555555554
+
+
+No 9  
+>deg-clust4
+Probab=0.66  E-value=7.1  Score=18.87  Aligned_cols=21  Identities=29%  Similarity=0.727  Sum_probs=13.2
+
+Q SL3261_2703      33 LECESCGIVIPEE--RRAAMPGC   53 (75)
+Q Consensus        33 ~~c~~c~~~ip~~--rr~a~pg~   53 (75)
+                      +.|+.|+..+-++  ||.-|--.
+T Consensus        84 viCerCGVEVt~~kVRRERMGHI  106 (1239)
+T DEG10010029      73 VVCDRCGVEVTRAKVRRERMGHI   95 (1199)
+Confidence            6788888776654  45555433
+
+
+No 10 
+>deg-clust316
+Probab=0.65  E-value=7.3  Score=14.59  Aligned_cols=5  Identities=80%  Similarity=1.497  Sum_probs=0.0
+
+Q SL3261_2703      65 LKGKH   69 (75)
+Q Consensus        65 lkgkh   69 (75)
+                      |.|||
+T Consensus        61 LRGKh   65 (176)
+T DEG10010064      37 LRGKH   41 (145)
+
+
+Done!

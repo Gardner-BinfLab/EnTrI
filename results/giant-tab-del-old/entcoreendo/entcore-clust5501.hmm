@@ -1,0 +1,141 @@
+Query         entcore-clust5501
+Match_columns 119
+No_of_seqs    2 out of 3
+Neff          1.3 
+Searched_HMMs 333
+Date          Wed Feb 12 17:06:07 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust5501.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust5501.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust273                   12.4    0.78  0.0023   24.6   0.0   15    2-18      9-23  (183)
+  2 endo-clust550                    5.2     2.5  0.0076   21.5   0.0    9   92-100    16-24  (171)
+  3 endo-clust137                    3.8     3.7   0.011   22.5   0.0   21   59-79    144-164 (338)
+  4 endo-clust377                    2.7     5.5   0.017   20.2   0.0   11   65-75    158-168 (201)
+  5 endo-clust189                    2.7     5.7   0.017   20.9   0.0   28    8-46     45-72  (278)
+  6 endo-clust309                    2.4     6.5    0.02   20.3   0.0   41   18-73    104-148 (249)
+  7 endo-clust479                    2.3     6.8   0.021   19.6   0.0   21    9-29     46-66  (207)
+  8 endo-clust123                    2.2     7.1   0.021   21.8   0.0   15   10-24    343-357 (483)
+  9 endo-clust402                    2.1     7.6   0.023   19.4   0.0   11   61-71     13-23  (198)
+ 10 endo-clust163                    1.9     8.4   0.025   21.2   0.0   40   44-83    372-412 (448)
+
+No 1  
+>endo-clust273
+Probab=12.45  E-value=0.78  Score=24.63  Aligned_cols=15  Identities=47%  Similarity=1.225  Sum_probs=10.8
+
+Q b3104             2 QWYLSVLKNYVGFSGRA   18 (118)
+Q Consensus         2 ~wyl~vl~~y~~fsgra   18 (119)
+                      .||  |+..+|+|.||-
+T Consensus         9 rWY--V~QaFSgfE~rv   23 (183)
+T BUsg_040          8 KWY--VLQAFSGFESRV   22 (181)
+Confidence            477  577788888774
+
+
+No 2  
+>endo-clust550
+Probab=5.15  E-value=2.5  Score=21.51  Aligned_cols=9  Identities=44%  Similarity=1.331  Sum_probs=6.7
+
+Q b3104            92 LVLLVFFCT  100 (118)
+Q Consensus        92 ~v~~vf~c~  100 (119)
+                      .++.||||-
+T Consensus        16 FilFV~FCM   24 (171)
+T BUsg_004         14 FILFVWFCM   22 (163)
+Confidence            467889994
+
+
+No 3  
+>endo-clust137
+Probab=3.81  E-value=3.7  Score=22.49  Aligned_cols=21  Identities=43%  Similarity=0.419  Sum_probs=16.0
+
+Q b3104            59 TFLPVLALAIRRLHDTDRSGA   79 (118)
+Q Consensus        59 ~~lp~~a~airrlhdt~rsg~   79 (119)
+                      |-|-.+.-||.||.||..|--
+T Consensus       144 TALeTvveAIDrLrDTSsSHq  164 (338)
+T BUsg_295        142 TALETVVEAIDRLRDTSSSHQ  162 (320)
+Confidence            345566779999999987754
+
+
+No 4  
+>endo-clust377
+Probab=2.73  E-value=5.5  Score=20.17  Aligned_cols=11  Identities=45%  Similarity=0.434  Sum_probs=4.9
+
+Q b3104            65 ALAIRRLHDTD   75 (118)
+Q Consensus        65 a~airrlhdt~   75 (119)
+                      .+|-|-||.-|
+T Consensus       158 ~LAsRNLykV~  168 (201)
+T BUsg_504        158 FLASRNLYSVD  168 (201)
+Confidence            34445554433
+
+
+No 5  
+>endo-clust189
+Probab=2.68  E-value=5.7  Score=20.89  Aligned_cols=28  Identities=39%  Similarity=0.380  Sum_probs=16.7
+
+Q b3104             8 LKNYVGFSGRARRKEYWMFTLINAIVGAIINVIQLILGL   46 (118)
+Q Consensus         8 l~~y~~fsgrarrkeywmf~lin~iv~aiinviq~i~g~   46 (119)
+                      |||.--.-|-.||--|           -+|||||.-.-+
+T Consensus        45 LRNLDLIMGCERRVVY-----------DfiNVIqgea~l   72 (278)
+T BUsg_317         43 LRNLDLIMGCERRVVY-----------DFINVIQGDARI   70 (270)
+Confidence            4555556677777544           456777754433
+
+
+No 6  
+>endo-clust309
+Probab=2.38  E-value=6.5  Score=20.33  Aligned_cols=41  Identities=32%  Similarity=0.490  Sum_probs=22.9
+
+Q b3104            18 ARRKEYWMFTLINAIVGAIINVIQLILGLELPYLSMLYL---LATFL-PVLALAIRRLHD   73 (118)
+Q Consensus        18 arrkeywmf~lin~iv~aiinviq~i~g~~~py~smly~---la~~l-p~~a~airrlhd   73 (119)
+                      ...|.-|||.---+|               -||+|+|=-   |--|- -++.-|||-.+|
+T Consensus       104 P~c~nLWM~ATGT~I---------------gPYlSIL~~gk~l~rF~kIILiHAvr~~~~  148 (249)
+T BUsg_560        113 PNCKTLWMFATGTGI---------------GPYCSILQEYKNINRFKNIILIHAVRYQNE  157 (257)
+Confidence            356677887654333               499999831   11111 134457776666
+
+
+No 7  
+>endo-clust479
+Probab=2.29  E-value=6.8  Score=19.63  Aligned_cols=21  Identities=33%  Similarity=0.588  Sum_probs=16.2
+
+Q b3104             9 KNYVGFSGRARRKEYWMFTLI   29 (118)
+Q Consensus         9 ~~y~~fsgrarrkeywmf~li   29 (119)
+                      |.+.+|+|+-.=.++-.+.||
+T Consensus        46 kkf~Gyt~~l~i~~~~i~LLi   66 (207)
+T BUsg_184         39 KKFFGFTGCLNIKSNFIRLLI   59 (177)
+Confidence            457889998877777777775
+
+
+No 8  
+>endo-clust123
+Probab=2.23  E-value=7.1  Score=21.82  Aligned_cols=15  Identities=27%  Similarity=0.565  Sum_probs=9.9
+
+Q b3104            10 NYVGFSGRARRKEYW   24 (118)
+Q Consensus        10 ~y~~fsgrarrkeyw   24 (119)
+                      .+-.-|||.||--+.
+T Consensus       343 EFGsTTGRrRRtGWl  357 (483)
+T BUsg_546        297 EFGSTTGRKRRTGWL  311 (430)
+Confidence            344568998887643
+
+
+No 9  
+>endo-clust402
+Probab=2.10  E-value=7.6  Score=19.35  Aligned_cols=11  Identities=36%  Similarity=0.706  Sum_probs=8.1
+
+Q b3104            61 LPVLALAIRRL   71 (118)
+Q Consensus        61 lp~~a~airrl   71 (119)
+                      |-|+.+|||||
+T Consensus        13 L~Sv~~aI~rL   23 (198)
+T BUsg_096         13 LTSIQVAIKKL   23 (197)
+Confidence            34677888888
+
+
+No 10 
+>endo-clust163
+Probab=1.92  E-value=8.4  Score=21.20  Aligned_cols=40  Identities=25%  Similarity=0.217  Sum_probs=19.3
+
+Q b3104            44 LGLELPYLSMLYLL-ATFLPVLALAIRRLHDTDRSGAWALL   83 (118)
+Q Consensus        44 ~g~~~py~smly~l-a~~lp~~a~airrlhdt~rsg~w~ll   83 (119)
+                      .|-|..++|.+..= +++--.+.-|++-.-..-|+|-=.||
+T Consensus       372 FGkD~~~Ls~l~~~~s~~t~tl~qam~iI~~~V~~gDvVLL  412 (448)
+T BUsg_212        372 FGKDGLNLSKLCKKKSIYTKTLKQAIILISKKIQPGDVVLL  412 (440)
+Confidence            45566666666632 23333444555444444445444333
+
+
+Done!

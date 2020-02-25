@@ -1,0 +1,140 @@
+Query         entcore-clust3812
+Match_columns 82
+No_of_seqs    2 out of 5
+Neff          1.2 
+Searched_HMMs 83
+Date          Wed Feb 12 15:58:38 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3812.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust3812.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust155                    20.5    0.09  0.0011   26.3   0.0   28   48-76    160-192 (272)
+  2 deg-clust3                      12.9    0.18  0.0022   27.4   0.0   54    3-64    201-254 (705)
+  3 deg-clust283                     3.3     1.1   0.013   20.3   0.0   15    1-15    230-244 (268)
+  4 deg-clust33                      1.6     2.5   0.031   21.2   0.0   24   19-43    855-878 (894)
+  5 deg-clust357                     1.4       3   0.036   16.6   0.0    7    5-11     88-94  (157)
+  6 deg-clust204                     1.4       3   0.036   19.2   0.0   25   52-76     28-52  (481)
+  7 deg-clust63                      1.4       3   0.037   21.3   0.0   20   29-50    386-405 (1169)
+  8 deg-clust44                      1.2     3.6   0.043   19.6   0.0   17    4-20    129-145 (660)
+  9 deg-clust107                     1.2     3.7   0.045   19.2   0.0   26   53-78    510-535 (618)
+ 10 deg-clust97                      1.0     4.7   0.057   17.7   0.0    8   64-71    184-191 (399)
+
+No 1  
+>deg-clust155
+Probab=20.49  E-value=0.09  Score=26.29  Aligned_cols=28  Identities=36%  Similarity=0.501  Sum_probs=19.9
+
+Q BN373_24241      48 EIDEEAQREMARE---AAINEDRIDD--IANFLN   76 (81)
+Q Consensus        48 ei~eeaq~ema~e---a~in~~rid~--ia~fln   76 (82)
+                      ||- +|-+++|++   ..+||+.||+  |+++|-
+T Consensus       160 eI~-~A~r~iA~~V~~G~l~~~~I~e~~~~~hL~  192 (272)
+T DEG10170159     157 ELV-HSIKNMFDELHQQGLNSDIIDETYINNHLM  189 (256)
+Confidence            444 355677877   6789999998  777664
+
+
+No 2  
+>deg-clust3
+Probab=12.88  E-value=0.18  Score=27.45  Aligned_cols=54  Identities=17%  Similarity=0.407  Sum_probs=42.3
+
+Q BN373_24241       3 NDIPLKFYDIVDEYETEAAAPVKDEERDALARYFQLLIARLTNNEEIDEEAQREMAREAAIN   64 (81)
+Q Consensus         3 ~diplk~~di~dey~te~a~pv~~~er~~la~yfqll~~rl~nneei~eeaq~ema~ea~in   64 (82)
+                      .+||-.+-|-+.||....-+.+++..-+.+..||.        .+||+++.-..--|.+-+|
+T Consensus       201 ~eIPa~l~d~a~e~r~~lvEa~ae~dd~lM~kYle--------~~el~~~eik~aiR~~tl~  254 (705)
+T DEG10010032     197 KEIPEEYKEQAEELRNSLIEAVCELDEELMDKYLE--------GEELTIDELKAGIRKGTLN  250 (692)
+Confidence            47999999999999999999999888888888864        5778877766655555443
+
+
+No 3  
+>deg-clust283
+Probab=3.31  E-value=1.1  Score=20.32  Aligned_cols=15  Identities=47%  Similarity=0.979  Sum_probs=12.0
+
+Q BN373_24241       1 MSNDIPLKFYDIVDE   15 (81)
+Q Consensus         1 m~~diplk~~di~de   15 (82)
+                      |.|+||+-.|||-.+
+T Consensus       230 rdn~ipI~VF~i~~~  244 (268)
+T DEG10170157     208 MDNNIPLTVFSIMEE  222 (240)
+Confidence            468899999998654
+
+
+No 4  
+>deg-clust33
+Probab=1.64  E-value=2.5  Score=21.19  Aligned_cols=24  Identities=33%  Similarity=0.362  Sum_probs=17.1
+
+Q BN373_24241      19 EAAAPVKDEERDALARYFQLLIARL   43 (81)
+Q Consensus        19 e~a~pv~~~er~~la~yfqll~~rl   43 (82)
+                      -|.+-|-++||..+|.|=. ++++|
+T Consensus       855 kAp~~Vv~~Er~K~ae~~~-~~~kl  878 (894)
+T DEG10010199     848 KAPAHVIDEEREKEK----dYVAKR  868 (880)
+Confidence            4556677888988888755 66665
+
+
+No 5  
+>deg-clust357
+Probab=1.44  E-value=3  Score=16.64  Aligned_cols=7  Identities=29%  Similarity=0.524  Sum_probs=3.9
+
+Q BN373_24241       5 IPLKF.YD   11 (81)
+Q Consensus         5 iplk~.~d   11 (82)
+                      |-||| |+
+T Consensus        88 i~LKY.~~   94 (157)
+T DEG10010049      63 -SLKYgQN   69 (132)
+Confidence            45666 54
+
+
+No 6  
+>deg-clust204
+Probab=1.41  E-value=3  Score=19.19  Aligned_cols=25  Identities=12%  Similarity=0.131  Sum_probs=15.5
+
+Q BN373_24241      52 EAQREMAREAAINEDRIDDIANFLN   76 (81)
+Q Consensus        52 eaq~ema~ea~in~~rid~ia~fln   76 (82)
+                      ||..-.---.-++++.|+.|++||-
+T Consensus        28 EAEqavLG~ill~~~a~~~v~e~l~   52 (481)
+T DEG10010264      15 EAEQAVLGAIFLQPSALTLASEVLI   39 (454)
+Confidence            3333333334478888888888874
+
+
+No 7  
+>deg-clust63
+Probab=1.41  E-value=3  Score=21.26  Aligned_cols=20  Identities=30%  Similarity=0.524  Sum_probs=15.7
+
+Q BN373_24241      29 RDALARYFQLLIARLTNNEEID   50 (81)
+Q Consensus        29 r~~la~yfqll~~rl~nneei~   50 (82)
+                      -|||.  |.||..|..|-|.+|
+T Consensus       386 iDPl~--~~LLFERFLNPERvS  405 (1169)
+T DEG10010214     360 VDPIK--HHLLFERFLNPERVS  379 (1115)
+Confidence            45664  689999999988776
+
+
+No 8  
+>deg-clust44
+Probab=1.22  E-value=3.6  Score=19.58  Aligned_cols=17  Identities=29%  Similarity=0.741  Sum_probs=11.3
+
+Q BN373_24241       4 DIPLKFYDIVDEYETEA   20 (81)
+Q Consensus         4 diplk~~di~dey~te~   20 (82)
+                      +.||.+|.|.-.|..|.
+T Consensus       129 qLPlnlYQIQtKFRDE~  145 (660)
+T DEG10010134     127 RLPLTLYQIQSKFRDEK  143 (564)
+Confidence            56777777776665553
+
+
+No 9  
+>deg-clust107
+Probab=1.18  E-value=3.7  Score=19.24  Aligned_cols=26  Identities=15%  Similarity=0.110  Sum_probs=15.5
+
+Q BN373_24241      53 AQREMAREAAINEDRI.........DDIANFLNQW   78 (81)
+Q Consensus        53 aq~ema~ea~in~~ri.........d~ia~flnqw   78 (82)
+                      +|.+|+--.--+++-|         .++..+||+|
+T Consensus       510 ~~~~~~~L~~~~~~~~.........~~L~~~L~~~  535 (618)
+T DEG10010007     468 AGSAAFVL--KFKYEIhckmvaednNGVRTNLEQI  500 (563)
+Confidence            3344433323345556         7888899888
+
+
+No 10 
+>deg-clust97
+Probab=0.96  E-value=4.7  Score=17.71  Aligned_cols=8  Identities=50%  Similarity=0.605  Sum_probs=0.0
+
+Q BN373_24241      64 NEDRIDDI   71 (81)
+Q Consensus        64 n~~rid~i   71 (82)
+                      +|+|||.|
+T Consensus       184 kpv~idtI  191 (399)
+T DEG10010219     191 KPVRIDAI  198 (400)
+
+
+Done!

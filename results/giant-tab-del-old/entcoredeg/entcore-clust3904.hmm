@@ -1,0 +1,141 @@
+Query         entcore-clust3904
+Match_columns 107
+No_of_seqs    4 out of 13
+Neff          1.4 
+Searched_HMMs 83
+Date          Wed Feb 12 16:10:35 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust3904.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust3904.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust239                     9.7    0.27  0.0033   23.5   0.0   20   49-68     86-106 (179)
+  2 deg-clust33                      3.9     0.9   0.011   25.0   0.0   12   39-50    452-463 (894)
+  3 deg-clust71                      3.1     1.2   0.014   23.5   0.0   19   23-41    242-260 (673)
+  4 deg-clust29                      1.4     3.1   0.037   21.7   0.0   41   11-55    669-714 (912)
+  5 deg-clust452                     1.0     4.2   0.051   16.6   0.0   21   20-40     52-72  (162)
+  6 deg-clust121                     1.0     4.7   0.057   18.6   0.0   52    7-62    313-365 (428)
+  7 deg-clust110                     0.8     6.1   0.074   17.1   0.0   17    8-24    168-186 (287)
+  8 deg-clust201                     0.7       7   0.084   17.8   0.0    8   62-69    185-192 (469)
+  9 deg-clust355                     0.6     8.5     0.1   15.6   0.0   16    6-21    173-188 (226)
+ 10 deg-clust204                     0.5     9.6    0.12   16.9   0.0   30   52-83    254-283 (481)
+
+No 1  
+>deg-clust239
+Probab=9.73  E-value=0.27  Score=23.48  Aligned_cols=20  Identities=30%  Similarity=0.742  Sum_probs=17.2
+
+Q BN373_29491      44 ASPLEMDDVQRDTMAM-WLAE   63 (115)
+Q Consensus        49 ~sp~~med~qrealsl-wlae   68 (107)
+                      |-|++.-.+-|.+|+| ||-+
+T Consensus        86 QVPvEVRp~Rr~aLamRWLv~  106 (179)
+T DEG10010031      86 QVPVEVRPERRTTLGLRWLVN  106 (156)
+Confidence            6799999999999997 8754
+
+
+No 2  
+>deg-clust33
+Probab=3.87  E-value=0.9  Score=25.01  Aligned_cols=12  Identities=25%  Similarity=0.731  Sum_probs=9.5
+
+Q BN373_29491      34 LAEVLNDWLVAS   45 (115)
+Q Consensus        39 ~adlldtwl~~s   50 (107)
+                      -.|+||||+..+
+T Consensus       452 DeDVLDTWFSSa  463 (894)
+T DEG10010199     445 DTDVLDTWFSSA  456 (880)
+Confidence            468999998754
+
+
+No 3  
+>deg-clust71
+Probab=3.12  E-value=1.2  Score=23.54  Aligned_cols=19  Identities=37%  Similarity=0.389  Sum_probs=16.5
+
+Q BN373_29491      18 SFASKKEADAYDKMLDLAE   36 (115)
+Q Consensus        23 sftskkeadaydkmld~ad   41 (107)
+                      +|.+||+.++|=+++.-|.
+T Consensus       242 aw~~Kk~L~~yL~~iEEA~  260 (673)
+T DEG10020192     221 AFFDKKELKAHLQMLEERK  239 (645)
+Confidence            7999999999999987664
+
+
+No 4  
+>deg-clust29
+Probab=1.39  E-value=3.1  Score=21.67  Aligned_cols=41  Identities=24%  Similarity=0.328  Sum_probs=21.7
+
+Q BN373_29491       6 KYVVIREGEEKMSFASKKEADAYDKMLD-----LAEVLNDWLVASPLEMD   50 (115)
+Q Consensus        11 kyvviregeekmsftskkeadaydkmld-----~adlldtwl~~sp~~me   55 (107)
+                      +|+| -.|.|||| .||+--=.=|.|+|     |..|.-  +-.||++++
+T Consensus       669 ~~~~-~~~~EKMS-KSk~N~V~P~~ivd~yGADTlRlf~--Mf~~P~e~s  714 (912)
+T DEG10010218     571 -----GENNEKMS-KSKGNVVNPDEIVASHGADTLRLYE--MFMGPLDAS  612 (804)
+Confidence            4555 35678999 46655433344443     333322  345777654
+
+
+No 5  
+>deg-clust452
+Probab=1.05  E-value=4.2  Score=16.62  Aligned_cols=21  Identities=14%  Similarity=0.292  Sum_probs=16.0
+
+Q BN373_29491      15 EKMSFASKKEADAYDKMLDLA   35 (115)
+Q Consensus        20 ekmsftskkeadaydkmld~a   40 (107)
+                      .-.-|+.||-|.-..|.|.-|
+T Consensus        52 ~iL~fs~KkaA~~v~KvL~SA   72 (162)
+T DEG10010040      34 SILNLTPRAASPIIEKVLKSA   54 (113)
+Confidence            346799999988888887654
+
+
+No 6  
+>deg-clust121
+Probab=0.96  E-value=4.7  Score=18.63  Aligned_cols=52  Identities=15%  Similarity=0.224  Sum_probs=30.8
+
+Q BN373_29491       2 AVEIKYVVIREGEEKMSFASKKEADAYDKMLDLAEVLNDWLVASPL-EMDDVQRDTM   57 (115)
+Q Consensus         7 avevkyvviregeekmsftskkeadaydkmld~adlldtwl~~sp~-~med~qreal   62 (107)
+                      ..|+-|-+|.=----|+|++.|--|-   =.=+. --++|.+-|-+ .+.|-|-..|
+T Consensus       313 ~LeLPyR~~~LCtGDmgFsA~kTyDl---EVWlP-sq~~YREiSScSn~~dFQARR~  365 (428)
+T DEG10010006     312 LLELPYRVMSMCTGDLGFTAAKKYDI---EVWIP-SQDTYREISSCSNFEAFQARRA  364 (425)
+Confidence            46788888877777899999885431   00000 01555555544 4677774444
+
+
+No 7  
+>deg-clust110
+Probab=0.76  E-value=6.1  Score=17.05  Aligned_cols=17  Identities=47%  Similarity=0.727  Sum_probs=10.8
+
+Q BN373_29491       3 VEIKYVVIR--EGEEKMSF   19 (115)
+Q Consensus         8 vevkyvvir--egeekmsf   24 (107)
+                      -|=+||+||  .||-.|-+
+T Consensus       168 reg~Yv~irL~SGE~R~vl  186 (287)
+T DEG10010038     167 KEGKYVLVRLNSGEVRMIL  185 (277)
+Confidence            466888875  56655543
+
+
+No 8  
+>deg-clust201
+Probab=0.68  E-value=7  Score=17.78  Aligned_cols=8  Identities=50%  Similarity=1.186  Sum_probs=6.1
+
+Q BN373_29491      57 MAMWLAER   64 (115)
+Q Consensus        62 lslwlae~   69 (107)
+                      +-|||-||
+T Consensus       185 FlmWLGEq  192 (469)
+T DEG10010055     162 FLMWLGEQ  169 (431)
+Confidence            46888887
+
+
+No 9  
+>deg-clust355
+Probab=0.57  E-value=8.5  Score=15.56  Aligned_cols=16  Identities=31%  Similarity=0.368  Sum_probs=11.0
+
+Q BN373_29491       1 MAVEIKYVVIREGEEK   16 (115)
+Q Consensus         6 mavevkyvviregeek   21 (107)
+                      ++.|..||||.+--++
+T Consensus       173 ~~~~fDyvivNDd~~~  188 (226)
+T DEG10010111     159 MMDAYDYVVENDNVET  174 (204)
+Confidence            4567788888765543
+
+
+No 10 
+>deg-clust204
+Probab=0.50  E-value=9.6  Score=16.93  Aligned_cols=30  Identities=30%  Similarity=0.305  Sum_probs=21.2
+
+Q BN373_29491      47 LEMDDVQRDTMAMWLAERKEALQHILRVGRLPeqetpaqdas   88 (115)
+Q Consensus        52 ~~med~qrealslwlae~k~vls~ilktgklp..........   83 (107)
+                      ++|.-+|-  +-.-|+..-.|=++-||+|+|-          
+T Consensus       254 LEM~~eql--v~RmLa~~~~v~~~klRtG~l~..........  283 (481)
+T DEG10010264     240 LEMGAEQL--VMRMLCAEGNINAQNLRTGNLT..........  269 (454)
+Confidence            45665553  3345778888889999999864          
+
+
+Done!

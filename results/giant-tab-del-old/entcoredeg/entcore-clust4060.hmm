@@ -1,0 +1,141 @@
+Query         entcore-clust4060
+Match_columns 108
+No_of_seqs    2 out of 3
+Neff          1.3 
+Searched_HMMs 83
+Date          Wed Feb 12 15:51:29 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4060.hmm -d ../results/deg/define-core-accessory-hieranoid/all/core-essential-genomes/hhmake/degfam.hmm -o ../results/giant-tab/entcoredeg/entcore-clust4060.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 deg-clust447                    19.4   0.098  0.0012   24.3   0.0   18   60-77     69-89  (115)
+  2 deg-clust486                     2.0       2   0.024   17.0   0.0   25   48-72      4-29  (96)
+  3 deg-clust67                      1.3     3.2   0.039   20.5   0.0    6   33-38    199-204 (609)
+  4 deg-clust299                     1.3     3.3    0.04   17.4   0.0   21    1-22      1-21  (181)
+  5 deg-clust204                     1.1     4.2   0.051   19.1   0.0   46   24-69    369-414 (481)
+  6 deg-clust137                     1.0     4.4   0.053   17.6   0.0   11   72-82    243-253 (258)
+  7 deg-clust387                     0.9     5.1   0.061   16.9   0.0   18   37-54     77-100 (230)
+  8 deg-clust95                      0.8       6   0.072   18.4   0.0   24   50-79    280-303 (521)
+  9 deg-clust124                     0.7     6.5   0.078   17.6   0.0    9    6-14    223-231 (388)
+ 10 deg-clust135                     0.7     7.2   0.087   17.0   0.0   13   91-103    49-61  (338)
+
+No 1  
+>deg-clust447
+Probab=19.44  E-value=0.098  Score=24.31  Aligned_cols=18  Identities=39%  Similarity=0.597  Sum_probs=14.9
+
+Q ERS227112_0129   60 VECPLHE---AVFDVKTGQCL   77 (108)
+Q Consensus        60 vecplh~---a~f~~ktgk~l   77 (108)
+                      -|-|+|.   |.|+.||||+-
+T Consensus        69 kEApihiSNVai~~~ktgkat   89 (115)
+T DEG10010046      59 QEAPIHVSNVMPLDPKTGEVT   79 (103)
+Confidence            4789996   78999999973
+
+
+No 2  
+>deg-clust486
+Probab=1.99  E-value=2  Score=17.05  Aligned_cols=25  Identities=24%  Similarity=0.550  Sum_probs=19.9
+
+Q ERS227112_0129   49 LL-SQGFVE-DGKVECPLHEAVFDVK   72 (108)
+Q Consensus        48 ~m-seg~~edd~~vecplh~a~f~~k   72 (108)
+                      +| ++-.+|-+|+|-=-|+-|.|.++
+T Consensus         4 ~MAK~d~Ie~~G~VlE~lpna~frVe   29 (96)
+T DEG10010058       1 -MAKDDVIEVEGTIVETLPNAMFKVE   25 (72)
+Confidence            45 67778888999888999988765
+
+
+No 3  
+>deg-clust67
+Probab=1.34  E-value=3.2  Score=20.54  Aligned_cols=6  Identities=83%  Similarity=1.636  Sum_probs=3.1
+
+Q ERS227112_0129   34 GEYYAL   39 (108)
+Q Consensus        33 ge~yai   38 (108)
+                      |+||||
+T Consensus       199 G~FyAL  204 (609)
+T DEG10010192     191 GEFYAL  196 (592)
+Confidence            455554
+
+
+No 4  
+>deg-clust299
+Probab=1.30  E-value=3.3  Score=17.44  Aligned_cols=21  Identities=24%  Similarity=0.281  Sum_probs=15.8
+
+Q ERS227112_0129    1 MSWIGVCDAEQVQEdfpysgnidgkeiGIYL-.ID-   33 (108)
+Q Consensus         1 m~~i~~c~~~~v~e.............g~~lr.idt   22 (108)
+                      ||||+-=|+. +|.             |-.+. +|.
+T Consensus         1 MSRigK~pi~-iPa.............gV~v~.~~g   21 (181)
+T DEG10010050       1 MSRVGKKLLE-IPS.............DVTVTlNDN   22 (179)
+Confidence            8888888875 577             77777 774
+
+
+No 5  
+>deg-clust204
+Probab=1.05  E-value=4.2  Score=19.13  Aligned_cols=46  Identities=13%  Similarity=0.166  Sum_probs=23.5
+
+Q ERS227112_0129   34 ---------GEYYALEDVCPYAYALLSQGFVE-DGKVECPLHEAVF   69 (108)
+Q Consensus        24 pvialfnvgge~yai~d~c~~~~a~mseg~~edd~~vecplh~a~f   69 (108)
+                      |||||-...-.-=.=.|.=|--.-+-..|-+|.||.+-|=+|-=..
+T Consensus       369 PVIALSQLsR~vEqR~DKRP~lSDLRESGSIEQDAD~V~FiyRdey  414 (481)
+T DEG10010264     356 PVIALSQLSRGVEQRQDKRPMMSDIRESGSIEQDADIVAFLYRDDY  401 (454)
+Confidence            6666644332211122323333333445778888888777664433
+
+
+No 6  
+>deg-clust137
+Probab=1.02  E-value=4.4  Score=17.63  Aligned_cols=11  Identities=64%  Similarity=0.845  Sum_probs=6.8
+
+Q ERS227112_0129   72 KTGQCLHGPGG   82 (108)
+Q Consensus        72 ktgk~l~~p~~   82 (108)
+                      -|||.||.-|+
+T Consensus       243 iTGqtlhVnGG  253 (258)
+T DEG10010118     233 MTGQTLHIDGG  243 (246)
+Confidence            36777766554
+
+
+No 7  
+>deg-clust387
+Probab=0.90  E-value=5.1  Score=16.86  Aligned_cols=18  Identities=22%  Similarity=0.303  Sum_probs=12.1
+
+Q ERS227112_0129   38 ALEDVC------PYAYALLSQGFV   55 (108)
+Q Consensus        37 ai~d~c------~~~~a~mseg~~   54 (108)
+                      +|+|.|      -||||-+|+--.
+T Consensus        77 ~~~~~~rlVDLPGYGyAkv~k~~k  100 (230)
+T DEG10010200      66 IINDELHFVDVPGYGFAKVSKSER   89 (195)
+Confidence            666655      589998876443
+
+
+No 8  
+>deg-clust95
+Probab=0.78  E-value=6  Score=18.44  Aligned_cols=24  Identities=21%  Similarity=0.354  Sum_probs=18.4
+
+Q ERS227112_0129   51 SQGFVE-DGKVECPLHEAVFDVKTGQCLHG   79 (108)
+Q Consensus        50 seg~~edd~~vecplh~a~f~~ktgk~l~~   79 (108)
+                      .||+.|.|      |+.|-|-.+.|++|..
+T Consensus       280 ~~gi~eQD------l~i~g~a~~~gralVI  303 (521)
+T DEG10010162     268 EEGIIEQD------KRIAGYAHEAGKAVVI  291 (436)
+Confidence            46666655      6889999999998864
+
+
+No 9  
+>deg-clust124
+Probab=0.72  E-value=6.5  Score=17.56  Aligned_cols=9  Identities=11%  Similarity=0.128  Sum_probs=5.7
+
+Q ERS227112_0129    6 VCDAEQVQEdfpysgnidgkei   27 (108)
+Q Consensus         6 ~c~~~~v~e.............   14 (108)
+                      +|-|+-.||             
+T Consensus       223 aaTVaV~PE.............  231 (388)
+T DEG10010255     199 TATVACLPE.............  207 (356)
+Confidence            566666666             
+
+
+No 10 
+>deg-clust135
+Probab=0.66  E-value=7.2  Score=16.97  Aligned_cols=13  Identities=38%  Similarity=0.562  Sum_probs=7.7
+
+Q ERS227112_0129   91 RVYDNQIQITFIE  103 (108)
+Q Consensus        91 ~v~~~~i~i~~~e  103 (108)
+                      |.-||.||+.+-|
+T Consensus        49 ~FaDGEi~V~i~E   61 (338)
+T DEG10010013      40 RFSDGEVQINIEE   52 (317)
+Confidence            4456666666544
+
+
+Done!

@@ -1,0 +1,141 @@
+Query         entcore-clust4170
+Match_columns 162
+No_of_seqs    1 out of 4
+Neff          1.0 
+Searched_HMMs 333
+Date          Wed Feb 12 20:42:59 2020
+Command       hhsearch -i ../results/giant-tab/clusters/hhmake/entcore-clust4170.hmm -d ../results/endosymbionts/define-core-accessory-hieranoid/core-essential-genomes/hhmake/endofam.hmm -o ../results/giant-tab/entcoreendo/entcore-clust4170.hmm 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 endo-clust385                   15.1    0.58  0.0017   25.6   0.0   13   73-85      2-14  (160)
+  2 endo-clust5                     12.9    0.74  0.0022   31.0   0.0   12   52-63    312-323 (1084)
+  3 endo-clust399                   10.8    0.95  0.0029   26.5   0.0   18   85-102   182-200 (301)
+  4 endo-clust232                    6.6     1.8  0.0055   25.5   0.0   24   20-43    133-162 (370)
+  5 endo-clust185                    4.6     2.9  0.0087   24.2   0.0   42   52-99    298-343 (363)
+  6 endo-clust286                    3.7     3.8   0.011   21.9   0.0   26   91-116   151-176 (209)
+  7 endo-clust76                     2.9     5.1   0.015   22.7   0.0   25   29-53    280-304 (391)
+  8 endo-clust62                     2.7     5.5   0.017   23.0   0.0   21   76-97    326-351 (473)
+  9 endo-clust19                     2.7     5.6   0.017   24.1   0.0   54   21-76    132-193 (723)
+ 10 endo-clust468                    2.6       6   0.018   20.2   0.0   43   67-111    13-55  (175)
+
+No 1  
+>endo-clust385
+Probab=15.15  E-value=0.58  Score=25.63  Aligned_cols=13  Identities=0%  Similarity=-0.469  Sum_probs=10.1
+
+Q STMMW_02811      73 NKFYIYRVNDMID   85 (161)
+Q Consensus        73 nkfyiyrvndmid   85 (162)
+                      |.||||.+|--|.
+T Consensus         2 nrfyiykinlhin   14 (160)
+T BUsg_495          1 -------------    0 (122)
+Confidence            7899999886554
+
+
+No 2  
+>endo-clust5
+Probab=12.92  E-value=0.74  Score=31.04  Aligned_cols=12  Identities=58%  Similarity=0.894  Sum_probs=9.5
+
+Q STMMW_02811      52 LNATGFPIARNS   63 (161)
+Q Consensus        52 lnatgfpiarns   63 (162)
+                      --|||||||+=+
+T Consensus       312 SKATGFPIAkIa  323 (1084)
+T BUsg_137        312 SKATGFPIAKIA  323 (1077)
+Confidence            358999999755
+
+
+No 3  
+>endo-clust399
+Probab=10.79  E-value=0.95  Score=26.54  Aligned_cols=18  Identities=33%  Similarity=0.628  Sum_probs=13.7
+
+Q STMMW_02811      85 DYLTHT-MGKPDLIVNNPK  102 (161)
+Q Consensus        85 dyltht-mgkpdlivnnpk  102 (162)
+                      |+..+. +-++|+||.||.
+T Consensus       182 nWF~~l~~~~f~lIVSNPP  200 (301)
+T BUsg_166        167 NWFSHI-NEKFHIIVSNPP  184 (275)
+Confidence            445554 679999999995
+
+
+No 4  
+>endo-clust232
+Probab=6.63  E-value=1.8  Score=25.48  Aligned_cols=24  Identities=33%  Similarity=0.836  Sum_probs=18.8
+
+Q STMMW_02811      20 VADVGSIIGGN------VGKNITGGYFQNA   43 (161)
+Q Consensus        20 vadvgsiiggn------vgknitggyfqna   43 (162)
+                      .+.|-+-|||-      .|||.-|.++|..
+T Consensus       133 LsQVDaSIGGKTgVNH~LGKNMIGsf~QP~  162 (370)
+T BUsg_519        132 LSQVDASVGGKTGVNHLLGKNMVGSFWQPS  161 (360)
+Confidence            45677778884      6899999999954
+
+
+No 5  
+>endo-clust185
+Probab=4.62  E-value=2.9  Score=24.18  Aligned_cols=42  Identities=31%  Similarity=0.607  Sum_probs=29.6
+
+Q STMMW_02811      52 LNATGFPIARNSPYA----KVSGADNKFYIYRVNDMIDYLTHTMGKPDLIVN   99 (161)
+Q Consensus        52 lnatgfpiarnspya----kvsgadnkfyiyrvndmidylthtmgkpdlivn   99 (162)
+                      |=.||---.||--|-    .|..-.=.|-|||+|+.++      ||-|+.+.
+T Consensus       298 LLGtGdRSDRiRTYNF~QgRiTDHRI~lTiYkL~EV~~------GkLdiLI~  343 (363)
+T BUsg_165        297 LLGTGERSDRNRTYNFAQNRITDHRINLTIYKLNEVLQ------GKLDLLID  342 (361)
+Confidence            445777777766554    4554555688999999986      88887764
+
+
+No 6  
+>endo-clust286
+Probab=3.72  E-value=3.8  Score=21.85  Aligned_cols=26  Identities=35%  Similarity=0.524  Sum_probs=21.9
+
+Q STMMW_02811      91 MGKPDLIVNNPKQSDFIGKKGIIVVK  116 (161)
+Q Consensus        91 mgkpdlivnnpkqsdfigkkgiivvk  116 (162)
+                      ..+.-|.-|||+.-+..-+.||.++.
+T Consensus       151 ik~irLLTNNP~Kv~iL~~agI~I~E  176 (209)
+T BUsg_261        142 IKKIRLLTNNPFKVDMLIASGIEIVE  167 (196)
+Confidence            45778899999999999999997653
+
+
+No 7  
+>endo-clust76
+Probab=2.92  E-value=5.1  Score=22.71  Aligned_cols=25  Identities=32%  Similarity=0.607  Sum_probs=20.9
+
+Q STMMW_02811      29 GNVGKNITGGYFQNACPIRMSYVLN   53 (161)
+Q Consensus        29 gnvgknitggyfqnacpirmsyvln   53 (162)
+                      --|.|||...=....|.|.+||.+-
+T Consensus       280 RYvaKNIVaaGLA~rCEiQisYAIG  304 (391)
+T BUsg_393        280 RYVAKNIVAAGLADRCEIQLSYAIG  304 (379)
+Confidence            3578999888888999999999764
+
+
+No 8  
+>endo-clust62
+Probab=2.74  E-value=5.5  Score=23.02  Aligned_cols=21  Identities=52%  Similarity=0.819  Sum_probs=14.3
+
+Q STMMW_02811      76 YIYRVND-----MIDYLTHTMGKPDLI   97 (161)
+Q Consensus        76 yiyrvnd-----midylthtmgkpdli   97 (162)
+                      -|||-+|     |||||. .|--|-|.
+T Consensus       326 rifrEh~GLSLIMiDYLQ-Lmrvpsl~  351 (473)
+T BUsg_528        325 RIYRENKGLTLIMVDYLQ-LMRVPSLS  350 (465)
+Confidence            3678877     999985 45555543
+
+
+No 9  
+>endo-clust19
+Probab=2.70  E-value=5.6  Score=24.11  Aligned_cols=54  Identities=35%  Similarity=0.389  Sum_probs=35.1
+
+Q STMMW_02811      21 ADVGSIIGGNVGKNITGGYFQNACPI---R-----MSYVLNATGFPIARNSPYAKVSGADNKFY   76 (161)
+Q Consensus        21 advgsiiggnvgknitggyfqnacpi---r-----msyvlnatgfpiarnspyakvsgadnkfy   76 (162)
+                      -|+-+|||-...-.+.|=-|  .|||   |     -.|+||.|---+...+----|||..|...
+T Consensus       132 PDIvaiIG~SAALslSgiPF--~gPiGaARvGyinnqYiLNPt~~el~~S~LDlVvsgT~~aiL  193 (723)
+T BUsg_361        126 PDIISIIGASAALSLSGIPF--YGPIGAARVGFVNNQYVLNPTIDDMKSSFLDLVVSGTQNAVL  187 (707)
+Confidence            47888888776666666444  2444   2     24788888777776666666777776543
+
+
+No 10 
+>endo-clust468
+Probab=2.57  E-value=6  Score=20.22  Aligned_cols=43  Identities=23%  Similarity=0.190  Sum_probs=34.0
+
+Q STMMW_02811      67 KVSGADNKFYIYRVNDMIDYLTHTMGKPDLIVNNPKQSDFIGKKG  111 (161)
+Q Consensus        67 kvsgadnkfyiyrvndmidylthtmgkpdlivnnpkqsdfigkkg  111 (162)
+                      .|-|-.|+.=-|--.||.=+=.||+-||  |+.--|.-+-||||.
+T Consensus        13 ~VIG~~N~IPW~l~~Dl~WFK~~TinKp--VIMGRkTfESIg~Kp   55 (175)
+T BUsg_136         13 LVIGHNNKIPWYLPEDLKWFKKNTIHKD--IIMGRLTWESILNHP   55 (161)
+Confidence            4678888877788889999999999998  556667777787654
+
+
+Done!
