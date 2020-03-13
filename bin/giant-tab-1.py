@@ -22,6 +22,14 @@ def read_k12(inpath):
             all.append(cell[0])
     return all
 
+def read_ancestral(inpath):
+    genes = []
+    with open(inpath, 'r') as fromfile:
+        for line in fromfile:
+            if line.startswith('>'):
+                genes.append(line.split(' ')[0][1:])
+    return(genes)
+
 outdir = '../results/giant-tab/'
 makedir(outdir)
 outpath = outdir + 'giant-tab.tsv'
@@ -139,6 +147,16 @@ with open(annotations, 'r') as fromfile:
             annot_dict[cells[0]] = cells[5]
 list_annot_keys = list(annot_dict.keys())
 
+keioannot = '../data/fasta-protein/chromosome/U00096.fasta'
+keio_dict = {}
+with open(keioannot, 'r') as fromfile:
+    for line in fromfile:
+        if line.startswith('>'):
+            loc = line.split(' ')[0][1:]
+            name = line.split('] [')[3]
+            keio_dict[loc] = name
+
+
 k12path = '../results/ecogene-k12.txt'
 k12genes = read_k12(k12path)
 
@@ -156,16 +174,29 @@ with open(kegg, 'r') as fromfile:
             cells[2] = match('(.*) - Escherichia coli K-12 MG1655', cells[2]).group(1)
             kegg_dict[cells[0]] += ' / ' + cells[2]
 
+anc_all = read_ancestral('../results/define-core-accessory-hieranoid-fitch/all/core-essential-genomes/BN373.fasta')
+anc_kle = read_ancestral('../results/define-core-accessory-hieranoid-fitch/klebsiella/core-essential-genomes/BN373.fasta')
+anc_eco = read_ancestral('../results/define-core-accessory-hieranoid-fitch/ecoli/core-essential-genomes/b.fasta')
+anc_sal = read_ancestral('../results/define-core-accessory-hieranoid-fitch/salmonella/core-essential-genomes/SL1344.fasta')
+anc_salcit = read_ancestral('../results/define-core-accessory-hieranoid-fitch/salmonellacitrobacter/core-essential-genomes/SL1344.fasta')
+anc_salecocit = read_ancestral('../results/define-core-accessory-hieranoid-fitch/salmonellaecolicitrobacter/core-essential-genomes/b.fasta')
+# This is used to add ancestrally essential genes that are not annotated or are present in less than three genomes:
+anc = set(anc_all) | set(anc_kle) | set(anc_eco) | set(anc_sal) | set(anc_salcit) | set(anc_salecocit)
+
 clusters = '../results/all-hieranoid/clusters.txt'
-prev_name = ''
+#prev_name = ''
 with open(outpath, 'w') as tofile:
-    tofile.write('Gene\tPathway\t')
+    tofile.write('Gene_EGGNOG\tGene_Keio\tPathway\t')
     for item in colnames:
         tofile.write(item + '\t')
     tofile.write('Enterobacteriaceae %essential\tEndosymbiont %conserved\tGammaproteobacteria %essential\t' +
                  'Gammaproteobacteria (excluding symbionts) %essential\tProteobacteria %essential\t' +
                  'Proteobacteria (excluding symbionts) %essential\tBacteria %essential\t' +
-                 'Bacteria (excluding symbionts) %essential\n'
+                 'Bacteria (excluding symbionts) %essential\tEnterobacteriaceae: Ancestral essentiality\t' +
+                 'E. coli + Salmonella + Citrobacter: Ancestral essentiality\t' +
+                 'Salmonella + Citrobacter: Ancestral essentiality\t' +
+                 'Klebsiella: Ancestral essentiality\tE. coli: Ancestral essentiality\t' +
+                 'Salmonella: Ancestral essentiality\n'
                  )
     with open(clusters, 'r') as fromfile:
         for line in fromfile:
@@ -173,10 +204,13 @@ with open(outpath, 'w') as tofile:
             genes = line.split()
             genes = [item for item in genes if not item.startswith('exDEG')]
             intersect = list(set(genes) & set(list_annot_keys))
-            if len(intersect) == 1:
-                intersect = intersect[0]
-                if len(genes) > 2:
-                    if annot_dict[intersect]:
+            if len(intersect) == 1 or len(set(genes) & anc) > 0:
+                if len(intersect) != 1:
+                    intersect = '-'
+                else:
+                    intersect = intersect[0]
+                if len(genes) > 2 or len(set(genes) & anc) > 0:
+                    if len(set(genes) & anc) > 0 or annot_dict[intersect]:
                         clustdict = {}
                         for item in tags:
                             if item.startswith('DEG'):
@@ -194,7 +228,15 @@ with open(outpath, 'w') as tofile:
                         numbact = 0
                         numbactexsymb = 0
 
-                        tofile.write(annot_dict[intersect] + '\t')
+                        if intersect != '-':
+                            tofile.write(annot_dict[intersect] + '\t')
+                            if intersect in keio_dict.keys():
+                                tofile.write(keio_dict[intersect])
+                            else:
+                                tofile.write('-')
+                        else:
+                            tofile.write('-\t-')
+                        tofile.write('\t')
                         for gene in genes:
                             if gene.startswith('DEG'):
                                 species = gene[0:7]
@@ -283,12 +325,20 @@ with open(outpath, 'w') as tofile:
                         percbactexsymb = round(numbactexsymb * 100 / lenbactexsymb, 1)
                         tofile.write(str(percenterobacter) + '\t' + str(percendosymbiont) + '\t' + str(percgammaprot) +
                                      '\t' + str(percgammaprotexsymb) + '\t' + str(percprot) + '\t' +
-                                     str(percprotexsymb) + '\t' + str(percbact) + '\t' + str(percbactexsymb) + '\n')
+                                     str(percprotexsymb) + '\t' + str(percbact) + '\t' + str(percbactexsymb) + '\t')
+                        anc_all_yn = int(len(set(genes) & set(anc_all)) > 0)
+                        anc_salecocit_yn = int(len(set(genes) & set(anc_salecocit)) > 0)
+                        anc_salcit_yn = int(len(set(genes) & set(anc_salcit)) > 0)
+                        anc_kle_yn = int(len(set(genes) & set(anc_kle)) > 0)
+                        anc_eco_yn = int(len(set(genes) & set(anc_eco)) > 0)
+                        anc_sal_yn = int(len(set(genes) & set(anc_sal)) > 0)
+                        tofile.write(str(anc_all_yn) + '\t' + str(anc_salecocit_yn) + '\t' + str(anc_salcit_yn) + '\t'
+                                     + str(anc_kle_yn) + '\t' + str(anc_eco_yn) + '\t' + str(anc_sal_yn) + '\n')
 
-                        prev_name = annot_dict[intersect]
+                        #prev_name = annot_dict[intersect]
 
 tbl = pd.read_csv(outpath, sep='\t', header=0)
-tbl = tbl.iloc[tbl.Gene.str.lower().argsort()]
+tbl = tbl.iloc[tbl.Gene_EGGNOG.str.lower().argsort()]
 tbl.reset_index(inplace=True)
 tbl.drop('index', axis=1, inplace=True)
 tbl.to_csv(outpath, sep='\t', index=False)

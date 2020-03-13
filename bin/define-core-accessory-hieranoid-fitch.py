@@ -61,17 +61,18 @@ def read_k12(inpath, iidict):
             iidict[cells[0]] = {1}
     return iidict
 
-seqdb = '/home/fatemeh/EnTrI/data/fasta-protein/chromosome/seqdb.fasta'
-clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
-insertion_indices = '/home/fatemeh/EnTrI/results/biases/dbscan'
-k12path = '/home/fatemeh/EnTrI/results/ecogene-k12.txt'
-outdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch'
-coredir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch-cores'
-coreessdir = '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch-core-essentials'
+seqdb = '../data/fasta-protein/chromosome/seqdb.fasta'
+# clusters = '/home/fatemeh/EnTrI/results/hieranoid/clusters.txt'
+clusters = '../results/all-hieranoid/clusters.txt'
+insertion_indices = '../results/biases/dbscan'
+k12path = '../results/ecogene-k12.txt'
+outdir = '../results/define-core-accessory-hieranoid-fitch'
+coredir = '../results/define-core-accessory-hieranoid-fitch-cores'
+coreessdir = '../results/define-core-accessory-hieranoid-fitch-core-essentials'
 makedir(outdir)
 makedir(coredir)
 makedir(coreessdir)
-speciestreedir = '/home/fatemeh/EnTrI/bin/speciestrees-no-k12'
+speciestreedir = 'speciestrees-no-k12'
 sequences = read_fasta_sequences(seqdb)
 gene_essentiality = read_gene_essentiality(insertion_indices)
 gene_essentiality = read_k12(k12path, gene_essentiality)
@@ -86,7 +87,7 @@ species_names = {"all":["BN373", "ERS227112", "NCTC13441", "ROD", "SEN", "SL1344
     "ecolik12":["b"]}
 counter = 0
 
-with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/info.txt', 'w') as infofile:
+with open('../results/define-core-accessory-hieranoid-fitch/info.txt', 'w') as infofile:
     infofile.write('speciesname\tcoreessential\tcore\n')
 
 for item in species_names.keys():
@@ -125,6 +126,7 @@ for item in species_names.keys():
             stack_of_genes = Stack()
 
             genes = line.split()
+            genes = [item for item in genes if item in sequences.keys()]
             for g in genes:
                 s = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', g).group(1).strip('_')
                 if s in gene_dict.keys():
@@ -193,6 +195,7 @@ for item in species_names.keys():
                 essentiality_dict[key] = {0}
             list_of_genes = []
             genes = line.split()
+            enes = [item for item in genes if item in sequences.keys()]
             for g in genes:
                 s = match('([a-zA-Z0-9]+_|[a-zA-Z]+)[a-zA-Z0-9]+', g).group(1).strip('_')
                 if s in gene_dict.keys():
@@ -222,7 +225,7 @@ for item in species_names.keys():
                     lenesscoregenes += 1
                     if item == 'all':
                         with open(
-                                '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/always-ess.txt',
+                                '../results/define-core-accessory-hieranoid-fitch/always-ess.txt',
                                 'a') as efile:
                             efile.write(l + '\n')
                         with open(coreessdir+ '/clust'+ str(counter), 'w') as coreessfile:
@@ -234,14 +237,14 @@ for item in species_names.keys():
                     if union != {0}:
                         aesscoregenes += list_of_genes
                         if item == 'all':
-                            with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/sometimes-ess.txt',
+                            with open('../results/define-core-accessory-hieranoid-fitch/sometimes-ess.txt',
                                       'a') as sefile:
                                 sefile.write(l + '\n')
                     else:
                         nesscoregenes += list_of_genes
                         if item == 'all':
                             with open(
-                                    '/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/never-ess.txt',
+                                    '../results/define-core-accessory-hieranoid-fitch/never-ess.txt',
                                     'a') as nefile:
                                 nefile.write(l + '\n')
 
@@ -271,7 +274,7 @@ for item in species_names.keys():
     aesscoregenes = list(set(aesscoregenes))
     aesscoregenes.sort()
 
-    with open('/home/fatemeh/EnTrI/results/define-core-accessory-hieranoid-fitch/info.txt', 'a') as infofile:
+    with open('../results/define-core-accessory-hieranoid-fitch/info.txt', 'a') as infofile:
         infofile.write(str(item) + '\t' + str(lenesscoregenes) + '\t' +
                        str(lennescoregenes+lenesscoregenes) + '\n')
 
